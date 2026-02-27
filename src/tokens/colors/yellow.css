@@ -1,0 +1,19 @@
+/**
+ * Yellow scale
+ */
+
+:root {
+  --color-yellow-1:  oklch(99.0% 0.010 100);
+  --color-yellow-2:  oklch(97.5% 0.022 100);
+  --color-yellow-3:  oklch(95.0% 0.055 100);
+  --color-yellow-4:  oklch(92.0% 0.090 100);
+  --color-yellow-5:  oklch(88.0% 0.120 100);
+  --color-yellow-6:  oklch(83.0% 0.148 100);
+  --color-yellow-7:  oklch(76.0% 0.166 100);
+  --color-yellow-8:  oklch(68.0% 0.180 100);
+  --color-yellow-9:  oklch(88.0% 0.200 95);  /* Yellow 9 is a bright, vivid yellow */
+  --color-yellow-10: oklch(80.0% 0.196 95);
+  --color-yellow-11: oklch(44.0% 0.120 95);
+  --color-yellow-12: oklch(26.0% 0.070 95);
+  --color-yellow-contrast: black;            /* Yellow 9 needs dark text */
+}

@@ -1,0 +1,43 @@
+/**
+ * Custom Color Template
+ *
+ * Copy this file, fill in your brand colors, and import it after the base-ic
+ * token stylesheet. Then use `accentColor="brand"` (or your chosen name) on
+ * the <Theme> component.
+ *
+ * Colors should be in OKLCH format for best results:
+ *   oklch(lightness% chroma hue)
+ *   - lightness: 0% (black) to 100% (white)
+ *   - chroma: 0 (gray) to ~0.4 (very vivid), typically 0.05–0.25
+ *   - hue: 0–360 degrees (0/360=red, 120=green, 240=blue)
+ *
+ * Scale guidance:
+ *   1–2:   Near-white backgrounds (use for subtle tinted surfaces)
+ *   3–5:   Light backgrounds (hover/selected states in soft variant)
+ *   6–8:   Borders and UI element lines
+ *   9–10:  Solid fills (buttons, badges, highlights) — most important!
+ *   11:    Low-contrast text (secondary text, labels)
+ *   12:    High-contrast text
+ *   contrast: Text color on top of step 9 solid fill (usually white or black)
+ *
+ * Tools for generating OKLCH palettes:
+ *   - https://oklch.com/
+ *   - https://bottosson.github.io/misc/colorpicker/
+ *   - https://huetone.ardov.me/
+ */
+
+:root {
+  --color-brand-1:  oklch(98%  0.01  /* hue */);
+  --color-brand-2:  oklch(96%  0.02  /* hue */);
+  --color-brand-3:  oklch(93%  0.04  /* hue */);
+  --color-brand-4:  oklch(89%  0.07  /* hue */);
+  --color-brand-5:  oklch(85%  0.09  /* hue */);
+  --color-brand-6:  oklch(79%  0.11  /* hue */);
+  --color-brand-7:  oklch(71%  0.13  /* hue */);
+  --color-brand-8:  oklch(61%  0.16  /* hue */);
+  --color-brand-9:  oklch(52%  0.20  /* hue */);  /* Primary solid fill */
+  --color-brand-10: oklch(46%  0.19  /* hue */);  /* Hover state */
+  --color-brand-11: oklch(40%  0.17  /* hue */);  /* Text */
+  --color-brand-12: oklch(22%  0.10  /* hue */);  /* High-contrast text */
+  --color-brand-contrast: white;                  /* Or black for light hues */
+}

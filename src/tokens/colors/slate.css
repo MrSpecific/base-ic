@@ -1,0 +1,20 @@
+/**
+ * Slate scale — gray with a blue tint
+ * Pairs well with blue, indigo, iris, and violet accent colors.
+ */
+
+:root {
+  --color-slate-1:  oklch(99.0% 0.004 250);
+  --color-slate-2:  oklch(97.5% 0.006 250);
+  --color-slate-3:  oklch(95.0% 0.008 250);
+  --color-slate-4:  oklch(92.5% 0.010 250);
+  --color-slate-5:  oklch(90.0% 0.012 250);
+  --color-slate-6:  oklch(86.0% 0.012 250);
+  --color-slate-7:  oklch(79.0% 0.014 250);
+  --color-slate-8:  oklch(68.0% 0.018 250);
+  --color-slate-9:  oklch(56.0% 0.014 250);
+  --color-slate-10: oklch(50.0% 0.014 250);
+  --color-slate-11: oklch(42.0% 0.014 250);
+  --color-slate-12: oklch(18.0% 0.014 250);
+  --color-slate-contrast: white;
+}

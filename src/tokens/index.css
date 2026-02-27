@@ -1,0 +1,18 @@
+/**
+ * base-ic token barrel
+ *
+ * Import this file to get all design tokens:
+ *   - Color primitives (all built-in hues)
+ *   - Spacing, sizing, radius, type, shadow, motion primitives
+ *   - Semantic tokens (light mode defaults)
+ *   - Dark mode overrides
+ *
+ * @example
+ *   import 'base-ic/tokens';   // via package entry point
+ *   @import 'base-ic/src/tokens/index.css';  // direct
+ */
+
+@import './colors/index.css';
+@import './primitives.css';
+@import './semantic.css';
+@import './dark.css';

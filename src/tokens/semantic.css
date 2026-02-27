@@ -1,0 +1,197 @@
+/**
+ * Semantic design tokens.
+ *
+ * These are purpose-driven aliases that reference primitive tokens.
+ * Components reference semantic tokens — not primitives — so that
+ * theming works by redefining semantics here, not in component code.
+ *
+ * Structure:
+ *   :root          — light mode defaults
+ *   .dark, @media  — dark mode overrides
+ *
+ * The --accent-* variables are set dynamically by the Theme component
+ * based on the `accentColor` prop. The defaults here (blue) are the
+ * fallback when no Theme is present.
+ */
+
+:root {
+  /* -------------------------------------------------------------------------
+   * Accent color (set by Theme; defaults to blue)
+   * -------------------------------------------------------------------------
+   * These point to whichever hue the Theme has selected as "accent".
+   * The Theme component rewires these to the chosen hue (e.g. violet-9 etc.)
+   */
+  --color-accent-1:        var(--color-blue-1);
+  --color-accent-2:        var(--color-blue-2);
+  --color-accent-3:        var(--color-blue-3);
+  --color-accent-4:        var(--color-blue-4);
+  --color-accent-5:        var(--color-blue-5);
+  --color-accent-6:        var(--color-blue-6);
+  --color-accent-7:        var(--color-blue-7);
+  --color-accent-8:        var(--color-blue-8);
+  --color-accent-9:        var(--color-blue-9);
+  --color-accent-10:       var(--color-blue-10);
+  --color-accent-11:       var(--color-blue-11);
+  --color-accent-12:       var(--color-blue-12);
+  --color-accent-contrast: var(--color-blue-contrast);
+
+  /* -------------------------------------------------------------------------
+   * Gray color (set by Theme; defaults to gray)
+   * -------------------------------------------------------------------------
+   */
+  --color-neutral-1:  var(--color-gray-1);
+  --color-neutral-2:  var(--color-gray-2);
+  --color-neutral-3:  var(--color-gray-3);
+  --color-neutral-4:  var(--color-gray-4);
+  --color-neutral-5:  var(--color-gray-5);
+  --color-neutral-6:  var(--color-gray-6);
+  --color-neutral-7:  var(--color-gray-7);
+  --color-neutral-8:  var(--color-gray-8);
+  --color-neutral-9:  var(--color-gray-9);
+  --color-neutral-10: var(--color-gray-10);
+  --color-neutral-11: var(--color-gray-11);
+  --color-neutral-12: var(--color-gray-12);
+
+  /* -------------------------------------------------------------------------
+   * Semantic surface colors
+   * -------------------------------------------------------------------------
+   */
+  --color-surface-base:     var(--color-neutral-1);   /* App background */
+  --color-surface-subtle:   var(--color-neutral-2);   /* Subtle card/panel bg */
+  --color-surface-raised:   white;                    /* Cards floating above bg */
+  --color-surface-overlay:  white;                    /* Popover, dialog */
+
+  /* -------------------------------------------------------------------------
+   * Semantic text colors
+   * -------------------------------------------------------------------------
+   */
+  --color-text-primary:     var(--color-neutral-12);
+  --color-text-secondary:   var(--color-neutral-11);
+  --color-text-tertiary:    var(--color-neutral-10);
+  --color-text-disabled:    var(--color-neutral-8);
+  --color-text-link:        var(--color-accent-11);
+
+  /* -------------------------------------------------------------------------
+   * Semantic border colors
+   * -------------------------------------------------------------------------
+   */
+  --color-border-subtle:    var(--color-neutral-6);
+  --color-border:           var(--color-neutral-7);
+  --color-border-strong:    var(--color-neutral-8);
+  --color-border-focus:     var(--color-accent-8);
+
+  /* -------------------------------------------------------------------------
+   * Semantic status colors (danger, warning, success, info)
+   * These reference specific primitive hues regardless of accent.
+   * -------------------------------------------------------------------------
+   */
+  --color-danger-bg:        var(--color-red-3);
+  --color-danger-border:    var(--color-red-7);
+  --color-danger-text:      var(--color-red-11);
+  --color-danger-solid:     var(--color-red-9);
+  --color-danger-contrast:  var(--color-red-contrast);
+
+  --color-success-bg:       var(--color-green-3);
+  --color-success-border:   var(--color-green-7);
+  --color-success-text:     var(--color-green-11);
+  --color-success-solid:    var(--color-green-9);
+  --color-success-contrast: var(--color-green-contrast);
+
+  --color-warning-bg:       var(--color-orange-3);
+  --color-warning-border:   var(--color-orange-7);
+  --color-warning-text:     var(--color-orange-11);
+  --color-warning-solid:    var(--color-orange-9);
+  --color-warning-contrast: var(--color-orange-contrast);
+
+  --color-info-bg:          var(--color-blue-3);
+  --color-info-border:      var(--color-blue-7);
+  --color-info-text:        var(--color-blue-11);
+  --color-info-solid:       var(--color-blue-9);
+  --color-info-contrast:    var(--color-blue-contrast);
+
+  /* -------------------------------------------------------------------------
+   * Component radius (set by Theme `radius` prop)
+   * -------------------------------------------------------------------------
+   * Maps the Theme's named radius to a primitive value.
+   * The Theme component sets --component-radius-factor on its element.
+   * None:   0
+   * Small:  var(--radius-2)  = 4px
+   * Medium: var(--radius-3)  = 6px  (default)
+   * Large:  var(--radius-5)  = 12px
+   * Full:   var(--radius-full)
+   */
+  --component-radius: var(--radius-3);
+
+  /* -------------------------------------------------------------------------
+   * Component scaling (set by Theme `scaling` prop)
+   * -------------------------------------------------------------------------
+   * A multiplier applied to size-related tokens in components.
+   * 1 = 100% (default), 0.9 = 90%, etc.
+   */
+  --component-scaling: 1;
+
+  /* -------------------------------------------------------------------------
+   * Font family stacks (raw fallback stacks — not overridden by Theme prop)
+   * -------------------------------------------------------------------------
+   */
+  --font-family-sans-stack: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-mono-stack: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
+    Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  /* -------------------------------------------------------------------------
+   * Font family semantic slots (set by Theme `fontFamily` prop)
+   * -------------------------------------------------------------------------
+   * Override these via the Theme component's fontFamily prop, or directly
+   * in CSS by redefining these variables on any ancestor element.
+   *
+   * primary   — body text, UI labels, inputs
+   * secondary — supporting text, captions, metadata
+   * tertiary  — de-emphasized text, footnotes
+   * display   — large headings, hero text, decorative
+   * mono      — code, pre, kbd, technical content
+   */
+  --font-family-primary:   var(--font-family-sans-stack);
+  --font-family-secondary: var(--font-family-sans-stack);
+  --font-family-tertiary:  var(--font-family-secondary);
+  --font-family-display:   var(--font-family-sans-stack);
+  --font-family-mono:      var(--font-family-mono-stack);
+}
+
+/* ---------------------------------------------------------------------------
+ * Dark mode overrides
+ * ---------------------------------------------------------------------------
+ * Applied when:
+ *   1. OS preference: @media (prefers-color-scheme: dark)
+ *   2. Explicit class: .dark applied to any ancestor
+ *
+ * The color primitives (e.g. --color-blue-9) don't change.
+ * Only the semantic token mappings change for dark mode.
+ */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-surface-base:    var(--color-neutral-1);
+    --color-surface-subtle:  var(--color-neutral-2);
+    --color-surface-raised:  var(--color-neutral-3);
+    --color-surface-overlay: var(--color-neutral-4);
+
+    --color-text-link: var(--color-accent-10);
+  }
+}
+
+.dark {
+  --color-surface-base:    var(--color-neutral-1);
+  --color-surface-subtle:  var(--color-neutral-2);
+  --color-surface-raised:  var(--color-neutral-3);
+  --color-surface-overlay: var(--color-neutral-4);
+
+  --color-text-link: var(--color-accent-10);
+}
+
+/**
+ * NOTE: Full dark mode support requires dark-mode-specific primitive overrides.
+ * This is a starter scaffold. A dark theme companion file will override the
+ * color primitives themselves (e.g. --color-gray-1 becomes very dark in dark mode).
+ * That lives in tokens/dark.css and is applied via .dark class or @media.
+ */

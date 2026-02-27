@@ -1,0 +1,19 @@
+/**
+ * Orange scale
+ */
+
+:root {
+  --color-orange-1:  oklch(98.5% 0.010 60);
+  --color-orange-2:  oklch(97.0% 0.022 60);
+  --color-orange-3:  oklch(93.5% 0.050 60);
+  --color-orange-4:  oklch(89.5% 0.082 60);
+  --color-orange-5:  oklch(85.0% 0.110 60);
+  --color-orange-6:  oklch(79.0% 0.130 60);
+  --color-orange-7:  oklch(72.0% 0.150 60);
+  --color-orange-8:  oklch(64.0% 0.176 60);
+  --color-orange-9:  oklch(72.0% 0.200 55);  /* Orange at 9 is vivid mid-lightness */
+  --color-orange-10: oklch(66.0% 0.200 55);
+  --color-orange-11: oklch(44.0% 0.150 55);
+  --color-orange-12: oklch(24.0% 0.080 55);
+  --color-orange-contrast: black;            /* Orange 9 needs dark text */
+}

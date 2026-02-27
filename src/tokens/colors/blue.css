@@ -1,0 +1,19 @@
+/**
+ * Blue scale
+ */
+
+:root {
+  --color-blue-1:  oklch(98.5% 0.010 250);
+  --color-blue-2:  oklch(97.0% 0.018 250);
+  --color-blue-3:  oklch(93.5% 0.040 250);
+  --color-blue-4:  oklch(89.5% 0.064 250);
+  --color-blue-5:  oklch(85.0% 0.082 250);
+  --color-blue-6:  oklch(79.0% 0.094 250);
+  --color-blue-7:  oklch(71.0% 0.110 250);
+  --color-blue-8:  oklch(60.0% 0.140 250);
+  --color-blue-9:  oklch(54.0% 0.200 250);
+  --color-blue-10: oklch(48.0% 0.190 250);
+  --color-blue-11: oklch(42.0% 0.170 250);
+  --color-blue-12: oklch(22.0% 0.100 250);
+  --color-blue-contrast: white;
+}

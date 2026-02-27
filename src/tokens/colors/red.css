@@ -1,0 +1,19 @@
+/**
+ * Red scale
+ */
+
+:root {
+  --color-red-1:  oklch(98.5% 0.010 22);
+  --color-red-2:  oklch(97.0% 0.018 22);
+  --color-red-3:  oklch(93.5% 0.044 22);
+  --color-red-4:  oklch(89.5% 0.072 22);
+  --color-red-5:  oklch(85.0% 0.094 22);
+  --color-red-6:  oklch(79.0% 0.110 22);
+  --color-red-7:  oklch(71.0% 0.130 22);
+  --color-red-8:  oklch(60.0% 0.158 22);
+  --color-red-9:  oklch(54.0% 0.210 22);
+  --color-red-10: oklch(48.0% 0.200 22);
+  --color-red-11: oklch(42.0% 0.178 22);
+  --color-red-12: oklch(22.0% 0.100 22);
+  --color-red-contrast: white;
+}

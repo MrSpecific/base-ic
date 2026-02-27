@@ -1,0 +1,19 @@
+/**
+ * Green scale
+ */
+
+:root {
+  --color-green-1:  oklch(98.5% 0.010 155);
+  --color-green-2:  oklch(97.0% 0.018 155);
+  --color-green-3:  oklch(93.5% 0.042 155);
+  --color-green-4:  oklch(89.5% 0.068 155);
+  --color-green-5:  oklch(85.0% 0.090 155);
+  --color-green-6:  oklch(79.0% 0.106 155);
+  --color-green-7:  oklch(71.0% 0.122 155);
+  --color-green-8:  oklch(60.0% 0.148 155);
+  --color-green-9:  oklch(54.0% 0.190 155);
+  --color-green-10: oklch(48.0% 0.180 155);
+  --color-green-11: oklch(40.0% 0.160 155);
+  --color-green-12: oklch(22.0% 0.090 155);
+  --color-green-contrast: white;
+}

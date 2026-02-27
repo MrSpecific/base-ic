@@ -1,0 +1,19 @@
+/**
+ * Pink scale
+ */
+
+:root {
+  --color-pink-1:  oklch(98.5% 0.012 355);
+  --color-pink-2:  oklch(97.0% 0.022 355);
+  --color-pink-3:  oklch(93.5% 0.048 355);
+  --color-pink-4:  oklch(89.5% 0.076 355);
+  --color-pink-5:  oklch(85.0% 0.098 355);
+  --color-pink-6:  oklch(79.0% 0.114 355);
+  --color-pink-7:  oklch(71.0% 0.132 355);
+  --color-pink-8:  oklch(60.0% 0.160 355);
+  --color-pink-9:  oklch(60.0% 0.220 355);
+  --color-pink-10: oklch(54.0% 0.210 355);
+  --color-pink-11: oklch(46.0% 0.188 355);
+  --color-pink-12: oklch(24.0% 0.100 355);
+  --color-pink-contrast: white;
+}

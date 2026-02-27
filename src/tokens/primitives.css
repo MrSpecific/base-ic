@@ -1,0 +1,143 @@
+/**
+ * Primitive design tokens.
+ *
+ * These are raw scale values for spacing, radius, type, shadow, and motion.
+ * Users and components should prefer referencing semantic tokens where possible.
+ * Naming convention (inspired by Open Props): --category-step
+ * Low numbers = smaller/tighter, high numbers = larger/looser.
+ */
+
+:root {
+  /* -------------------------------------------------------------------------
+   * Spacing scale (rem-based)
+   * -------------------------------------------------------------------------
+   * --space-1  = 4px
+   * --space-10 = 80px
+   */
+  --space-1:  0.25rem;   /*  4px */
+  --space-2:  0.5rem;    /*  8px */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;    /* 24px */
+  --space-7:  1.75rem;   /* 28px */
+  --space-8:  2rem;      /* 32px */
+  --space-9:  2.5rem;    /* 40px */
+  --space-10: 3rem;      /* 48px */
+  --space-11: 4rem;      /* 64px */
+  --space-12: 5rem;      /* 80px */
+
+  /* -------------------------------------------------------------------------
+   * Size scale (rem-based, for component heights/widths)
+   * -------------------------------------------------------------------------
+   */
+  --size-1:  1rem;       /* 16px */
+  --size-2:  1.5rem;     /* 24px */
+  --size-3:  2rem;       /* 32px */
+  --size-4:  2.5rem;     /* 40px */
+  --size-5:  3rem;       /* 48px */
+  --size-6:  3.5rem;     /* 56px */
+  --size-7:  4rem;       /* 64px */
+  --size-8:  5rem;       /* 80px */
+  --size-9:  6rem;       /* 96px */
+  --size-10: 7.5rem;     /* 120px */
+
+  /* -------------------------------------------------------------------------
+   * Border radius scale
+   * -------------------------------------------------------------------------
+   */
+  --radius-1: 2px;
+  --radius-2: 4px;
+  --radius-3: 6px;
+  --radius-4: 8px;
+  --radius-5: 12px;
+  --radius-6: 16px;
+  --radius-full: 9999px;
+
+  /* -------------------------------------------------------------------------
+   * Font size scale
+   * -------------------------------------------------------------------------
+   */
+  --font-size-1: 0.75rem;    /* 12px */
+  --font-size-2: 0.8125rem;  /* 13px */
+  --font-size-3: 0.875rem;   /* 14px */
+  --font-size-4: 1rem;       /* 16px */
+  --font-size-5: 1.125rem;   /* 18px */
+  --font-size-6: 1.25rem;    /* 20px */
+  --font-size-7: 1.5rem;     /* 24px */
+  --font-size-8: 1.875rem;   /* 30px */
+  --font-size-9: 2.25rem;    /* 36px */
+
+  /* -------------------------------------------------------------------------
+   * Font weight scale
+   * -------------------------------------------------------------------------
+   */
+  --font-weight-light:    300;
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+  /* -------------------------------------------------------------------------
+   * Line height scale
+   * -------------------------------------------------------------------------
+   */
+  --line-height-1: 1;
+  --line-height-2: 1.2;
+  --line-height-3: 1.4;
+  --line-height-4: 1.5;
+  --line-height-5: 1.6;
+  --line-height-6: 1.75;
+
+  /* -------------------------------------------------------------------------
+   * Letter spacing
+   * -------------------------------------------------------------------------
+   */
+  --letter-spacing-1: -0.05em;
+  --letter-spacing-2: -0.025em;
+  --letter-spacing-3: 0em;
+  --letter-spacing-4: 0.025em;
+  --letter-spacing-5: 0.05em;
+  --letter-spacing-6: 0.1em;
+
+  /* -------------------------------------------------------------------------
+   * Shadow scale
+   * -------------------------------------------------------------------------
+   */
+  --shadow-1: 0 1px 2px 0 oklch(0% 0 0 / 8%);
+  --shadow-2: 0 1px 3px 0 oklch(0% 0 0 / 10%), 0 1px 2px -1px oklch(0% 0 0 / 10%);
+  --shadow-3: 0 4px 6px -1px oklch(0% 0 0 / 10%), 0 2px 4px -2px oklch(0% 0 0 / 10%);
+  --shadow-4: 0 10px 15px -3px oklch(0% 0 0 / 10%), 0 4px 6px -4px oklch(0% 0 0 / 10%);
+  --shadow-5: 0 20px 25px -5px oklch(0% 0 0 / 10%), 0 8px 10px -6px oklch(0% 0 0 / 10%);
+  --shadow-6: 0 25px 50px -12px oklch(0% 0 0 / 25%);
+
+  /* -------------------------------------------------------------------------
+   * Motion — easing functions
+   * -------------------------------------------------------------------------
+   */
+  --ease-1: cubic-bezier(0.4, 0, 1, 1);
+  --ease-2: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-3: cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* -------------------------------------------------------------------------
+   * Motion — durations
+   * -------------------------------------------------------------------------
+   */
+  --duration-1: 75ms;
+  --duration-2: 100ms;
+  --duration-3: 150ms;
+  --duration-4: 200ms;
+  --duration-5: 300ms;
+  --duration-6: 500ms;
+
+  /* -------------------------------------------------------------------------
+   * Z-index scale
+   * -------------------------------------------------------------------------
+   */
+  --z-1: 100;   /* Dropdowns, tooltips */
+  --z-2: 200;   /* Sticky elements */
+  --z-3: 300;   /* Fixed overlays */
+  --z-4: 400;   /* Modals */
+  --z-5: 500;   /* Notifications / toasts */
+}

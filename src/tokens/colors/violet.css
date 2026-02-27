@@ -1,0 +1,19 @@
+/**
+ * Violet scale
+ */
+
+:root {
+  --color-violet-1:  oklch(98.5% 0.012 295);
+  --color-violet-2:  oklch(97.0% 0.020 295);
+  --color-violet-3:  oklch(93.5% 0.044 295);
+  --color-violet-4:  oklch(89.5% 0.070 295);
+  --color-violet-5:  oklch(85.0% 0.090 295);
+  --color-violet-6:  oklch(79.0% 0.104 295);
+  --color-violet-7:  oklch(71.0% 0.120 295);
+  --color-violet-8:  oklch(60.0% 0.148 295);
+  --color-violet-9:  oklch(52.0% 0.210 295);
+  --color-violet-10: oklch(46.0% 0.200 295);
+  --color-violet-11: oklch(40.0% 0.178 295);
+  --color-violet-12: oklch(22.0% 0.100 295);
+  --color-violet-contrast: white;
+}

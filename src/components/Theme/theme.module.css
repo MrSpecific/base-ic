@@ -1,0 +1,55 @@
+/**
+ * Theme component styles
+ */
+
+.theme {
+  /* Inherit everything by default — Theme is a transparent wrapper */
+  font-family: var(--font-family-primary);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-base);
+  /* Ensure the theme fills its container */
+  min-height: inherit;
+}
+
+/**
+ * Appearance overrides
+ * These force light/dark mode regardless of OS preference.
+ */
+
+.light {
+  /* Force light mode primitives */
+  --color-gray-1:  oklch(99.0% 0.000 0);
+  --color-gray-2:  oklch(97.5% 0.000 0);
+  --color-gray-3:  oklch(95.0% 0.000 0);
+  --color-gray-4:  oklch(92.5% 0.000 0);
+  --color-gray-5:  oklch(90.0% 0.000 0);
+  --color-gray-6:  oklch(86.0% 0.000 0);
+  --color-gray-7:  oklch(80.0% 0.000 0);
+  --color-gray-8:  oklch(70.0% 0.000 0);
+  --color-gray-9:  oklch(56.0% 0.000 0);
+  --color-gray-10: oklch(50.0% 0.000 0);
+  --color-gray-11: oklch(42.0% 0.000 0);
+  --color-gray-12: oklch(16.0% 0.000 0);
+
+  --color-surface-raised:  white;
+  --color-surface-overlay: white;
+}
+
+.dark {
+  /* Force dark mode primitives */
+  --color-gray-1:  oklch(14.0% 0.000 0);
+  --color-gray-2:  oklch(17.0% 0.000 0);
+  --color-gray-3:  oklch(21.0% 0.000 0);
+  --color-gray-4:  oklch(24.0% 0.000 0);
+  --color-gray-5:  oklch(27.0% 0.000 0);
+  --color-gray-6:  oklch(32.0% 0.000 0);
+  --color-gray-7:  oklch(39.0% 0.000 0);
+  --color-gray-8:  oklch(52.0% 0.000 0);
+  --color-gray-9:  oklch(56.0% 0.000 0);
+  --color-gray-10: oklch(60.0% 0.000 0);
+  --color-gray-11: oklch(78.0% 0.000 0);
+  --color-gray-12: oklch(95.0% 0.000 0);
+
+  --color-surface-raised:  var(--color-neutral-3);
+  --color-surface-overlay: var(--color-neutral-4);
+}

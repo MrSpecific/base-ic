@@ -1,0 +1,20 @@
+/**
+ * Mauve scale — gray with a purple tint
+ * Pairs well with violet, purple, and plum accent colors.
+ */
+
+:root {
+  --color-mauve-1:  oklch(99.0% 0.004 310);
+  --color-mauve-2:  oklch(97.5% 0.006 310);
+  --color-mauve-3:  oklch(95.0% 0.008 310);
+  --color-mauve-4:  oklch(92.5% 0.010 310);
+  --color-mauve-5:  oklch(90.0% 0.012 310);
+  --color-mauve-6:  oklch(86.0% 0.012 310);
+  --color-mauve-7:  oklch(79.0% 0.014 310);
+  --color-mauve-8:  oklch(68.0% 0.018 310);
+  --color-mauve-9:  oklch(56.0% 0.014 310);
+  --color-mauve-10: oklch(50.0% 0.014 310);
+  --color-mauve-11: oklch(42.0% 0.014 310);
+  --color-mauve-12: oklch(18.0% 0.014 310);
+  --color-mauve-contrast: white;
+}

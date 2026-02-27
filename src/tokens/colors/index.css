@@ -1,0 +1,16 @@
+/**
+ * Color token barrel import.
+ * Import individual color files or this barrel to get all built-in colors.
+ */
+
+@import './gray.css';
+@import './mauve.css';
+@import './slate.css';
+@import './blue.css';
+@import './violet.css';
+@import './red.css';
+@import './green.css';
+@import './orange.css';
+@import './yellow.css';
+@import './pink.css';
+@import './teal.css';

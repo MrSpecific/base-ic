@@ -1,0 +1,19 @@
+/**
+ * Teal scale
+ */
+
+:root {
+  --color-teal-1:  oklch(98.5% 0.010 195);
+  --color-teal-2:  oklch(97.0% 0.018 195);
+  --color-teal-3:  oklch(93.5% 0.040 195);
+  --color-teal-4:  oklch(89.5% 0.066 195);
+  --color-teal-5:  oklch(85.0% 0.086 195);
+  --color-teal-6:  oklch(79.0% 0.102 195);
+  --color-teal-7:  oklch(71.0% 0.118 195);
+  --color-teal-8:  oklch(60.0% 0.144 195);
+  --color-teal-9:  oklch(56.0% 0.186 195);
+  --color-teal-10: oklch(50.0% 0.174 195);
+  --color-teal-11: oklch(42.0% 0.154 195);
+  --color-teal-12: oklch(22.0% 0.086 195);
+  --color-teal-contrast: white;
+}
