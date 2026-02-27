@@ -60,6 +60,7 @@
   --color-surface-subtle:   var(--color-neutral-2);   /* Subtle card/panel bg */
   --color-surface-raised:   white;                    /* Cards floating above bg */
   --color-surface-overlay:  white;                    /* Popover, dialog */
+  --color-surface-sunken:   var(--color-neutral-2);   /* Inputs/code blocks */
 
   /* -------------------------------------------------------------------------
    * Semantic text colors
@@ -79,6 +80,23 @@
   --color-border:           var(--color-neutral-7);
   --color-border-strong:    var(--color-neutral-8);
   --color-border-focus:     var(--color-accent-8);
+
+  /* -------------------------------------------------------------------------
+   * Semantic visual atmosphere
+   * -------------------------------------------------------------------------
+   */
+  --color-backdrop-base:          var(--color-surface-base);
+  --color-backdrop-accent-glow:   color-mix(in oklch, var(--color-accent-4) 42%, transparent);
+  --color-backdrop-neutral-glow:  color-mix(in oklch, var(--color-neutral-4) 90%, transparent);
+  --color-backdrop-grid-line:     color-mix(in oklch, var(--color-border-subtle) 45%, transparent);
+
+  --color-panel-glass:            color-mix(in oklch, var(--color-surface-base) 84%, transparent);
+  --color-hero-start:             color-mix(in oklch, var(--color-accent-3) 35%, var(--color-surface-overlay));
+  --color-hero-end:               var(--color-surface-overlay);
+
+  --shadow-surface:               var(--shadow-2);
+  --shadow-floating:              var(--shadow-4);
+  --shadow-panel:                 var(--shadow-5);
 
   /* -------------------------------------------------------------------------
    * Semantic status colors (danger, warning, success, info)
@@ -217,22 +235,41 @@
   :root {
     --color-surface-base:    var(--color-neutral-1);
     --color-surface-subtle:  var(--color-neutral-2);
-    --color-surface-raised:  var(--color-neutral-3);
-    --color-surface-overlay: var(--color-neutral-4);
+    --color-surface-raised:  color-mix(in oklch, var(--color-neutral-3) 88%, black);
+    --color-surface-overlay: color-mix(in oklch, var(--color-neutral-3) 96%, black);
+    --color-surface-sunken:  color-mix(in oklch, var(--color-neutral-2) 82%, black);
 
     --color-text-primary:   oklch(95% 0 0);
     --color-text-secondary: oklch(83% 0 0);
     --color-text-tertiary:  oklch(68% 0 0);
     --color-text-disabled:  oklch(52% 0 0);
     --color-text-link: var(--color-accent-10);
+
+    --color-border-subtle: oklch(36% 0 0 / 55%);
+    --color-border:        oklch(43% 0 0 / 68%);
+    --color-border-strong: oklch(53% 0 0 / 78%);
+
+    --color-backdrop-base:         oklch(8% 0.003 255);
+    --color-backdrop-accent-glow:  color-mix(in oklch, var(--color-accent-6) 24%, transparent);
+    --color-backdrop-neutral-glow: color-mix(in oklch, var(--color-neutral-5) 24%, transparent);
+    --color-backdrop-grid-line:    color-mix(in oklch, var(--color-border-subtle) 38%, transparent);
+
+    --color-panel-glass: color-mix(in oklch, var(--color-surface-overlay) 78%, transparent);
+    --color-hero-start:  color-mix(in oklch, var(--color-accent-4) 18%, var(--color-surface-overlay));
+    --color-hero-end:    var(--color-surface-overlay);
+
+    --shadow-surface: 0 1px 1px oklch(0% 0 0 / 18%), 0 10px 24px -12px oklch(0% 0 0 / 55%);
+    --shadow-floating: 0 8px 24px -12px oklch(0% 0 0 / 58%), 0 2px 8px oklch(0% 0 0 / 28%);
+    --shadow-panel: 0 20px 50px -28px oklch(0% 0 0 / 68%), 0 8px 20px oklch(0% 0 0 / 42%);
   }
 }
 
 :where(.dark, [data-appearance='dark']) {
   --color-surface-base:    var(--color-neutral-1);
   --color-surface-subtle:  var(--color-neutral-2);
-  --color-surface-raised:  var(--color-neutral-3);
-  --color-surface-overlay: var(--color-neutral-4);
+  --color-surface-raised:  color-mix(in oklch, var(--color-neutral-3) 88%, black);
+  --color-surface-overlay: color-mix(in oklch, var(--color-neutral-3) 96%, black);
+  --color-surface-sunken:  color-mix(in oklch, var(--color-neutral-2) 82%, black);
 
   /* Explicit dark text ramps for stable contrast */
   --color-text-primary:   oklch(95% 0 0);
@@ -240,19 +277,54 @@
   --color-text-tertiary:  oklch(68% 0 0);
   --color-text-disabled:  oklch(52% 0 0);
   --color-text-link: var(--color-accent-10);
+
+  --color-border-subtle: oklch(36% 0 0 / 55%);
+  --color-border:        oklch(43% 0 0 / 68%);
+  --color-border-strong: oklch(53% 0 0 / 78%);
+
+  --color-backdrop-base:         oklch(8% 0.003 255);
+  --color-backdrop-accent-glow:  color-mix(in oklch, var(--color-accent-6) 24%, transparent);
+  --color-backdrop-neutral-glow: color-mix(in oklch, var(--color-neutral-5) 24%, transparent);
+  --color-backdrop-grid-line:    color-mix(in oklch, var(--color-border-subtle) 38%, transparent);
+
+  --color-panel-glass: color-mix(in oklch, var(--color-surface-overlay) 78%, transparent);
+  --color-hero-start:  color-mix(in oklch, var(--color-accent-4) 18%, var(--color-surface-overlay));
+  --color-hero-end:    var(--color-surface-overlay);
+
+  --shadow-surface: 0 1px 1px oklch(0% 0 0 / 18%), 0 10px 24px -12px oklch(0% 0 0 / 55%);
+  --shadow-floating: 0 8px 24px -12px oklch(0% 0 0 / 58%), 0 2px 8px oklch(0% 0 0 / 28%);
+  --shadow-panel: 0 20px 50px -28px oklch(0% 0 0 / 68%), 0 8px 20px oklch(0% 0 0 / 42%);
 }
 
 :where(.light, [data-appearance='light']) {
   --color-surface-base:    var(--color-neutral-1);
   --color-surface-subtle:  var(--color-neutral-2);
   --color-surface-raised:  white;
-  --color-surface-overlay: white;
+  --color-surface-overlay: color-mix(in oklch, white 94%, var(--color-neutral-2));
+  --color-surface-sunken:  var(--color-neutral-2);
 
   --color-text-primary:   var(--color-neutral-12);
   --color-text-secondary: var(--color-neutral-11);
   --color-text-tertiary:  var(--color-neutral-10);
   --color-text-disabled:  var(--color-neutral-8);
   --color-text-link: var(--color-accent-11);
+
+  --color-border-subtle: var(--color-neutral-5);
+  --color-border:        var(--color-neutral-6);
+  --color-border-strong: var(--color-neutral-7);
+
+  --color-backdrop-base:         var(--color-surface-base);
+  --color-backdrop-accent-glow:  color-mix(in oklch, var(--color-accent-4) 36%, transparent);
+  --color-backdrop-neutral-glow: color-mix(in oklch, var(--color-neutral-4) 92%, transparent);
+  --color-backdrop-grid-line:    color-mix(in oklch, var(--color-border-subtle) 48%, transparent);
+
+  --color-panel-glass: color-mix(in oklch, var(--color-surface-base) 84%, transparent);
+  --color-hero-start:  color-mix(in oklch, var(--color-accent-3) 35%, var(--color-surface-overlay));
+  --color-hero-end:    var(--color-surface-overlay);
+
+  --shadow-surface: var(--shadow-2);
+  --shadow-floating: var(--shadow-4);
+  --shadow-panel: var(--shadow-5);
 }
 
 /**
