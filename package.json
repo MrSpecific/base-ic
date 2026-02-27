@@ -20,6 +20,7 @@
     "build": "vite build",
     "dev": "vite build --watch",
     "documentation": "vite serve documentation --config documentation/vite.config.ts",
+    "documentation:build": "vite build --config documentation/vite.config.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "peerDependencies": {

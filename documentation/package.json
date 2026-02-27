@@ -1,0 +1,18 @@
+{
+  "name": "base-ic-documentation",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite serve --config vite.config.ts",
+    "build": "vite build --config vite.config.ts"
+  },
+  "dependencies": {
+    "@base-ui/react": "^1.2.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.1.4",
+    "vite": "^7.3.1"
+  }
+}

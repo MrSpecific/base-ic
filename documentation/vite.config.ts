@@ -11,10 +11,25 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [react()],
   root: resolve(__dirname),
+  appType: 'mpa',
   resolve: {
     alias: {
       // Let `import ... from 'base-ic'` resolve to the source for HMR
       'base-ic': resolve(__dirname, '../src/index.ts'),
+    },
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        home: resolve(__dirname, 'index.html'),
+        docs: resolve(__dirname, 'docs/index.html'),
+        docsTheme: resolve(__dirname, 'docs/theme/index.html'),
+        docsTooltip: resolve(__dirname, 'docs/tooltip/index.html'),
+        docsPopover: resolve(__dirname, 'docs/popover/index.html'),
+        customization: resolve(__dirname, 'customization/index.html'),
+        forDesigners: resolve(__dirname, 'for-designers/index.html'),
+        playground: resolve(__dirname, 'playground/index.html'),
+      },
     },
   },
   server: {

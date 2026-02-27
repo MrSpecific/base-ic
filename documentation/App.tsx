@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Theme } from '../src';
 import type { AccentColor, Appearance, GrayColor, Radius, Scaling } from './types';
 import { NAV_ITEMS } from './constants';
@@ -9,6 +9,7 @@ import { DocsPage } from './pages/DocsPage';
 import { CustomizationPage } from './pages/CustomizationPage';
 import { ForDesignersPage } from './pages/ForDesignersPage';
 import { PlaygroundPage } from './pages/PlaygroundPage';
+import type { DocsSection, Page } from './types';
 import '../src/tokens/index.css';
 import './documentation.css';
 
@@ -18,23 +19,16 @@ export default function App() {
   const [radius, setRadius] = useState<Radius>('medium');
   const [scaling, setScaling] = useState<Scaling>('100%');
   const [appearance, setAppearance] = useState<Appearance>('light');
-  const [route, setRoute] = useState(() => getRouteFromPath(window.location.pathname));
+  const route = getRouteFromPath(window.location.pathname);
 
-  useEffect(() => {
-    const onPopState = () => setRoute(getRouteFromPath(window.location.pathname));
-    window.addEventListener('popstate', onPopState);
-    return () => window.removeEventListener('popstate', onPopState);
-  }, []);
-
-  const goTo = (nextPage: typeof route.page, docsSection = route.docsSection) => {
+  const goTo = (nextPage: Page, docsSection: DocsSection = route.docsSection) => {
     const nextPath = pageToPath(nextPage, docsSection);
     if (window.location.pathname !== nextPath) {
-      window.history.pushState({}, '', nextPath);
+      window.location.href = nextPath;
     }
-    setRoute({ page: nextPage, docsSection: nextPage === 'docs' ? docsSection : 'overview' });
   };
 
-  const goToDocsSection = (section: typeof route.docsSection) => {
+  const goToDocsSection = (section: DocsSection) => {
     goTo('docs', section);
   };
 

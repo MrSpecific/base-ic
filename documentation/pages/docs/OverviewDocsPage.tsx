@@ -1,0 +1,61 @@
+import { CodeBlock } from '../../components/CodeBlock';
+
+export function OverviewDocsPage() {
+  const installSnippet = 'npm install base-ic';
+  const usageSnippet = [
+    "import { Theme } from 'base-ic';",
+    "import 'base-ic/tokens';",
+    '',
+    'export default function App() {',
+    '  return (',
+    '    <Theme accentColor="violet" grayColor="slate" radius="medium" scaling="100%">',
+    '      <YourApp />',
+    '    </Theme>',
+    '  );',
+    '}',
+  ].join('\n');
+
+  const themingSnippet = [
+    '<Theme',
+    '  accentColor="blue"',
+    '  grayColor="mauve"',
+    '  radius="large"',
+    '  scaling="110%"',
+    '  appearance="light"',
+    '>',
+    '  <App />',
+    '</Theme>',
+  ].join('\n');
+
+  return (
+    <>
+      <section className="docs-section">
+        <h1>Documentation</h1>
+        <p>Everything needed to integrate, theme, and extend base-ic in production.</p>
+      </section>
+      <section className="docs-section">
+        <h2>Install</h2>
+        <CodeBlock title="Install" code={installSnippet} />
+      </section>
+      <section className="docs-section">
+        <h2>Quick Start</h2>
+        <CodeBlock title="Quick Start" code={usageSnippet} />
+      </section>
+      <section className="docs-section">
+        <h2>Theme API</h2>
+        <p>
+          `Theme` sets accent, neutral palette, radius, scale, and appearance while keeping token semantics stable.
+          Scaling supports `80%` through `150%`.
+        </p>
+        <CodeBlock title="Theme API Example" code={themingSnippet} />
+      </section>
+      <section className="docs-section">
+        <h2>Status Patterns</h2>
+        <p>
+          Use semantic tokens like `--status-surface-*`, `--status-badge-*`, `--button-*`, and `--badge-*`
+          to keep visual behavior consistent across the product.
+        </p>
+      </section>
+    </>
+  );
+}
