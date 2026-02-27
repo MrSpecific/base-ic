@@ -32,6 +32,111 @@ const STEPS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 // App
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Color swatch data — maps accent name to its step-9 color for the picker
+// ---------------------------------------------------------------------------
+
+const ACCENT_SWATCH_COLORS: Record<string, string> = {
+  blue:    'var(--color-blue-9)',
+  violet:  'var(--color-violet-9)',
+  red:     'var(--color-red-9)',
+  green:   'var(--color-green-9)',
+  orange:  'var(--color-orange-9)',
+  yellow:  'var(--color-yellow-9)',
+  pink:    'var(--color-pink-9)',
+  teal:    'var(--color-teal-9)',
+};
+
+// ---------------------------------------------------------------------------
+// ThemePanel — floating control panel
+// ---------------------------------------------------------------------------
+
+function ThemePanel({
+  accent, setAccent,
+  gray, setGray,
+  radius, setRadius,
+  scaling, setScaling,
+  appearance, setAppearance,
+}: {
+  accent: AccentColor;    setAccent: (v: AccentColor) => void;
+  gray: GrayColor;        setGray: (v: GrayColor) => void;
+  radius: Radius;         setRadius: (v: Radius) => void;
+  scaling: Scaling;       setScaling: (v: Scaling) => void;
+  appearance: Appearance; setAppearance: (v: Appearance) => void;
+}) {
+  const [open, setOpen] = useState(true);
+
+  return (
+    <div className="theme-panel-wrapper">
+      <div className={open ? 'theme-panel' : 'theme-panel-hidden'}>
+        <div className="theme-panel-title">Theme</div>
+
+        {/* Accent — color swatch picker */}
+        <div className="theme-panel-field">
+          <span className="theme-panel-label">Accent</span>
+          <div className="theme-panel-colors">
+            {ACCENT_COLORS.map((c) => (
+              <div
+                key={c}
+                className="theme-panel-color-swatch"
+                data-active={c === accent}
+                style={{ background: ACCENT_SWATCH_COLORS[c] }}
+                title={c}
+                onClick={() => setAccent(c)}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Gray */}
+        <div className="theme-panel-field">
+          <span className="theme-panel-label">Gray</span>
+          <select className="theme-panel-select" value={gray} onChange={(e) => setGray(e.target.value as GrayColor)}>
+            {GRAY_COLORS.map((c) => <option key={c} value={c}>{c}</option>)}
+          </select>
+        </div>
+
+        {/* Radius */}
+        <div className="theme-panel-field">
+          <span className="theme-panel-label">Radius</span>
+          <select className="theme-panel-select" value={radius} onChange={(e) => setRadius(e.target.value as Radius)}>
+            {RADII.map((r) => <option key={r} value={r}>{r}</option>)}
+          </select>
+        </div>
+
+        {/* Scaling */}
+        <div className="theme-panel-field">
+          <span className="theme-panel-label">Scaling</span>
+          <select className="theme-panel-select" value={scaling} onChange={(e) => setScaling(e.target.value as Scaling)}>
+            {SCALINGS.map((s) => <option key={s} value={s}>{s}</option>)}
+          </select>
+        </div>
+
+        {/* Appearance */}
+        <div className="theme-panel-field">
+          <span className="theme-panel-label">Appearance</span>
+          <select className="theme-panel-select" value={appearance} onChange={(e) => setAppearance(e.target.value as Appearance)}>
+            {APPEARANCES.map((a) => <option key={a} value={a}>{a}</option>)}
+          </select>
+        </div>
+      </div>
+
+      <button
+        className="theme-panel-toggle"
+        onClick={() => setOpen(!open)}
+        title={open ? 'Close theme panel' : 'Open theme panel'}
+        aria-label={open ? 'Close theme panel' : 'Open theme panel'}
+      >
+        {open ? '\u2715' : '\u2699'}
+      </button>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// App
+// ---------------------------------------------------------------------------
+
 export default function App() {
   const [accent, setAccent] = useState<AccentColor>('blue');
   const [gray, setGray] = useState<GrayColor>('gray');
@@ -47,52 +152,20 @@ export default function App() {
       scaling={scaling}
       appearance={appearance}
     >
+      <ThemePanel
+        accent={accent} setAccent={setAccent}
+        gray={gray} setGray={setGray}
+        radius={radius} setRadius={setRadius}
+        scaling={scaling} setScaling={setScaling}
+        appearance={appearance} setAppearance={setAppearance}
+      />
+
       <div className="playground">
         <h1>base-ic playground</h1>
         <p>
           Interactive token and theme exploration.
-          Change settings below to see tokens update in real time.
+          Use the floating panel in the bottom-right to tweak the theme.
         </p>
-
-        {/* ----------------------------------------------------------------
-         * Toolbar
-         * ---------------------------------------------------------------- */}
-        <div className="toolbar">
-          <label>
-            Accent
-            <select value={accent} onChange={(e) => setAccent(e.target.value as AccentColor)}>
-              {ACCENT_COLORS.map((c) => <option key={c} value={c}>{c}</option>)}
-            </select>
-          </label>
-
-          <label>
-            Gray
-            <select value={gray} onChange={(e) => setGray(e.target.value as GrayColor)}>
-              {GRAY_COLORS.map((c) => <option key={c} value={c}>{c}</option>)}
-            </select>
-          </label>
-
-          <label>
-            Radius
-            <select value={radius} onChange={(e) => setRadius(e.target.value as Radius)}>
-              {RADII.map((r) => <option key={r} value={r}>{r}</option>)}
-            </select>
-          </label>
-
-          <label>
-            Scaling
-            <select value={scaling} onChange={(e) => setScaling(e.target.value as Scaling)}>
-              {SCALINGS.map((s) => <option key={s} value={s}>{s}</option>)}
-            </select>
-          </label>
-
-          <label>
-            Appearance
-            <select value={appearance} onChange={(e) => setAppearance(e.target.value as Appearance)}>
-              {APPEARANCES.map((a) => <option key={a} value={a}>{a}</option>)}
-            </select>
-          </label>
-        </div>
 
         {/* ----------------------------------------------------------------
          * Color palette
