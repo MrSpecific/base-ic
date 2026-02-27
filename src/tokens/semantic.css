@@ -93,6 +93,13 @@
   --color-panel-glass:            color-mix(in oklch, var(--color-surface-base) 84%, transparent);
   --color-hero-start:             color-mix(in oklch, var(--color-accent-3) 35%, var(--color-surface-overlay));
   --color-hero-end:               var(--color-surface-overlay);
+  --color-hero-kicker:            var(--color-accent-11);
+  --color-hero-copy:              var(--color-text-secondary);
+  --color-marketing-band-start:   color-mix(in oklch, var(--color-accent-2) 50%, var(--color-surface-overlay));
+  --color-marketing-band-end:     var(--color-surface-subtle);
+  --color-marketing-band-border:  var(--color-border-subtle);
+  --color-marketing-band-heading: var(--color-text-primary);
+  --color-marketing-band-body:    var(--color-text-secondary);
 
   --shadow-surface:               var(--shadow-2);
   --shadow-floating:              var(--shadow-4);
@@ -286,6 +293,13 @@
     --color-panel-glass: color-mix(in oklch, var(--color-surface-overlay) 78%, transparent);
     --color-hero-start:  color-mix(in oklch, var(--color-accent-4) 18%, var(--color-surface-overlay));
     --color-hero-end:    var(--color-surface-overlay);
+    --color-hero-kicker: color-mix(in oklch, var(--color-accent-10) 88%, white);
+    --color-hero-copy:   color-mix(in oklch, var(--color-text-secondary) 92%, white);
+    --color-marketing-band-start: color-mix(in oklch, var(--color-accent-3) 12%, var(--color-surface-raised));
+    --color-marketing-band-end:   color-mix(in oklch, var(--color-surface-overlay) 90%, black);
+    --color-marketing-band-border: color-mix(in oklch, var(--color-border) 85%, var(--color-accent-7));
+    --color-marketing-band-heading: var(--color-text-primary);
+    --color-marketing-band-body:    var(--color-text-secondary);
 
     --shadow-surface: 0 1px 1px oklch(0% 0 0 / 18%), 0 10px 24px -12px oklch(0% 0 0 / 55%);
     --shadow-floating: 0 8px 24px -12px oklch(0% 0 0 / 58%), 0 2px 8px oklch(0% 0 0 / 28%);
@@ -319,6 +333,13 @@
   --color-panel-glass: color-mix(in oklch, var(--color-surface-overlay) 78%, transparent);
   --color-hero-start:  color-mix(in oklch, var(--color-accent-4) 18%, var(--color-surface-overlay));
   --color-hero-end:    var(--color-surface-overlay);
+  --color-hero-kicker: color-mix(in oklch, var(--color-accent-10) 88%, white);
+  --color-hero-copy:   color-mix(in oklch, var(--color-text-secondary) 92%, white);
+  --color-marketing-band-start: color-mix(in oklch, var(--color-accent-3) 12%, var(--color-surface-raised));
+  --color-marketing-band-end:   color-mix(in oklch, var(--color-surface-overlay) 90%, black);
+  --color-marketing-band-border: color-mix(in oklch, var(--color-border) 85%, var(--color-accent-7));
+  --color-marketing-band-heading: var(--color-text-primary);
+  --color-marketing-band-body:    var(--color-text-secondary);
 
   --shadow-surface: 0 1px 1px oklch(0% 0 0 / 18%), 0 10px 24px -12px oklch(0% 0 0 / 55%);
   --shadow-floating: 0 8px 24px -12px oklch(0% 0 0 / 58%), 0 2px 8px oklch(0% 0 0 / 28%);
@@ -350,6 +371,13 @@
   --color-panel-glass: color-mix(in oklch, var(--color-surface-base) 84%, transparent);
   --color-hero-start:  color-mix(in oklch, var(--color-accent-3) 35%, var(--color-surface-overlay));
   --color-hero-end:    var(--color-surface-overlay);
+  --color-hero-kicker: var(--color-accent-11);
+  --color-hero-copy:   var(--color-text-secondary);
+  --color-marketing-band-start: color-mix(in oklch, var(--color-accent-2) 50%, var(--color-surface-overlay));
+  --color-marketing-band-end:   var(--color-surface-subtle);
+  --color-marketing-band-border: var(--color-border-subtle);
+  --color-marketing-band-heading: var(--color-text-primary);
+  --color-marketing-band-body:    var(--color-text-secondary);
 
   --shadow-surface: var(--shadow-2);
   --shadow-floating: var(--shadow-4);
