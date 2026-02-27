@@ -1,0 +1,20 @@
+.popup {
+  z-index: var(--z-4);
+  min-width: var(--popover-min-width);
+  max-width: 360px;
+  padding: var(--popover-padding);
+  border-radius: var(--popover-radius);
+  border: 1px solid var(--popover-border);
+  background: var(--popover-bg);
+  color: var(--popover-text);
+  box-shadow: var(--popover-shadow);
+  font-family: var(--font-family-primary);
+}
+
+.arrow {
+  width: var(--popover-arrow-size);
+  height: var(--popover-arrow-size);
+  border: 1px solid var(--popover-border);
+  background: var(--popover-bg);
+  transform: rotate(45deg);
+}

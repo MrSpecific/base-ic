@@ -154,6 +154,35 @@
   --badge-line-height:        var(--line-height-1);
 
   /* -------------------------------------------------------------------------
+   * Semantic tooltip patterns
+   * -------------------------------------------------------------------------
+   */
+  --tooltip-bg:               var(--color-surface-overlay);
+  --tooltip-text:             var(--color-text-primary);
+  --tooltip-border:           var(--color-border);
+  --tooltip-shadow:           var(--shadow-floating);
+  --tooltip-radius:           min(var(--component-radius), var(--radius-4));
+  --tooltip-padding-y:        var(--space-1);
+  --tooltip-padding-x:        var(--space-2);
+  --tooltip-font-size:        var(--font-size-2);
+  --tooltip-arrow-size:       10px;
+
+  /* -------------------------------------------------------------------------
+   * Semantic popover patterns
+   * -------------------------------------------------------------------------
+   */
+  --popover-bg:               var(--color-surface-overlay);
+  --popover-text:             var(--color-text-primary);
+  --popover-border:           var(--color-border);
+  --popover-shadow:           var(--shadow-panel);
+  --popover-radius:           min(var(--component-radius), var(--radius-5));
+  --popover-padding:          var(--space-3);
+  --popover-min-width:        240px;
+  --popover-title-size:       var(--font-size-3);
+  --popover-body-size:        var(--font-size-2);
+  --popover-arrow-size:       12px;
+
+  /* -------------------------------------------------------------------------
    * Semantic status patterns (layout + sizing)
    * -------------------------------------------------------------------------
    * Shared structure tokens for status surfaces and status badges.

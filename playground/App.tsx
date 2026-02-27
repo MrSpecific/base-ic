@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Theme } from '../src';
+import { Theme, Tooltip, Popover } from '../src';
 import type { AccentColor, GrayColor, Radius, Scaling, Appearance } from '../src';
+import { IconAlert, IconCheck, IconCopy } from './icons';
 import '../src/tokens/index.css';
 import './playground.css';
 
 type Page = 'home' | 'docs' | 'customization' | 'for-designers' | 'playground';
+type DocsSection = 'overview' | 'theme' | 'tooltip' | 'popover';
+type RouteState = { page: Page; docsSection: DocsSection };
 
 const NAV_ITEMS: Array<{ page: Page; label: string }> = [
   { page: 'home', label: 'Home' },
@@ -51,17 +54,24 @@ function toDisplayName(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
-function getPageFromPath(pathname: string): Page {
+function getRouteFromPath(pathname: string): RouteState {
   const normalized = pathname.trim().replace(/\/+$/, '') || '/';
-  if (normalized === '/docs') return 'docs';
-  if (normalized === '/customization') return 'customization';
-  if (normalized === '/for-designers') return 'for-designers';
-  if (normalized === '/playground') return 'playground';
-  return 'home';
+  if (normalized === '/docs') return { page: 'docs', docsSection: 'overview' };
+  if (normalized.startsWith('/docs/')) {
+    const slug = normalized.slice('/docs/'.length) as DocsSection;
+    if (slug === 'theme' || slug === 'tooltip' || slug === 'popover') {
+      return { page: 'docs', docsSection: slug };
+    }
+    return { page: 'docs', docsSection: 'overview' };
+  }
+  if (normalized === '/customization') return { page: 'customization', docsSection: 'overview' };
+  if (normalized === '/for-designers') return { page: 'for-designers', docsSection: 'overview' };
+  if (normalized === '/playground') return { page: 'playground', docsSection: 'overview' };
+  return { page: 'home', docsSection: 'overview' };
 }
 
-function pageToPath(page: Page): string {
-  if (page === 'docs') return '/docs';
+function pageToPath(page: Page, docsSection: DocsSection = 'overview'): string {
+  if (page === 'docs') return docsSection === 'overview' ? '/docs' : `/docs/${docsSection}`;
   if (page === 'customization') return '/customization';
   if (page === 'for-designers') return '/for-designers';
   if (page === 'playground') return '/playground';
@@ -250,7 +260,20 @@ function HomePage({ goTo }: { goTo: (page: Page) => void }) {
   );
 }
 
-function DocsPage() {
+function DocsPage({
+  section,
+  goToDocsSection,
+}: {
+  section: DocsSection;
+  goToDocsSection: (next: DocsSection) => void;
+}) {
+  const docsNavItems: Array<{ id: DocsSection; label: string }> = [
+    { id: 'overview', label: 'Overview' },
+    { id: 'theme', label: 'Theme' },
+    { id: 'tooltip', label: 'Tooltip' },
+    { id: 'popover', label: 'Popover' },
+  ];
+
   const installSnippet = "npm install base-ic";
   const usageSnippet = [
     "import { Theme } from 'base-ic';",
@@ -277,39 +300,158 @@ function DocsPage() {
     '</Theme>',
   ].join('\n');
 
+  const tooltipSnippet = [
+    "import { Tooltip } from 'base-ic';",
+    '',
+    '<Tooltip content=\"Helpful context\" side=\"top\">',
+    '  <button>Hover me</button>',
+    '</Tooltip>',
+  ].join('\n');
+
+  const popoverSnippet = [
+    "import { Popover } from 'base-ic';",
+    '',
+    '<Popover',
+    '  side=\"bottom\"',
+    '  content={',
+    '    <div>',
+    '      <strong>Panel title</strong>',
+    '      <p>Detailed actions and context.</p>',
+    '    </div>',
+    '  }',
+    '>',
+    '  <button>Open</button>',
+    '</Popover>',
+  ].join('\n');
+
+  const docsBody = (() => {
+    if (section === 'theme') {
+      return (
+        <>
+          <section className="docs-section">
+            <h1>Theme</h1>
+            <p>
+              `Theme` is the foundation of Base-IC. It controls accent/neutral palettes, radius, scale,
+              appearance, and typography slots for every component below it.
+            </p>
+          </section>
+          <section className="docs-section">
+            <h2>Usage</h2>
+            <CodeBlock title="Theme Usage" code={themingSnippet} />
+          </section>
+          <section className="docs-section">
+            <h2>Key Props</h2>
+            <ul className="docs-list">
+              <li>`accentColor` and `grayColor` map semantic aliases to hue scales.</li>
+              <li>`radius` sets component curvature via `--component-radius`.</li>
+              <li>`scaling` remaps primitive spacing/size/type tokens from 80% to 150%.</li>
+              <li>`appearance` supports `light`, `dark`, and `inherit` modes.</li>
+              <li>`fontFamily` overrides semantic typography slots.</li>
+            </ul>
+          </section>
+        </>
+      );
+    }
+
+    if (section === 'tooltip') {
+      return (
+        <>
+          <section className="docs-section">
+            <h1>Tooltip</h1>
+            <p>
+              `Tooltip` is a convenience wrapper around Base UI tooltip primitives, with system-level token styling.
+            </p>
+          </section>
+          <section className="docs-section">
+            <h2>Usage</h2>
+            <CodeBlock title="Tooltip Usage" code={tooltipSnippet} />
+          </section>
+          <section className="docs-section">
+            <h2>Notes</h2>
+            <ul className="docs-list">
+              <li>Use concise helper content; tooltips are for hints, not long-form UI.</li>
+              <li>`TooltipPrimitive` is exported for advanced composition.</li>
+              <li>Styling comes from semantic tooltip tokens (`--tooltip-*`).</li>
+            </ul>
+          </section>
+        </>
+      );
+    }
+
+    if (section === 'popover') {
+      return (
+        <>
+          <section className="docs-section">
+            <h1>Popover</h1>
+            <p>
+              `Popover` provides richer anchored content than tooltip, suitable for actions, forms, or contextual controls.
+            </p>
+          </section>
+          <section className="docs-section">
+            <h2>Usage</h2>
+            <CodeBlock title="Popover Usage" code={popoverSnippet} />
+          </section>
+          <section className="docs-section">
+            <h2>Notes</h2>
+            <ul className="docs-list">
+              <li>Use popover for interactive content, tooltip for passive hints.</li>
+              <li>`PopoverPrimitive` is exported for full Base UI part-level control.</li>
+              <li>Styling comes from semantic popover tokens (`--popover-*`).</li>
+            </ul>
+          </section>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <section className="docs-section">
+          <h1>Documentation</h1>
+          <p>Everything needed to integrate, theme, and extend base-ic in production.</p>
+        </section>
+        <section className="docs-section">
+          <h2>Install</h2>
+          <CodeBlock title="Install" code={installSnippet} />
+        </section>
+        <section className="docs-section">
+          <h2>Quick Start</h2>
+          <CodeBlock title="Quick Start" code={usageSnippet} />
+        </section>
+        <section className="docs-section">
+          <h2>Theme API</h2>
+          <p>
+            `Theme` sets accent, neutral palette, radius, scale, and appearance while keeping token semantics stable.
+            Scaling supports `80%` through `150%`.
+          </p>
+          <CodeBlock title="Theme API Example" code={themingSnippet} />
+        </section>
+        <section className="docs-section">
+          <h2>Status Patterns</h2>
+          <p>
+            Use semantic tokens like `--status-surface-*`, `--status-badge-*`, `--button-*`, and `--badge-*`
+            to keep visual behavior consistent across the product.
+          </p>
+        </section>
+      </>
+    );
+  })();
+
   return (
-    <main className="site-page docs-page">
-      <section className="docs-section">
-        <h1>Documentation</h1>
-        <p>Everything needed to integrate, theme, and extend base-ic in production.</p>
-      </section>
-
-      <section className="docs-section">
-        <h2>Install</h2>
-        <pre><code>{installSnippet}</code></pre>
-      </section>
-
-      <section className="docs-section">
-        <h2>Quick Start</h2>
-        <pre><code>{usageSnippet}</code></pre>
-      </section>
-
-      <section className="docs-section">
-        <h2>Theme API</h2>
-        <p>
-          `Theme` sets accent, neutral palette, radius, scale, and appearance while keeping token semantics stable.
-          Scaling supports `80%` through `150%`.
-        </p>
-        <pre><code>{themingSnippet}</code></pre>
-      </section>
-
-      <section className="docs-section">
-        <h2>Status Patterns</h2>
-        <p>
-          Use semantic tokens like `--status-surface-*`, `--status-badge-*`, `--button-*`, and `--badge-*`
-          to keep visual behavior consistent across the product.
-        </p>
-      </section>
+    <main className="site-page docs-layout">
+      <aside className="docs-sidebar" aria-label="Docs sections">
+        <div className="docs-sidebar-title">Documentation</div>
+        {docsNavItems.map((item) => (
+          <button
+            key={item.id}
+            className="docs-sidebar-link"
+            data-active={section === item.id}
+            onClick={() => goToDocsSection(item.id)}
+          >
+            {item.label}
+          </button>
+        ))}
+      </aside>
+      <div className="docs-page">{docsBody}</div>
     </main>
   );
 }
@@ -377,7 +519,7 @@ function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
           Add brand palettes with `customColors`, then point `accentColor` at your custom name.
           Provide all 12 steps plus a contrast color for solid fills.
         </p>
-        <pre><code>{customColorSnippet}</code></pre>
+        <CodeBlock title="Custom Color Palette" code={customColorSnippet} />
       </section>
 
       <section className="docs-section">
@@ -386,7 +528,7 @@ function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
           Set `fontFamily` slots for primary UI text, display typography, and monospace surfaces.
           Unspecified slots continue to inherit defaults.
         </p>
-        <pre><code>{fontSnippet}</code></pre>
+        <CodeBlock title="Font Family Overrides" code={fontSnippet} />
       </section>
 
       <section className="docs-section">
@@ -395,7 +537,7 @@ function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
           Use semantic tokens for reusable patterns like buttons, surfaces, badges, and status components.
           These tokens automatically participate in theme scaling.
         </p>
-        <pre><code>{semanticSnippet}</code></pre>
+        <CodeBlock title="Semantic Token Overrides" code={semanticSnippet} />
       </section>
 
       <section className="docs-section">
@@ -415,12 +557,14 @@ function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
   );
 }
 
-function CopyableJsonBlock({ title, json }: { title: string; json: string }) {
-  const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'error'>('idle');
+type CopyStatus = 'idle' | 'copied' | 'error';
+
+function CodeBlock({ title, code }: { title?: string; code: string }) {
+  const [copyStatus, setCopyStatus] = useState<CopyStatus>('idle');
 
   const onCopy = async () => {
     try {
-      await navigator.clipboard.writeText(json);
+      await navigator.clipboard.writeText(code);
       setCopyStatus('copied');
     } catch {
       setCopyStatus('error');
@@ -431,17 +575,25 @@ function CopyableJsonBlock({ title, json }: { title: string; json: string }) {
   return (
     <div className="docs-code-block">
       <div className="docs-code-header">
-        <strong>{title}</strong>
+        <strong>{title ?? 'Example'}</strong>
         <button
           type="button"
           className="docs-copy-button"
           data-state={copyStatus}
           onClick={onCopy}
+          title={copyStatus === 'copied' ? 'Copied' : copyStatus === 'error' ? 'Copy failed' : 'Copy code'}
+          aria-label={copyStatus === 'copied' ? 'Copied' : copyStatus === 'error' ? 'Copy failed' : 'Copy code'}
         >
-          {copyStatus === 'copied' ? 'Copied' : copyStatus === 'error' ? 'Copy Failed' : 'Copy JSON'}
+          {copyStatus === 'copied' ? (
+            <IconCheck className="docs-copy-icon" />
+          ) : copyStatus === 'error' ? (
+            <IconAlert className="docs-copy-icon" />
+          ) : (
+            <IconCopy className="docs-copy-icon" />
+          )}
         </button>
       </div>
-      <pre><code>{json}</code></pre>
+      <pre><code>{code}</code></pre>
     </div>
   );
 }
@@ -672,9 +824,9 @@ function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
           These JSON objects are formatted for quick copy/paste into design-token plugins,
           internal scripts, or handoff docs used by your Figma team.
         </p>
-        <CopyableJsonBlock title="Primitives (colors, spacing, type, radius)" json={primitiveTokensJson} />
-        <CopyableJsonBlock title="Semantics (accent, neutral, text, surfaces, status)" json={semanticTokensJson} />
-        <CopyableJsonBlock title="Component Patterns (button, badge, surface)" json={componentPatternTokensJson} />
+        <CodeBlock title="Primitives (colors, spacing, type, radius)" code={primitiveTokensJson} />
+        <CodeBlock title="Semantics (accent, neutral, text, surfaces, status)" code={semanticTokensJson} />
+        <CodeBlock title="Component Patterns (button, badge, surface)" code={componentPatternTokensJson} />
       </section>
 
       <section className="docs-section">
@@ -683,7 +835,7 @@ function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
           Mirror code token names in Figma variables to reduce translation overhead during handoff.
           Keep aliases (`accent`, `neutral`, `status`) separate from raw hue scales.
         </p>
-        <pre><code>{[
+        <CodeBlock title="Figma Variable Naming" code={[
           'color/blue/1',
           'color/blue/2',
           '...',
@@ -702,7 +854,7 @@ function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
           'radius/2',
           '...',
           'radius/full',
-        ].join('\n')}</code></pre>
+        ].join('\n')} />
       </section>
 
       <section className="docs-section">
@@ -843,6 +995,52 @@ function PlaygroundPage({ radius }: { radius: Radius }) {
           ))}
         </div>
 
+        <h2>Tooltip</h2>
+        <div className="tooltip-demo-row">
+          <Tooltip content="Top tooltip" side="top">
+            <button className="tooltip-demo-trigger">Hover top</button>
+          </Tooltip>
+          <Tooltip content="Right tooltip" side="right">
+            <button className="tooltip-demo-trigger">Hover right</button>
+          </Tooltip>
+          <Tooltip content="Bottom tooltip" side="bottom">
+            <button className="tooltip-demo-trigger">Hover bottom</button>
+          </Tooltip>
+        </div>
+
+        <h2>Popover</h2>
+        <div className="popover-demo-row">
+          <Popover
+            side="bottom"
+            align="start"
+            content={(
+              <div className="popover-demo-content">
+                <div className="popover-demo-title">Theme Preset</div>
+                <p className="popover-demo-text">Apply a compact, high-contrast preset for dashboards.</p>
+                <div className="popover-demo-actions">
+                  <button className="popover-demo-button popover-demo-button-solid">Apply</button>
+                  <button className="popover-demo-button popover-demo-button-ghost">Dismiss</button>
+                </div>
+              </div>
+            )}
+          >
+            <button className="tooltip-demo-trigger">Open popover</button>
+          </Popover>
+
+          <Popover
+            side="right"
+            align="center"
+            content={(
+              <div className="popover-demo-content">
+                <div className="popover-demo-title">Token Hint</div>
+                <p className="popover-demo-text">Use semantic aliases for surfaces and text before tuning component tokens.</p>
+              </div>
+            )}
+          >
+            <button className="tooltip-demo-trigger">Open right</button>
+          </Popover>
+        </div>
+
         <h2>Spacing</h2>
         <div className="spacing-row">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((step) => (
@@ -895,29 +1093,33 @@ export default function App() {
   const [radius, setRadius] = useState<Radius>('medium');
   const [scaling, setScaling] = useState<Scaling>('100%');
   const [appearance, setAppearance] = useState<Appearance>('light');
-  const [page, setPage] = useState<Page>(() => getPageFromPath(window.location.pathname));
+  const [route, setRoute] = useState<RouteState>(() => getRouteFromPath(window.location.pathname));
 
   useEffect(() => {
-    const onPopState = () => setPage(getPageFromPath(window.location.pathname));
+    const onPopState = () => setRoute(getRouteFromPath(window.location.pathname));
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
   }, []);
 
-  const goTo = (nextPage: Page) => {
-    const nextPath = pageToPath(nextPage);
+  const goTo = (nextPage: Page, docsSection: DocsSection = route.docsSection) => {
+    const nextPath = pageToPath(nextPage, docsSection);
     if (window.location.pathname !== nextPath) {
       window.history.pushState({}, '', nextPath);
     }
-    setPage(nextPage);
+    setRoute({ page: nextPage, docsSection: nextPage === 'docs' ? docsSection : 'overview' });
+  };
+
+  const goToDocsSection = (section: DocsSection) => {
+    goTo('docs', section);
   };
 
   const pageContent = useMemo(() => {
-    if (page === 'docs') return <DocsPage />;
-    if (page === 'customization') return <CustomizationPage goTo={goTo} />;
-    if (page === 'for-designers') return <ForDesignersPage goTo={goTo} />;
-    if (page === 'playground') return <PlaygroundPage radius={radius} />;
+    if (route.page === 'docs') return <DocsPage section={route.docsSection} goToDocsSection={goToDocsSection} />;
+    if (route.page === 'customization') return <CustomizationPage goTo={goTo} />;
+    if (route.page === 'for-designers') return <ForDesignersPage goTo={goTo} />;
+    if (route.page === 'playground') return <PlaygroundPage radius={radius} />;
     return <HomePage goTo={goTo} />;
-  }, [page, radius]);
+  }, [route, radius]);
 
   return (
     <Theme
@@ -940,7 +1142,7 @@ export default function App() {
               <button
                 key={item.page}
                 className="site-nav-link"
-                data-active={page === item.page}
+                data-active={route.page === item.page}
                 onClick={() => goTo(item.page)}
               >
                 {item.label}
@@ -963,7 +1165,7 @@ export default function App() {
         setScaling={setScaling}
         appearance={appearance}
         setAppearance={setAppearance}
-        defaultOpen={page === 'playground'}
+        defaultOpen={route.page === 'playground'}
       />
     </Theme>
   );

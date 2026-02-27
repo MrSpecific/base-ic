@@ -16,8 +16,8 @@ export type {
   FontFamilies,
 } from './components/Theme';
 
-// TODO: export components as they are built
-// export * from './components/Button';
-// export * from './components/Text';
-// export * from './components/Flex';
-// export * from './components/Box';
+// Overlay components
+export { Tooltip, TooltipPrimitive } from './components/Tooltip';
+export type { TooltipProps } from './components/Tooltip';
+export { Popover, PopoverPrimitive } from './components/Popover';
+export type { PopoverProps } from './components/Popover';

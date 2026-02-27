@@ -1,0 +1,21 @@
+.popup {
+  z-index: var(--z-4);
+  max-width: 320px;
+  padding: var(--tooltip-padding-y) var(--tooltip-padding-x);
+  border-radius: var(--tooltip-radius);
+  border: 1px solid var(--tooltip-border);
+  background: var(--tooltip-bg);
+  color: var(--tooltip-text);
+  box-shadow: var(--tooltip-shadow);
+  font-size: var(--tooltip-font-size);
+  line-height: var(--line-height-3);
+  font-family: var(--font-family-primary);
+}
+
+.arrow {
+  width: var(--tooltip-arrow-size);
+  height: var(--tooltip-arrow-size);
+  border: 1px solid var(--tooltip-border);
+  background: var(--tooltip-bg);
+  transform: rotate(45deg);
+}
