@@ -13,6 +13,14 @@
   font-family: var(--font-family-primary);
 }
 
+.popup[data-side='left'] {
+  padding-right: calc(var(--tooltip-padding-x) + 6px);
+}
+
+.popup[data-side='right'] {
+  padding-left: calc(var(--tooltip-padding-x) + 6px);
+}
+
 .arrow {
   position: absolute;
   pointer-events: none;

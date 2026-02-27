@@ -42,7 +42,7 @@ export function Tooltip({
   content,
   side = 'top',
   align = 'center',
-  sideOffset = 10,
+  sideOffset = 8,
   alignOffset,
   delay,
   closeDelay,

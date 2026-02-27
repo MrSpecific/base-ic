@@ -12,30 +12,51 @@
   font-family: var(--font-family-primary);
 }
 
+.popup[data-side='left'] {
+  padding-right: calc(var(--popover-padding) + 6px);
+}
+
+.popup[data-side='right'] {
+  padding-left: calc(var(--popover-padding) + 6px);
+}
+
 .arrow {
   position: absolute;
-  z-index: -1;
   pointer-events: none;
-  display: block;
-  width: var(--popover-arrow-size);
-  height: var(--popover-arrow-size);
-  border: 1px solid var(--popover-border);
-  background: var(--popover-bg);
-  transform: rotate(45deg);
+  color: var(--popover-bg);
+  display: flex;
+  width: 20px;
+  height: 10px;
 }
 
 .arrow[data-side='top'] {
-  bottom: calc(var(--popover-arrow-size) * -0.5);
+  bottom: 0;
+  transform: translateY(100%) rotate(180deg);
 }
 
 .arrow[data-side='bottom'] {
-  top: calc(var(--popover-arrow-size) * -0.5);
+  top: 0;
+  transform: translateY(-100%);
 }
 
 .arrow[data-side='left'] {
-  right: calc(var(--popover-arrow-size) * -0.5);
+  right: 0;
+  transform: translateX(50%) rotate(90deg);
 }
 
 .arrow[data-side='right'] {
-  left: calc(var(--popover-arrow-size) * -0.5);
+  left: 0;
+  transform: translateX(-50%) rotate(-90deg);
+}
+
+.arrowFill {
+  fill: var(--popover-bg);
+}
+
+.arrowOuterStroke {
+  fill: var(--color-border);
+}
+
+.arrowInnerStroke {
+  fill: color-mix(in oklch, var(--popover-border) 70%, var(--popover-bg));
 }
