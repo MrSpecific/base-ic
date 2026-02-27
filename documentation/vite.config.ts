@@ -1,6 +1,14 @@
+import { createRequire } from 'node:module';
 import { resolve } from 'path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+
+const require = createRequire(import.meta.url);
+const reactEntry = require.resolve('react');
+const reactJsxRuntimeEntry = require.resolve('react/jsx-runtime');
+const reactJsxDevRuntimeEntry = require.resolve('react/jsx-dev-runtime');
+const reactDomEntry = require.resolve('react-dom');
+const baseUiReactEntry = require.resolve('@base-ui/react');
 
 /**
  * Documentation site Vite config — dev server for docs/playground iteration.
@@ -13,10 +21,17 @@ export default defineConfig({
   root: resolve(__dirname),
   appType: 'mpa',
   resolve: {
-    alias: {
+    dedupe: ['react', 'react-dom', '@base-ui/react'],
+    alias: [
       // Let `import ... from 'base-ic'` resolve to the source for HMR
-      'base-ic': resolve(__dirname, '../src/index.ts'),
-    },
+      { find: 'base-ic', replacement: resolve(__dirname, '../src/index.ts') },
+      // Ensure dependencies resolve from documentation/node_modules even when importing ../src/*
+      { find: /^react$/, replacement: reactEntry },
+      { find: /^react\/jsx-runtime$/, replacement: reactJsxRuntimeEntry },
+      { find: /^react\/jsx-dev-runtime$/, replacement: reactJsxDevRuntimeEntry },
+      { find: /^react-dom$/, replacement: reactDomEntry },
+      { find: /^@base-ui\/react$/, replacement: baseUiReactEntry },
+    ],
   },
   build: {
     rollupOptions: {
