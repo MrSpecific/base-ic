@@ -2,7 +2,14 @@
   border: none;
   background: var(--sep-color, var(--color-border-subtle));
   flex-shrink: 0;
-  margin: 0;
+  padding: var(--sep-padding-top, var(--sep-padding-y, var(--sep-padding, 0)))
+           var(--sep-padding-right, var(--sep-padding-x, var(--sep-padding, 0)))
+           var(--sep-padding-bottom, var(--sep-padding-y, var(--sep-padding, 0)))
+           var(--sep-padding-left, var(--sep-padding-x, var(--sep-padding, 0)));
+  margin: var(--sep-margin-top, var(--sep-margin-y, var(--sep-margin, 0)))
+          var(--sep-margin-right, var(--sep-margin-x, var(--sep-margin, 0)))
+          var(--sep-margin-bottom, var(--sep-margin-y, var(--sep-margin, 0)))
+          var(--sep-margin-left, var(--sep-margin-x, var(--sep-margin, 0)));
 }
 
 .horizontal {

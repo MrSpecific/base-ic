@@ -33,3 +33,41 @@ export function toCssVarValue(value?: string | number): string | undefined {
   if (value == null) return undefined;
   return typeof value === 'number' ? String(value) : value;
 }
+
+export type SpaceValue = number | string;
+
+export interface SpaceProps {
+  p?: SpaceValue;
+  px?: SpaceValue;
+  py?: SpaceValue;
+  pt?: SpaceValue;
+  pr?: SpaceValue;
+  pb?: SpaceValue;
+  pl?: SpaceValue;
+  m?: SpaceValue;
+  mx?: SpaceValue;
+  my?: SpaceValue;
+  mt?: SpaceValue;
+  mr?: SpaceValue;
+  mb?: SpaceValue;
+  ml?: SpaceValue;
+}
+
+export function buildSpaceVars(prefix: string, space: SpaceProps): Record<string, string | undefined> {
+  return {
+    [`--${prefix}-padding`]: toSpaceVar(space.p),
+    [`--${prefix}-padding-x`]: toSpaceVar(space.px),
+    [`--${prefix}-padding-y`]: toSpaceVar(space.py),
+    [`--${prefix}-padding-top`]: toSpaceVar(space.pt),
+    [`--${prefix}-padding-right`]: toSpaceVar(space.pr),
+    [`--${prefix}-padding-bottom`]: toSpaceVar(space.pb),
+    [`--${prefix}-padding-left`]: toSpaceVar(space.pl),
+    [`--${prefix}-margin`]: toSpaceVar(space.m),
+    [`--${prefix}-margin-x`]: toSpaceVar(space.mx),
+    [`--${prefix}-margin-y`]: toSpaceVar(space.my),
+    [`--${prefix}-margin-top`]: toSpaceVar(space.mt),
+    [`--${prefix}-margin-right`]: toSpaceVar(space.mr),
+    [`--${prefix}-margin-bottom`]: toSpaceVar(space.mb),
+    [`--${prefix}-margin-left`]: toSpaceVar(space.ml),
+  };
+}

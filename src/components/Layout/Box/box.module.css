@@ -1,3 +1,11 @@
 .box {
   min-width: 0;
+  padding: var(--box-padding-top, var(--box-padding-y, var(--box-padding, 0)))
+           var(--box-padding-right, var(--box-padding-x, var(--box-padding, 0)))
+           var(--box-padding-bottom, var(--box-padding-y, var(--box-padding, 0)))
+           var(--box-padding-left, var(--box-padding-x, var(--box-padding, 0)));
+  margin: var(--box-margin-top, var(--box-margin-y, var(--box-margin, 0)))
+          var(--box-margin-right, var(--box-margin-x, var(--box-margin, 0)))
+          var(--box-margin-bottom, var(--box-margin-y, var(--box-margin, 0)))
+          var(--box-margin-left, var(--box-margin-x, var(--box-margin, 0)));
 }

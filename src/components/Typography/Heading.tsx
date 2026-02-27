@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { cx } from '../Layout/layout.utils';
+import { cx, toSpaceVar, withVar } from '../Layout/layout.utils';
 import { buildTypoColorVar, buildTypoSizeVars } from './typography.utils';
 import styles from './heading.module.css';
 
@@ -9,6 +9,7 @@ type HeadingWeight = 'light' | 'regular' | 'medium' | 'semibold' | 'bold';
 type HeadingAlign = 'left' | 'center' | 'right';
 type HeadingWrap = 'wrap' | 'nowrap' | 'pretty' | 'balance';
 type HeadingTrim = 'normal' | 'start' | 'end' | 'both';
+type SpaceValue = number | string;
 
 export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   as?: HeadingElement;
@@ -20,6 +21,34 @@ export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   wrap?: HeadingWrap;
   trim?: HeadingTrim;
   truncate?: boolean;
+  /** Padding shorthand */
+  p?: SpaceValue;
+  /** Padding-inline shorthand */
+  px?: SpaceValue;
+  /** Padding-block shorthand */
+  py?: SpaceValue;
+  /** Padding-top */
+  pt?: SpaceValue;
+  /** Padding-right */
+  pr?: SpaceValue;
+  /** Padding-bottom */
+  pb?: SpaceValue;
+  /** Padding-left */
+  pl?: SpaceValue;
+  /** Margin shorthand */
+  m?: SpaceValue;
+  /** Margin-inline shorthand */
+  mx?: SpaceValue;
+  /** Margin-block shorthand */
+  my?: SpaceValue;
+  /** Margin-top */
+  mt?: SpaceValue;
+  /** Margin-right */
+  mr?: SpaceValue;
+  /** Margin-bottom */
+  mb?: SpaceValue;
+  /** Margin-left */
+  ml?: SpaceValue;
 }
 
 export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
@@ -34,6 +63,20 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       wrap,
       trim,
       truncate,
+      p,
+      px,
+      py,
+      pt,
+      pr,
+      pb,
+      pl,
+      m,
+      mx,
+      my,
+      mt,
+      mr,
+      mb,
+      ml,
       className,
       style,
       ...rest
@@ -45,6 +88,22 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     const weightVar = weight
       ? { '--typo-weight': `var(--font-weight-${weight})` } as React.CSSProperties
       : undefined;
+    const spaceVars = withVar(undefined, {
+      '--typo-padding': toSpaceVar(p),
+      '--typo-padding-x': toSpaceVar(px),
+      '--typo-padding-y': toSpaceVar(py),
+      '--typo-padding-top': toSpaceVar(pt),
+      '--typo-padding-right': toSpaceVar(pr),
+      '--typo-padding-bottom': toSpaceVar(pb),
+      '--typo-padding-left': toSpaceVar(pl),
+      '--typo-margin': toSpaceVar(m),
+      '--typo-margin-x': toSpaceVar(mx),
+      '--typo-margin-y': toSpaceVar(my),
+      '--typo-margin-top': toSpaceVar(mt),
+      '--typo-margin-right': toSpaceVar(mr),
+      '--typo-margin-bottom': toSpaceVar(mb),
+      '--typo-margin-left': toSpaceVar(ml),
+    });
 
     return (
       <Tag
@@ -59,6 +118,7 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
           ...sizeVars,
           ...colorVars,
           ...weightVar,
+          ...spaceVars,
           textAlign: align,
           textWrap: wrap,
           ...style,

@@ -11,7 +11,14 @@
   justify-content: center;
   gap: var(--btn-gap);
   min-height: var(--btn-height);
-  padding: 0 var(--btn-px);
+  padding: var(--btn-padding-top, var(--btn-padding-y, 0))
+           var(--btn-padding-right, var(--btn-padding-x, var(--btn-px)))
+           var(--btn-padding-bottom, var(--btn-padding-y, 0))
+           var(--btn-padding-left, var(--btn-padding-x, var(--btn-px)));
+  margin: var(--btn-margin-top, var(--btn-margin-y, var(--btn-margin, 0)))
+          var(--btn-margin-right, var(--btn-margin-x, var(--btn-margin, 0)))
+          var(--btn-margin-bottom, var(--btn-margin-y, var(--btn-margin, 0)))
+          var(--btn-margin-left, var(--btn-margin-x, var(--btn-margin, 0)));
   border: 1px solid transparent;
   border-radius: var(--btn-radius, var(--component-radius));
   font-family: var(--font-family-primary);

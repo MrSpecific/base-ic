@@ -2,7 +2,14 @@
   font-family: var(--font-family-mono);
   font-size: calc(var(--typo-font-size, var(--text-2-size)) * 0.9);
   line-height: 1;
-  padding: 0.15em 0.4em;
+  padding: var(--kbd-padding-top, var(--kbd-padding-y, var(--kbd-padding, 0.15em)))
+           var(--kbd-padding-right, var(--kbd-padding-x, var(--kbd-padding, 0.4em)))
+           var(--kbd-padding-bottom, var(--kbd-padding-y, var(--kbd-padding, 0.15em)))
+           var(--kbd-padding-left, var(--kbd-padding-x, var(--kbd-padding, 0.4em)));
+  margin: var(--kbd-margin-top, var(--kbd-margin-y, var(--kbd-margin, 0)))
+          var(--kbd-margin-right, var(--kbd-margin-x, var(--kbd-margin, 0)))
+          var(--kbd-margin-bottom, var(--kbd-margin-y, var(--kbd-margin, 0)))
+          var(--kbd-margin-left, var(--kbd-margin-x, var(--kbd-margin, 0)));
   border-radius: var(--radius-2);
   border: 1px solid var(--color-border);
   border-bottom-width: 2px;

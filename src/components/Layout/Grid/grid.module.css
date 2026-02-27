@@ -2,6 +2,14 @@
   display: grid;
   min-width: 0;
   gap: var(--grid-gap, var(--layout-gap-default));
+  padding: var(--grid-padding-top, var(--grid-padding-y, var(--grid-padding, 0)))
+           var(--grid-padding-right, var(--grid-padding-x, var(--grid-padding, 0)))
+           var(--grid-padding-bottom, var(--grid-padding-y, var(--grid-padding, 0)))
+           var(--grid-padding-left, var(--grid-padding-x, var(--grid-padding, 0)));
+  margin: var(--grid-margin-top, var(--grid-margin-y, var(--grid-margin, 0)))
+          var(--grid-margin-right, var(--grid-margin-x, var(--grid-margin, 0)))
+          var(--grid-margin-bottom, var(--grid-margin-y, var(--grid-margin, 0)))
+          var(--grid-margin-left, var(--grid-margin-x, var(--grid-margin, 0)));
   grid-template-columns: var(--grid-columns);
   grid-template-rows: var(--grid-rows);
   grid-auto-flow: var(--grid-auto-flow, row);

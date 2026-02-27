@@ -1,5 +1,12 @@
 .card {
-  padding: var(--card-padding, var(--space-3));
+  padding: var(--card-padding-top, var(--card-padding-y, var(--card-padding, var(--space-3))))
+           var(--card-padding-right, var(--card-padding-x, var(--card-padding, var(--space-3))))
+           var(--card-padding-bottom, var(--card-padding-y, var(--card-padding, var(--space-3))))
+           var(--card-padding-left, var(--card-padding-x, var(--card-padding, var(--space-3))));
+  margin: var(--card-margin-top, var(--card-margin-y, var(--card-margin, 0)))
+          var(--card-margin-right, var(--card-margin-x, var(--card-margin, 0)))
+          var(--card-margin-bottom, var(--card-margin-y, var(--card-margin, 0)))
+          var(--card-margin-left, var(--card-margin-x, var(--card-margin, 0)));
   border-radius: var(--component-radius);
   font-family: var(--font-family-primary);
   color: var(--color-text-primary);

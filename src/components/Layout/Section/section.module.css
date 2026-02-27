@@ -1,3 +1,10 @@
 .section {
-  padding-block: var(--section-padding, var(--layout-section-2));
+  padding: var(--section-padding-top, var(--section-padding-y, var(--section-padding, var(--layout-section-2))))
+           var(--section-padding-right, var(--section-padding-x, var(--section-padding, 0)))
+           var(--section-padding-bottom, var(--section-padding-y, var(--section-padding, var(--layout-section-2))))
+           var(--section-padding-left, var(--section-padding-x, var(--section-padding, 0)));
+  margin: var(--section-margin-top, var(--section-margin-y, var(--section-margin, 0)))
+          var(--section-margin-right, var(--section-margin-x, var(--section-margin, 0)))
+          var(--section-margin-bottom, var(--section-margin-y, var(--section-margin, 0)))
+          var(--section-margin-left, var(--section-margin-x, var(--section-margin, 0)));
 }

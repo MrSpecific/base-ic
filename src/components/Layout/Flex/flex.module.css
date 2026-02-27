@@ -2,6 +2,14 @@
   display: flex;
   min-width: 0;
   gap: var(--flex-gap, var(--layout-gap-default));
+  padding: var(--flex-padding-top, var(--flex-padding-y, var(--flex-padding, 0)))
+           var(--flex-padding-right, var(--flex-padding-x, var(--flex-padding, 0)))
+           var(--flex-padding-bottom, var(--flex-padding-y, var(--flex-padding, 0)))
+           var(--flex-padding-left, var(--flex-padding-x, var(--flex-padding, 0)));
+  margin: var(--flex-margin-top, var(--flex-margin-y, var(--flex-margin, 0)))
+          var(--flex-margin-right, var(--flex-margin-x, var(--flex-margin, 0)))
+          var(--flex-margin-bottom, var(--flex-margin-y, var(--flex-margin, 0)))
+          var(--flex-margin-left, var(--flex-margin-x, var(--flex-margin, 0)));
   flex-direction: var(--flex-direction, row);
   align-items: var(--flex-align, stretch);
   justify-content: var(--flex-justify, flex-start);

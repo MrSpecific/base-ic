@@ -173,6 +173,7 @@ base-ic components are exported as ergonomic wrappers with strongly-typed props.
 <Button size="2" variant="solid">Save</Button>
 <Badge variant="soft" color="green">Stable</Badge>
 <Card size="3" variant="surface">Content</Card>
+<Card p="5" px="6" mt="4">Custom card spacing</Card>
 ```
 
 ### Standard props
@@ -186,6 +187,8 @@ Most components accept these props:
 | `color` | `string` | Color ramp override (e.g. `blue`, `green`) |
 | `radius` | Named radius values | Border radius override |
 | `highContrast` | `boolean` | Increase foreground contrast |
+| `p` / `px` / `py` / `pt` / `pr` / `pb` / `pl` | `number \| string` | Padding controls (`number` maps to `--space-N`) |
+| `m` / `mx` / `my` / `mt` / `mr` / `mb` / `ml` | `number \| string` | Margin controls (`number` maps to `--space-N`) |
 
 ---
 

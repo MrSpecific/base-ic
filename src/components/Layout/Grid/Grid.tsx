@@ -1,8 +1,8 @@
 import * as React from 'react';
 import styles from './grid.module.css';
-import { cx, toCssVarValue, toSpaceVar, withVar } from '../layout.utils';
+import { buildSpaceVars, cx, type SpaceProps, toCssVarValue, toSpaceVar, withVar } from '../layout.utils';
 
-export interface GridProps extends React.HTMLAttributes<HTMLElement> {
+export interface GridProps extends React.HTMLAttributes<HTMLElement>, SpaceProps {
   as?: React.ElementType;
   columns?: React.CSSProperties['gridTemplateColumns'];
   rows?: React.CSSProperties['gridTemplateRows'];
@@ -23,6 +23,7 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(function Grid(
     align,
     justify,
     gap,
+    p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
     ...props
   },
   ref
@@ -34,6 +35,7 @@ export const Grid = React.forwardRef<HTMLElement, GridProps>(function Grid(
     '--grid-align': align,
     '--grid-justify': justify,
     '--grid-gap': toSpaceVar(gap),
+    ...buildSpaceVars('grid', { p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml }),
   });
 
   return <Comp ref={ref as never} className={cx(styles.grid, className)} style={nextStyle} {...props} />;

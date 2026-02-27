@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { cx } from '../Layout/layout.utils';
+import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
 import styles from './badge.module.css';
 
 type BadgeSize = '1' | '2' | '3';
 type BadgeVariant = 'solid' | 'soft' | 'surface' | 'outline';
 type BadgeRadius = 'none' | 'small' | 'medium' | 'large' | 'full';
 
-export interface BadgeProps extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
+export interface BadgeProps extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'>, SpaceProps {
   /** Visual size preset. Default: '1' */
   size?: BadgeSize;
   /** Visual variant. Default: 'soft' */
@@ -37,6 +37,20 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       radius,
       className,
       style,
+      p,
+      px,
+      py,
+      pt,
+      pr,
+      pb,
+      pl,
+      m,
+      mx,
+      my,
+      mt,
+      mr,
+      mb,
+      ml,
       ...rest
     },
     ref,
@@ -64,6 +78,10 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       ? { '--bdg-radius': radiusMap[radius] }
       : {};
 
+    const nextStyle = withVar(style, buildSpaceVars('bdg', {
+      p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
+    }));
+
     return (
       <span
         ref={ref}
@@ -77,7 +95,7 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
           ...sizeVars,
           ...colorVars,
           ...radiusVar,
-          ...style,
+          ...nextStyle,
         } as React.CSSProperties}
         {...rest}
       />

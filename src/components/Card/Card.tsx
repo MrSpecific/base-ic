@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { cx } from '../Layout/layout.utils';
+import { cx, toSpaceVar, withVar } from '../Layout/layout.utils';
 import styles from './card.module.css';
 
 type CardSize = '1' | '2' | '3' | '4' | '5';
 type CardVariant = 'surface' | 'classic' | 'ghost';
+type SpaceValue = number | string;
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Padding size preset. Default: '3' */
@@ -12,6 +13,34 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: CardVariant;
   /** Make the card interactive (adds hover/active states). */
   asButton?: boolean;
+  /** Padding shorthand */
+  p?: SpaceValue;
+  /** Padding-inline shorthand */
+  px?: SpaceValue;
+  /** Padding-block shorthand */
+  py?: SpaceValue;
+  /** Padding-top */
+  pt?: SpaceValue;
+  /** Padding-right */
+  pr?: SpaceValue;
+  /** Padding-bottom */
+  pb?: SpaceValue;
+  /** Padding-left */
+  pl?: SpaceValue;
+  /** Margin shorthand */
+  m?: SpaceValue;
+  /** Margin-inline shorthand */
+  mx?: SpaceValue;
+  /** Margin-block shorthand */
+  my?: SpaceValue;
+  /** Margin-top */
+  mt?: SpaceValue;
+  /** Margin-right */
+  mr?: SpaceValue;
+  /** Margin-bottom */
+  mb?: SpaceValue;
+  /** Margin-left */
+  ml?: SpaceValue;
 }
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
@@ -22,10 +51,41 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       asButton = false,
       className,
       style,
+      p,
+      px,
+      py,
+      pt,
+      pr,
+      pb,
+      pl,
+      m,
+      mx,
+      my,
+      mt,
+      mr,
+      mb,
+      ml,
       ...rest
     },
     ref,
   ) {
+    const nextStyle = withVar(style, {
+      '--card-padding': p != null ? toSpaceVar(p) : `var(--space-${size})`,
+      '--card-padding-x': toSpaceVar(px),
+      '--card-padding-y': toSpaceVar(py),
+      '--card-padding-top': toSpaceVar(pt),
+      '--card-padding-right': toSpaceVar(pr),
+      '--card-padding-bottom': toSpaceVar(pb),
+      '--card-padding-left': toSpaceVar(pl),
+      '--card-margin': toSpaceVar(m),
+      '--card-margin-x': toSpaceVar(mx),
+      '--card-margin-y': toSpaceVar(my),
+      '--card-margin-top': toSpaceVar(mt),
+      '--card-margin-right': toSpaceVar(mr),
+      '--card-margin-bottom': toSpaceVar(mb),
+      '--card-margin-left': toSpaceVar(ml),
+    });
+
     return (
       <div
         ref={ref}
@@ -35,10 +95,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
           asButton && styles.interactive,
           className,
         )}
-        style={{
-          '--card-padding': `var(--space-${size})`,
-          ...style,
-        } as React.CSSProperties}
+        style={nextStyle}
         role={asButton ? 'button' : undefined}
         tabIndex={asButton ? 0 : undefined}
         {...rest}

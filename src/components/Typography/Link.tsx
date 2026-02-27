@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { cx } from '../Layout/layout.utils';
+import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
 import { buildTypoColorVar, buildTypoSizeVars } from './typography.utils';
 import styles from './link.module.css';
 
@@ -7,7 +7,7 @@ type LinkSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 type LinkWeight = 'light' | 'regular' | 'medium' | 'semibold' | 'bold';
 type LinkUnderline = 'auto' | 'always' | 'hover' | 'none';
 
-export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>, SpaceProps {
   size?: LinkSize;
   weight?: LinkWeight;
   color?: string;
@@ -25,6 +25,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       highContrast,
       underline = 'auto',
       truncate,
+      p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
       className,
       style,
       ...rest
@@ -36,6 +37,9 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     const weightVar = weight
       ? { '--typo-weight': `var(--font-weight-${weight})` } as React.CSSProperties
       : undefined;
+    const spaceVars = withVar(undefined, buildSpaceVars('link', {
+      p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
+    }));
 
     return (
       <a
@@ -50,6 +54,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
           ...sizeVars,
           ...colorVars,
           ...weightVar,
+          ...spaceVars,
           ...style,
         }}
         {...rest}

@@ -5,6 +5,14 @@
   letter-spacing: var(--typo-letter-spacing, inherit);
   font-weight: var(--typo-weight, inherit);
   color: var(--typo-color, var(--color-text-link));
+  padding: var(--link-padding-top, var(--link-padding-y, var(--link-padding, 0)))
+           var(--link-padding-right, var(--link-padding-x, var(--link-padding, 0)))
+           var(--link-padding-bottom, var(--link-padding-y, var(--link-padding, 0)))
+           var(--link-padding-left, var(--link-padding-x, var(--link-padding, 0)));
+  margin: var(--link-margin-top, var(--link-margin-y, var(--link-margin, 0)))
+          var(--link-margin-right, var(--link-margin-x, var(--link-margin, 0)))
+          var(--link-margin-bottom, var(--link-margin-y, var(--link-margin, 0)))
+          var(--link-margin-left, var(--link-margin-x, var(--link-margin, 0)));
   text-decoration: none;
   cursor: pointer;
   transition: var(--transition-colors);

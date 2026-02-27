@@ -27,6 +27,18 @@ export function CardDocsPage() {
     '  <p>Useful for dashboards and selection UIs.</p>',
     '</Card>',
   ].join('\n');
+  const spacingSnippet = [
+    '<Card',
+    '  variant="surface"',
+    '  p="5"',
+    '  px="6"',
+    '  mt="4"',
+    '  mb="2"',
+    '>',
+    '  <h4>Spacing-controlled card</h4>',
+    '  <p>Use margin and padding shorthands directly on Card.</p>',
+    '</Card>',
+  ].join('\n');
 
   return (
     <>
@@ -53,11 +65,27 @@ export function CardDocsPage() {
               <p>Useful for dashboards and selection UIs.</p>
             </Card>
           </DemoCard>
+          <DemoCard
+            title="Spacing Props"
+            description="Control card spacing inline with margin/padding props."
+            code={spacingSnippet}
+          >
+            <div>
+              <Card variant="classic" p="2">
+                <p style={{ margin: 0 }}>Reference card (p=2)</p>
+              </Card>
+              <Card variant="surface" p="5" px="6" mt="4" mb="2">
+                <h4>Spacing-controlled card</h4>
+                <p>Use margin and padding shorthands directly on Card.</p>
+              </Card>
+            </div>
+          </DemoCard>
         </div>
       </DocsSection>
       <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Card Usage" code={usageSnippet} />
+        <CodeBlock title="Card Spacing Props" code={spacingSnippet} />
       </DocsSection>
     </>
   );

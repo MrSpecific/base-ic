@@ -37,11 +37,7 @@ export function HomePage({ goTo }: { goTo: (page: Page) => void }) {
         </Flex>
       </Section>
 
-      <Grid
-        className="marketing-grid"
-        columns="repeat(auto-fit, minmax(220px, 1fr))"
-        gap={3}
-      >
+      <Grid columns="repeat(auto-fit, minmax(220px, 1fr))" gap={4}>
         {[
           [
             "Token-first architecture",
@@ -56,21 +52,23 @@ export function HomePage({ goTo }: { goTo: (page: Page) => void }) {
             "Built on modern accessible primitives so behavior and interaction quality stay high by default.",
           ],
         ].map(([title, body]) => (
-          <Card key={title} className="marketing-card">
-            <h3>{title}</h3>
-            <p>{body}</p>
+          <Card key={title}>
+            <Heading as="h3" size="3" mb="2">
+              {title}
+            </Heading>
+            <Text as="p">{body}</Text>
           </Card>
         ))}
       </Grid>
 
-      <Card className="marketing-band" size="5">
+      <Card variant="surface" size="5" mt={5}>
         <Box>
-          <h2>From prototype to product system</h2>
-          <p>
+          <Heading as="h2">From prototype to product system</Heading>
+          <Text as="p">
             Start with out-of-the-box primitives, then progressively codify your
             brand, status patterns, and scaling model without rewriting
             component internals.
-          </p>
+          </Text>
         </Box>
       </Card>
     </Container>

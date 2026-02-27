@@ -5,7 +5,14 @@
   letter-spacing: var(--typo-letter-spacing, var(--heading-6-ls));
   font-weight: var(--typo-weight, var(--font-weight-bold));
   color: var(--typo-color, var(--color-text-primary));
-  margin: 0;
+  padding: var(--typo-padding-top, var(--typo-padding-y, var(--typo-padding, 0)))
+           var(--typo-padding-right, var(--typo-padding-x, var(--typo-padding, 0)))
+           var(--typo-padding-bottom, var(--typo-padding-y, var(--typo-padding, 0)))
+           var(--typo-padding-left, var(--typo-padding-x, var(--typo-padding, 0)));
+  margin: var(--typo-margin-top, var(--typo-margin-y, var(--typo-margin, 0)))
+          var(--typo-margin-right, var(--typo-margin-x, var(--typo-margin, 0)))
+          var(--typo-margin-bottom, var(--typo-margin-y, var(--typo-margin, 0)))
+          var(--typo-margin-left, var(--typo-margin-x, var(--typo-margin, 0)));
 }
 
 .truncate {

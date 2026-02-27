@@ -3,7 +3,14 @@
   align-items: center;
   justify-content: center;
   min-height: var(--bdg-height);
-  padding: 0 var(--bdg-px);
+  padding: var(--bdg-padding-top, var(--bdg-padding-y, 0))
+           var(--bdg-padding-right, var(--bdg-padding-x, var(--bdg-px)))
+           var(--bdg-padding-bottom, var(--bdg-padding-y, 0))
+           var(--bdg-padding-left, var(--bdg-padding-x, var(--bdg-px)));
+  margin: var(--bdg-margin-top, var(--bdg-margin-y, var(--bdg-margin, 0)))
+          var(--bdg-margin-right, var(--bdg-margin-x, var(--bdg-margin, 0)))
+          var(--bdg-margin-bottom, var(--bdg-margin-y, var(--bdg-margin, 0)))
+          var(--bdg-margin-left, var(--bdg-margin-x, var(--bdg-margin, 0)));
   border: 1px solid transparent;
   border-radius: var(--bdg-radius, min(var(--component-radius), var(--radius-full)));
   font-family: var(--font-family-primary);

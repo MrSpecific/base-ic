@@ -1,7 +1,14 @@
 .container {
+  padding: var(--container-padding-top, var(--container-padding-y, var(--container-padding, 0)))
+           var(--container-padding-right, var(--container-padding-x, var(--container-padding, 0)))
+           var(--container-padding-bottom, var(--container-padding-y, var(--container-padding, 0)))
+           var(--container-padding-left, var(--container-padding-x, var(--container-padding, 0)));
   width: min(
     var(--container-max-width, var(--layout-container-3)),
     calc(100% - (var(--container-gutter, var(--layout-container-gutter)) * 2))
   );
-  margin-inline: auto;
+  margin: var(--container-margin-top, var(--container-margin-y, var(--container-margin, 0)))
+          var(--container-margin-right, var(--container-margin-x, var(--container-margin, auto)))
+          var(--container-margin-bottom, var(--container-margin-y, var(--container-margin, 0)))
+          var(--container-margin-left, var(--container-margin-x, var(--container-margin, auto)));
 }

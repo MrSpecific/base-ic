@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Button as BaseButton } from '@base-ui/react';
-import { cx } from '../Layout/layout.utils';
+import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
 import styles from './button.module.css';
 
 type ButtonSize = '1' | '2' | '3' | '4';
 type ButtonVariant = 'solid' | 'soft' | 'surface' | 'outline' | 'ghost';
 type ButtonRadius = 'none' | 'small' | 'medium' | 'large' | 'full';
 
-export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
+export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'>, SpaceProps {
   /** Visual size preset. Default: '2' */
   size?: ButtonSize;
   /** Visual variant. Default: 'solid' */
@@ -44,6 +44,20 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       disabled,
       className,
       style,
+      p,
+      px,
+      py,
+      pt,
+      pr,
+      pb,
+      pl,
+      m,
+      mx,
+      my,
+      mt,
+      mr,
+      mb,
+      ml,
       children,
       render,
       ...rest
@@ -78,6 +92,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ? { '--btn-radius': radiusMap[radius] }
       : {};
 
+    const nextStyle = withVar(style, buildSpaceVars('btn', {
+      p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
+    }));
+
     return (
       <BaseButton
         ref={ref}
@@ -94,7 +112,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           ...sizeVars,
           ...colorVars,
           ...radiusVar,
-          ...style,
+          ...nextStyle,
         } as React.CSSProperties}
         {...rest}
       >
