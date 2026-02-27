@@ -249,6 +249,81 @@ body {
   font-size: var(--font-size-2);
 }
 
+.docs-list {
+  list-style: none;
+  margin: var(--space-3) 0;
+  display: grid;
+  gap: var(--space-1);
+  color: var(--color-text-secondary);
+}
+
+.docs-code-block + .docs-code-block {
+  margin-top: var(--space-3);
+}
+
+.docs-code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.docs-code-header strong {
+  font-size: var(--font-size-3);
+}
+
+.docs-copy-button {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-base);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-2);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.docs-copy-button[data-state='copied'] {
+  background: var(--color-success-solid);
+  border-color: var(--color-success-solid);
+  color: var(--color-success-contrast);
+}
+
+.docs-copy-button[data-state='error'] {
+  background: var(--color-danger-solid);
+  border-color: var(--color-danger-solid);
+  color: var(--color-danger-contrast);
+}
+
+.designer-grid {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.designer-card {
+  padding: var(--surface-padding-y) var(--surface-padding-x);
+  border-radius: var(--surface-radius);
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-subtle);
+}
+
+.designer-card h3 {
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-4);
+}
+
+.designer-card p {
+  margin: 0;
+}
+
+.designer-note {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-2);
+  color: var(--color-text-tertiary);
+}
+
 .playground-page {
   padding-bottom: var(--space-12);
 }

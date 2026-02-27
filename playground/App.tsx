@@ -4,11 +4,13 @@ import type { AccentColor, GrayColor, Radius, Scaling, Appearance } from '../src
 import '../src/tokens/index.css';
 import './playground.css';
 
-type Page = 'home' | 'docs' | 'playground';
+type Page = 'home' | 'docs' | 'customization' | 'for-designers' | 'playground';
 
 const NAV_ITEMS: Array<{ page: Page; label: string }> = [
   { page: 'home', label: 'Home' },
   { page: 'docs', label: 'Docs' },
+  { page: 'customization', label: 'Customization' },
+  { page: 'for-designers', label: 'For Designers' },
   { page: 'playground', label: 'Playground' },
 ];
 
@@ -50,12 +52,16 @@ function toDisplayName(value: string): string {
 function getPageFromPath(pathname: string): Page {
   const normalized = pathname.trim().replace(/\/+$/, '') || '/';
   if (normalized === '/docs') return 'docs';
+  if (normalized === '/customization') return 'customization';
+  if (normalized === '/for-designers') return 'for-designers';
   if (normalized === '/playground') return 'playground';
   return 'home';
 }
 
 function pageToPath(page: Page): string {
   if (page === 'docs') return '/docs';
+  if (page === 'customization') return '/customization';
+  if (page === 'for-designers') return '/for-designers';
   if (page === 'playground') return '/playground';
   return '/';
 }
@@ -66,6 +72,7 @@ function ThemePanel({
   radius, setRadius,
   scaling, setScaling,
   appearance, setAppearance,
+  defaultOpen,
 }: {
   accent: AccentColor;
   setAccent: (v: AccentColor) => void;
@@ -77,8 +84,9 @@ function ThemePanel({
   setScaling: (v: Scaling) => void;
   appearance: Appearance;
   setAppearance: (v: Appearance) => void;
+  defaultOpen: boolean;
 }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(defaultOpen);
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'error'>('idle');
 
   const copyTheme = async () => {
@@ -304,6 +312,419 @@ function DocsPage() {
   );
 }
 
+function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
+  const customColorSnippet = [
+    '<Theme',
+    '  accentColor="brand"',
+    '  customColors={{',
+    '    brand: {',
+    "      1: 'oklch(98% 0.01 250)',",
+    "      2: 'oklch(96% 0.02 250)',",
+    "      3: 'oklch(93% 0.04 250)',",
+    "      4: 'oklch(89% 0.06 250)',",
+    "      5: 'oklch(84% 0.08 250)',",
+    "      6: 'oklch(77% 0.10 250)',",
+    "      7: 'oklch(69% 0.12 250)',",
+    "      8: 'oklch(60% 0.14 250)',",
+    "      9: 'oklch(52% 0.15 250)',",
+    "      10: 'oklch(46% 0.15 250)',",
+    "      11: 'oklch(38% 0.13 250)',",
+    "      12: 'oklch(22% 0.08 250)',",
+    "      contrast: 'white',",
+    '    },',
+    '  }}',
+    '>',
+    '  <App />',
+    '</Theme>',
+  ].join('\n');
+
+  const fontSnippet = [
+    '<Theme',
+    '  fontFamily={{',
+    "    primary: 'Inter, ui-sans-serif, system-ui, sans-serif',",
+    "    display: 'Sora, Inter, ui-sans-serif, system-ui, sans-serif',",
+    "    monospace: 'JetBrains Mono, ui-monospace, monospace',",
+    '  }}',
+    '>',
+    '  <App />',
+    '</Theme>',
+  ].join('\n');
+
+  const semanticSnippet = [
+    ':root {',
+    '  --button-min-height: 2.75rem;',
+    '  --button-padding-x: 1rem;',
+    '  --surface-radius: 10px;',
+    '  --status-badge-min-height: 1.75rem;',
+    '}',
+  ].join('\n');
+
+  return (
+    <main className="site-page docs-page">
+      <section className="docs-section">
+        <h1>Customization</h1>
+        <p>
+          Base-ic is designed to be customized through `Theme` props and semantic CSS tokens.
+          Start with runtime props, then promote stable patterns into tokens.
+        </p>
+      </section>
+
+      <section className="docs-section">
+        <h2>1. Extend Color Palettes</h2>
+        <p>
+          Add brand palettes with `customColors`, then point `accentColor` at your custom name.
+          Provide all 12 steps plus a contrast color for solid fills.
+        </p>
+        <pre><code>{customColorSnippet}</code></pre>
+      </section>
+
+      <section className="docs-section">
+        <h2>2. Override Font Families</h2>
+        <p>
+          Set `fontFamily` slots for primary UI text, display typography, and monospace surfaces.
+          Unspecified slots continue to inherit defaults.
+        </p>
+        <pre><code>{fontSnippet}</code></pre>
+      </section>
+
+      <section className="docs-section">
+        <h2>3. Tune Semantic Tokens</h2>
+        <p>
+          Use semantic tokens for reusable patterns like buttons, surfaces, badges, and status components.
+          These tokens automatically participate in theme scaling.
+        </p>
+        <pre><code>{semanticSnippet}</code></pre>
+      </section>
+
+      <section className="docs-section">
+        <h2>Recommended Workflow</h2>
+        <ul className="docs-list">
+          <li>1. Pick accent/gray/radius/scaling/appearance in Theme props.</li>
+          <li>2. Define brand color ramps with `customColors` when defaults are not enough.</li>
+          <li>3. Set typography with `fontFamily` slots.</li>
+          <li>4. Move shared UI decisions into semantic tokens.</li>
+          <li>5. Validate combinations in the playground.</li>
+        </ul>
+        <button className="site-button site-button-solid" onClick={() => goTo('playground')}>
+          Open Playground
+        </button>
+      </section>
+    </main>
+  );
+}
+
+function CopyableJsonBlock({ title, json }: { title: string; json: string }) {
+  const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'error'>('idle');
+
+  const onCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(json);
+      setCopyStatus('copied');
+    } catch {
+      setCopyStatus('error');
+    }
+    window.setTimeout(() => setCopyStatus('idle'), 1400);
+  };
+
+  return (
+    <div className="docs-code-block">
+      <div className="docs-code-header">
+        <strong>{title}</strong>
+        <button
+          type="button"
+          className="docs-copy-button"
+          data-state={copyStatus}
+          onClick={onCopy}
+        >
+          {copyStatus === 'copied' ? 'Copied' : copyStatus === 'error' ? 'Copy Failed' : 'Copy JSON'}
+        </button>
+      </div>
+      <pre><code>{json}</code></pre>
+    </div>
+  );
+}
+
+function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
+  const primitiveTokensJson = JSON.stringify({
+    color: {
+      blue: {
+        1: '{color.blue.1}',
+        2: '{color.blue.2}',
+        3: '{color.blue.3}',
+        4: '{color.blue.4}',
+        5: '{color.blue.5}',
+        6: '{color.blue.6}',
+        7: '{color.blue.7}',
+        8: '{color.blue.8}',
+        9: '{color.blue.9}',
+        10: '{color.blue.10}',
+        11: '{color.blue.11}',
+        12: '{color.blue.12}',
+        contrast: '{color.blue.contrast}',
+      },
+      gray: {
+        1: '{color.gray.1}',
+        2: '{color.gray.2}',
+        3: '{color.gray.3}',
+        4: '{color.gray.4}',
+        5: '{color.gray.5}',
+        6: '{color.gray.6}',
+        7: '{color.gray.7}',
+        8: '{color.gray.8}',
+        9: '{color.gray.9}',
+        10: '{color.gray.10}',
+        11: '{color.gray.11}',
+        12: '{color.gray.12}',
+        contrast: '{color.gray.contrast}',
+      },
+    },
+    space: {
+      1: '4px',
+      2: '8px',
+      3: '12px',
+      4: '16px',
+      5: '20px',
+      6: '24px',
+      7: '28px',
+      8: '32px',
+      9: '40px',
+      10: '48px',
+      11: '64px',
+      12: '80px',
+    },
+    radius: {
+      1: '2px',
+      2: '4px',
+      3: '6px',
+      4: '8px',
+      5: '12px',
+      6: '16px',
+      full: '9999px',
+    },
+    typography: {
+      'font-size': {
+        1: '12px',
+        2: '13px',
+        3: '14px',
+        4: '16px',
+        5: '18px',
+        6: '20px',
+        7: '24px',
+        8: '30px',
+        9: '36px',
+      },
+      'font-family': {
+        primary: 'Inter, ui-sans-serif, system-ui, sans-serif',
+        display: 'Sora, Inter, ui-sans-serif, system-ui, sans-serif',
+        mono: 'JetBrains Mono, ui-monospace, monospace',
+      },
+    },
+  }, null, 2);
+
+  const semanticTokensJson = JSON.stringify({
+    color: {
+      accent: {
+        1: '{color.blue.1}',
+        2: '{color.blue.2}',
+        3: '{color.blue.3}',
+        4: '{color.blue.4}',
+        5: '{color.blue.5}',
+        6: '{color.blue.6}',
+        7: '{color.blue.7}',
+        8: '{color.blue.8}',
+        9: '{color.blue.9}',
+        10: '{color.blue.10}',
+        11: '{color.blue.11}',
+        12: '{color.blue.12}',
+        contrast: '{color.blue.contrast}',
+      },
+      neutral: {
+        1: '{color.gray.1}',
+        2: '{color.gray.2}',
+        3: '{color.gray.3}',
+        4: '{color.gray.4}',
+        5: '{color.gray.5}',
+        6: '{color.gray.6}',
+        7: '{color.gray.7}',
+        8: '{color.gray.8}',
+        9: '{color.gray.9}',
+        10: '{color.gray.10}',
+        11: '{color.gray.11}',
+        12: '{color.gray.12}',
+      },
+      text: {
+        primary: '{color.neutral.12}',
+        secondary: '{color.neutral.11}',
+        tertiary: '{color.neutral.10}',
+        disabled: '{color.neutral.8}',
+      },
+      border: {
+        subtle: '{color.neutral.6}',
+        default: '{color.neutral.7}',
+        strong: '{color.neutral.8}',
+      },
+      surface: {
+        base: '{color.neutral.1}',
+        subtle: '{color.neutral.2}',
+        raised: '#ffffff',
+        overlay: '#ffffff',
+      },
+      status: {
+        danger: {
+          bg: '{color.red.3}',
+          border: '{color.red.7}',
+          text: '{color.red.11}',
+          solid: '{color.red.9}',
+          contrast: '{color.red.contrast}',
+        },
+        success: {
+          bg: '{color.green.3}',
+          border: '{color.green.7}',
+          text: '{color.green.11}',
+          solid: '{color.green.9}',
+          contrast: '{color.green.contrast}',
+        },
+        warning: {
+          bg: '{color.orange.3}',
+          border: '{color.orange.7}',
+          text: '{color.orange.11}',
+          solid: '{color.orange.9}',
+          contrast: '{color.orange.contrast}',
+        },
+        info: {
+          bg: '{color.blue.3}',
+          border: '{color.blue.7}',
+          text: '{color.blue.11}',
+          solid: '{color.blue.9}',
+          contrast: '{color.blue.contrast}',
+        },
+      },
+    },
+  }, null, 2);
+
+  const componentPatternTokensJson = JSON.stringify({
+    component: {
+      radius: '{radius.3}',
+      scale: '1',
+      button: {
+        'padding-y': '{space.2}',
+        'padding-x': '{space.4}',
+        'min-height': '40px',
+        'font-size': '{typography.font-size.3}',
+        radius: '{component.radius}',
+      },
+      badge: {
+        'padding-y': '{space.1}',
+        'padding-x': '{space.3}',
+        'min-height': '32px',
+        'font-size': '{typography.font-size.2}',
+        radius: '{radius.full}',
+      },
+      surface: {
+        'padding-y': '{space.4}',
+        'padding-x': '{space.4}',
+        radius: 'min({component.radius}, {radius.4})',
+      },
+    },
+  }, null, 2);
+
+  return (
+    <main className="site-page docs-page">
+      <section className="docs-section">
+        <h1>For Designers</h1>
+        <p>
+          Use these token conventions to set up Figma variables quickly and keep your designs aligned with Base-IC semantics.
+          Product teams can then swap themes in code without redesigning component structure.
+        </p>
+      </section>
+
+      <section className="docs-section">
+        <h2>Token Scales at a Glance</h2>
+        <div className="designer-grid">
+          <article className="designer-card">
+            <h3>Color Steps</h3>
+            <p>Every hue uses a 12-step scale plus contrast.</p>
+            <p className="designer-note">1-2 backgrounds, 3-5 subtle surfaces, 6-8 borders, 9-10 solid fills, 11-12 text/icons.</p>
+          </article>
+          <article className="designer-card">
+            <h3>Spacing</h3>
+            <p>`space-1` to `space-12` (4px to 80px)</p>
+            <p className="designer-note">Use these for padding, gap, section rhythm, and component internals.</p>
+          </article>
+          <article className="designer-card">
+            <h3>Radius</h3>
+            <p>`radius-1` to `radius-6` plus `radius-full`</p>
+            <p className="designer-note">Component rounding is controlled globally through `component-radius`.</p>
+          </article>
+          <article className="designer-card">
+            <h3>Type Scale</h3>
+            <p>`font-size-1` to `font-size-9` (12px to 36px)</p>
+            <p className="designer-note">Map to text styles in Figma so docs and UI match in both tools.</p>
+          </article>
+        </div>
+      </section>
+
+      <section className="docs-section">
+        <h2>Copyable JSON Token Objects</h2>
+        <p>
+          These JSON objects are formatted for quick copy/paste into design-token plugins,
+          internal scripts, or handoff docs used by your Figma team.
+        </p>
+        <CopyableJsonBlock title="Primitives (colors, spacing, type, radius)" json={primitiveTokensJson} />
+        <CopyableJsonBlock title="Semantics (accent, neutral, text, surfaces, status)" json={semanticTokensJson} />
+        <CopyableJsonBlock title="Component Patterns (button, badge, surface)" json={componentPatternTokensJson} />
+      </section>
+
+      <section className="docs-section">
+        <h2>Figma Variable Naming</h2>
+        <p>
+          Mirror code token names in Figma variables to reduce translation overhead during handoff.
+          Keep aliases (`accent`, `neutral`, `status`) separate from raw hue scales.
+        </p>
+        <pre><code>{[
+          'color/blue/1',
+          'color/blue/2',
+          '...',
+          'color/blue/12',
+          'color/blue/contrast',
+          'color/accent/1',
+          '...',
+          'color/accent/12',
+          'color/neutral/1',
+          '...',
+          'color/neutral/12',
+          'font/family/primary',
+          'font/family/display',
+          'font/family/mono',
+          'radius/1',
+          'radius/2',
+          '...',
+          'radius/full',
+        ].join('\n')}</code></pre>
+      </section>
+
+      <section className="docs-section">
+        <h2>Recommended Figma Setup Workflow</h2>
+        <ul className="docs-list">
+          <li>1. Create color collections for each hue with 1-12 + contrast variables.</li>
+          <li>2. Create semantic aliases: accent, neutral, text, border, surface, status.</li>
+          <li>3. Create primitive collections for spacing, radius, and type scale.</li>
+          <li>4. Build component libraries using only semantic variables for fill/stroke/text.</li>
+          <li>5. Validate themes in Playground and sync any token changes back to Figma.</li>
+        </ul>
+        <div className="hero-actions">
+          <button className="site-button site-button-solid" onClick={() => goTo('playground')}>
+            Open Playground
+          </button>
+          <button className="site-button site-button-ghost" onClick={() => goTo('customization')}>
+            View Customization
+          </button>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 function PlaygroundPage({ radius }: { radius: Radius }) {
   return (
     <main className="site-page playground-page">
@@ -490,6 +911,8 @@ export default function App() {
 
   const pageContent = useMemo(() => {
     if (page === 'docs') return <DocsPage />;
+    if (page === 'customization') return <CustomizationPage goTo={goTo} />;
+    if (page === 'for-designers') return <ForDesignersPage goTo={goTo} />;
     if (page === 'playground') return <PlaygroundPage radius={radius} />;
     return <HomePage goTo={goTo} />;
   }, [page, radius]);
@@ -522,20 +945,19 @@ export default function App() {
         {pageContent}
       </div>
 
-      {page === 'playground' && (
-        <ThemePanel
-          accent={accent}
-          setAccent={setAccent}
-          gray={gray}
-          setGray={setGray}
-          radius={radius}
-          setRadius={setRadius}
-          scaling={scaling}
-          setScaling={setScaling}
-          appearance={appearance}
-          setAppearance={setAppearance}
-        />
-      )}
+      <ThemePanel
+        accent={accent}
+        setAccent={setAccent}
+        gray={gray}
+        setGray={setGray}
+        radius={radius}
+        setRadius={setRadius}
+        scaling={scaling}
+        setScaling={setScaling}
+        appearance={appearance}
+        setAppearance={setAppearance}
+        defaultOpen={page === 'playground'}
+      />
     </Theme>
   );
 }
