@@ -1,5 +1,6 @@
 import { Box, Container, Section } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsDemoGrid } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
@@ -38,7 +39,7 @@ export function ContainerDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Demo</h2>
-        <div className="docs-demo-grid">
+        <DocsDemoGrid>
           <DemoCard title="Container Sizes" description="Compare width presets side-by-side." code={sizeDemoSnippet}>
             <Section py={2}>
               <Container size="1"><Box className="docs-layout-chip">Size 1</Box></Container>
@@ -54,7 +55,7 @@ export function ContainerDocsPage() {
               </Box>
             </Container>
           </DemoCard>
-        </div>
+        </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
         <h2>Usage</h2>

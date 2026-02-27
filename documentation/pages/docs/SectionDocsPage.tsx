@@ -1,5 +1,6 @@
 import { Box, Section } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsDemoGrid } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
@@ -39,7 +40,7 @@ export function SectionDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Demo</h2>
-        <div className="docs-demo-grid">
+        <DocsDemoGrid>
           <DemoCard title="Preset Sizes" description="`size` scales spacing with semantic tokens." code={presetSizesDemoSnippet}>
             <Box className="docs-layout-sample-stack">
               <Section size="1"><Box className="docs-layout-chip">Section 1</Box></Section>
@@ -55,7 +56,7 @@ export function SectionDocsPage() {
               </Box>
             </Section>
           </DemoCard>
-        </div>
+        </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
         <h2>Usage</h2>

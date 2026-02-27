@@ -1,5 +1,6 @@
 import { Box, Grid } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsDemoGrid } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
@@ -39,7 +40,7 @@ export function GridDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Demo</h2>
-        <div className="docs-demo-grid">
+        <DocsDemoGrid>
           <DemoCard title="Three Column Grid" description="Simple card layout with equal tracks." code={threeColDemoSnippet}>
             <Grid columns="repeat(3, minmax(0, 1fr))" gap={2}>
               {[1, 2, 3].map((n) => (
@@ -54,7 +55,7 @@ export function GridDocsPage() {
               ))}
             </Grid>
           </DemoCard>
-        </div>
+        </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
         <h2>Usage</h2>

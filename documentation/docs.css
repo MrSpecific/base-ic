@@ -100,20 +100,6 @@
   font-size: var(--font-size-2);
 }
 
-.docs-list {
-  list-style: none;
-  margin: var(--space-2) 0;
-  display: grid;
-  gap: var(--space-1);
-  color: var(--color-text-secondary);
-}
-
-.docs-demo-grid {
-  display: grid;
-  gap: var(--space-4);
-  grid-template-columns: minmax(0, 1fr);
-}
-
 .docs-demo-surface {
   min-width: 0;
   display: grid;
@@ -122,21 +108,6 @@
 
 .docs-demo-surface > * {
   min-width: 0;
-}
-
-.docs-demo-eyebrow {
-  margin: 0;
-  font-size: var(--font-size-1);
-  letter-spacing: var(--letter-spacing-5);
-  text-transform: uppercase;
-  color: var(--color-text-tertiary);
-  font-family: var(--font-family-mono);
-}
-
-.docs-demo-button-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
 }
 
 .docs-layout-sample-box {

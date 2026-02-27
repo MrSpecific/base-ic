@@ -1,5 +1,6 @@
 import { Flex, Separator } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsDemoGrid } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
@@ -46,7 +47,7 @@ export function SeparatorDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Demo</h2>
-        <div className="docs-demo-grid">
+        <DocsDemoGrid>
           <DemoCard title="Horizontal" description="Divide stacked content sections." code={horizontalSnippet}>
             <div className="docs-layout-sample-box">
               <div>Profile</div>
@@ -61,7 +62,7 @@ export function SeparatorDocsPage() {
               <span>Advanced</span>
             </Flex>
           </DemoCard>
-        </div>
+        </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
         <h2>Usage</h2>

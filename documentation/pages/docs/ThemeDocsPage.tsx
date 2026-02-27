@@ -1,6 +1,6 @@
 import { Button, Theme } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
-import { DocsList } from '../../components/DocsPrimitives';
+import { DocsDemoGrid, DocsDemoRow, DocsEyebrow, DocsList } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
@@ -51,18 +51,18 @@ export function ThemeDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Demo</h2>
-        <div className="docs-demo-grid">
+        <DocsDemoGrid>
           <Theme accentColor="blue" grayColor="slate" radius="medium" scaling="100%" appearance="inherit">
             <DemoCard
               title="Product Theme"
               description="Balanced neutral palette for most product surfaces."
               code={productThemeDemoSnippet}
             >
-              <p className="docs-demo-eyebrow">Blue + Slate</p>
-              <div className="docs-demo-button-row">
+              <DocsEyebrow>Blue + Slate</DocsEyebrow>
+              <DocsDemoRow>
                 <Button variant="solid" size="3">Primary Action</Button>
                 <Button variant="surface" size="3">Secondary Action</Button>
-              </div>
+              </DocsDemoRow>
             </DemoCard>
           </Theme>
           <Theme accentColor="orange" grayColor="gray" radius="large" scaling="100%" appearance="inherit">
@@ -71,14 +71,14 @@ export function ThemeDocsPage() {
               description="Higher energy accent and softer card shape for campaigns."
               code={marketingThemeDemoSnippet}
             >
-              <p className="docs-demo-eyebrow">Orange + Gray</p>
-              <div className="docs-demo-button-row">
+              <DocsEyebrow>Orange + Gray</DocsEyebrow>
+              <DocsDemoRow>
                 <Button variant="solid" size="3">Get Started</Button>
                 <Button variant="surface" size="3">Learn More</Button>
-              </div>
+              </DocsDemoRow>
             </DemoCard>
           </Theme>
-        </div>
+        </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
         <h2>Usage</h2>

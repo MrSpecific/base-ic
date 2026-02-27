@@ -1,5 +1,6 @@
 import { Code, Em, Heading, Kbd, Link, Quote, Strong, Text } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsDemoGrid } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
@@ -38,7 +39,7 @@ export function TypographyDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Demo</h2>
-        <div className="docs-demo-grid">
+        <DocsDemoGrid>
           <DemoCard title="Scale" description="Compose heading and body levels with tokenized sizes." code={scaleSnippet}>
             <div>
               <Heading as="h3" size="8">Display Heading</Heading>
@@ -58,7 +59,7 @@ export function TypographyDocsPage() {
               Explore Base UI primitives
             </Link>
           </DemoCard>
-        </div>
+        </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
         <h2>Usage</h2>

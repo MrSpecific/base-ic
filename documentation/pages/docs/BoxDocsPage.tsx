@@ -1,5 +1,6 @@
 import { Box } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsDemoGrid } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
@@ -36,7 +37,7 @@ export function BoxDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Demo</h2>
-        <div className="docs-demo-grid">
+        <DocsDemoGrid>
           <DemoCard title="Semantic Wrapper" description="Render any semantic element with `as`." code={semanticWrapperDemo}>
             <Box as="article" className="docs-layout-sample-box">
               <h4>Product Card</h4>
@@ -49,7 +50,7 @@ export function BoxDocsPage() {
               <p>Override details via style or className without changing primitive behavior.</p>
             </Box>
           </DemoCard>
-        </div>
+        </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
         <h2>Usage</h2>

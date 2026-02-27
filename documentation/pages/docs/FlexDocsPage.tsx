@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Heading } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
+import { DocsDemoGrid } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
 import { DemoCard } from "./DemoCard";
 
@@ -43,7 +44,7 @@ export function FlexDocsPage() {
       </DocsSection>
       <DocsSection>
         <Heading>Demo</Heading>
-        <div className="docs-demo-grid">
+        <DocsDemoGrid>
           <DemoCard
             title="Toolbar Row"
             description="Horizontal distribution with centered alignment."
@@ -77,7 +78,7 @@ export function FlexDocsPage() {
               ))}
             </Flex>
           </DemoCard>
-        </div>
+        </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
         <h2>Usage</h2>

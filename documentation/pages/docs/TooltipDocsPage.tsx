@@ -1,6 +1,6 @@
 import { Button, Tooltip } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
-import { DocsList } from '../../components/DocsPrimitives';
+import { DocsDemoGrid, DocsDemoRow, DocsList } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
@@ -51,13 +51,13 @@ export function TooltipDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Demo</h2>
-        <div className="docs-demo-grid">
+        <DocsDemoGrid>
           <DemoCard
             title="Directional Hints"
             description="Show context near controls while keeping the layout clean."
             code={directionalDemoSnippet}
           >
-            <div className="tooltip-demo-row">
+            <DocsDemoRow>
               <Tooltip content="Top helper text" side="top">
                 <Button className="tooltip-demo-trigger" variant="surface" size="2">Top</Button>
               </Tooltip>
@@ -67,23 +67,23 @@ export function TooltipDocsPage() {
               <Tooltip content="Bottom helper text" side="bottom">
                 <Button className="tooltip-demo-trigger" variant="surface" size="2">Bottom</Button>
               </Tooltip>
-            </div>
+            </DocsDemoRow>
           </DemoCard>
           <DemoCard
             title="Form Help"
             description="Use tooltips to explain dense controls without adding persistent text."
             code={formHelpDemoSnippet}
           >
-            <div className="tooltip-demo-row">
+            <DocsDemoRow>
               <Tooltip content="Controls visual density and touch target size." side="top">
                 <Button className="tooltip-demo-trigger" variant="surface" size="2">Density</Button>
               </Tooltip>
               <Tooltip content="Show helper text only when users need it." side="top">
                 <Button className="tooltip-demo-trigger" variant="surface" size="2">Info</Button>
               </Tooltip>
-            </div>
+            </DocsDemoRow>
           </DemoCard>
-        </div>
+        </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
         <h2>Usage</h2>

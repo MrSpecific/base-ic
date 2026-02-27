@@ -1,6 +1,6 @@
 import { Button, Popover } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
-import { DocsList } from '../../components/DocsPrimitives';
+import { DocsDemoGrid, DocsList } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
@@ -74,7 +74,7 @@ export function PopoverDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Demo</h2>
-        <div className="docs-demo-grid">
+        <DocsDemoGrid>
           <DemoCard
             title="Actions Popover"
             description="Great for contextual actions that do not need a full modal."
@@ -119,7 +119,7 @@ export function PopoverDocsPage() {
               </Popover>
             </div>
           </DemoCard>
-        </div>
+        </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
         <h2>Usage</h2>
