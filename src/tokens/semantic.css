@@ -252,6 +252,13 @@
   --popover-arrow-size:       12px;
 
   /* -------------------------------------------------------------------------
+   * Semantic code patterns
+   * -------------------------------------------------------------------------
+   */
+  --code-inline-radius:       min(var(--component-radius), var(--radius-2));
+  --code-block-radius:        var(--surface-radius);
+
+  /* -------------------------------------------------------------------------
    * Semantic status patterns (layout + sizing)
    * -------------------------------------------------------------------------
    * Shared structure tokens for status surfaces and status badges.
@@ -371,6 +378,39 @@
   --font-family-tertiary:  var(--font-family-secondary);
   --font-family-display:   var(--font-family-sans-stack);
   --font-family-mono:      var(--font-family-mono-stack);
+}
+
+/* ---------------------------------------------------------------------------
+ * Theme radius mapping for surfaces
+ * ---------------------------------------------------------------------------
+ * Theme sets `data-radius` on its root. Surface primitives (Card, docs panels,
+ * status surfaces, etc.) map that named radius into tuned surface radii.
+ * We intentionally clamp "full" to a large rounded corner instead of pills.
+ */
+
+:where([data-radius='none']) {
+  --surface-radius: var(--surface-radius-none);
+  --card-radius: var(--surface-radius-none);
+}
+
+:where([data-radius='small']) {
+  --surface-radius: var(--surface-radius-small);
+  --card-radius: var(--surface-radius-small);
+}
+
+:where([data-radius='medium']) {
+  --surface-radius: var(--surface-radius-medium);
+  --card-radius: var(--surface-radius-medium);
+}
+
+:where([data-radius='large']) {
+  --surface-radius: var(--surface-radius-large);
+  --card-radius: var(--surface-radius-large);
+}
+
+:where([data-radius='full']) {
+  --surface-radius: var(--surface-radius-full);
+  --card-radius: var(--surface-radius-full);
 }
 
 /* ---------------------------------------------------------------------------

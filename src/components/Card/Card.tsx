@@ -47,11 +47,11 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const radiusMap: Record<CardRadius, string> = {
-  none: '0',
-  small: 'var(--radius-2)',
-  medium: 'var(--radius-3)',
-  large: 'var(--radius-5)',
-  full: 'var(--radius-full)',
+  none: 'var(--surface-radius-none)',
+  small: 'var(--surface-radius-small)',
+  medium: 'var(--surface-radius-medium)',
+  large: 'var(--surface-radius-large)',
+  full: 'var(--surface-radius-full)',
 };
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(

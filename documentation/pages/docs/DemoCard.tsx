@@ -33,6 +33,7 @@ export function DemoCard({
             {showCode ? "Hide code" : "View code"}
           </Button>
         </Flex>
+
         <Text as="p">{description}</Text>
       </Box>
       {!showCode && (
