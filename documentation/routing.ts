@@ -17,9 +17,9 @@ export function getRouteFromPath(pathname: string): RouteState {
 }
 
 export function pageToPath(page: Page, docsSection: DocsSection = 'overview'): string {
-  if (page === 'docs') return docsSection === 'overview' ? '/docs' : `/docs/${docsSection}`;
-  if (page === 'customization') return '/customization';
-  if (page === 'for-designers') return '/for-designers';
-  if (page === 'playground') return '/playground';
+  if (page === 'docs') return docsSection === 'overview' ? '/docs/' : `/docs/${docsSection}/`;
+  if (page === 'customization') return '/customization/';
+  if (page === 'for-designers') return '/for-designers/';
+  if (page === 'playground') return '/playground/';
   return '/';
 }
