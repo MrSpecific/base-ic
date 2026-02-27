@@ -37,6 +37,7 @@ export type AccentColor =
   | 'lime'
   | 'mint'
   | 'sky'
+  | 'black'
   | (string & {}); // Allow custom color names
 
 export type GrayColor =

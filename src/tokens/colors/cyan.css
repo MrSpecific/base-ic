@@ -1,0 +1,19 @@
+/**
+ * Cyan scale
+ */
+
+:root {
+  --color-cyan-1:  oklch(98.5% 0.010 210);
+  --color-cyan-2:  oklch(97.0% 0.018 210);
+  --color-cyan-3:  oklch(93.5% 0.040 210);
+  --color-cyan-4:  oklch(89.5% 0.062 210);
+  --color-cyan-5:  oklch(84.5% 0.078 210);
+  --color-cyan-6:  oklch(78.0% 0.094 210);
+  --color-cyan-7:  oklch(69.0% 0.114 210);
+  --color-cyan-8:  oklch(58.0% 0.140 210);
+  --color-cyan-9:  oklch(52.0% 0.182 210);
+  --color-cyan-10: oklch(46.0% 0.168 210);
+  --color-cyan-11: oklch(40.0% 0.142 210);
+  --color-cyan-12: oklch(22.0% 0.080 210);
+  --color-cyan-contrast: white;
+}

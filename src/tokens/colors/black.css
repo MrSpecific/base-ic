@@ -1,0 +1,19 @@
+/**
+ * Black (monochrome accent) scale
+ */
+
+:root {
+  --color-black-1:  oklch(99.0% 0.000 0);
+  --color-black-2:  oklch(97.5% 0.000 0);
+  --color-black-3:  oklch(94.0% 0.000 0);
+  --color-black-4:  oklch(90.0% 0.000 0);
+  --color-black-5:  oklch(84.0% 0.000 0);
+  --color-black-6:  oklch(76.0% 0.000 0);
+  --color-black-7:  oklch(66.0% 0.000 0);
+  --color-black-8:  oklch(52.0% 0.000 0);
+  --color-black-9:  oklch(36.0% 0.000 0);
+  --color-black-10: oklch(31.0% 0.000 0);
+  --color-black-11: oklch(25.0% 0.000 0);
+  --color-black-12: oklch(12.0% 0.000 0);
+  --color-black-contrast: white;
+}

@@ -15,7 +15,7 @@ const NAV_ITEMS: Array<{ page: Page; label: string }> = [
 ];
 
 const ACCENT_COLORS: AccentColor[] = [
-  'blue', 'violet', 'red', 'green', 'orange', 'yellow', 'pink', 'teal',
+  'blue', 'violet', 'red', 'green', 'orange', 'yellow', 'pink', 'teal', 'cyan', 'black',
 ];
 
 const GRAY_COLORS: GrayColor[] = ['gray', 'mauve', 'slate'];
@@ -43,6 +43,8 @@ const ACCENT_SWATCH_COLORS: Record<string, string> = {
   yellow: 'var(--color-yellow-9)',
   pink: 'var(--color-pink-9)',
   teal: 'var(--color-teal-9)',
+  cyan: 'var(--color-cyan-9)',
+  black: 'var(--color-black-9)',
 };
 
 function toDisplayName(value: string): string {
