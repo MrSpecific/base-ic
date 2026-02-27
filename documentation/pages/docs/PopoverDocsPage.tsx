@@ -18,6 +18,38 @@ export function PopoverDocsPage() {
     '  <button>Open</button>',
     '</Popover>',
   ].join('\n');
+  const actionsDemoSnippet = [
+    '<Popover',
+    '  side="bottom"',
+    '  align="start"',
+    '  content={',
+    '    <div className="popover-demo-content">',
+    '      <div className="popover-demo-title">Quick Actions</div>',
+    '      <p className="popover-demo-text">Apply a default configuration preset.</p>',
+    '      <div className="popover-demo-actions">',
+    '        <button className="popover-demo-button popover-demo-button-solid">Apply</button>',
+    '        <button className="popover-demo-button popover-demo-button-ghost">Cancel</button>',
+    '      </div>',
+    '    </div>',
+    '  }',
+    '>',
+    '  <button className="tooltip-demo-trigger">Open actions</button>',
+    '</Popover>',
+  ].join('\n');
+  const settingsDemoSnippet = [
+    '<Popover',
+    '  side="right"',
+    '  align="center"',
+    '  content={',
+    '    <div className="popover-demo-content">',
+    '      <div className="popover-demo-title">Density</div>',
+    '      <p className="popover-demo-text">Compact mode increases information density in tables.</p>',
+    '    </div>',
+    '  }',
+    '>',
+    '  <button className="tooltip-demo-trigger">Open settings</button>',
+    '</Popover>',
+  ].join('\n');
 
   return (
     <>
@@ -28,11 +60,23 @@ export function PopoverDocsPage() {
         </p>
       </section>
       <section className="docs-section">
-        <h2>Live Demos</h2>
+        <h2>Built On Base UI</h2>
+        <p>
+          This component wraps the Base UI Popover primitive. Base primitive docs:
+          {' '}
+          <a href="https://base-ui.com/react/components/popover" target="_blank" rel="noreferrer">
+            base-ui.com/react/components/popover
+          </a>
+          .
+        </p>
+      </section>
+      <section className="docs-section">
+        <h2>Demo</h2>
         <div className="docs-demo-grid">
           <DemoCard
             title="Actions Popover"
             description="Great for contextual actions that do not need a full modal."
+            code={actionsDemoSnippet}
           >
             <div className="popover-demo-row">
               <Popover
@@ -56,6 +100,7 @@ export function PopoverDocsPage() {
           <DemoCard
             title="Settings Popover"
             description="Use a compact panel for secondary settings and toggles."
+            code={settingsDemoSnippet}
           >
             <div className="popover-demo-row">
               <Popover

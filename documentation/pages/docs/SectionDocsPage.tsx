@@ -11,6 +11,21 @@ export function SectionDocsPage() {
     '  <p>Section manages vertical rhythm.</p>',
     '</Section>',
   ].join('\n');
+  const presetSizesDemoSnippet = [
+    '<Box className="docs-layout-sample-stack">',
+    '  <Section size="1"><Box className="docs-layout-chip">Section 1</Box></Section>',
+    '  <Section size="2"><Box className="docs-layout-chip">Section 2</Box></Section>',
+    '  <Section size="3"><Box className="docs-layout-chip">Section 3</Box></Section>',
+    '</Box>',
+  ].join('\n');
+  const customPaddingDemoSnippet = [
+    '<Section py={3}>',
+    '  <Box className="docs-layout-sample-box">',
+    '    <h4>Compact Block</h4>',
+    '    <p>Set `py` directly for one-off tuning while staying on the spacing scale.</p>',
+    '  </Box>',
+    '</Section>',
+  ].join('\n');
 
   return (
     <>
@@ -22,16 +37,16 @@ export function SectionDocsPage() {
         </p>
       </section>
       <section className="docs-section">
-        <h2>Live Demos</h2>
+        <h2>Demo</h2>
         <div className="docs-demo-grid">
-          <DemoCard title="Preset Sizes" description="`size` scales spacing with semantic tokens.">
+          <DemoCard title="Preset Sizes" description="`size` scales spacing with semantic tokens." code={presetSizesDemoSnippet}>
             <Box className="docs-layout-sample-stack">
               <Section size="1"><Box className="docs-layout-chip">Section 1</Box></Section>
               <Section size="2"><Box className="docs-layout-chip">Section 2</Box></Section>
               <Section size="3"><Box className="docs-layout-chip">Section 3</Box></Section>
             </Box>
           </DemoCard>
-          <DemoCard title="Custom Padding" description="Use `py` when a region needs tighter cadence.">
+          <DemoCard title="Custom Padding" description="Use `py` when a region needs tighter cadence." code={customPaddingDemoSnippet}>
             <Section py={3}>
               <Box className="docs-layout-sample-box">
                 <h4>Compact Block</h4>

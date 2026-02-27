@@ -12,6 +12,20 @@ export function GridDocsPage() {
     '  <Card />',
     '</Grid>',
   ].join('\n');
+  const threeColDemoSnippet = [
+    '<Grid columns="repeat(3, minmax(0, 1fr))" gap={2}>',
+    '  {[1, 2, 3].map((n) => (',
+    '    <Box key={n} className="docs-layout-chip">Item {n}</Box>',
+    '  ))}',
+    '</Grid>',
+  ].join('\n');
+  const autofitDemoSnippet = [
+    '<Grid columns="repeat(auto-fit, minmax(110px, 1fr))" gap={2}>',
+    "  {['Metrics', 'Events', 'Revenue', 'Growth'].map((n) => (",
+    '    <Box key={n} className="docs-layout-chip">{n}</Box>',
+    '  ))}',
+    '</Grid>',
+  ].join('\n');
 
   return (
     <>
@@ -23,16 +37,16 @@ export function GridDocsPage() {
         </p>
       </section>
       <section className="docs-section">
-        <h2>Live Demos</h2>
+        <h2>Demo</h2>
         <div className="docs-demo-grid">
-          <DemoCard title="Three Column Grid" description="Simple card layout with equal tracks.">
+          <DemoCard title="Three Column Grid" description="Simple card layout with equal tracks." code={threeColDemoSnippet}>
             <Grid columns="repeat(3, minmax(0, 1fr))" gap={2}>
               {[1, 2, 3].map((n) => (
                 <Box key={n} className="docs-layout-chip">Item {n}</Box>
               ))}
             </Grid>
           </DemoCard>
-          <DemoCard title="Auto-fit Grid" description="Responsive tracks that collapse gracefully.">
+          <DemoCard title="Auto-fit Grid" description="Responsive tracks that collapse gracefully." code={autofitDemoSnippet}>
             <Grid columns="repeat(auto-fit, minmax(110px, 1fr))" gap={2}>
               {['Metrics', 'Events', 'Revenue', 'Growth'].map((n) => (
                 <Box key={n} className="docs-layout-chip">{n}</Box>

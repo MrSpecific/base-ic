@@ -14,6 +14,25 @@ export function ThemeDocsPage() {
     '  <App />',
     '</Theme>',
   ].join('\n');
+  const productThemeDemoSnippet = [
+    '<Theme accentColor="blue" grayColor="slate" radius="medium" scaling="100%">',
+    '  <p className="docs-demo-eyebrow">Blue + Slate</p>',
+    '  <div className="docs-demo-button-row">',
+    '    <button className="site-button site-button-solid">Primary Action</button>',
+    '    <button className="site-button site-button-ghost">Secondary Action</button>',
+    '  </div>',
+    '</Theme>',
+  ].join('\n');
+
+  const marketingThemeDemoSnippet = [
+    '<Theme accentColor="orange" grayColor="gray" radius="large" scaling="100%">',
+    '  <p className="docs-demo-eyebrow">Orange + Gray</p>',
+    '  <div className="docs-demo-button-row">',
+    '    <button className="site-button site-button-solid">Get Started</button>',
+    '    <button className="site-button site-button-ghost">Learn More</button>',
+    '  </div>',
+    '</Theme>',
+  ].join('\n');
 
   return (
     <>
@@ -25,12 +44,13 @@ export function ThemeDocsPage() {
         </p>
       </section>
       <section className="docs-section">
-        <h2>Live Demos</h2>
+        <h2>Demo</h2>
         <div className="docs-demo-grid">
           <Theme accentColor="blue" grayColor="slate" radius="medium" scaling="100%" appearance="inherit">
             <DemoCard
               title="Product Theme"
               description="Balanced neutral palette for most product surfaces."
+              code={productThemeDemoSnippet}
             >
               <p className="docs-demo-eyebrow">Blue + Slate</p>
               <div className="docs-demo-button-row">
@@ -43,6 +63,7 @@ export function ThemeDocsPage() {
             <DemoCard
               title="Marketing Theme"
               description="Higher energy accent and softer card shape for campaigns."
+              code={marketingThemeDemoSnippet}
             >
               <p className="docs-demo-eyebrow">Orange + Gray</p>
               <div className="docs-demo-button-row">

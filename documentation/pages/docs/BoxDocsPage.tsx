@@ -11,6 +11,18 @@ export function BoxDocsPage() {
     '  <p>Use it as a semantic container for custom layouts.</p>',
     '</Box>',
   ].join('\n');
+  const semanticWrapperDemo = [
+    '<Box as="article" className="docs-layout-sample-box">',
+    '  <h4>Product Card</h4>',
+    '  <p>Box keeps semantics explicit while inheriting theme tokens.</p>',
+    '</Box>',
+  ].join('\n');
+  const composableSurfaceDemo = [
+    '<Box className="docs-layout-sample-box" style={{ borderColor: "var(--color-accent-7)" }}>',
+    '  <h4>Accent Surface</h4>',
+    '  <p>Override details via style or className without changing primitive behavior.</p>',
+    '</Box>',
+  ].join('\n');
 
   return (
     <>
@@ -22,15 +34,15 @@ export function BoxDocsPage() {
         </p>
       </section>
       <section className="docs-section">
-        <h2>Live Demos</h2>
+        <h2>Demo</h2>
         <div className="docs-demo-grid">
-          <DemoCard title="Semantic Wrapper" description="Render any semantic element with `as`.">
+          <DemoCard title="Semantic Wrapper" description="Render any semantic element with `as`." code={semanticWrapperDemo}>
             <Box as="article" className="docs-layout-sample-box">
               <h4>Product Card</h4>
               <p>Box keeps semantics explicit while inheriting theme tokens.</p>
             </Box>
           </DemoCard>
-          <DemoCard title="Composable Surface" description="Compose Box with existing system classes.">
+          <DemoCard title="Composable Surface" description="Compose Box with existing system classes." code={composableSurfaceDemo}>
             <Box className="docs-layout-sample-box" style={{ borderColor: 'var(--color-accent-7)' }}>
               <h4>Accent Surface</h4>
               <p>Override details via style or className without changing primitive behavior.</p>

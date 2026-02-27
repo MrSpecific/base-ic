@@ -11,6 +11,22 @@ export function FlexDocsPage() {
     '  <span>Right</span>',
     '</Flex>',
   ].join('\n');
+  const toolbarDemoSnippet = [
+    '<Flex align="center" justify="space-between" gap={3} className="docs-layout-sample-box">',
+    '  <strong>Workspace</strong>',
+    '  <Flex gap={2}>',
+    '    <button className="site-button site-button-ghost">Cancel</button>',
+    '    <button className="site-button site-button-solid">Save</button>',
+    '  </Flex>',
+    '</Flex>',
+  ].join('\n');
+  const stackedDemoSnippet = [
+    '<Flex direction="column" gap={2} className="docs-layout-sample-box">',
+    "  {['Alpha', 'Beta', 'Gamma'].map((item) => (",
+    '    <Box key={item} className="docs-layout-chip">{item}</Box>',
+    '  ))}',
+    '</Flex>',
+  ].join('\n');
 
   return (
     <>
@@ -22,9 +38,9 @@ export function FlexDocsPage() {
         </p>
       </section>
       <section className="docs-section">
-        <h2>Live Demos</h2>
+        <h2>Demo</h2>
         <div className="docs-demo-grid">
-          <DemoCard title="Toolbar Row" description="Horizontal distribution with centered alignment.">
+          <DemoCard title="Toolbar Row" description="Horizontal distribution with centered alignment." code={toolbarDemoSnippet}>
             <Flex align="center" justify="space-between" gap={3} className="docs-layout-sample-box">
               <strong>Workspace</strong>
               <Flex gap={2}>
@@ -33,7 +49,7 @@ export function FlexDocsPage() {
               </Flex>
             </Flex>
           </DemoCard>
-          <DemoCard title="Stacked Blocks" description="Vertical flow using direction and gap tokens.">
+          <DemoCard title="Stacked Blocks" description="Vertical flow using direction and gap tokens." code={stackedDemoSnippet}>
             <Flex direction="column" gap={2} className="docs-layout-sample-box">
               {['Alpha', 'Beta', 'Gamma'].map((item) => (
                 <Box key={item} className="docs-layout-chip">{item}</Box>
