@@ -1,17 +1,40 @@
 .flex {
+  /* Local defaults so nested Flex components do not inherit parent Flex vars */
+  --flex-direction: row;
+  --flex-align: stretch;
+  --flex-justify: flex-start;
+  --flex-wrap: nowrap;
+  --flex-gap: var(--layout-gap-default);
+
+  --flex-padding: 0;
+  --flex-padding-x: var(--flex-padding);
+  --flex-padding-y: var(--flex-padding);
+  --flex-padding-top: var(--flex-padding-y);
+  --flex-padding-right: var(--flex-padding-x);
+  --flex-padding-bottom: var(--flex-padding-y);
+  --flex-padding-left: var(--flex-padding-x);
+
+  --flex-margin: 0;
+  --flex-margin-x: var(--flex-margin);
+  --flex-margin-y: var(--flex-margin);
+  --flex-margin-top: var(--flex-margin-y);
+  --flex-margin-right: var(--flex-margin-x);
+  --flex-margin-bottom: var(--flex-margin-y);
+  --flex-margin-left: var(--flex-margin-x);
+
   display: flex;
   min-width: 0;
-  gap: var(--flex-gap, var(--layout-gap-default));
-  padding: var(--flex-padding-top, var(--flex-padding-y, var(--flex-padding, 0)))
-           var(--flex-padding-right, var(--flex-padding-x, var(--flex-padding, 0)))
-           var(--flex-padding-bottom, var(--flex-padding-y, var(--flex-padding, 0)))
-           var(--flex-padding-left, var(--flex-padding-x, var(--flex-padding, 0)));
-  margin: var(--flex-margin-top, var(--flex-margin-y, var(--flex-margin, 0)))
-          var(--flex-margin-right, var(--flex-margin-x, var(--flex-margin, 0)))
-          var(--flex-margin-bottom, var(--flex-margin-y, var(--flex-margin, 0)))
-          var(--flex-margin-left, var(--flex-margin-x, var(--flex-margin, 0)));
-  flex-direction: var(--flex-direction, row);
-  align-items: var(--flex-align, stretch);
-  justify-content: var(--flex-justify, flex-start);
-  flex-wrap: var(--flex-wrap, nowrap);
+  gap: var(--flex-gap);
+  padding: var(--flex-padding-top)
+           var(--flex-padding-right)
+           var(--flex-padding-bottom)
+           var(--flex-padding-left);
+  margin: var(--flex-margin-top)
+          var(--flex-margin-right)
+          var(--flex-margin-bottom)
+          var(--flex-margin-left);
+  flex-direction: var(--flex-direction);
+  align-items: var(--flex-align);
+  justify-content: var(--flex-justify);
+  flex-wrap: var(--flex-wrap);
 }
