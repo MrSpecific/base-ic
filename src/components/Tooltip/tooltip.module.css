@@ -1,4 +1,5 @@
 .popup {
+  position: relative;
   z-index: var(--z-4);
   max-width: 320px;
   padding: var(--tooltip-padding-y) var(--tooltip-padding-x);
@@ -13,9 +14,42 @@
 }
 
 .arrow {
-  width: var(--tooltip-arrow-size);
-  height: var(--tooltip-arrow-size);
-  border: 1px solid var(--tooltip-border);
-  background: var(--tooltip-bg);
-  transform: rotate(45deg);
+  position: absolute;
+  pointer-events: none;
+  color: var(--tooltip-bg);
+  display: flex;
+  width: 20px;
+  height: 10px;
+}
+
+.arrow[data-side='top'] {
+  bottom: 0;
+  transform: translateY(100%) rotate(180deg);
+}
+
+.arrow[data-side='bottom'] {
+  top: 0;
+  transform: translateY(-100%);
+}
+
+.arrow[data-side='left'] {
+  right: 0;
+  transform: translateX(50%) rotate(90deg);
+}
+
+.arrow[data-side='right'] {
+  left: 0;
+  transform: translateX(-50%) rotate(-90deg);
+}
+
+.arrowFill {
+  fill: var(--tooltip-bg);
+}
+
+.arrowOuterStroke {
+  fill: var(--color-border);
+}
+
+.arrowInnerStroke {
+  fill: color-mix(in oklch, var(--tooltip-border) 70%, var(--tooltip-bg));
 }

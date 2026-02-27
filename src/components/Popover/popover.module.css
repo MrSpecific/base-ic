@@ -1,4 +1,5 @@
 .popup {
+  position: relative;
   z-index: var(--z-4);
   min-width: var(--popover-min-width);
   max-width: 360px;
@@ -12,9 +13,29 @@
 }
 
 .arrow {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  display: block;
   width: var(--popover-arrow-size);
   height: var(--popover-arrow-size);
   border: 1px solid var(--popover-border);
   background: var(--popover-bg);
   transform: rotate(45deg);
+}
+
+.arrow[data-side='top'] {
+  bottom: calc(var(--popover-arrow-size) * -0.5);
+}
+
+.arrow[data-side='bottom'] {
+  top: calc(var(--popover-arrow-size) * -0.5);
+}
+
+.arrow[data-side='left'] {
+  right: calc(var(--popover-arrow-size) * -0.5);
+}
+
+.arrow[data-side='right'] {
+  left: calc(var(--popover-arrow-size) * -0.5);
 }
