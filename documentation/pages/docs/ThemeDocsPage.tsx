@@ -1,5 +1,6 @@
 import { Button, Theme } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsList } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
@@ -85,13 +86,13 @@ export function ThemeDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Key Props</h2>
-        <ul className="docs-list">
+        <DocsList>
           <li>`accentColor` and `grayColor` map semantic aliases to hue scales.</li>
           <li>`radius` sets component curvature via `--component-radius`.</li>
           <li>`scaling` remaps primitive spacing/size/type tokens from 80% to 150%.</li>
           <li>`appearance` supports `light`, `dark`, and `inherit` modes.</li>
           <li>`fontFamily` overrides semantic typography slots.</li>
-        </ul>
+        </DocsList>
       </DocsSection>
     </>
   );

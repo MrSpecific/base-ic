@@ -1,5 +1,6 @@
 import { Button, Card, Container, Flex, Grid } from '../../src';
 import { DocsSection } from '../components/DocsSection';
+import { DocsList } from '../components/DocsPrimitives';
 import type { Page } from '../types';
 import { CodeBlock } from '../components/CodeBlock';
 
@@ -200,22 +201,22 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
       <DocsSection>
         <h2>Token Scales at a Glance</h2>
         <Grid className="designer-grid" columns="repeat(auto-fit, minmax(200px, 1fr))" gap={3}>
-          <Card className="designer-card">
+          <Card>
             <h3>Color Steps</h3>
             <p>Every hue uses a 12-step scale plus contrast.</p>
             <p className="designer-note">1-2 backgrounds, 3-5 subtle surfaces, 6-8 borders, 9-10 solid fills, 11-12 text/icons.</p>
           </Card>
-          <Card className="designer-card">
+          <Card>
             <h3>Spacing</h3>
             <p>`space-1` to `space-12` (4px to 80px)</p>
             <p className="designer-note">Use these for padding, gap, section rhythm, and component internals.</p>
           </Card>
-          <Card className="designer-card">
+          <Card>
             <h3>Radius</h3>
             <p>`radius-1` to `radius-6` plus `radius-full`</p>
             <p className="designer-note">Component rounding is controlled globally through `component-radius`.</p>
           </Card>
-          <Card className="designer-card">
+          <Card>
             <h3>Type Scale</h3>
             <p>`font-size-1` to `font-size-9` (12px to 36px)</p>
             <p className="designer-note">Map to text styles in Figma so docs and UI match in both tools.</p>
@@ -264,13 +265,13 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
 
       <DocsSection>
         <h2>Recommended Figma Setup Workflow</h2>
-        <ul className="docs-list">
+        <DocsList>
           <li>1. Create color collections for each hue with 1-12 + contrast variables.</li>
           <li>2. Create semantic aliases: accent, neutral, text, border, surface, status.</li>
           <li>3. Create primitive collections for spacing, radius, and type scale.</li>
           <li>4. Build component libraries using only semantic variables for fill/stroke/text.</li>
           <li>5. Validate themes in Playground and sync any token changes back to Figma.</li>
-        </ul>
+        </DocsList>
         <Flex className="hero-actions" gap={2}>
           <Button size="3" onClick={() => goTo('playground')}>Open Playground</Button>
           <Button size="3" variant="surface" onClick={() => goTo('customization')}>View Customization</Button>

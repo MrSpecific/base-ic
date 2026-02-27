@@ -1,5 +1,6 @@
 import { Badge } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsDemoGrid, DocsDemoRow } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
@@ -37,23 +38,23 @@ export function BadgeDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Demo</h2>
-        <div className="docs-demo-grid">
+        <DocsDemoGrid>
           <DemoCard title="Variants" description="Use shape and fill to express emphasis." code={variantsSnippet}>
-            <div className="docs-demo-button-row">
+            <DocsDemoRow>
               <Badge variant="solid">Solid</Badge>
               <Badge variant="soft">Soft</Badge>
               <Badge variant="surface">Surface</Badge>
               <Badge variant="outline">Outline</Badge>
-            </div>
+            </DocsDemoRow>
           </DemoCard>
           <DemoCard title="Sizes" description="Scale badges by context density." code={sizesSnippet}>
-            <div className="docs-demo-button-row">
+            <DocsDemoRow>
               <Badge size="1">Size 1</Badge>
               <Badge size="2">Size 2</Badge>
               <Badge size="3">Size 3</Badge>
-            </div>
+            </DocsDemoRow>
           </DemoCard>
-        </div>
+        </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
         <h2>Usage</h2>

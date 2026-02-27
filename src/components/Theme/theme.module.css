@@ -31,8 +31,6 @@
   --color-gray-11: oklch(42.0% 0.000 0);
   --color-gray-12: oklch(16.0% 0.000 0);
 
-  --color-surface-raised:  white;
-  --color-surface-overlay: white;
 }
 
 .dark {
@@ -50,6 +48,4 @@
   --color-gray-11: oklch(78.0% 0.000 0);
   --color-gray-12: oklch(95.0% 0.000 0);
 
-  --color-surface-raised:  var(--color-neutral-3);
-  --color-surface-overlay: var(--color-neutral-4);
 }

@@ -7,7 +7,7 @@
           var(--card-margin-right, var(--card-margin-x, var(--card-margin, 0)))
           var(--card-margin-bottom, var(--card-margin-y, var(--card-margin, 0)))
           var(--card-margin-left, var(--card-margin-x, var(--card-margin, 0)));
-  border-radius: var(--component-radius);
+  border-radius: var(--card-radius, var(--surface-radius));
   font-family: var(--font-family-primary);
   color: var(--color-text-primary);
 }

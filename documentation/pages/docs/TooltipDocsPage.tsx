@@ -1,5 +1,6 @@
 import { Button, Tooltip } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsList } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
@@ -90,11 +91,11 @@ export function TooltipDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Notes</h2>
-        <ul className="docs-list">
+        <DocsList>
           <li>Use concise helper content; tooltips are for hints, not long-form UI.</li>
           <li>`TooltipPrimitive` is exported for advanced composition.</li>
           <li>Styling comes from semantic tooltip tokens (`--tooltip-*`).</li>
-        </ul>
+        </DocsList>
       </DocsSection>
     </>
   );

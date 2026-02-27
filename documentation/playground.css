@@ -1,0 +1,160 @@
+.playground-page {
+  padding-bottom: var(--space-12);
+}
+
+.playground {
+  max-width: 960px;
+}
+
+.playground h1 {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-9);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-1);
+  margin-bottom: var(--space-2);
+}
+
+.playground h2 {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-7);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-2);
+  margin-top: var(--space-10);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.playground h3 {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-4);
+  font-weight: var(--font-weight-semibold);
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.playground p {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-5);
+}
+
+.section {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.token-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-1);
+}
+
+.swatch {
+  height: 42px;
+  border-radius: var(--radius-2);
+  border: 1px solid color-mix(in oklch, var(--color-border-subtle) 70%, transparent);
+}
+
+.swatch-label,
+.token-name {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-2);
+  color: var(--color-text-tertiary);
+}
+
+.surface-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-3);
+}
+
+.surface-card,
+.status-card {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.surface-card-title {
+  font-size: var(--font-size-2);
+  font-family: var(--font-family-mono);
+  color: var(--color-text-tertiary);
+}
+
+.surface-card-body,
+.status-card-body {
+  font-size: var(--font-size-3);
+  color: var(--color-text-primary);
+}
+
+.status-badge {
+  margin-top: var(--space-2);
+}
+
+.tooltip-demo-row,
+.popover-demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tooltip-demo-trigger {
+  cursor: default;
+}
+
+.popover-demo-content {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.popover-demo-title {
+  font-size: var(--popover-title-size);
+  font-weight: var(--font-weight-semibold);
+}
+
+.popover-demo-text {
+  margin: 0;
+  font-size: var(--popover-body-size);
+  line-height: var(--line-height-4);
+  color: var(--color-text-secondary);
+}
+
+.popover-demo-actions {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.spacing-row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.spacing-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.radius-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+  gap: var(--space-3);
+}
+
+.radius-block {
+  width: 100%;
+  height: 64px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-overlay);
+  display: grid;
+  place-items: center;
+  color: var(--color-text-secondary);
+}

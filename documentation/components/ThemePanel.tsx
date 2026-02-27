@@ -10,6 +10,7 @@ import {
 } from '../constants';
 import { Button } from '../../src';
 import type { AccentColor, Appearance, GrayColor, Radius, Scaling } from '../types';
+import styles from './ThemePanel.module.css';
 
 type ThemePanelProps = {
   accent: AccentColor;
@@ -65,18 +66,18 @@ export function ThemePanel({
   };
 
   return (
-    <div className="theme-panel-wrapper">
-      <div className={open ? 'theme-panel' : 'theme-panel-hidden'}>
-        <div className="theme-panel-title">Theme</div>
+    <div className={styles.wrapper}>
+      <div className={open ? styles.panel : styles.hidden}>
+        <div className={styles.title}>Theme</div>
 
-        <div className="theme-panel-field">
-          <span className="theme-panel-label">Accent Color</span>
-          <div className="theme-panel-colors">
+        <div className={styles.field}>
+          <span className={styles.label}>Accent Color</span>
+          <div className={styles.colors}>
             {ACCENT_COLORS.map((c) => (
               <button
                 key={c}
                 type="button"
-                className="theme-panel-color-swatch"
+                className={styles.colorSwatch}
                 data-active={c === accent}
                 style={{ background: ACCENT_SWATCH_COLORS[c] }}
                 title={`Set accent color to ${toDisplayName(c)}`}
@@ -85,55 +86,55 @@ export function ThemePanel({
               />
             ))}
           </div>
-          <p className="theme-panel-helper">Primary brand color for interactive elements.</p>
+          <p className={styles.helper}>Primary brand color for interactive elements.</p>
         </div>
 
-        <div className="theme-panel-field">
-          <label className="theme-panel-label" htmlFor="theme-gray">Neutral Palette</label>
-          <div className="theme-panel-select-wrap">
-            <select id="theme-gray" className="theme-panel-select" value={gray} onChange={(e) => setGray(e.target.value as GrayColor)}>
+        <div className={styles.field}>
+          <label className={styles.label} htmlFor="theme-gray">Neutral Palette</label>
+          <div className={styles.selectWrap}>
+            <select id="theme-gray" className={styles.select} value={gray} onChange={(e) => setGray(e.target.value as GrayColor)}>
               {GRAY_COLORS.map((c) => <option key={c} value={c}>{toDisplayName(c)}</option>)}
             </select>
-            <span className="theme-panel-select-caret" aria-hidden="true">▾</span>
+            <span className={styles.selectCaret} aria-hidden="true">▾</span>
           </div>
-          <p className="theme-panel-helper">Sets the base gray family for borders and surfaces.</p>
+          <p className={styles.helper}>Sets the base gray family for borders and surfaces.</p>
         </div>
 
-        <div className="theme-panel-field">
-          <label className="theme-panel-label" htmlFor="theme-radius">Corner Radius</label>
-          <div className="theme-panel-select-wrap">
-            <select id="theme-radius" className="theme-panel-select" value={radius} onChange={(e) => setRadius(e.target.value as Radius)}>
+        <div className={styles.field}>
+          <label className={styles.label} htmlFor="theme-radius">Corner Radius</label>
+          <div className={styles.selectWrap}>
+            <select id="theme-radius" className={styles.select} value={radius} onChange={(e) => setRadius(e.target.value as Radius)}>
               {RADII.map((r) => <option key={r} value={r}>{toDisplayName(r)}</option>)}
             </select>
-            <span className="theme-panel-select-caret" aria-hidden="true">▾</span>
+            <span className={styles.selectCaret} aria-hidden="true">▾</span>
           </div>
-          <p className="theme-panel-helper">Controls rounded corners across components.</p>
+          <p className={styles.helper}>Controls rounded corners across components.</p>
         </div>
 
-        <div className="theme-panel-field">
-          <label className="theme-panel-label" htmlFor="theme-scaling">Scale</label>
-          <div className="theme-panel-select-wrap">
-            <select id="theme-scaling" className="theme-panel-select" value={scaling} onChange={(e) => setScaling(e.target.value as Scaling)}>
+        <div className={styles.field}>
+          <label className={styles.label} htmlFor="theme-scaling">Scale</label>
+          <div className={styles.selectWrap}>
+            <select id="theme-scaling" className={styles.select} value={scaling} onChange={(e) => setScaling(e.target.value as Scaling)}>
               {SCALINGS.map((s) => <option key={s} value={s}>{s}</option>)}
             </select>
-            <span className="theme-panel-select-caret" aria-hidden="true">▾</span>
+            <span className={styles.selectCaret} aria-hidden="true">▾</span>
           </div>
-          <p className="theme-panel-helper">Global size multiplier for spacing and typography.</p>
+          <p className={styles.helper}>Global size multiplier for spacing and typography.</p>
         </div>
 
-        <div className="theme-panel-field">
-          <label className="theme-panel-label" htmlFor="theme-appearance">Appearance</label>
-          <div className="theme-panel-select-wrap">
-            <select id="theme-appearance" className="theme-panel-select" value={appearance} onChange={(e) => setAppearance(e.target.value as Appearance)}>
+        <div className={styles.field}>
+          <label className={styles.label} htmlFor="theme-appearance">Appearance</label>
+          <div className={styles.selectWrap}>
+            <select id="theme-appearance" className={styles.select} value={appearance} onChange={(e) => setAppearance(e.target.value as Appearance)}>
               {APPEARANCES.map((a) => <option key={a} value={a}>{toDisplayName(a)}</option>)}
             </select>
-            <span className="theme-panel-select-caret" aria-hidden="true">▾</span>
+            <span className={styles.selectCaret} aria-hidden="true">▾</span>
           </div>
-          <p className="theme-panel-helper">Light or dark rendering mode.</p>
+          <p className={styles.helper}>Light or dark rendering mode.</p>
         </div>
 
         <Button
-          className="theme-panel-copy-button"
+          className={styles.copyButton}
           variant="solid"
           size="2"
           data-state={copyStatus}
@@ -141,14 +142,14 @@ export function ThemePanel({
         >
           {copyStatus === 'copied' ? 'Copied Theme' : copyStatus === 'error' ? 'Copy Failed' : 'Copy Theme'}
         </Button>
-        <p className="theme-panel-helper">Copies a ready-to-paste <code>{'<Theme />'}</code> snippet.</p>
-        <div className="theme-panel-current">
+        <p className={styles.helper}>Copies a ready-to-paste <code>{'<Theme />'}</code> snippet.</p>
+        <div className={styles.current}>
           {`accent: ${accent} • gray: ${gray} • radius: ${radius} • scale: ${scaling} • appearance: ${appearance}`}
         </div>
       </div>
 
       <Button
-        className="theme-panel-toggle"
+        className={styles.toggle}
         variant="surface"
         size="2"
         onClick={() => setOpen(!open)}

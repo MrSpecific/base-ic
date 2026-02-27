@@ -5,6 +5,7 @@ import styles from './card.module.css';
 type CardSize = '1' | '2' | '3' | '4' | '5';
 type CardVariant = 'surface' | 'classic' | 'ghost';
 type SpaceValue = number | string;
+type CardRadius = 'none' | 'small' | 'medium' | 'large' | 'full';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Padding size preset. Default: '3' */
@@ -13,6 +14,8 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: CardVariant;
   /** Make the card interactive (adds hover/active states). */
   asButton?: boolean;
+  /** Override border radius for this card. */
+  radius?: CardRadius;
   /** Padding shorthand */
   p?: SpaceValue;
   /** Padding-inline shorthand */
@@ -43,12 +46,21 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   ml?: SpaceValue;
 }
 
+const radiusMap: Record<CardRadius, string> = {
+  none: '0',
+  small: 'var(--radius-2)',
+  medium: 'var(--radius-3)',
+  large: 'var(--radius-5)',
+  full: 'var(--radius-full)',
+};
+
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
   function Card(
     {
       size = '3',
       variant = 'surface',
       asButton = false,
+      radius,
       className,
       style,
       p,
@@ -71,6 +83,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ) {
     const nextStyle = withVar(style, {
       '--card-padding': p != null ? toSpaceVar(p) : `var(--space-${size})`,
+      '--card-radius': radius ? radiusMap[radius] : undefined,
       '--card-padding-x': toSpaceVar(px),
       '--card-padding-y': toSpaceVar(py),
       '--card-padding-top': toSpaceVar(pt),

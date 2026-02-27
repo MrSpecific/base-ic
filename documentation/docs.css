@@ -1,0 +1,197 @@
+.docs-page {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.docs-layout {
+  align-items: start;
+}
+
+.docs-sidebar {
+  position: sticky;
+  top: calc(var(--space-8) + 56px);
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  max-height: calc(100vh - (var(--space-8) + 56px) - var(--space-4));
+  overflow-y: auto;
+  border-radius: var(--surface-radius);
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-panel-glass);
+  box-shadow: var(--shadow-surface);
+  backdrop-filter: blur(8px);
+}
+
+.docs-sidebar-group {
+  display: grid;
+  gap: 2px;
+}
+
+.docs-sidebar-group-title {
+  font-size: var(--font-size-1);
+  font-family: var(--font-family-mono);
+  letter-spacing: var(--letter-spacing-4);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  padding: 0 var(--space-1) var(--space-1);
+}
+
+.docs-sidebar-separator {
+  margin: var(--space-2) 0;
+}
+
+.docs-sidebar-link.docs-sidebar-link {
+  --btn-height: auto;
+  --btn-px: 0;
+  width: 100%;
+  min-height: 0;
+  justify-content: flex-start;
+  text-align: left;
+  padding: var(--space-2);
+  border-radius: var(--component-radius);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-2);
+  transition:
+    color var(--duration-2) var(--ease-2),
+    background var(--duration-2) var(--ease-2),
+    border-color var(--duration-2) var(--ease-2);
+}
+
+.docs-sidebar-link.docs-sidebar-link:hover {
+  color: var(--color-text-primary);
+  background: var(--color-surface-subtle);
+}
+
+.docs-sidebar-link[data-active='true'] {
+  color: var(--color-accent-11);
+  border-color: var(--color-accent-6);
+  background: var(--color-accent-3);
+}
+
+.docs-section {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--surface-padding-y) var(--surface-padding-x);
+}
+
+.docs-section h1,
+.docs-section h2 {
+  font-family: var(--font-family-display);
+}
+
+.docs-section p {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-5);
+}
+
+.docs-section pre {
+  margin-top: var(--space-2);
+  padding: var(--space-3);
+  border-radius: var(--radius-3);
+  background: var(--color-surface-sunken);
+  border: 1px solid var(--color-border-subtle);
+  overflow-x: auto;
+}
+
+.docs-section code {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-2);
+}
+
+.docs-list {
+  list-style: none;
+  margin: var(--space-2) 0;
+  display: grid;
+  gap: var(--space-1);
+  color: var(--color-text-secondary);
+}
+
+.docs-demo-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.docs-demo-surface {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.docs-demo-surface > * {
+  min-width: 0;
+}
+
+.docs-demo-eyebrow {
+  margin: 0;
+  font-size: var(--font-size-1);
+  letter-spacing: var(--letter-spacing-5);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  font-family: var(--font-family-mono);
+}
+
+.docs-demo-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.docs-layout-sample-box {
+  padding: var(--surface-padding-y) var(--surface-padding-x);
+  border-radius: var(--surface-radius);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-subtle);
+  color: var(--color-text-secondary);
+}
+
+.docs-layout-sample-box h4 {
+  margin: 0 0 var(--space-1);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-4);
+}
+
+.docs-layout-sample-box p {
+  margin: 0;
+  font-size: var(--font-size-3);
+}
+
+.docs-layout-chip {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-3);
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-overlay);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-2);
+}
+
+.docs-layout-sample-stack {
+  border-radius: var(--surface-radius);
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-subtle);
+}
+
+.designer-grid {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.designer-note {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-2);
+  color: var(--color-text-tertiary);
+}
+
+@media (max-width: 960px) {
+  .docs-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .docs-sidebar {
+    position: static;
+    max-height: none;
+  }
+}

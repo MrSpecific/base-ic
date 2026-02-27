@@ -1,5 +1,6 @@
 import { Button } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsDemoGrid, DocsDemoRow } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
@@ -49,33 +50,33 @@ export function ButtonDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Demo</h2>
-        <div className="docs-demo-grid">
+        <DocsDemoGrid>
           <DemoCard
             title="Variants"
             description="Choose visual emphasis per context."
             code={variantsSnippet}
           >
-            <div className="docs-demo-button-row">
+            <DocsDemoRow>
               <Button variant="solid">Solid</Button>
               <Button variant="soft">Soft</Button>
               <Button variant="surface">Surface</Button>
               <Button variant="outline">Outline</Button>
               <Button variant="ghost">Ghost</Button>
-            </div>
+            </DocsDemoRow>
           </DemoCard>
           <DemoCard
             title="States"
             description="Loading, disabled, and contrast behaviors."
             code={statesSnippet}
           >
-            <div className="docs-demo-button-row">
+            <DocsDemoRow>
               <Button>Default</Button>
               <Button loading>Loading</Button>
               <Button disabled>Disabled</Button>
               <Button highContrast>High Contrast</Button>
-            </div>
+            </DocsDemoRow>
           </DemoCard>
-        </div>
+        </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
         <h2>Usage</h2>

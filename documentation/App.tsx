@@ -12,6 +12,8 @@ import { PlaygroundPage } from './pages/PlaygroundPage';
 import type { DocsSection, Page } from './types';
 import '../src/tokens/index.css';
 import './documentation.css';
+import './docs.css';
+import './playground.css';
 
 const THEME_STORAGE_KEY = 'base-ic:documentation-theme';
 

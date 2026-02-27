@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button } from '../../src';
 import { IconAlert, IconCheck, IconCopy } from '../icons';
+import styles from './CodeBlock.module.css';
 
 type CopyStatus = 'idle' | 'copied' | 'error';
 
@@ -18,11 +19,11 @@ export function CodeBlock({ title, code }: { title?: string; code: string }) {
   };
 
   return (
-    <div className="docs-code-block">
-      <div className="docs-code-header">
+    <div className={styles.block}>
+      <div className={styles.header}>
         <strong>{title ?? 'Example'}</strong>
         <Button
-          className="docs-copy-button"
+          className={styles.copyButton}
           variant="ghost"
           size="1"
           data-state={copyStatus}
@@ -31,11 +32,11 @@ export function CodeBlock({ title, code }: { title?: string; code: string }) {
           aria-label={copyStatus === 'copied' ? 'Copied' : copyStatus === 'error' ? 'Copy failed' : 'Copy code'}
         >
           {copyStatus === 'copied' ? (
-            <IconCheck className="docs-copy-icon" />
+            <IconCheck className={styles.icon} />
           ) : copyStatus === 'error' ? (
-            <IconAlert className="docs-copy-icon" />
+            <IconAlert className={styles.icon} />
           ) : (
-            <IconCopy className="docs-copy-icon" />
+            <IconCopy className={styles.icon} />
           )}
         </Button>
       </div>

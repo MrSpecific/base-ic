@@ -15,10 +15,10 @@ import type { Page } from "../types";
 export function HomePage({ goTo }: { goTo: (page: Page) => void }) {
   return (
     <Container as="main" className="site-page">
-      <Section className="hero" py={0}>
+      <Section className="hero" py={0} mb={6}>
         <Box>
           <Badge variant="soft" size="2">
-            base-ic
+            Intelligent Components
           </Badge>
         </Box>
         <Heading>Build fast, theme deeply.</Heading>
@@ -61,7 +61,7 @@ export function HomePage({ goTo }: { goTo: (page: Page) => void }) {
         ))}
       </Grid>
 
-      <Card variant="surface" size="5" mt={5}>
+      <Card variant="surface" size="5" mt={6}>
         <Box>
           <Heading as="h2">From prototype to product system</Heading>
           <Text as="p">

@@ -5,7 +5,9 @@ import {
   Card,
   Container,
   Grid,
+  Heading,
   Popover,
+  Text,
   Tooltip,
 } from "../../src";
 import { ALL_HUES, STEPS } from "../constants";
@@ -15,57 +17,24 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
   return (
     <Container as="main" className="site-page playground-page">
       <Box className="playground">
-        <h1>Playground</h1>
-        <p>
+        <Heading as="h1">Playground</Heading>
+        <Text as="p">
           Interactive token and theme exploration. Use the floating panel in the
           bottom-right to tweak theme values.
-        </p>
+        </Text>
 
-        <h2>Color Palette</h2>
+        <Heading as="h2">Color Palette</Heading>
 
-        <h3>Accent</h3>
-        <div className="swatch-grid">
-          {STEPS.map((step) => (
-            <div
-              key={step}
-              className="swatch"
-              style={{ background: `var(--color-accent-${step})` }}
-              title={`--color-accent-${step}`}
-            />
-          ))}
-        </div>
-        <div className="swatch-label">{STEPS.map((s) => s).join("   ")}</div>
+        <SwatchGrid label="Accent" hue="accent" />
 
-        <h3>Neutral</h3>
-        <div className="swatch-grid">
-          {STEPS.map((step) => (
-            <div
-              key={step}
-              className="swatch"
-              style={{ background: `var(--color-neutral-${step})` }}
-              title={`--color-neutral-${step}`}
-            />
-          ))}
-        </div>
+        <SwatchGrid label="Neutral" hue="neutral" />
 
-        <h3>All Hues</h3>
+        <Heading as="h2">All Hues</Heading>
         {ALL_HUES.map((hue) => (
-          <div key={hue} style={{ marginBottom: "var(--space-2)" }}>
-            <div className="swatch-label">{hue}</div>
-            <div className="swatch-grid">
-              {STEPS.map((step) => (
-                <div
-                  key={step}
-                  className="swatch"
-                  style={{ background: `var(--color-${hue}-${step})` }}
-                  title={`--color-${hue}-${step}`}
-                />
-              ))}
-            </div>
-          </div>
+          <SwatchGrid key={hue} label={hue} hue={hue} />
         ))}
 
-        <h2>Status Colors</h2>
+        <Heading as="h2">Status Colors</Heading>
         <Grid
           className="surface-grid"
           columns="repeat(auto-fit, minmax(180px, 1fr))"
@@ -106,7 +75,7 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
           ))}
         </Grid>
 
-        <h2>Surfaces</h2>
+        <Heading as="h2">Surfaces</Heading>
         <Grid
           className="surface-grid"
           columns="repeat(auto-fit, minmax(180px, 1fr))"
@@ -131,7 +100,7 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
           ))}
         </Grid>
 
-        <h2>Text Colors</h2>
+        <Heading as="h2">Text Colors</Heading>
         <div className="section">
           {(
             [
@@ -158,7 +127,7 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
           ))}
         </div>
 
-        <h2>Tooltip</h2>
+        <Heading as="h2">Tooltip</Heading>
         <div className="tooltip-demo-row">
           <Tooltip content="Top tooltip" side="top">
             <Button className="tooltip-demo-trigger" variant="surface" size="2">
@@ -177,7 +146,7 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
           </Tooltip>
         </div>
 
-        <h2>Popover</h2>
+        <Heading as="h2">Popover</Heading>
         <div className="popover-demo-row">
           <Popover
             side="bottom"
@@ -231,7 +200,7 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
           </Popover>
         </div>
 
-        <h2>Spacing</h2>
+        <Heading as="h2">Spacing</Heading>
         <div className="spacing-row">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((step) => (
             <div key={step} className="spacing-block">
@@ -248,7 +217,7 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
           ))}
         </div>
 
-        <h2>Border Radius</h2>
+        <Heading as="h2">Border Radius</Heading>
         <div className="radius-row">
           {[
             ["1", "--radius-1"],
@@ -271,15 +240,48 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
           ))}
         </div>
 
-        <h2>Component Radius (via Theme)</h2>
-        <p>
-          Current: <code>{radius}</code>
-        </p>
-        <div className="spacing-row">
-          <Button>Button</Button>
-          <Card>Card</Card>
-        </div>
+        <Box mt="6">
+          <Heading as="h2">Component Radius</Heading>
+          <Text as="p">
+            Current: <code>{radius}</code>
+          </Text>
+          <div className="spacing-row">
+            <Button>Button</Button>
+            <Card>Card</Card>
+          </div>
+        </Box>
       </Box>
     </Container>
   );
 }
+
+const SwatchGrid = ({ label, hue }: { label: string; hue: string }) => {
+  return (
+    <Box>
+      <Heading as="h3">{label}</Heading>
+      <div className="swatch-grid">
+        {STEPS.map((step) => (
+          <div
+            key={step}
+            className="swatch"
+            style={{ background: `var(--color-${hue}-${step})` }}
+            title={`--color-${hue}-${step}`}
+          />
+        ))}
+      </div>
+      <StepsLabels steps={STEPS} />
+    </Box>
+  );
+};
+
+const StepsLabels = ({ steps }: { steps: string[] | number[] }) => {
+  return (
+    <Grid columns={`repeat(${steps.length}, 1fr)`} gap={3} mt={1}>
+      {steps.map((s) => (
+        <Text key={s} size="1" color="gray">
+          {s}
+        </Text>
+      ))}
+    </Grid>
+  );
+};

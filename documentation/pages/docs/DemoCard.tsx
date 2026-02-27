@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import type { ReactNode } from 'react';
-import { Button, Card } from '../../../src';
-import { CodeBlock } from '../../components/CodeBlock';
+import { useState } from "react";
+import type { ReactNode } from "react";
+import { Button, Card, Flex, Heading, Text, Box } from "../../../src";
+import { CodeBlock } from "../../components/CodeBlock";
 
 export function DemoCard({
   title,
@@ -19,27 +19,29 @@ export function DemoCard({
   const [showCode, setShowCode] = useState(false);
 
   return (
-    <Card className="docs-demo-card">
-      <div className="docs-demo-header">
-        <div className="docs-demo-header-row">
-          <h3>{title}</h3>
+    <Card>
+      <Box mb="4">
+        <Flex align="center" justify="space-between">
+          <Heading>{title}</Heading>
           <Button
-            className="docs-demo-toggle"
-            variant="surface"
+            variant="outline"
             size="1"
             onClick={() => setShowCode((prev) => !prev)}
             aria-expanded={showCode}
+            color="gray"
           >
-            {showCode ? 'Hide code' : 'View code'}
+            {showCode ? "Hide code" : "View code"}
           </Button>
-        </div>
-        <p>{description}</p>
-      </div>
-      <Card className="docs-demo-surface" variant="classic" size="3">{children}</Card>
+        </Flex>
+        <Text as="p">{description}</Text>
+      </Box>
+      {!showCode && (
+        <Card className="docs-demo-surface" variant="classic" size="3">
+          {children}
+        </Card>
+      )}
       {showCode ? (
-        <div className="docs-demo-code">
-          <CodeBlock title={codeTitle ?? `${title} Code`} code={code} />
-        </div>
+        <CodeBlock title={codeTitle ?? `${title} Code`} code={code} />
       ) : null}
     </Card>
   );

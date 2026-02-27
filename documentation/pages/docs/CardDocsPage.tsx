@@ -1,5 +1,6 @@
 import { Card } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsDemoGrid } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
@@ -51,13 +52,13 @@ export function CardDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Demo</h2>
-        <div className="docs-demo-grid">
+        <DocsDemoGrid>
           <DemoCard title="Variants" description="Pick the appropriate surface style." code={variantsSnippet}>
-            <div className="docs-demo-grid">
+            <DocsDemoGrid>
               <Card variant="surface">Surface card</Card>
               <Card variant="classic">Classic card</Card>
               <Card variant="ghost">Ghost card</Card>
-            </div>
+            </DocsDemoGrid>
           </DemoCard>
           <DemoCard title="Interactive" description="Enable hover/press/focus styles via `asButton`." code={interactiveSnippet}>
             <Card asButton variant="surface" size="3">
@@ -80,7 +81,7 @@ export function CardDocsPage() {
               </Card>
             </div>
           </DemoCard>
-        </div>
+        </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
         <h2>Usage</h2>

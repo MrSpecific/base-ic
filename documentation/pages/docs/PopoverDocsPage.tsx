@@ -1,5 +1,6 @@
 import { Button, Popover } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsList } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
@@ -126,11 +127,11 @@ export function PopoverDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Notes</h2>
-        <ul className="docs-list">
+        <DocsList>
           <li>Use popover for interactive content, tooltip for passive hints.</li>
           <li>`PopoverPrimitive` is exported for full Base UI part-level control.</li>
           <li>Styling comes from semantic popover tokens (`--popover-*`).</li>
-        </ul>
+        </DocsList>
       </DocsSection>
     </>
   );
