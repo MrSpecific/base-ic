@@ -1,0 +1,12 @@
+import type { AccentColor, Appearance, GrayColor, Radius, Scaling } from '../src';
+
+export type { AccentColor, Appearance, GrayColor, Radius, Scaling };
+
+export type Page = 'home' | 'docs' | 'customization' | 'for-designers' | 'playground';
+
+export type DocsSection = 'overview' | 'theme' | 'tooltip' | 'popover';
+
+export type RouteState = {
+  page: Page;
+  docsSection: DocsSection;
+};

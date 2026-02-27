@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
 /**
- * Playground Vite config — dev server for visual iteration.
+ * Documentation site Vite config — dev server for docs/playground iteration.
  *
  * Imports directly from src/ (not dist/) so HMR works instantly.
  * This is NOT the library build config — that lives at the project root.

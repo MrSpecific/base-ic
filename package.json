@@ -19,7 +19,7 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite build --watch",
-    "playground": "vite serve playground --config playground/vite.config.ts",
+    "documentation": "vite serve documentation --config documentation/vite.config.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "peerDependencies": {
