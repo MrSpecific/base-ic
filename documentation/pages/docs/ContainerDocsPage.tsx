@@ -1,5 +1,6 @@
 import { Box, Container, Section } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
 export function ContainerDocsPage() {
@@ -28,14 +29,14 @@ export function ContainerDocsPage() {
 
   return (
     <>
-      <section className="docs-section">
+      <DocsSection>
         <h1>Container</h1>
         <p>
           `Container` centralizes page content and constrains line length with tokenized widths and gutters.
           Use size presets for docs, dashboards, and marketing sections.
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Demo</h2>
         <div className="docs-demo-grid">
           <DemoCard title="Container Sizes" description="Compare width presets side-by-side." code={sizeDemoSnippet}>
@@ -54,11 +55,11 @@ export function ContainerDocsPage() {
             </Container>
           </DemoCard>
         </div>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Container Usage" code={snippet} />
-      </section>
+      </DocsSection>
     </>
   );
 }

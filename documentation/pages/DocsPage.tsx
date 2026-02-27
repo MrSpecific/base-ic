@@ -1,4 +1,4 @@
-import { Container, Grid, Separator } from "../../src";
+import { Button, Container, Grid, Separator } from "../../src";
 import { OverviewDocsPage } from "./docs/OverviewDocsPage";
 import { PopoverDocsPage } from "./docs/PopoverDocsPage";
 import { ThemeDocsPage } from "./docs/ThemeDocsPage";
@@ -92,14 +92,16 @@ export function DocsPage({
               <div className="docs-sidebar-group">
                 <div className="docs-sidebar-group-title">{group.title}</div>
                 {group.items.map((item) => (
-                  <button
+                  <Button
                     key={item.id}
                     className="docs-sidebar-link"
                     data-active={section === item.id}
+                    variant="ghost"
+                    size="2"
                     onClick={() => goToDocsSection(item.id)}
                   >
                     {item.label}
-                  </button>
+                  </Button>
                 ))}
               </div>
               {index < docsNavGroups.length - 1 ? <Separator className="docs-sidebar-separator" /> : null}

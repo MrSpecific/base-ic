@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Box, Flex, Theme } from '../src';
+import { Box, Button, Flex, Theme } from '../src';
 import type { AccentColor, Appearance, GrayColor, Radius, Scaling } from './types';
 import { ACCENT_COLORS, APPEARANCES, GRAY_COLORS, NAV_ITEMS, RADII, SCALINGS } from './constants';
 import { getRouteFromPath, pageToPath } from './routing';
@@ -117,17 +117,18 @@ export default function App() {
     >
       <Box className="site-shell">
         <Flex as="header" className="site-header" align="center" justify="space-between">
-          <button className="site-logo" onClick={() => goTo('home')}>base-ic</button>
+          <Button className="site-logo" variant="ghost" onClick={() => goTo('home')}>base-ic</Button>
           <Flex as="nav" className="site-nav" aria-label="Primary" align="center" gap={1}>
             {NAV_ITEMS.map((item) => (
-              <button
+              <Button
                 key={item.page}
                 className="site-nav-link"
                 data-active={route.page === item.page}
+                variant="ghost"
                 onClick={() => goTo(item.page)}
               >
                 {item.label}
-              </button>
+              </Button>
             ))}
           </Flex>
         </Flex>

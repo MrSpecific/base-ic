@@ -1,42 +1,43 @@
-import { Tooltip } from '../../../src';
+import { Button, Tooltip } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
 export function TooltipDocsPage() {
   const tooltipSnippet = [
-    "import { Tooltip } from 'base-ic';",
+    "import { Button, Tooltip } from 'base-ic';",
     '',
     '<Tooltip content="Helpful context" side="top">',
-    '  <button>Hover me</button>',
+    '  <Button variant="surface">Hover me</Button>',
     '</Tooltip>',
   ].join('\n');
   const directionalDemoSnippet = [
     '<div className="tooltip-demo-row">',
-    '  <Tooltip content="Top helper text" side="top"><button className="tooltip-demo-trigger">Top</button></Tooltip>',
-    '  <Tooltip content="Right helper text" side="right"><button className="tooltip-demo-trigger">Right</button></Tooltip>',
-    '  <Tooltip content="Bottom helper text" side="bottom"><button className="tooltip-demo-trigger">Bottom</button></Tooltip>',
+    '  <Tooltip content="Top helper text" side="top"><Button className="tooltip-demo-trigger" variant="surface">Top</Button></Tooltip>',
+    '  <Tooltip content="Right helper text" side="right"><Button className="tooltip-demo-trigger" variant="surface">Right</Button></Tooltip>',
+    '  <Tooltip content="Bottom helper text" side="bottom"><Button className="tooltip-demo-trigger" variant="surface">Bottom</Button></Tooltip>',
     '</div>',
   ].join('\n');
   const formHelpDemoSnippet = [
     '<div className="tooltip-demo-row">',
     '  <Tooltip content="Controls visual density and touch target size." side="top">',
-    '    <button className="tooltip-demo-trigger">Density</button>',
+    '    <Button className="tooltip-demo-trigger" variant="surface">Density</Button>',
     '  </Tooltip>',
     '  <Tooltip content="Show helper text only when users need it." side="top">',
-    '    <button className="tooltip-demo-trigger">Info</button>',
+    '    <Button className="tooltip-demo-trigger" variant="surface">Info</Button>',
     '  </Tooltip>',
     '</div>',
   ].join('\n');
 
   return (
     <>
-      <section className="docs-section">
+      <DocsSection>
         <h1>Tooltip</h1>
         <p>
           `Tooltip` is a convenience wrapper around Base UI tooltip primitives, with system-level token styling.
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Built On Base UI</h2>
         <p>
           This component wraps the Base UI Tooltip primitive. Base primitive docs:
@@ -46,8 +47,8 @@ export function TooltipDocsPage() {
           </a>
           .
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Demo</h2>
         <div className="docs-demo-grid">
           <DemoCard
@@ -57,13 +58,13 @@ export function TooltipDocsPage() {
           >
             <div className="tooltip-demo-row">
               <Tooltip content="Top helper text" side="top">
-                <button className="tooltip-demo-trigger">Top</button>
+                <Button className="tooltip-demo-trigger" variant="surface" size="2">Top</Button>
               </Tooltip>
               <Tooltip content="Right helper text" side="right">
-                <button className="tooltip-demo-trigger">Right</button>
+                <Button className="tooltip-demo-trigger" variant="surface" size="2">Right</Button>
               </Tooltip>
               <Tooltip content="Bottom helper text" side="bottom">
-                <button className="tooltip-demo-trigger">Bottom</button>
+                <Button className="tooltip-demo-trigger" variant="surface" size="2">Bottom</Button>
               </Tooltip>
             </div>
           </DemoCard>
@@ -74,27 +75,27 @@ export function TooltipDocsPage() {
           >
             <div className="tooltip-demo-row">
               <Tooltip content="Controls visual density and touch target size." side="top">
-                <button className="tooltip-demo-trigger">Density</button>
+                <Button className="tooltip-demo-trigger" variant="surface" size="2">Density</Button>
               </Tooltip>
               <Tooltip content="Show helper text only when users need it." side="top">
-                <button className="tooltip-demo-trigger">Info</button>
+                <Button className="tooltip-demo-trigger" variant="surface" size="2">Info</Button>
               </Tooltip>
             </div>
           </DemoCard>
         </div>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Tooltip Usage" code={tooltipSnippet} />
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Notes</h2>
         <ul className="docs-list">
           <li>Use concise helper content; tooltips are for hints, not long-form UI.</li>
           <li>`TooltipPrimitive` is exported for advanced composition.</li>
           <li>Styling comes from semantic tooltip tokens (`--tooltip-*`).</li>
         </ul>
-      </section>
+      </DocsSection>
     </>
   );
 }

@@ -8,6 +8,7 @@ import {
   SCALINGS,
   toDisplayName,
 } from '../constants';
+import { Button } from '../../src';
 import type { AccentColor, Appearance, GrayColor, Radius, Scaling } from '../types';
 
 type ThemePanelProps = {
@@ -131,28 +132,31 @@ export function ThemePanel({
           <p className="theme-panel-helper">Light or dark rendering mode.</p>
         </div>
 
-        <button
-          type="button"
+        <Button
           className="theme-panel-copy-button"
+          variant="solid"
+          size="2"
           data-state={copyStatus}
           onClick={copyTheme}
         >
           {copyStatus === 'copied' ? 'Copied Theme' : copyStatus === 'error' ? 'Copy Failed' : 'Copy Theme'}
-        </button>
+        </Button>
         <p className="theme-panel-helper">Copies a ready-to-paste <code>{'<Theme />'}</code> snippet.</p>
         <div className="theme-panel-current">
           {`accent: ${accent} • gray: ${gray} • radius: ${radius} • scale: ${scaling} • appearance: ${appearance}`}
         </div>
       </div>
 
-      <button
+      <Button
         className="theme-panel-toggle"
+        variant="surface"
+        size="2"
         onClick={() => setOpen(!open)}
         title={open ? 'Close theme panel' : 'Open theme panel'}
         aria-label={open ? 'Close theme panel' : 'Open theme panel'}
       >
         {open ? '\u2715' : '\u2699'}
-      </button>
+      </Button>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { Box, Grid } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
 export function GridDocsPage() {
@@ -29,14 +30,14 @@ export function GridDocsPage() {
 
   return (
     <>
-      <section className="docs-section">
+      <DocsSection>
         <h1>Grid</h1>
         <p>
           `Grid` is the responsive grid primitive for equal columns, dashboard tiles, and dense content layouts.
           Use token gaps and explicit template controls for predictable spacing.
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Demo</h2>
         <div className="docs-demo-grid">
           <DemoCard title="Three Column Grid" description="Simple card layout with equal tracks." code={threeColDemoSnippet}>
@@ -54,11 +55,11 @@ export function GridDocsPage() {
             </Grid>
           </DemoCard>
         </div>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Grid Usage" code={snippet} />
-      </section>
+      </DocsSection>
     </>
   );
 }

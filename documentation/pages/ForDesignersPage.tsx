@@ -1,4 +1,5 @@
-import { Button, Container, Flex, Grid } from '../../src';
+import { Button, Card, Container, Flex, Grid } from '../../src';
+import { DocsSection } from '../components/DocsSection';
 import type { Page } from '../types';
 import { CodeBlock } from '../components/CodeBlock';
 
@@ -188,41 +189,41 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
 
   return (
     <Container as="main" className="site-page docs-page">
-      <section className="docs-section">
+      <DocsSection>
         <h1>For Designers</h1>
         <p>
           Use these token conventions to set up Figma variables quickly and keep your designs aligned with Base-IC semantics.
           Product teams can then swap themes in code without redesigning component structure.
         </p>
-      </section>
+      </DocsSection>
 
-      <section className="docs-section">
+      <DocsSection>
         <h2>Token Scales at a Glance</h2>
         <Grid className="designer-grid" columns="repeat(auto-fit, minmax(200px, 1fr))" gap={3}>
-          <article className="designer-card">
+          <Card className="designer-card">
             <h3>Color Steps</h3>
             <p>Every hue uses a 12-step scale plus contrast.</p>
             <p className="designer-note">1-2 backgrounds, 3-5 subtle surfaces, 6-8 borders, 9-10 solid fills, 11-12 text/icons.</p>
-          </article>
-          <article className="designer-card">
+          </Card>
+          <Card className="designer-card">
             <h3>Spacing</h3>
             <p>`space-1` to `space-12` (4px to 80px)</p>
             <p className="designer-note">Use these for padding, gap, section rhythm, and component internals.</p>
-          </article>
-          <article className="designer-card">
+          </Card>
+          <Card className="designer-card">
             <h3>Radius</h3>
             <p>`radius-1` to `radius-6` plus `radius-full`</p>
             <p className="designer-note">Component rounding is controlled globally through `component-radius`.</p>
-          </article>
-          <article className="designer-card">
+          </Card>
+          <Card className="designer-card">
             <h3>Type Scale</h3>
             <p>`font-size-1` to `font-size-9` (12px to 36px)</p>
             <p className="designer-note">Map to text styles in Figma so docs and UI match in both tools.</p>
-          </article>
+          </Card>
         </Grid>
-      </section>
+      </DocsSection>
 
-      <section className="docs-section">
+      <DocsSection>
         <h2>Copyable JSON Token Objects</h2>
         <p>
           These JSON objects are formatted for quick copy/paste into design-token plugins,
@@ -231,9 +232,9 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
         <CodeBlock title="Primitives (colors, spacing, type, radius)" code={primitiveTokensJson} />
         <CodeBlock title="Semantics (accent, neutral, text, surfaces, status)" code={semanticTokensJson} />
         <CodeBlock title="Component Patterns (button, badge, surface)" code={componentPatternTokensJson} />
-      </section>
+      </DocsSection>
 
-      <section className="docs-section">
+      <DocsSection>
         <h2>Figma Variable Naming</h2>
         <p>
           Mirror code token names in Figma variables to reduce translation overhead during handoff.
@@ -259,9 +260,9 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
           '...',
           'radius/full',
         ].join('\n')} />
-      </section>
+      </DocsSection>
 
-      <section className="docs-section">
+      <DocsSection>
         <h2>Recommended Figma Setup Workflow</h2>
         <ul className="docs-list">
           <li>1. Create color collections for each hue with 1-12 + contrast variables.</li>
@@ -274,7 +275,7 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
           <Button size="3" onClick={() => goTo('playground')}>Open Playground</Button>
           <Button size="3" variant="surface" onClick={() => goTo('customization')}>View Customization</Button>
         </Flex>
-      </section>
+      </DocsSection>
     </Container>
   );
 }

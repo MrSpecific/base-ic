@@ -1,4 +1,4 @@
-import { Badge, Box, Container, Grid, Popover, Tooltip } from '../../src';
+import { Badge, Box, Button, Card, Container, Grid, Popover, Tooltip } from '../../src';
 import { ALL_HUES, STEPS } from '../constants';
 import type { Radius } from '../types';
 
@@ -58,7 +58,7 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
         <h2>Status Colors</h2>
         <Grid className="surface-grid" columns="repeat(auto-fit, minmax(180px, 1fr))" gap={3}>
           {(['danger', 'success', 'warning', 'info'] as const).map((status) => (
-            <div
+            <Card
               key={status}
               className="surface-card status-card"
               style={{
@@ -82,7 +82,7 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
               >
                 {status} solid
               </Badge>
-            </div>
+            </Card>
           ))}
         </Grid>
 
@@ -94,10 +94,10 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
             ['raised', '--color-surface-raised'],
             ['overlay', '--color-surface-overlay'],
           ] as const).map(([name, token]) => (
-            <div key={name} className="surface-card" style={{ background: `var(${token})` }}>
+            <Card key={name} className="surface-card" style={{ background: `var(${token})` }}>
               <div className="surface-card-title">{name}</div>
               <div className="surface-card-body">{token}</div>
-            </div>
+            </Card>
           ))}
         </Grid>
 
@@ -122,13 +122,13 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
         <h2>Tooltip</h2>
         <div className="tooltip-demo-row">
           <Tooltip content="Top tooltip" side="top">
-            <button className="tooltip-demo-trigger">Hover top</button>
+            <Button className="tooltip-demo-trigger" variant="surface" size="2">Hover top</Button>
           </Tooltip>
           <Tooltip content="Right tooltip" side="right">
-            <button className="tooltip-demo-trigger">Hover right</button>
+            <Button className="tooltip-demo-trigger" variant="surface" size="2">Hover right</Button>
           </Tooltip>
           <Tooltip content="Bottom tooltip" side="bottom">
-            <button className="tooltip-demo-trigger">Hover bottom</button>
+            <Button className="tooltip-demo-trigger" variant="surface" size="2">Hover bottom</Button>
           </Tooltip>
         </div>
 
@@ -142,13 +142,13 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
                 <div className="popover-demo-title">Theme Preset</div>
                 <p className="popover-demo-text">Apply a compact, high-contrast preset for dashboards.</p>
                 <div className="popover-demo-actions">
-                  <button className="popover-demo-button popover-demo-button-solid">Apply</button>
-                  <button className="popover-demo-button popover-demo-button-ghost">Dismiss</button>
+                  <Button className="popover-demo-button popover-demo-button-solid" variant="solid" size="1">Apply</Button>
+                  <Button className="popover-demo-button popover-demo-button-ghost" variant="surface" size="1">Dismiss</Button>
                 </div>
               </div>
             )}
           >
-            <button className="tooltip-demo-trigger">Open popover</button>
+            <Button className="tooltip-demo-trigger" variant="surface" size="2">Open popover</Button>
           </Popover>
 
           <Popover
@@ -161,7 +161,7 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
               </div>
             )}
           >
-            <button className="tooltip-demo-trigger">Open right</button>
+            <Button className="tooltip-demo-trigger" variant="surface" size="2">Open right</Button>
           </Popover>
         </div>
 

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Button } from '../../src';
 import { IconAlert, IconCheck, IconCopy } from '../icons';
 
 type CopyStatus = 'idle' | 'copied' | 'error';
@@ -20,9 +21,10 @@ export function CodeBlock({ title, code }: { title?: string; code: string }) {
     <div className="docs-code-block">
       <div className="docs-code-header">
         <strong>{title ?? 'Example'}</strong>
-        <button
-          type="button"
+        <Button
           className="docs-copy-button"
+          variant="ghost"
+          size="1"
           data-state={copyStatus}
           onClick={onCopy}
           title={copyStatus === 'copied' ? 'Copied' : copyStatus === 'error' ? 'Copy failed' : 'Copy code'}
@@ -35,7 +37,7 @@ export function CodeBlock({ title, code }: { title?: string; code: string }) {
           ) : (
             <IconCopy className="docs-copy-icon" />
           )}
-        </button>
+        </Button>
       </div>
       <pre><code>{code}</code></pre>
     </div>

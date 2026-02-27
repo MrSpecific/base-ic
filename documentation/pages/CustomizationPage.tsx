@@ -1,4 +1,5 @@
 import { Button, Container } from '../../src';
+import { DocsSection } from '../components/DocsSection';
 import type { Page } from '../types';
 import { CodeBlock } from '../components/CodeBlock';
 
@@ -51,42 +52,42 @@ export function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
 
   return (
     <Container as="main" className="site-page docs-page">
-      <section className="docs-section">
+      <DocsSection>
         <h1>Customization</h1>
         <p>
           Base-ic is designed to be customized through `Theme` props and semantic CSS tokens.
           Start with runtime props, then promote stable patterns into tokens.
         </p>
-      </section>
+      </DocsSection>
 
-      <section className="docs-section">
+      <DocsSection>
         <h2>1. Extend Color Palettes</h2>
         <p>
           Add brand palettes with `customColors`, then point `accentColor` at your custom name.
           Provide all 12 steps plus a contrast color for solid fills.
         </p>
         <CodeBlock title="Custom Color Palette" code={customColorSnippet} />
-      </section>
+      </DocsSection>
 
-      <section className="docs-section">
+      <DocsSection>
         <h2>2. Override Font Families</h2>
         <p>
           Set `fontFamily` slots for primary UI text, display typography, and monospace surfaces.
           Unspecified slots continue to inherit defaults.
         </p>
         <CodeBlock title="Font Family Overrides" code={fontSnippet} />
-      </section>
+      </DocsSection>
 
-      <section className="docs-section">
+      <DocsSection>
         <h2>3. Tune Semantic Tokens</h2>
         <p>
           Use semantic tokens for reusable patterns like buttons, surfaces, badges, and status components.
           These tokens automatically participate in theme scaling.
         </p>
         <CodeBlock title="Semantic Token Overrides" code={semanticSnippet} />
-      </section>
+      </DocsSection>
 
-      <section className="docs-section">
+      <DocsSection>
         <h2>Recommended Workflow</h2>
         <ul className="docs-list">
           <li>1. Pick accent/gray/radius/scaling/appearance in Theme props.</li>
@@ -96,7 +97,7 @@ export function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
           <li>5. Validate combinations in the playground.</li>
         </ul>
         <Button size="3" onClick={() => goTo('playground')}>Open Playground</Button>
-      </section>
+      </DocsSection>
     </Container>
   );
 }

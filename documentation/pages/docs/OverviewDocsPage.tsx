@@ -1,5 +1,5 @@
 import { CodeBlock } from '../../components/CodeBlock';
-
+import { DocsSection } from '../../components/DocsSection';
 export function OverviewDocsPage() {
   const installSnippet = 'npm install base-ic';
   const usageSnippet = [
@@ -29,40 +29,40 @@ export function OverviewDocsPage() {
 
   return (
     <>
-      <section className="docs-section">
+      <DocsSection>
         <h1>Documentation</h1>
         <p>Everything needed to integrate, theme, and extend base-ic in production.</p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Install</h2>
         <CodeBlock title="Install" code={installSnippet} />
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Quick Start</h2>
         <CodeBlock title="Quick Start" code={usageSnippet} />
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Theme API</h2>
         <p>
           `Theme` sets accent, neutral palette, radius, scale, and appearance while keeping token semantics stable.
           Scaling supports `80%` through `150%`.
         </p>
         <CodeBlock title="Theme API Example" code={themingSnippet} />
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Status Patterns</h2>
         <p>
           Use semantic tokens like `--status-surface-*`, `--status-badge-*`, `--button-*`, and `--badge-*`
           to keep visual behavior consistent across the product.
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Layout Primitives</h2>
         <p>
           Build structure with `Box`, `Flex`, `Grid`, `Container`, and `Section` before adding visual components.
           This keeps spacing, width constraints, and rhythm aligned with system tokens.
         </p>
-      </section>
+      </DocsSection>
     </>
   );
 }

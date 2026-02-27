@@ -1,5 +1,6 @@
 import { Box } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
 export function BoxDocsPage() {
@@ -26,14 +27,14 @@ export function BoxDocsPage() {
 
   return (
     <>
-      <section className="docs-section">
+      <DocsSection>
         <h1>Box</h1>
         <p>
           `Box` is the lowest-level layout primitive. It renders a single element and keeps the API minimal,
           making it ideal for semantic wrappers and utility composition.
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Demo</h2>
         <div className="docs-demo-grid">
           <DemoCard title="Semantic Wrapper" description="Render any semantic element with `as`." code={semanticWrapperDemo}>
@@ -49,11 +50,11 @@ export function BoxDocsPage() {
             </Box>
           </DemoCard>
         </div>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Box Usage" code={snippet} />
-      </section>
+      </DocsSection>
     </>
   );
 }

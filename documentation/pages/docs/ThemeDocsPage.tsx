@@ -1,5 +1,6 @@
-import { Theme } from '../../../src';
+import { Button, Theme } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
 export function ThemeDocsPage() {
@@ -15,35 +16,39 @@ export function ThemeDocsPage() {
     '</Theme>',
   ].join('\n');
   const productThemeDemoSnippet = [
+    "import { Button, Theme } from 'base-ic';",
+    '',
     '<Theme accentColor="blue" grayColor="slate" radius="medium" scaling="100%">',
     '  <p className="docs-demo-eyebrow">Blue + Slate</p>',
     '  <div className="docs-demo-button-row">',
-    '    <button className="site-button site-button-solid">Primary Action</button>',
-    '    <button className="site-button site-button-ghost">Secondary Action</button>',
+    '    <Button variant="solid" size="3">Primary Action</Button>',
+    '    <Button variant="surface" size="3">Secondary Action</Button>',
     '  </div>',
     '</Theme>',
   ].join('\n');
 
   const marketingThemeDemoSnippet = [
+    "import { Button, Theme } from 'base-ic';",
+    '',
     '<Theme accentColor="orange" grayColor="gray" radius="large" scaling="100%">',
     '  <p className="docs-demo-eyebrow">Orange + Gray</p>',
     '  <div className="docs-demo-button-row">',
-    '    <button className="site-button site-button-solid">Get Started</button>',
-    '    <button className="site-button site-button-ghost">Learn More</button>',
+    '    <Button variant="solid" size="3">Get Started</Button>',
+    '    <Button variant="surface" size="3">Learn More</Button>',
     '  </div>',
     '</Theme>',
   ].join('\n');
 
   return (
     <>
-      <section className="docs-section">
+      <DocsSection>
         <h1>Theme</h1>
         <p>
           `Theme` is the foundation of Base-IC. It controls accent/neutral palettes, radius, scale,
           appearance, and typography slots for every component below it.
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Demo</h2>
         <div className="docs-demo-grid">
           <Theme accentColor="blue" grayColor="slate" radius="medium" scaling="100%" appearance="inherit">
@@ -54,8 +59,8 @@ export function ThemeDocsPage() {
             >
               <p className="docs-demo-eyebrow">Blue + Slate</p>
               <div className="docs-demo-button-row">
-                <button className="site-button site-button-solid">Primary Action</button>
-                <button className="site-button site-button-ghost">Secondary Action</button>
+                <Button variant="solid" size="3">Primary Action</Button>
+                <Button variant="surface" size="3">Secondary Action</Button>
               </div>
             </DemoCard>
           </Theme>
@@ -67,18 +72,18 @@ export function ThemeDocsPage() {
             >
               <p className="docs-demo-eyebrow">Orange + Gray</p>
               <div className="docs-demo-button-row">
-                <button className="site-button site-button-solid">Get Started</button>
-                <button className="site-button site-button-ghost">Learn More</button>
+                <Button variant="solid" size="3">Get Started</Button>
+                <Button variant="surface" size="3">Learn More</Button>
               </div>
             </DemoCard>
           </Theme>
         </div>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Theme Usage" code={themingSnippet} />
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Key Props</h2>
         <ul className="docs-list">
           <li>`accentColor` and `grayColor` map semantic aliases to hue scales.</li>
@@ -87,7 +92,7 @@ export function ThemeDocsPage() {
           <li>`appearance` supports `light`, `dark`, and `inherit` modes.</li>
           <li>`fontFamily` overrides semantic typography slots.</li>
         </ul>
-      </section>
+      </DocsSection>
     </>
   );
 }

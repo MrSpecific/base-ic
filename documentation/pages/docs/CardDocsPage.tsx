@@ -1,5 +1,6 @@
 import { Card } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
 export function CardDocsPage() {
@@ -29,14 +30,14 @@ export function CardDocsPage() {
 
   return (
     <>
-      <section className="docs-section">
+      <DocsSection>
         <h1>Card</h1>
         <p>
           `Card` is a surface primitive for grouping related content. It supports visual variants and optional
           interactive affordances.
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Demo</h2>
         <div className="docs-demo-grid">
           <DemoCard title="Variants" description="Pick the appropriate surface style." code={variantsSnippet}>
@@ -53,11 +54,11 @@ export function CardDocsPage() {
             </Card>
           </DemoCard>
         </div>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Card Usage" code={usageSnippet} />
-      </section>
+      </DocsSection>
     </>
   );
 }

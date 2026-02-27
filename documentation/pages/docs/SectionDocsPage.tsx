@@ -1,5 +1,6 @@
 import { Box, Section } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
 export function SectionDocsPage() {
@@ -29,14 +30,14 @@ export function SectionDocsPage() {
 
   return (
     <>
-      <section className="docs-section">
+      <DocsSection>
         <h1>Section</h1>
         <p>
           `Section` standardizes vertical rhythm across page regions. Use size presets or `py` overrides to
           keep spacing consistent while content density changes.
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Demo</h2>
         <div className="docs-demo-grid">
           <DemoCard title="Preset Sizes" description="`size` scales spacing with semantic tokens." code={presetSizesDemoSnippet}>
@@ -55,11 +56,11 @@ export function SectionDocsPage() {
             </Section>
           </DemoCard>
         </div>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Section Usage" code={snippet} />
-      </section>
+      </DocsSection>
     </>
   );
 }

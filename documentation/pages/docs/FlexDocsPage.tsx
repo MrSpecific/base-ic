@@ -1,5 +1,6 @@
-import { Box, Flex } from '../../../src';
+import { Box, Button, Flex } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
 export function FlexDocsPage() {
@@ -12,11 +13,13 @@ export function FlexDocsPage() {
     '</Flex>',
   ].join('\n');
   const toolbarDemoSnippet = [
+    "import { Button, Flex } from 'base-ic';",
+    '',
     '<Flex align="center" justify="space-between" gap={3} className="docs-layout-sample-box">',
     '  <strong>Workspace</strong>',
     '  <Flex gap={2}>',
-    '    <button className="site-button site-button-ghost">Cancel</button>',
-    '    <button className="site-button site-button-solid">Save</button>',
+    '    <Button variant="surface" size="2">Cancel</Button>',
+    '    <Button size="2">Save</Button>',
     '  </Flex>',
     '</Flex>',
   ].join('\n');
@@ -30,22 +33,22 @@ export function FlexDocsPage() {
 
   return (
     <>
-      <section className="docs-section">
+      <DocsSection>
         <h1>Flex</h1>
         <p>
           `Flex` is a token-aware flexbox primitive. Configure direction, alignment, wrapping, and gap with
           ergonomic props while preserving semantic markup with `as`.
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Demo</h2>
         <div className="docs-demo-grid">
           <DemoCard title="Toolbar Row" description="Horizontal distribution with centered alignment." code={toolbarDemoSnippet}>
             <Flex align="center" justify="space-between" gap={3} className="docs-layout-sample-box">
               <strong>Workspace</strong>
               <Flex gap={2}>
-                <button className="site-button site-button-ghost">Cancel</button>
-                <button className="site-button site-button-solid">Save</button>
+                <Button variant="surface" size="2">Cancel</Button>
+                <Button size="2">Save</Button>
               </Flex>
             </Flex>
           </DemoCard>
@@ -57,11 +60,11 @@ export function FlexDocsPage() {
             </Flex>
           </DemoCard>
         </div>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Flex Usage" code={snippet} />
-      </section>
+      </DocsSection>
     </>
   );
 }

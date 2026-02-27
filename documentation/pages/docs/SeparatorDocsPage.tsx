@@ -1,5 +1,6 @@
 import { Flex, Separator } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
 export function SeparatorDocsPage() {
@@ -27,13 +28,13 @@ export function SeparatorDocsPage() {
 
   return (
     <>
-      <section className="docs-section">
+      <DocsSection>
         <h1>Separator</h1>
         <p>
           `Separator` provides subtle visual boundaries between content groups with horizontal or vertical orientation.
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Built On Base UI</h2>
         <p>
           This component wraps the Base UI Separator primitive. Base primitive docs:{' '}
@@ -42,8 +43,8 @@ export function SeparatorDocsPage() {
           </a>
           .
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Demo</h2>
         <div className="docs-demo-grid">
           <DemoCard title="Horizontal" description="Divide stacked content sections." code={horizontalSnippet}>
@@ -61,11 +62,11 @@ export function SeparatorDocsPage() {
             </Flex>
           </DemoCard>
         </div>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Separator Usage" code={usageSnippet} />
-      </section>
+      </DocsSection>
     </>
   );
 }

@@ -1,10 +1,11 @@
-import { Popover } from '../../../src';
+import { Button, Popover } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
 export function PopoverDocsPage() {
   const popoverSnippet = [
-    "import { Popover } from 'base-ic';",
+    "import { Button, Popover } from 'base-ic';",
     '',
     '<Popover',
     '  side="bottom"',
@@ -15,7 +16,7 @@ export function PopoverDocsPage() {
     '    </div>',
     '  }',
     '>',
-    '  <button>Open</button>',
+    '  <Button variant="surface">Open</Button>',
     '</Popover>',
   ].join('\n');
   const actionsDemoSnippet = [
@@ -27,13 +28,13 @@ export function PopoverDocsPage() {
     '      <div className="popover-demo-title">Quick Actions</div>',
     '      <p className="popover-demo-text">Apply a default configuration preset.</p>',
     '      <div className="popover-demo-actions">',
-    '        <button className="popover-demo-button popover-demo-button-solid">Apply</button>',
-    '        <button className="popover-demo-button popover-demo-button-ghost">Cancel</button>',
+    '        <Button className="popover-demo-button popover-demo-button-solid" variant="solid" size="1">Apply</Button>',
+    '        <Button className="popover-demo-button popover-demo-button-ghost" variant="surface" size="1">Cancel</Button>',
     '      </div>',
     '    </div>',
     '  }',
     '>',
-    '  <button className="tooltip-demo-trigger">Open actions</button>',
+    '  <Button className="tooltip-demo-trigger" variant="surface">Open actions</Button>',
     '</Popover>',
   ].join('\n');
   const settingsDemoSnippet = [
@@ -47,19 +48,19 @@ export function PopoverDocsPage() {
     '    </div>',
     '  }',
     '>',
-    '  <button className="tooltip-demo-trigger">Open settings</button>',
+    '  <Button className="tooltip-demo-trigger" variant="surface">Open settings</Button>',
     '</Popover>',
   ].join('\n');
 
   return (
     <>
-      <section className="docs-section">
+      <DocsSection>
         <h1>Popover</h1>
         <p>
           `Popover` provides richer anchored content than tooltip, suitable for actions, forms, or contextual controls.
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Built On Base UI</h2>
         <p>
           This component wraps the Base UI Popover primitive. Base primitive docs:
@@ -69,8 +70,8 @@ export function PopoverDocsPage() {
           </a>
           .
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Demo</h2>
         <div className="docs-demo-grid">
           <DemoCard
@@ -87,13 +88,13 @@ export function PopoverDocsPage() {
                     <div className="popover-demo-title">Quick Actions</div>
                     <p className="popover-demo-text">Apply a default configuration preset.</p>
                     <div className="popover-demo-actions">
-                      <button className="popover-demo-button popover-demo-button-solid">Apply</button>
-                      <button className="popover-demo-button popover-demo-button-ghost">Cancel</button>
+                      <Button className="popover-demo-button popover-demo-button-solid" variant="solid" size="1">Apply</Button>
+                      <Button className="popover-demo-button popover-demo-button-ghost" variant="surface" size="1">Cancel</Button>
                     </div>
                   </div>
                 )}
               >
-                <button className="tooltip-demo-trigger">Open actions</button>
+                <Button className="tooltip-demo-trigger" variant="surface" size="2">Open actions</Button>
               </Popover>
             </div>
           </DemoCard>
@@ -113,24 +114,24 @@ export function PopoverDocsPage() {
                   </div>
                 )}
               >
-                <button className="tooltip-demo-trigger">Open settings</button>
+                <Button className="tooltip-demo-trigger" variant="surface" size="2">Open settings</Button>
               </Popover>
             </div>
           </DemoCard>
         </div>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Popover Usage" code={popoverSnippet} />
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Notes</h2>
         <ul className="docs-list">
           <li>Use popover for interactive content, tooltip for passive hints.</li>
           <li>`PopoverPrimitive` is exported for full Base UI part-level control.</li>
           <li>Styling comes from semantic popover tokens (`--popover-*`).</li>
         </ul>
-      </section>
+      </DocsSection>
     </>
   );
 }

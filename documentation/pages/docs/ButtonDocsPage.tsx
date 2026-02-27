@@ -1,5 +1,6 @@
 import { Button } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
 export function ButtonDocsPage() {
@@ -30,13 +31,13 @@ export function ButtonDocsPage() {
 
   return (
     <>
-      <section className="docs-section">
+      <DocsSection>
         <h1>Button</h1>
         <p>
           `Button` is a styled action primitive with size, variant, radius, color override, and loading states.
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Built On Base UI</h2>
         <p>
           This component wraps the Base UI Button primitive. Base primitive docs:{' '}
@@ -45,8 +46,8 @@ export function ButtonDocsPage() {
           </a>
           .
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Demo</h2>
         <div className="docs-demo-grid">
           <DemoCard
@@ -75,11 +76,11 @@ export function ButtonDocsPage() {
             </div>
           </DemoCard>
         </div>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Button Usage" code={usageSnippet} />
-      </section>
+      </DocsSection>
     </>
   );
 }

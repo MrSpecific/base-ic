@@ -1,5 +1,6 @@
 import { Code, Em, Heading, Kbd, Link, Quote, Strong, Text } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
 export function TypographyDocsPage() {
@@ -28,14 +29,14 @@ export function TypographyDocsPage() {
 
   return (
     <>
-      <section className="docs-section">
+      <DocsSection>
         <h1>Typography</h1>
         <p>
           Typography primitives (`Text`, `Heading`, `Link`, `Code`, `Kbd`, `Em`, `Strong`, `Quote`) provide a
           consistent type system with semantic color and size controls.
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Demo</h2>
         <div className="docs-demo-grid">
           <DemoCard title="Scale" description="Compose heading and body levels with tokenized sizes." code={scaleSnippet}>
@@ -58,11 +59,11 @@ export function TypographyDocsPage() {
             </Link>
           </DemoCard>
         </div>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Typography Usage" code={usageSnippet} />
-      </section>
+      </DocsSection>
     </>
   );
 }

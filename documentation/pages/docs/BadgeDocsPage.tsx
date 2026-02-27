@@ -1,5 +1,6 @@
 import { Badge } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsSection } from '../../components/DocsSection';
 import { DemoCard } from './DemoCard';
 
 export function BadgeDocsPage() {
@@ -28,13 +29,13 @@ export function BadgeDocsPage() {
 
   return (
     <>
-      <section className="docs-section">
+      <DocsSection>
         <h1>Badge</h1>
         <p>
           `Badge` is a compact status/pill component with token-based sizing and visual variants.
         </p>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Demo</h2>
         <div className="docs-demo-grid">
           <DemoCard title="Variants" description="Use shape and fill to express emphasis." code={variantsSnippet}>
@@ -53,11 +54,11 @@ export function BadgeDocsPage() {
             </div>
           </DemoCard>
         </div>
-      </section>
-      <section className="docs-section">
+      </DocsSection>
+      <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Badge Usage" code={usageSnippet} />
-      </section>
+      </DocsSection>
     </>
   );
 }
