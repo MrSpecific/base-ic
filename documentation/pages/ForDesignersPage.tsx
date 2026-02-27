@@ -1,3 +1,4 @@
+import { Container, Flex, Grid } from '../../src';
 import type { Page } from '../types';
 import { CodeBlock } from '../components/CodeBlock';
 
@@ -186,7 +187,7 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
   }, null, 2);
 
   return (
-    <main className="site-page docs-page">
+    <Container as="main" className="site-page docs-page">
       <section className="docs-section">
         <h1>For Designers</h1>
         <p>
@@ -197,7 +198,7 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
 
       <section className="docs-section">
         <h2>Token Scales at a Glance</h2>
-        <div className="designer-grid">
+        <Grid className="designer-grid" columns="repeat(auto-fit, minmax(200px, 1fr))" gap={3}>
           <article className="designer-card">
             <h3>Color Steps</h3>
             <p>Every hue uses a 12-step scale plus contrast.</p>
@@ -218,7 +219,7 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
             <p>`font-size-1` to `font-size-9` (12px to 36px)</p>
             <p className="designer-note">Map to text styles in Figma so docs and UI match in both tools.</p>
           </article>
-        </div>
+        </Grid>
       </section>
 
       <section className="docs-section">
@@ -269,15 +270,15 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
           <li>4. Build component libraries using only semantic variables for fill/stroke/text.</li>
           <li>5. Validate themes in Playground and sync any token changes back to Figma.</li>
         </ul>
-        <div className="hero-actions">
+        <Flex className="hero-actions" gap={2}>
           <button className="site-button site-button-solid" onClick={() => goTo('playground')}>
             Open Playground
           </button>
           <button className="site-button site-button-ghost" onClick={() => goTo('customization')}>
             View Customization
           </button>
-        </div>
+        </Flex>
       </section>
-    </main>
+    </Container>
   );
 }

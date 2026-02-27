@@ -1,0 +1,3 @@
+.section {
+  padding-block: var(--section-padding, var(--layout-section-2));
+}

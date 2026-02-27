@@ -5,7 +5,16 @@ export function getRouteFromPath(pathname: string): RouteState {
   if (normalized === '/docs') return { page: 'docs', docsSection: 'overview' };
   if (normalized.startsWith('/docs/')) {
     const slug = normalized.slice('/docs/'.length) as DocsSection;
-    if (slug === 'theme' || slug === 'tooltip' || slug === 'popover') {
+    if (
+      slug === 'theme' ||
+      slug === 'tooltip' ||
+      slug === 'popover' ||
+      slug === 'box' ||
+      slug === 'flex' ||
+      slug === 'grid' ||
+      slug === 'container' ||
+      slug === 'section'
+    ) {
       return { page: 'docs', docsSection: slug };
     }
     return { page: 'docs', docsSection: 'overview' };

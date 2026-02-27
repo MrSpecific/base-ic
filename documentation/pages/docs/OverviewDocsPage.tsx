@@ -56,6 +56,13 @@ export function OverviewDocsPage() {
           to keep visual behavior consistent across the product.
         </p>
       </section>
+      <section className="docs-section">
+        <h2>Layout Primitives</h2>
+        <p>
+          Build structure with `Box`, `Flex`, `Grid`, `Container`, and `Section` before adding visual components.
+          This keeps spacing, width constraints, and rhythm aligned with system tokens.
+        </p>
+      </section>
     </>
   );
 }

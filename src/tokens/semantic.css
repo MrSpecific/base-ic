@@ -135,6 +135,20 @@
   --color-info-contrast:    var(--color-blue-contrast);
 
   /* -------------------------------------------------------------------------
+   * Semantic layout patterns
+   * -------------------------------------------------------------------------
+   */
+  --layout-gap-default:       var(--space-3);
+  --layout-container-gutter:  var(--space-4);
+  --layout-container-1:       40rem;
+  --layout-container-2:       56rem;
+  --layout-container-3:       72rem;
+  --layout-container-4:       90rem;
+  --layout-section-1:         var(--space-5);
+  --layout-section-2:         var(--space-7);
+  --layout-section-3:         var(--space-10);
+
+  /* -------------------------------------------------------------------------
    * Semantic surface patterns (layout + sizing)
    * -------------------------------------------------------------------------
    */

@@ -4,7 +4,16 @@ export type { AccentColor, Appearance, GrayColor, Radius, Scaling };
 
 export type Page = 'home' | 'docs' | 'customization' | 'for-designers' | 'playground';
 
-export type DocsSection = 'overview' | 'theme' | 'tooltip' | 'popover';
+export type DocsSection =
+  | 'overview'
+  | 'theme'
+  | 'tooltip'
+  | 'popover'
+  | 'box'
+  | 'flex'
+  | 'grid'
+  | 'container'
+  | 'section';
 
 export type RouteState = {
   page: Page;

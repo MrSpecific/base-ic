@@ -1,3 +1,4 @@
+import { Container } from '../../src';
 import type { Page } from '../types';
 import { CodeBlock } from '../components/CodeBlock';
 
@@ -49,7 +50,7 @@ export function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
   ].join('\n');
 
   return (
-    <main className="site-page docs-page">
+    <Container as="main" className="site-page docs-page">
       <section className="docs-section">
         <h1>Customization</h1>
         <p>
@@ -98,6 +99,6 @@ export function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
           Open Playground
         </button>
       </section>
-    </main>
+    </Container>
   );
 }

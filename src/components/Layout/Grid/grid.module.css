@@ -1,0 +1,10 @@
+.grid {
+  display: grid;
+  min-width: 0;
+  gap: var(--grid-gap, var(--layout-gap-default));
+  grid-template-columns: var(--grid-columns);
+  grid-template-rows: var(--grid-rows);
+  grid-auto-flow: var(--grid-auto-flow, row);
+  align-items: var(--grid-align, stretch);
+  justify-items: var(--grid-justify, stretch);
+}

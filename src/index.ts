@@ -21,3 +21,13 @@ export { Tooltip, TooltipPrimitive } from './components/Tooltip';
 export type { TooltipProps } from './components/Tooltip';
 export { Popover, PopoverPrimitive } from './components/Popover';
 export type { PopoverProps } from './components/Popover';
+
+// Layout components
+export { Box, Flex, Grid, Container, Section } from './components/Layout';
+export type {
+  BoxProps,
+  FlexProps,
+  GridProps,
+  ContainerProps,
+  SectionProps,
+} from './components/Layout';

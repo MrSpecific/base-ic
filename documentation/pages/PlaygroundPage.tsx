@@ -1,11 +1,11 @@
-import { Popover, Tooltip } from '../../src';
+import { Box, Container, Grid, Popover, Tooltip } from '../../src';
 import { ALL_HUES, STEPS } from '../constants';
 import type { Radius } from '../types';
 
 export function PlaygroundPage({ radius }: { radius: Radius }) {
   return (
-    <main className="site-page playground-page">
-      <div className="playground">
+    <Container as="main" className="site-page playground-page">
+      <Box className="playground">
         <h1>Playground</h1>
         <p>
           Interactive token and theme exploration. Use the floating panel in the bottom-right to tweak theme values.
@@ -56,7 +56,7 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
         ))}
 
         <h2>Status Colors</h2>
-        <div className="surface-grid">
+        <Grid className="surface-grid" columns="repeat(auto-fit, minmax(180px, 1fr))" gap={3}>
           {(['danger', 'success', 'warning', 'info'] as const).map((status) => (
             <div
               key={status}
@@ -83,10 +83,10 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
               </div>
             </div>
           ))}
-        </div>
+        </Grid>
 
         <h2>Surfaces</h2>
-        <div className="surface-grid">
+        <Grid className="surface-grid" columns="repeat(auto-fit, minmax(180px, 1fr))" gap={3}>
           {([
             ['base', '--color-surface-base'],
             ['subtle', '--color-surface-subtle'],
@@ -98,7 +98,7 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
               <div className="surface-card-body">{token}</div>
             </div>
           ))}
-        </div>
+        </Grid>
 
         <h2>Text Colors</h2>
         <div className="section">
@@ -205,7 +205,7 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
           <div className="demo-button">Button-ish</div>
           <div className="demo-card">Card-ish</div>
         </div>
-      </div>
-    </main>
+      </Box>
+    </Container>
   );
 }
