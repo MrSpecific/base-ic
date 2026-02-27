@@ -31,3 +31,41 @@ export type {
   ContainerProps,
   SectionProps,
 } from './components/Layout';
+
+// Button
+export { Button } from './components/Button';
+export type { ButtonProps } from './components/Button';
+
+// Card
+export { Card } from './components/Card';
+export type { CardProps } from './components/Card';
+
+// Badge
+export { Badge } from './components/Badge';
+export type { BadgeProps } from './components/Badge';
+
+// Separator
+export { Separator } from './components/Separator';
+export type { SeparatorProps } from './components/Separator';
+
+// Typography components
+export {
+  Text,
+  Heading,
+  Code,
+  Kbd,
+  Link,
+  Em,
+  Strong,
+  Quote,
+} from './components/Typography';
+export type {
+  TextProps,
+  HeadingProps,
+  CodeProps,
+  KbdProps,
+  LinkProps,
+  EmProps,
+  StrongProps,
+  QuoteProps,
+} from './components/Typography';

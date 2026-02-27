@@ -1,0 +1,70 @@
+import * as React from 'react';
+import { cx } from '../Layout/layout.utils';
+import { buildTypoColorVar, buildTypoSizeVars } from './typography.utils';
+import styles from './heading.module.css';
+
+type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+type HeadingSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+type HeadingWeight = 'light' | 'regular' | 'medium' | 'semibold' | 'bold';
+type HeadingAlign = 'left' | 'center' | 'right';
+type HeadingWrap = 'wrap' | 'nowrap' | 'pretty' | 'balance';
+type HeadingTrim = 'normal' | 'start' | 'end' | 'both';
+
+export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
+  as?: HeadingElement;
+  size?: HeadingSize;
+  weight?: HeadingWeight;
+  color?: string;
+  highContrast?: boolean;
+  align?: HeadingAlign;
+  wrap?: HeadingWrap;
+  trim?: HeadingTrim;
+  truncate?: boolean;
+}
+
+export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
+  function Heading(
+    {
+      as: Tag = 'h1',
+      size = '6',
+      weight,
+      color,
+      highContrast,
+      align,
+      wrap,
+      trim,
+      truncate,
+      className,
+      style,
+      ...rest
+    },
+    ref,
+  ) {
+    const sizeVars = buildTypoSizeVars('heading', size);
+    const colorVars = buildTypoColorVar(color, highContrast);
+    const weightVar = weight
+      ? { '--typo-weight': `var(--font-weight-${weight})` } as React.CSSProperties
+      : undefined;
+
+    return (
+      <Tag
+        ref={ref}
+        className={cx(
+          styles.heading,
+          truncate && styles.truncate,
+          trim && trim !== 'normal' && styles[`trim${trim[0].toUpperCase()}${trim.slice(1)}` as keyof typeof styles],
+          className,
+        )}
+        style={{
+          ...sizeVars,
+          ...colorVars,
+          ...weightVar,
+          textAlign: align,
+          textWrap: wrap,
+          ...style,
+        }}
+        {...rest}
+      />
+    );
+  },
+);

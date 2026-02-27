@@ -1,0 +1,29 @@
+.link {
+  font-family: inherit;
+  font-size: var(--typo-font-size, inherit);
+  line-height: var(--typo-line-height, inherit);
+  letter-spacing: var(--typo-letter-spacing, inherit);
+  font-weight: var(--typo-weight, inherit);
+  color: var(--typo-color, var(--color-text-link));
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-colors);
+  border-radius: var(--radius-1);
+}
+
+.link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Underline variants */
+.underlineAuto:hover { text-decoration: underline; }
+.underlineAlways { text-decoration: underline; }
+.underlineHover:hover { text-decoration: underline; }
+.underlineNone { text-decoration: none; }
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

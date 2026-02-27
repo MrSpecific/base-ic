@@ -1,0 +1,59 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--bdg-height);
+  padding: 0 var(--bdg-px);
+  border: 1px solid transparent;
+  border-radius: var(--bdg-radius, min(var(--component-radius), var(--radius-full)));
+  font-family: var(--font-family-primary);
+  font-size: var(--bdg-fs);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* --- Variant: solid --- */
+.solid {
+  background: var(--bdg-accent-9, var(--color-accent-9));
+  color: var(--bdg-accent-contrast, var(--color-accent-contrast));
+}
+
+/* --- Variant: soft --- */
+.soft {
+  background: var(--bdg-accent-3, var(--color-accent-3));
+  color: var(--bdg-accent-11, var(--color-accent-11));
+}
+
+/* --- Variant: surface --- */
+.surface {
+  background: color-mix(in oklch, var(--bdg-accent-3, var(--color-accent-3)) 40%, var(--color-surface-overlay));
+  color: var(--bdg-accent-11, var(--color-accent-11));
+  border-color: var(--bdg-accent-7, var(--color-accent-7));
+}
+
+/* --- Variant: outline --- */
+.outline {
+  background: transparent;
+  color: var(--bdg-accent-11, var(--color-accent-11));
+  border-color: var(--bdg-accent-7, var(--color-accent-7));
+}
+
+/* --- highContrast --- */
+.solid.highContrast {
+  background: var(--bdg-accent-12, var(--color-accent-12));
+  color: var(--color-surface-base);
+}
+
+.soft.highContrast {
+  color: var(--bdg-accent-12, var(--color-accent-12));
+}
+
+.surface.highContrast {
+  color: var(--bdg-accent-12, var(--color-accent-12));
+}
+
+.outline.highContrast {
+  color: var(--bdg-accent-12, var(--color-accent-12));
+}

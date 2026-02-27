@@ -157,9 +157,34 @@
   --surface-radius:           min(var(--component-radius), var(--radius-4));
 
   /* -------------------------------------------------------------------------
-   * Semantic interactive patterns (button + badge sizing)
+   * Semantic interactive patterns — Button sizing (4 sizes)
    * -------------------------------------------------------------------------
    */
+  --button-1-height:     var(--size-2);       /* 24px */
+  --button-1-px:         var(--space-2);      /* 8px */
+  --button-1-font-size:  var(--font-size-1);  /* 12px */
+  --button-1-gap:        var(--space-1);
+  --button-1-icon-size:  14px;
+
+  --button-2-height:     var(--size-3);       /* 32px */
+  --button-2-px:         var(--space-3);      /* 12px */
+  --button-2-font-size:  var(--font-size-2);  /* 13px */
+  --button-2-gap:        var(--space-1);
+  --button-2-icon-size:  16px;
+
+  --button-3-height:     var(--size-4);       /* 40px */
+  --button-3-px:         var(--space-4);      /* 16px */
+  --button-3-font-size:  var(--font-size-3);  /* 14px */
+  --button-3-gap:        var(--space-2);
+  --button-3-icon-size:  18px;
+
+  --button-4-height:     var(--size-5);       /* 48px */
+  --button-4-px:         var(--space-5);      /* 20px */
+  --button-4-font-size:  var(--font-size-4);  /* 16px */
+  --button-4-gap:        var(--space-2);
+  --button-4-icon-size:  20px;
+
+  /* Backwards compat aliases for existing doc code */
   --button-padding-y:         var(--space-2);
   --button-padding-x:         var(--space-4);
   --button-min-height:        var(--size-4);
@@ -167,6 +192,23 @@
   --button-radius:            var(--component-radius);
   --button-line-height:       var(--line-height-1);
 
+  /* -------------------------------------------------------------------------
+   * Semantic interactive patterns — Badge sizing (3 sizes)
+   * -------------------------------------------------------------------------
+   */
+  --badge-1-height:     var(--size-2);       /* 24px */
+  --badge-1-px:         var(--space-2);
+  --badge-1-font-size:  var(--font-size-1);
+
+  --badge-2-height:     var(--size-2);       /* 24px — slightly more padding */
+  --badge-2-px:         var(--space-3);
+  --badge-2-font-size:  var(--font-size-2);
+
+  --badge-3-height:     var(--size-3);       /* 32px */
+  --badge-3-px:         var(--space-3);
+  --badge-3-font-size:  var(--font-size-3);
+
+  /* Backwards compat aliases */
   --badge-padding-y:          var(--space-1);
   --badge-padding-x:          var(--space-3);
   --badge-min-height:         var(--size-3);
@@ -220,6 +262,61 @@
   --status-badge-min-height:   var(--badge-min-height);
   --status-badge-radius:       var(--badge-radius);
   --status-badge-line-height:  var(--badge-line-height);
+
+  /* -------------------------------------------------------------------------
+   * Text typography presets (body/inline — generous line-height for readability)
+   * -------------------------------------------------------------------------
+   * Each step bundles font-size + line-height + letter-spacing.
+   * Components reference these rather than mixing individual primitives.
+   */
+  --text-1-size: var(--font-size-1);   --text-1-lh: var(--line-height-4);  --text-1-ls: var(--letter-spacing-3);
+  --text-2-size: var(--font-size-2);   --text-2-lh: var(--line-height-4);  --text-2-ls: var(--letter-spacing-3);
+  --text-3-size: var(--font-size-3);   --text-3-lh: var(--line-height-4);  --text-3-ls: var(--letter-spacing-3);
+  --text-4-size: var(--font-size-4);   --text-4-lh: var(--line-height-4);  --text-4-ls: var(--letter-spacing-3);
+  --text-5-size: var(--font-size-5);   --text-5-lh: var(--line-height-3);  --text-5-ls: var(--letter-spacing-3);
+  --text-6-size: var(--font-size-6);   --text-6-lh: var(--line-height-3);  --text-6-ls: var(--letter-spacing-3);
+  --text-7-size: var(--font-size-7);   --text-7-lh: var(--line-height-2);  --text-7-ls: var(--letter-spacing-2);
+  --text-8-size: var(--font-size-8);   --text-8-lh: var(--line-height-2);  --text-8-ls: var(--letter-spacing-2);
+  --text-9-size: var(--font-size-9);   --text-9-lh: var(--line-height-2);  --text-9-ls: var(--letter-spacing-1);
+
+  /* -------------------------------------------------------------------------
+   * Heading typography presets (tighter leading for visual punch)
+   * -------------------------------------------------------------------------
+   */
+  --heading-1-size: var(--font-size-3);   --heading-1-lh: var(--line-height-3);  --heading-1-ls: var(--letter-spacing-3);
+  --heading-2-size: var(--font-size-4);   --heading-2-lh: var(--line-height-3);  --heading-2-ls: var(--letter-spacing-3);
+  --heading-3-size: var(--font-size-5);   --heading-3-lh: var(--line-height-2);  --heading-3-ls: var(--letter-spacing-2);
+  --heading-4-size: var(--font-size-6);   --heading-4-lh: var(--line-height-2);  --heading-4-ls: var(--letter-spacing-2);
+  --heading-5-size: var(--font-size-7);   --heading-5-lh: var(--line-height-2);  --heading-5-ls: var(--letter-spacing-2);
+  --heading-6-size: var(--font-size-8);   --heading-6-lh: 1.15;                 --heading-6-ls: var(--letter-spacing-1);
+  --heading-7-size: var(--font-size-9);   --heading-7-lh: 1.1;                  --heading-7-ls: var(--letter-spacing-1);
+  --heading-8-size: var(--font-size-10);  --heading-8-lh: 1.05;                 --heading-8-ls: var(--letter-spacing-1);
+  --heading-9-size: var(--font-size-12);  --heading-9-lh: 1;                    --heading-9-ls: var(--letter-spacing-1);
+
+  /* -------------------------------------------------------------------------
+   * Focus ring
+   * -------------------------------------------------------------------------
+   */
+  --focus-ring-width:  2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-color:  color-mix(in oklch, var(--color-accent-8) 72%, transparent);
+
+  /* -------------------------------------------------------------------------
+   * Disabled state
+   * -------------------------------------------------------------------------
+   */
+  --disabled-opacity: 0.5;
+  --disabled-cursor:  not-allowed;
+
+  /* -------------------------------------------------------------------------
+   * Transition shorthands
+   * -------------------------------------------------------------------------
+   */
+  --transition-colors: color var(--duration-2) var(--ease-2),
+                       background var(--duration-2) var(--ease-2),
+                       border-color var(--duration-2) var(--ease-2);
+  --transition-all:    all var(--duration-2) var(--ease-2);
+  --transition-transform: transform var(--duration-2) var(--ease-spring);
 
   /* -------------------------------------------------------------------------
    * Component radius (set by Theme `radius` prop)
@@ -315,6 +412,8 @@
     --color-marketing-band-heading: var(--color-text-primary);
     --color-marketing-band-body:    var(--color-text-secondary);
 
+    --focus-ring-color: color-mix(in oklch, var(--color-accent-7) 78%, transparent);
+
     --shadow-surface: 0 1px 1px oklch(0% 0 0 / 18%), 0 10px 24px -12px oklch(0% 0 0 / 55%);
     --shadow-floating: 0 8px 24px -12px oklch(0% 0 0 / 58%), 0 2px 8px oklch(0% 0 0 / 28%);
     --shadow-panel: 0 20px 50px -28px oklch(0% 0 0 / 68%), 0 8px 20px oklch(0% 0 0 / 42%);
@@ -354,6 +453,8 @@
   --color-marketing-band-border: color-mix(in oklch, var(--color-border) 85%, var(--color-accent-7));
   --color-marketing-band-heading: var(--color-text-primary);
   --color-marketing-band-body:    var(--color-text-secondary);
+
+  --focus-ring-color: color-mix(in oklch, var(--color-accent-7) 78%, transparent);
 
   --shadow-surface: 0 1px 1px oklch(0% 0 0 / 18%), 0 10px 24px -12px oklch(0% 0 0 / 55%);
   --shadow-floating: 0 8px 24px -12px oklch(0% 0 0 / 58%), 0 2px 8px oklch(0% 0 0 / 28%);

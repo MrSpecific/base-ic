@@ -1,0 +1,17 @@
+.separator {
+  border: none;
+  background: var(--sep-color, var(--color-border-subtle));
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.horizontal {
+  width: 100%;
+  height: var(--sep-size, 1px);
+}
+
+.vertical {
+  width: var(--sep-size, 1px);
+  height: auto;
+  align-self: stretch;
+}

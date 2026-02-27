@@ -191,6 +191,9 @@ const scalableTokenBases: Record<string, string> = {
   '--font-size-7': '1.5rem',
   '--font-size-8': '1.875rem',
   '--font-size-9': '2.25rem',
+  '--font-size-10': '3rem',
+  '--font-size-11': '3.75rem',
+  '--font-size-12': '4.5rem',
 };
 
 // ============================================================================

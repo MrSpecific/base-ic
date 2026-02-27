@@ -1,0 +1,60 @@
+.card {
+  padding: var(--card-padding, var(--space-3));
+  border-radius: var(--component-radius);
+  font-family: var(--font-family-primary);
+  color: var(--color-text-primary);
+}
+
+/* --- Variant: surface --- */
+.surface {
+  background: var(--color-surface-overlay);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-surface);
+}
+
+/* --- Variant: classic --- */
+.classic {
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-2);
+}
+
+/* --- Variant: ghost --- */
+.ghost {
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+/* --- Interactive state (asButton) --- */
+.interactive {
+  cursor: pointer;
+  transition: var(--transition-colors),
+              transform var(--duration-2) var(--ease-2),
+              box-shadow var(--duration-2) var(--ease-2);
+}
+
+.interactive:hover {
+  box-shadow: var(--shadow-3);
+}
+
+.interactive.surface:hover {
+  border-color: var(--color-border);
+}
+
+.interactive.classic:hover {
+  border-color: var(--color-border);
+}
+
+.interactive.ghost:hover {
+  background: var(--color-surface-subtle);
+  border-color: var(--color-border-subtle);
+}
+
+.interactive:active {
+  transform: scale(0.98);
+}
+
+.interactive:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}

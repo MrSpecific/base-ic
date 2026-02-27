@@ -1,0 +1,30 @@
+.heading {
+  font-family: var(--font-family-display);
+  font-size: var(--typo-font-size, var(--heading-6-size));
+  line-height: var(--typo-line-height, var(--heading-6-lh));
+  letter-spacing: var(--typo-letter-spacing, var(--heading-6-ls));
+  font-weight: var(--typo-weight, var(--font-weight-bold));
+  color: var(--typo-color, var(--color-text-primary));
+  margin: 0;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trimStart {
+  text-box-trim: start;
+  text-box-edge: cap;
+}
+
+.trimEnd {
+  text-box-trim: end;
+  text-box-edge: alphabetic;
+}
+
+.trimBoth {
+  text-box-trim: both;
+  text-box-edge: cap alphabetic;
+}
