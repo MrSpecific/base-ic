@@ -924,6 +924,11 @@ export default function App() {
       radius={radius}
       scaling={scaling}
       appearance={appearance}
+      fontFamily={{
+        primary: '"Sen", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+        secondary: '"Sen", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+        display: '"Sen", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+      }}
     >
       <div className="site-shell">
         <header className="site-header">
