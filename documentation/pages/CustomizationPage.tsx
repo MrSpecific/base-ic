@@ -1,4 +1,4 @@
-import { Container } from '../../src';
+import { Button, Container } from '../../src';
 import type { Page } from '../types';
 import { CodeBlock } from '../components/CodeBlock';
 
@@ -95,9 +95,7 @@ export function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
           <li>4. Move shared UI decisions into semantic tokens.</li>
           <li>5. Validate combinations in the playground.</li>
         </ul>
-        <button className="site-button site-button-solid" onClick={() => goTo('playground')}>
-          Open Playground
-        </button>
+        <Button size="3" onClick={() => goTo('playground')}>Open Playground</Button>
       </section>
     </Container>
   );

@@ -1,4 +1,4 @@
-import { Container, Flex, Grid } from '../../src';
+import { Button, Container, Flex, Grid } from '../../src';
 import type { Page } from '../types';
 import { CodeBlock } from '../components/CodeBlock';
 
@@ -271,12 +271,8 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
           <li>5. Validate themes in Playground and sync any token changes back to Figma.</li>
         </ul>
         <Flex className="hero-actions" gap={2}>
-          <button className="site-button site-button-solid" onClick={() => goTo('playground')}>
-            Open Playground
-          </button>
-          <button className="site-button site-button-ghost" onClick={() => goTo('customization')}>
-            View Customization
-          </button>
+          <Button size="3" onClick={() => goTo('playground')}>Open Playground</Button>
+          <Button size="3" variant="surface" onClick={() => goTo('customization')}>View Customization</Button>
         </Flex>
       </section>
     </Container>

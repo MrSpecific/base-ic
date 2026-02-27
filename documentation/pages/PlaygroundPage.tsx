@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Popover, Tooltip } from '../../src';
+import { Badge, Box, Container, Grid, Popover, Tooltip } from '../../src';
 import { ALL_HUES, STEPS } from '../constants';
 import type { Radius } from '../types';
 
@@ -72,15 +72,16 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
               <div className="surface-card-body status-card-body" style={{ color: `var(--color-${status}-text)` }}>
                 Sample {status} message
               </div>
-              <div
+              <Badge
                 className="status-badge"
                 style={{
                   background: `var(--color-${status}-solid)`,
                   color: `var(--color-${status}-contrast)`,
+                  borderColor: 'transparent',
                 }}
               >
                 {status} solid
-              </div>
+              </Badge>
             </div>
           ))}
         </Grid>

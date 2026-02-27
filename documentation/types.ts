@@ -7,6 +7,11 @@ export type Page = 'home' | 'docs' | 'customization' | 'for-designers' | 'playgr
 export type DocsSection =
   | 'overview'
   | 'theme'
+  | 'button'
+  | 'badge'
+  | 'card'
+  | 'separator'
+  | 'typography'
   | 'tooltip'
   | 'popover'
   | 'box'

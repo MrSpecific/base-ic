@@ -20,19 +20,25 @@ export function DemoCard({
   return (
     <article className="docs-demo-card">
       <div className="docs-demo-header">
-        <h3>{title}</h3>
+        <div className="docs-demo-header-row">
+          <h3>{title}</h3>
+          <button
+            type="button"
+            className="docs-demo-toggle"
+            onClick={() => setShowCode((prev) => !prev)}
+            aria-expanded={showCode}
+          >
+            {showCode ? 'Hide code' : 'View code'}
+          </button>
+        </div>
         <p>{description}</p>
       </div>
       <div className="docs-demo-surface">{children}</div>
-      <button
-        type="button"
-        className="docs-demo-toggle"
-        onClick={() => setShowCode((prev) => !prev)}
-        aria-expanded={showCode}
-      >
-        {showCode ? 'Hide code' : 'View code'}
-      </button>
-      {showCode ? <CodeBlock title={codeTitle ?? `${title} Code`} code={code} /> : null}
+      {showCode ? (
+        <div className="docs-demo-code">
+          <CodeBlock title={codeTitle ?? `${title} Code`} code={code} />
+        </div>
+      ) : null}
     </article>
   );
 }

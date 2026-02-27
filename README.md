@@ -48,14 +48,13 @@ npm install base-ic
 
 ```tsx
 import { Theme, Button, Text } from 'base-ic';
-import 'base-ic/styles.css';
+import 'base-ic/tokens';
 
 export default function App() {
   return (
     <Theme accentColor="violet" radius="medium">
-      <Button.Root size="2" variant="solid">
-        Get started
-      </Button.Root>
+      <Button variant="solid" size="2">Get started</Button>
+      <Text size="3">Shipped with semantic tokens.</Text>
     </Theme>
   );
 }
@@ -132,75 +131,48 @@ import './your-theme.css';
 
 ## Components
 
+### Theming
+
+- `Theme` — provider for accent, neutral palette, radius, scale, appearance, and font slots
+
 ### Layout
 
-- `Box` — `div` with layout props
-- `Flex` — flexbox container
-- `Grid` — CSS grid container
-- `Container` — centered max-width wrapper
-- `Section` — semantic section with vertical padding
-- `Separator` — horizontal or vertical divider
+- `Box` — minimal wrapper with semantic `as` support
+- `Flex` — flexbox primitive with direction/align/justify/wrap/gap props
+- `Grid` — grid primitive with columns/rows/auto-flow/gap props
+- `Container` — centered max-width wrapper with size presets
+- `Section` — vertical rhythm primitive for page regions
+- `Separator` — horizontal/vertical divider (Base UI-backed)
+
+### Components
+
+- `Button` — action primitive with variant/size/color/loading states (Base UI-backed)
+- `Badge` — compact status label with variant/size/color support
+- `Card` — surface primitive for grouped content and interactive regions
+- `Tooltip` — contextual hint overlay (Base UI-backed)
+- `Popover` — anchored content overlay (Base UI-backed)
 
 ### Typography
 
-- `Text` — inline or block text with size/weight/color props
-- `Heading` — semantic headings (h1–h6)
-- `Quote` — styled blockquote
-- `Code` — inline code
-- `Kbd` — keyboard shortcut
-- `Link` — anchor with styling
-
-### UI Components
-
-- `Button` — action trigger
-- `IconButton` — icon-only button
-- `Badge` — status indicator
-- `Avatar` — user avatar with fallback
-- `Callout` — highlighted message block
-- `Card` — surface container
-
-### Form Controls
-
-- `Checkbox` — checkbox input
-- `RadioGroup` — radio button group
-- `Switch` — toggle switch
-- `Select` — dropdown select
-- `TextField` — text input
-- `TextArea` — multiline text input
-- `Slider` — range slider
-
-### Overlay Components
-
-- `Dialog` — modal dialog
-- `AlertDialog` — confirmation dialog
-- `Popover` — floating content
-- `Tooltip` — hover tooltip
-- `DropdownMenu` — contextual menu
-- `ContextMenu` — right-click menu
-- `HoverCard` — hover preview card
-
-### Navigation
-
-- `Tabs` — tabbed interface
-- `NavigationMenu` — accessible nav with flyouts
+- `Text` — body and UI text primitive
+- `Heading` — semantic heading primitive (`h1`-`h6`)
+- `Link` — anchor with tokenized states
+- `Code` — inline code primitive
+- `Kbd` — keyboard keycap primitive
+- `Em` — emphasis primitive
+- `Strong` — strong emphasis primitive
+- `Quote` — blockquote primitive
 
 ---
 
 ## Component API
 
-Components follow the Base UI compound component pattern:
+base-ic components are exported as ergonomic wrappers with strongly-typed props.
 
 ```tsx
-// Compound (full control)
-<Button.Root size="2" variant="solid" color="accent">
-  <Button.Icon><PlusIcon /></Button.Icon>
-  Add item
-</Button.Root>
-
-// Convenience wrapper (common cases)
-<Button size="2" variant="solid">
-  Add item
-</Button>
+<Button size="2" variant="solid">Save</Button>
+<Badge variant="soft" color="green">Stable</Badge>
+<Card size="3" variant="surface">Content</Card>
 ```
 
 ### Standard props
@@ -209,27 +181,11 @@ Most components accept these props:
 
 | Prop | Values | Description |
 |------|--------|-------------|
-| `color` | `ColorName \| 'inherit'` | Override the current accent color |
-| `variant` | `'solid' \| 'soft' \| 'outline' \| 'ghost' \| 'surface'` | Visual style |
-| `size` | `'1' \| '2' \| '3' \| '4'` | Size scale |
-| `radius` | `'none' \| 'small' \| 'medium' \| 'large' \| 'full'` | Border radius override |
+| `variant` | Component-specific variants | Visual style |
+| `size` | Component-specific scale | Size and spacing |
+| `color` | `string` | Color ramp override (e.g. `blue`, `green`) |
+| `radius` | Named radius values | Border radius override |
 | `highContrast` | `boolean` | Increase foreground contrast |
-
-### Changing the rendered element
-
-We follow the Base UI `render` prop pattern (not Radix's `asChild`):
-
-```tsx
-// Render as a link
-<Button.Root render={<a href="/dashboard" />} size="2">
-  Go to dashboard
-</Button.Root>
-
-// Render as a custom component
-<Button.Root render={<RouterLink to="/dashboard" />} size="2">
-  Go to dashboard
-</Button.Root>
-```
 
 ---
 
