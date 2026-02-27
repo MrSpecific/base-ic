@@ -48,7 +48,22 @@ export type GrayColor =
   | 'sand';
 
 export type Radius = 'none' | 'small' | 'medium' | 'large' | 'full';
-export type Scaling = '90%' | '95%' | '100%' | '105%' | '110%';
+export type Scaling =
+  | '80%'
+  | '85%'
+  | '90%'
+  | '95%'
+  | '100%'
+  | '105%'
+  | '110%'
+  | '115%'
+  | '120%'
+  | '125%'
+  | '130%'
+  | '135%'
+  | '140%'
+  | '145%'
+  | '150%';
 export type Appearance = 'light' | 'dark' | 'inherit';
 
 /**
@@ -126,11 +141,55 @@ const radiusMap: Record<Radius, string> = {
 // ============================================================================
 
 const scalingMap: Record<Scaling, string> = {
+  '80%':  '0.8',
+  '85%':  '0.85',
   '90%':  '0.9',
   '95%':  '0.95',
   '100%': '1',
   '105%': '1.05',
   '110%': '1.1',
+  '115%': '1.15',
+  '120%': '1.2',
+  '125%': '1.25',
+  '130%': '1.3',
+  '135%': '1.35',
+  '140%': '1.4',
+  '145%': '1.45',
+  '150%': '1.5',
+};
+
+const scalableTokenBases: Record<string, string> = {
+  '--space-1': '0.25rem',
+  '--space-2': '0.5rem',
+  '--space-3': '0.75rem',
+  '--space-4': '1rem',
+  '--space-5': '1.25rem',
+  '--space-6': '1.5rem',
+  '--space-7': '1.75rem',
+  '--space-8': '2rem',
+  '--space-9': '2.5rem',
+  '--space-10': '3rem',
+  '--space-11': '4rem',
+  '--space-12': '5rem',
+  '--size-1': '1rem',
+  '--size-2': '1.5rem',
+  '--size-3': '2rem',
+  '--size-4': '2.5rem',
+  '--size-5': '3rem',
+  '--size-6': '3.5rem',
+  '--size-7': '4rem',
+  '--size-8': '5rem',
+  '--size-9': '6rem',
+  '--size-10': '7.5rem',
+  '--font-size-1': '0.75rem',
+  '--font-size-2': '0.8125rem',
+  '--font-size-3': '0.875rem',
+  '--font-size-4': '1rem',
+  '--font-size-5': '1.125rem',
+  '--font-size-6': '1.25rem',
+  '--font-size-7': '1.5rem',
+  '--font-size-8': '1.875rem',
+  '--font-size-9': '2.25rem',
 };
 
 // ============================================================================
@@ -193,6 +252,19 @@ function buildCustomColorVars(
   return vars;
 }
 
+/**
+ * Build scaled component tokens.
+ * These override primitive size tokens in Theme scope so all components
+ * that consume token variables respond to `scaling`.
+ */
+function buildScaledTokenVars(): Record<string, string> {
+  const vars: Record<string, string> = {};
+  for (const [token, base] of Object.entries(scalableTokenBases)) {
+    vars[token] = `calc(${base} * var(--component-scaling))`;
+  }
+  return vars;
+}
+
 // ============================================================================
 // Context
 // ============================================================================
@@ -236,6 +308,10 @@ export function Theme({
   style,
 }: ThemeProps) {
   const cssVars: React.CSSProperties = {
+    // Component-level scaling
+    '--component-scaling': scalingMap[scaling],
+    // Scaled primitive aliases (space, size, type)
+    ...buildScaledTokenVars(),
     // Accent color wiring
     ...buildAccentVars(accentColor),
     // Neutral color wiring
@@ -246,8 +322,6 @@ export function Theme({
     ...(fontFamily ? buildFontFamilyVars(fontFamily) : {}),
     // Component-level radius
     '--component-radius': radiusMap[radius],
-    // Component-level scaling
-    '--component-scaling': scalingMap[scaling],
     // Pass-through user styles
     ...style,
   } as React.CSSProperties;

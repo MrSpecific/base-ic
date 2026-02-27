@@ -110,6 +110,50 @@
   --color-info-contrast:    var(--color-blue-contrast);
 
   /* -------------------------------------------------------------------------
+   * Semantic surface patterns (layout + sizing)
+   * -------------------------------------------------------------------------
+   */
+  --surface-padding-y:        var(--space-4);
+  --surface-padding-x:        var(--space-4);
+  --surface-radius:           min(var(--component-radius), var(--radius-4));
+
+  /* -------------------------------------------------------------------------
+   * Semantic interactive patterns (button + badge sizing)
+   * -------------------------------------------------------------------------
+   */
+  --button-padding-y:         var(--space-2);
+  --button-padding-x:         var(--space-4);
+  --button-min-height:        var(--size-4);
+  --button-font-size:         var(--font-size-3);
+  --button-radius:            var(--component-radius);
+  --button-line-height:       var(--line-height-1);
+
+  --badge-padding-y:          var(--space-1);
+  --badge-padding-x:          var(--space-3);
+  --badge-min-height:         var(--size-3);
+  --badge-font-size:          var(--font-size-2);
+  --badge-radius:             min(var(--component-radius), var(--radius-full));
+  --badge-line-height:        var(--line-height-1);
+
+  /* -------------------------------------------------------------------------
+   * Semantic status patterns (layout + sizing)
+   * -------------------------------------------------------------------------
+   * Shared structure tokens for status surfaces and status badges.
+   * These prevent layout drift and keep status UI visually consistent
+   * across playground and library components.
+   */
+  --status-surface-padding-y:  var(--space-3);
+  --status-surface-padding-x:  var(--space-4);
+  --status-surface-gap:        var(--space-1);
+  --status-surface-radius:     var(--surface-radius);
+
+  --status-badge-padding-y:    var(--badge-padding-y);
+  --status-badge-padding-x:    var(--badge-padding-x);
+  --status-badge-min-height:   var(--badge-min-height);
+  --status-badge-radius:       var(--badge-radius);
+  --status-badge-line-height:  var(--badge-line-height);
+
+  /* -------------------------------------------------------------------------
    * Component radius (set by Theme `radius` prop)
    * -------------------------------------------------------------------------
    * Maps the Theme's named radius to a primitive value.

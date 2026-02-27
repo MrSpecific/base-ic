@@ -1,26 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Theme } from '../src';
 import type { AccentColor, GrayColor, Radius, Scaling, Appearance } from '../src';
 import '../src/tokens/index.css';
 import './playground.css';
 
-// ---------------------------------------------------------------------------
-// Available options for the toolbar
-// ---------------------------------------------------------------------------
+type Page = 'home' | 'docs' | 'playground';
+
+const NAV_ITEMS: Array<{ page: Page; label: string }> = [
+  { page: 'home', label: 'Home' },
+  { page: 'docs', label: 'Docs' },
+  { page: 'playground', label: 'Playground' },
+];
 
 const ACCENT_COLORS: AccentColor[] = [
   'blue', 'violet', 'red', 'green', 'orange', 'yellow', 'pink', 'teal',
 ];
 
-const GRAY_COLORS: GrayColor[] = [
-  'gray', 'mauve', 'slate',
-];
-
+const GRAY_COLORS: GrayColor[] = ['gray', 'mauve', 'slate'];
 const RADII: Radius[] = ['none', 'small', 'medium', 'large', 'full'];
-const SCALINGS: Scaling[] = ['90%', '95%', '100%', '105%', '110%'];
+const SCALINGS: Scaling[] = [
+  '80%', '85%', '90%', '95%', '100%',
+  '105%', '110%', '115%', '120%', '125%',
+  '130%', '135%', '140%', '145%', '150%',
+];
 const APPEARANCES: Appearance[] = ['light', 'dark', 'inherit'];
 
-// All hues with tokens defined (for the color palette grid)
 const ALL_HUES = [
   'gray', 'mauve', 'slate', 'blue', 'violet', 'red',
   'green', 'orange', 'yellow', 'pink', 'teal',
@@ -28,28 +32,33 @@ const ALL_HUES = [
 
 const STEPS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-// ---------------------------------------------------------------------------
-// App
-// ---------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------
-// Color swatch data — maps accent name to its step-9 color for the picker
-// ---------------------------------------------------------------------------
-
 const ACCENT_SWATCH_COLORS: Record<string, string> = {
-  blue:    'var(--color-blue-9)',
-  violet:  'var(--color-violet-9)',
-  red:     'var(--color-red-9)',
-  green:   'var(--color-green-9)',
-  orange:  'var(--color-orange-9)',
-  yellow:  'var(--color-yellow-9)',
-  pink:    'var(--color-pink-9)',
-  teal:    'var(--color-teal-9)',
+  blue: 'var(--color-blue-9)',
+  violet: 'var(--color-violet-9)',
+  red: 'var(--color-red-9)',
+  green: 'var(--color-green-9)',
+  orange: 'var(--color-orange-9)',
+  yellow: 'var(--color-yellow-9)',
+  pink: 'var(--color-pink-9)',
+  teal: 'var(--color-teal-9)',
 };
 
-// ---------------------------------------------------------------------------
-// ThemePanel — floating control panel
-// ---------------------------------------------------------------------------
+function toDisplayName(value: string): string {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+function getPageFromPath(pathname: string): Page {
+  const normalized = pathname.trim().replace(/\/+$/, '') || '/';
+  if (normalized === '/docs') return 'docs';
+  if (normalized === '/playground') return 'playground';
+  return 'home';
+}
+
+function pageToPath(page: Page): string {
+  if (page === 'docs') return '/docs';
+  if (page === 'playground') return '/playground';
+  return '/';
+}
 
 function ThemePanel({
   accent, setAccent,
@@ -58,66 +67,122 @@ function ThemePanel({
   scaling, setScaling,
   appearance, setAppearance,
 }: {
-  accent: AccentColor;    setAccent: (v: AccentColor) => void;
-  gray: GrayColor;        setGray: (v: GrayColor) => void;
-  radius: Radius;         setRadius: (v: Radius) => void;
-  scaling: Scaling;       setScaling: (v: Scaling) => void;
-  appearance: Appearance; setAppearance: (v: Appearance) => void;
+  accent: AccentColor;
+  setAccent: (v: AccentColor) => void;
+  gray: GrayColor;
+  setGray: (v: GrayColor) => void;
+  radius: Radius;
+  setRadius: (v: Radius) => void;
+  scaling: Scaling;
+  setScaling: (v: Scaling) => void;
+  appearance: Appearance;
+  setAppearance: (v: Appearance) => void;
 }) {
   const [open, setOpen] = useState(true);
+  const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'error'>('idle');
+
+  const copyTheme = async () => {
+    const snippet = [
+      '<Theme',
+      `  accentColor="${accent}"`,
+      `  grayColor="${gray}"`,
+      `  radius="${radius}"`,
+      `  scaling="${scaling}"`,
+      `  appearance="${appearance}"`,
+      '>',
+      '  <App />',
+      '</Theme>',
+    ].join('\n');
+
+    try {
+      await navigator.clipboard.writeText(snippet);
+      setCopyStatus('copied');
+    } catch {
+      setCopyStatus('error');
+    }
+
+    window.setTimeout(() => setCopyStatus('idle'), 1600);
+  };
 
   return (
     <div className="theme-panel-wrapper">
       <div className={open ? 'theme-panel' : 'theme-panel-hidden'}>
         <div className="theme-panel-title">Theme</div>
 
-        {/* Accent — color swatch picker */}
         <div className="theme-panel-field">
-          <span className="theme-panel-label">Accent</span>
+          <span className="theme-panel-label">Accent Color</span>
           <div className="theme-panel-colors">
             {ACCENT_COLORS.map((c) => (
-              <div
+              <button
                 key={c}
+                type="button"
                 className="theme-panel-color-swatch"
                 data-active={c === accent}
                 style={{ background: ACCENT_SWATCH_COLORS[c] }}
-                title={c}
+                title={`Set accent color to ${toDisplayName(c)}`}
+                aria-label={`Set accent color to ${toDisplayName(c)}`}
                 onClick={() => setAccent(c)}
               />
             ))}
           </div>
+          <p className="theme-panel-helper">Primary brand color for interactive elements.</p>
         </div>
 
-        {/* Gray */}
         <div className="theme-panel-field">
-          <span className="theme-panel-label">Gray</span>
-          <select className="theme-panel-select" value={gray} onChange={(e) => setGray(e.target.value as GrayColor)}>
-            {GRAY_COLORS.map((c) => <option key={c} value={c}>{c}</option>)}
-          </select>
+          <label className="theme-panel-label" htmlFor="theme-gray">Neutral Palette</label>
+          <div className="theme-panel-select-wrap">
+            <select id="theme-gray" className="theme-panel-select" value={gray} onChange={(e) => setGray(e.target.value as GrayColor)}>
+              {GRAY_COLORS.map((c) => <option key={c} value={c}>{toDisplayName(c)}</option>)}
+            </select>
+            <span className="theme-panel-select-caret" aria-hidden="true">▾</span>
+          </div>
+          <p className="theme-panel-helper">Sets the base gray family for borders and surfaces.</p>
         </div>
 
-        {/* Radius */}
         <div className="theme-panel-field">
-          <span className="theme-panel-label">Radius</span>
-          <select className="theme-panel-select" value={radius} onChange={(e) => setRadius(e.target.value as Radius)}>
-            {RADII.map((r) => <option key={r} value={r}>{r}</option>)}
-          </select>
+          <label className="theme-panel-label" htmlFor="theme-radius">Corner Radius</label>
+          <div className="theme-panel-select-wrap">
+            <select id="theme-radius" className="theme-panel-select" value={radius} onChange={(e) => setRadius(e.target.value as Radius)}>
+              {RADII.map((r) => <option key={r} value={r}>{toDisplayName(r)}</option>)}
+            </select>
+            <span className="theme-panel-select-caret" aria-hidden="true">▾</span>
+          </div>
+          <p className="theme-panel-helper">Controls rounded corners across components.</p>
         </div>
 
-        {/* Scaling */}
         <div className="theme-panel-field">
-          <span className="theme-panel-label">Scaling</span>
-          <select className="theme-panel-select" value={scaling} onChange={(e) => setScaling(e.target.value as Scaling)}>
-            {SCALINGS.map((s) => <option key={s} value={s}>{s}</option>)}
-          </select>
+          <label className="theme-panel-label" htmlFor="theme-scaling">Scale</label>
+          <div className="theme-panel-select-wrap">
+            <select id="theme-scaling" className="theme-panel-select" value={scaling} onChange={(e) => setScaling(e.target.value as Scaling)}>
+              {SCALINGS.map((s) => <option key={s} value={s}>{s}</option>)}
+            </select>
+            <span className="theme-panel-select-caret" aria-hidden="true">▾</span>
+          </div>
+          <p className="theme-panel-helper">Global size multiplier for spacing and typography.</p>
         </div>
 
-        {/* Appearance */}
         <div className="theme-panel-field">
-          <span className="theme-panel-label">Appearance</span>
-          <select className="theme-panel-select" value={appearance} onChange={(e) => setAppearance(e.target.value as Appearance)}>
-            {APPEARANCES.map((a) => <option key={a} value={a}>{a}</option>)}
-          </select>
+          <label className="theme-panel-label" htmlFor="theme-appearance">Appearance</label>
+          <div className="theme-panel-select-wrap">
+            <select id="theme-appearance" className="theme-panel-select" value={appearance} onChange={(e) => setAppearance(e.target.value as Appearance)}>
+              {APPEARANCES.map((a) => <option key={a} value={a}>{toDisplayName(a)}</option>)}
+            </select>
+            <span className="theme-panel-select-caret" aria-hidden="true">▾</span>
+          </div>
+          <p className="theme-panel-helper">Light or dark rendering mode.</p>
+        </div>
+
+        <button
+          type="button"
+          className="theme-panel-copy-button"
+          data-state={copyStatus}
+          onClick={copyTheme}
+        >
+          {copyStatus === 'copied' ? 'Copied Theme' : copyStatus === 'error' ? 'Copy Failed' : 'Copy Theme'}
+        </button>
+        <p className="theme-panel-helper">Copies a ready-to-paste <code>{'<Theme />'}</code> snippet.</p>
+        <div className="theme-panel-current">
+          {`accent: ${accent} • gray: ${gray} • radius: ${radius} • scale: ${scaling} • appearance: ${appearance}`}
         </div>
       </div>
 
@@ -133,46 +198,124 @@ function ThemePanel({
   );
 }
 
-// ---------------------------------------------------------------------------
-// App
-// ---------------------------------------------------------------------------
+function HomePage({ goTo }: { goTo: (page: Page) => void }) {
+  return (
+    <main className="site-page">
+      <section className="hero">
+        <p className="hero-kicker">base-ic</p>
+        <h1>Build fast, theme deeply.</h1>
+        <p className="hero-copy">
+          Base-ic gives you an ergonomic component API with a token system designed to be extended,
+          not fought. Ship brand-aligned interfaces with predictable semantics and production-ready primitives.
+        </p>
+        <div className="hero-actions">
+          <button className="site-button site-button-solid" onClick={() => goTo('docs')}>Read Docs</button>
+          <button className="site-button site-button-ghost" onClick={() => goTo('playground')}>Open Playground</button>
+        </div>
+      </section>
 
-export default function App() {
-  const [accent, setAccent] = useState<AccentColor>('blue');
-  const [gray, setGray] = useState<GrayColor>('gray');
-  const [radius, setRadius] = useState<Radius>('medium');
-  const [scaling, setScaling] = useState<Scaling>('100%');
-  const [appearance, setAppearance] = useState<Appearance>('light');
+      <section className="marketing-grid">
+        {[
+          ['Token-first architecture', 'Semantic tokens separate intent from implementation so your design changes propagate predictably.'],
+          ['Composable theme runtime', 'Accent, neutral, radius, and scale are runtime knobs, all exposed through strongly typed props.'],
+          ['Base UI foundation', 'Built on modern accessible primitives so behavior and interaction quality stay high by default.'],
+        ].map(([title, body]) => (
+          <article key={title} className="marketing-card">
+            <h3>{title}</h3>
+            <p>{body}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="marketing-band">
+        <div>
+          <h2>From prototype to product system</h2>
+          <p>
+            Start with out-of-the-box primitives, then progressively codify your brand, status patterns,
+            and scaling model without rewriting component internals.
+          </p>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function DocsPage() {
+  const installSnippet = "npm install base-ic";
+  const usageSnippet = [
+    "import { Theme } from 'base-ic';",
+    "import 'base-ic/tokens';",
+    '',
+    'export default function App() {',
+    '  return (',
+    '    <Theme accentColor="violet" grayColor="slate" radius="medium" scaling="100%">',
+    '      <YourApp />',
+    '    </Theme>',
+    '  );',
+    '}',
+  ].join('\n');
+
+  const themingSnippet = [
+    '<Theme',
+    '  accentColor="blue"',
+    '  grayColor="mauve"',
+    '  radius="large"',
+    '  scaling="110%"',
+    '  appearance="light"',
+    '>',
+    '  <App />',
+    '</Theme>',
+  ].join('\n');
 
   return (
-    <Theme
-      accentColor={accent}
-      grayColor={gray}
-      radius={radius}
-      scaling={scaling}
-      appearance={appearance}
-    >
-      <ThemePanel
-        accent={accent} setAccent={setAccent}
-        gray={gray} setGray={setGray}
-        radius={radius} setRadius={setRadius}
-        scaling={scaling} setScaling={setScaling}
-        appearance={appearance} setAppearance={setAppearance}
-      />
+    <main className="site-page docs-page">
+      <section className="docs-section">
+        <h1>Documentation</h1>
+        <p>Everything needed to integrate, theme, and extend base-ic in production.</p>
+      </section>
 
-      <div className="playground">
-        <h1>base-ic playground</h1>
+      <section className="docs-section">
+        <h2>Install</h2>
+        <pre><code>{installSnippet}</code></pre>
+      </section>
+
+      <section className="docs-section">
+        <h2>Quick Start</h2>
+        <pre><code>{usageSnippet}</code></pre>
+      </section>
+
+      <section className="docs-section">
+        <h2>Theme API</h2>
         <p>
-          Interactive token and theme exploration.
-          Use the floating panel in the bottom-right to tweak the theme.
+          `Theme` sets accent, neutral palette, radius, scale, and appearance while keeping token semantics stable.
+          Scaling supports `80%` through `150%`.
+        </p>
+        <pre><code>{themingSnippet}</code></pre>
+      </section>
+
+      <section className="docs-section">
+        <h2>Status Patterns</h2>
+        <p>
+          Use semantic tokens like `--status-surface-*`, `--status-badge-*`, `--button-*`, and `--badge-*`
+          to keep visual behavior consistent across the product.
+        </p>
+      </section>
+    </main>
+  );
+}
+
+function PlaygroundPage({ radius }: { radius: Radius }) {
+  return (
+    <main className="site-page playground-page">
+      <div className="playground">
+        <h1>Playground</h1>
+        <p>
+          Interactive token and theme exploration. Use the floating panel in the bottom-right to tweak theme values.
         </p>
 
-        {/* ----------------------------------------------------------------
-         * Color palette
-         * ---------------------------------------------------------------- */}
         <h2>Color Palette</h2>
 
-        <h3>Accent (mapped to <code>{accent}</code>)</h3>
+        <h3>Accent</h3>
         <div className="swatch-grid">
           {STEPS.map((step) => (
             <div
@@ -183,11 +326,9 @@ export default function App() {
             />
           ))}
         </div>
-        <div className="swatch-label">
-          {STEPS.map((s) => s).join('   ')}
-        </div>
+        <div className="swatch-label">{STEPS.map((s) => s).join('   ')}</div>
 
-        <h3>Neutral (mapped to <code>{gray}</code>)</h3>
+        <h3>Neutral</h3>
         <div className="swatch-grid">
           {STEPS.map((step) => (
             <div
@@ -216,36 +357,28 @@ export default function App() {
           </div>
         ))}
 
-        {/* ----------------------------------------------------------------
-         * Status colors
-         * ---------------------------------------------------------------- */}
         <h2>Status Colors</h2>
         <div className="surface-grid">
           {(['danger', 'success', 'warning', 'info'] as const).map((status) => (
             <div
               key={status}
-              className="surface-card"
+              className="surface-card status-card"
               style={{
                 background: `var(--color-${status}-bg)`,
                 borderColor: `var(--color-${status}-border)`,
               }}
             >
-              <div className="surface-card-title" style={{ color: `var(--color-${status}-text)` }}>
+              <div className="surface-card-title status-card-title" style={{ color: `var(--color-${status}-text)` }}>
                 {status}
               </div>
-              <div className="surface-card-body" style={{ color: `var(--color-${status}-text)` }}>
+              <div className="surface-card-body status-card-body" style={{ color: `var(--color-${status}-text)` }}>
                 Sample {status} message
               </div>
               <div
+                className="status-badge"
                 style={{
-                  marginTop: 'var(--space-2)',
-                  padding: 'var(--space-1) var(--space-3)',
-                  borderRadius: 'var(--component-radius)',
                   background: `var(--color-${status}-solid)`,
                   color: `var(--color-${status}-contrast)`,
-                  display: 'inline-block',
-                  fontSize: 'var(--font-size-2)',
-                  fontWeight: 'var(--font-weight-medium)',
                 }}
               >
                 {status} solid
@@ -254,9 +387,6 @@ export default function App() {
           ))}
         </div>
 
-        {/* ----------------------------------------------------------------
-         * Surfaces
-         * ---------------------------------------------------------------- */}
         <h2>Surfaces</h2>
         <div className="surface-grid">
           {([
@@ -265,20 +395,13 @@ export default function App() {
             ['raised', '--color-surface-raised'],
             ['overlay', '--color-surface-overlay'],
           ] as const).map(([name, token]) => (
-            <div
-              key={name}
-              className="surface-card"
-              style={{ background: `var(${token})` }}
-            >
+            <div key={name} className="surface-card" style={{ background: `var(${token})` }}>
               <div className="surface-card-title">{name}</div>
               <div className="surface-card-body">{token}</div>
             </div>
           ))}
         </div>
 
-        {/* ----------------------------------------------------------------
-         * Text colors
-         * ---------------------------------------------------------------- */}
         <h2>Text Colors</h2>
         <div className="section">
           {([
@@ -297,30 +420,6 @@ export default function App() {
           ))}
         </div>
 
-        {/* ----------------------------------------------------------------
-         * Font families
-         * ---------------------------------------------------------------- */}
-        <h2>Font Families</h2>
-        <div className="section">
-          {([
-            ['primary', '--font-family-primary', 'Body text, UI labels, inputs'],
-            ['secondary', '--font-family-secondary', 'Supporting text, captions'],
-            ['tertiary', '--font-family-tertiary', 'De-emphasized, footnotes'],
-            ['display', '--font-family-display', 'Large headings, hero text'],
-            ['mono', '--font-family-mono', 'Code, kbd, technical content'],
-          ] as const).map(([name, token, desc]) => (
-            <div key={name} className="font-demo">
-              <div className="font-demo-label">{token} — {desc}</div>
-              <div className="font-demo-sample" style={{ fontFamily: `var(${token})` }}>
-                The quick brown fox jumps over the lazy dog
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* ----------------------------------------------------------------
-         * Spacing scale
-         * ---------------------------------------------------------------- */}
         <h2>Spacing</h2>
         <div className="spacing-row">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((step) => (
@@ -338,9 +437,6 @@ export default function App() {
           ))}
         </div>
 
-        {/* ----------------------------------------------------------------
-         * Radius
-         * ---------------------------------------------------------------- */}
         <h2>Border Radius</h2>
         <div className="radius-row">
           {[
@@ -353,75 +449,93 @@ export default function App() {
             ['full', '--radius-full'],
           ].map(([name, token]) => (
             <div key={name} className="spacing-block">
-              <div className="radius-block" style={{ borderRadius: `var(${token})` }}>
-                {name}
-              </div>
+              <div className="radius-block" style={{ borderRadius: `var(${token})` }}>{name}</div>
               <span>{token.replace('--radius-', '')}</span>
             </div>
           ))}
         </div>
 
-        {/* ----------------------------------------------------------------
-         * Shadows
-         * ---------------------------------------------------------------- */}
-        <h2>Shadows</h2>
-        <div className="spacing-row" style={{ gap: 'var(--space-5)', paddingBottom: 'var(--space-6)' }}>
-          {[1, 2, 3, 4, 5, 6].map((step) => (
-            <div key={step} className="spacing-block">
-              <div
-                style={{
-                  width: 80,
-                  height: 80,
-                  background: 'var(--color-surface-raised)',
-                  borderRadius: 'var(--component-radius)',
-                  boxShadow: `var(--shadow-${step})`,
-                }}
-              />
-              <span>{step}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* ----------------------------------------------------------------
-         * Component radius (set by Theme)
-         * ---------------------------------------------------------------- */}
         <h2>Component Radius (via Theme)</h2>
         <p>Current: <code>{radius}</code></p>
         <div className="spacing-row">
-          <div
-            style={{
-              width: 120,
-              height: 44,
-              background: 'var(--color-accent-9)',
-              borderRadius: 'var(--component-radius)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'var(--color-accent-contrast)',
-              fontSize: 'var(--font-size-3)',
-              fontWeight: 'var(--font-weight-medium)',
-            }}
-          >
-            Button-ish
-          </div>
-          <div
-            style={{
-              width: 200,
-              height: 100,
-              background: 'var(--color-surface-raised)',
-              borderRadius: 'var(--component-radius)',
-              border: '1px solid var(--color-border-subtle)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: 'var(--font-size-3)',
-              color: 'var(--color-text-secondary)',
-            }}
-          >
-            Card-ish
-          </div>
+          <div className="demo-button">Button-ish</div>
+          <div className="demo-card">Card-ish</div>
         </div>
       </div>
+    </main>
+  );
+}
+
+export default function App() {
+  const [accent, setAccent] = useState<AccentColor>('blue');
+  const [gray, setGray] = useState<GrayColor>('gray');
+  const [radius, setRadius] = useState<Radius>('medium');
+  const [scaling, setScaling] = useState<Scaling>('100%');
+  const [appearance, setAppearance] = useState<Appearance>('light');
+  const [page, setPage] = useState<Page>(() => getPageFromPath(window.location.pathname));
+
+  useEffect(() => {
+    const onPopState = () => setPage(getPageFromPath(window.location.pathname));
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  const goTo = (nextPage: Page) => {
+    const nextPath = pageToPath(nextPage);
+    if (window.location.pathname !== nextPath) {
+      window.history.pushState({}, '', nextPath);
+    }
+    setPage(nextPage);
+  };
+
+  const pageContent = useMemo(() => {
+    if (page === 'docs') return <DocsPage />;
+    if (page === 'playground') return <PlaygroundPage radius={radius} />;
+    return <HomePage goTo={goTo} />;
+  }, [page, radius]);
+
+  return (
+    <Theme
+      accentColor={accent}
+      grayColor={gray}
+      radius={radius}
+      scaling={scaling}
+      appearance={appearance}
+    >
+      <div className="site-shell">
+        <header className="site-header">
+          <button className="site-logo" onClick={() => goTo('home')}>base-ic</button>
+          <nav className="site-nav" aria-label="Primary">
+            {NAV_ITEMS.map((item) => (
+              <button
+                key={item.page}
+                className="site-nav-link"
+                data-active={page === item.page}
+                onClick={() => goTo(item.page)}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+        </header>
+
+        {pageContent}
+      </div>
+
+      {page === 'playground' && (
+        <ThemePanel
+          accent={accent}
+          setAccent={setAccent}
+          gray={gray}
+          setGray={setGray}
+          radius={radius}
+          setRadius={setRadius}
+          scaling={scaling}
+          setScaling={setScaling}
+          appearance={appearance}
+          setAppearance={setAppearance}
+        />
+      )}
     </Theme>
   );
 }
