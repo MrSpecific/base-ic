@@ -5,17 +5,103 @@
  *   - Step 1 becomes the darkest background (near-black)
  *   - Step 12 becomes the brightest text (near-white)
  *
- * Applied via .dark class on an ancestor, or @media (prefers-color-scheme: dark).
+ * Applied via:
+ *   1) explicit .dark class / [data-appearance='dark']
+ *   2) OS preference when appearance is inherited
  *
- * Note: Status colors (red, green, orange, blue) remain the same in dark mode
- * but their semantic token mappings may shift (e.g., using step 10 instead of 11
- * for text to maintain contrast).
+ * Explicit light mode can be forced via .light / [data-appearance='light'].
  */
 
-.dark,
+:where(.dark, [data-appearance='dark']) {
+  /* Gray — dark mode scale */
+  --color-gray-1:  oklch(14.0% 0.000 0);
+  --color-gray-2:  oklch(17.0% 0.000 0);
+  --color-gray-3:  oklch(21.0% 0.000 0);
+  --color-gray-4:  oklch(24.0% 0.000 0);
+  --color-gray-5:  oklch(27.0% 0.000 0);
+  --color-gray-6:  oklch(32.0% 0.000 0);
+  --color-gray-7:  oklch(39.0% 0.000 0);
+  --color-gray-8:  oklch(52.0% 0.000 0);
+  --color-gray-9:  oklch(56.0% 0.000 0);
+  --color-gray-10: oklch(60.0% 0.000 0);
+  --color-gray-11: oklch(78.0% 0.000 0);
+  --color-gray-12: oklch(95.0% 0.000 0);
+
+  /* Mauve — dark mode scale */
+  --color-mauve-1:  oklch(14.0% 0.004 310);
+  --color-mauve-2:  oklch(17.0% 0.006 310);
+  --color-mauve-3:  oklch(21.0% 0.008 310);
+  --color-mauve-4:  oklch(24.0% 0.010 310);
+  --color-mauve-5:  oklch(27.0% 0.012 310);
+  --color-mauve-6:  oklch(32.0% 0.012 310);
+  --color-mauve-7:  oklch(39.0% 0.014 310);
+  --color-mauve-8:  oklch(52.0% 0.018 310);
+  --color-mauve-9:  oklch(56.0% 0.014 310);
+  --color-mauve-10: oklch(60.0% 0.014 310);
+  --color-mauve-11: oklch(78.0% 0.014 310);
+  --color-mauve-12: oklch(95.0% 0.006 310);
+
+  /* Slate — dark mode scale */
+  --color-slate-1:  oklch(14.0% 0.004 250);
+  --color-slate-2:  oklch(17.0% 0.006 250);
+  --color-slate-3:  oklch(21.0% 0.008 250);
+  --color-slate-4:  oklch(24.0% 0.010 250);
+  --color-slate-5:  oklch(27.0% 0.012 250);
+  --color-slate-6:  oklch(32.0% 0.012 250);
+  --color-slate-7:  oklch(39.0% 0.014 250);
+  --color-slate-8:  oklch(52.0% 0.018 250);
+  --color-slate-9:  oklch(56.0% 0.014 250);
+  --color-slate-10: oklch(60.0% 0.014 250);
+  --color-slate-11: oklch(78.0% 0.014 250);
+  --color-slate-12: oklch(95.0% 0.006 250);
+}
+
+:where(.light, [data-appearance='light']) {
+  /* Gray — light mode scale */
+  --color-gray-1:  oklch(99.0% 0.000 0);
+  --color-gray-2:  oklch(97.5% 0.000 0);
+  --color-gray-3:  oklch(95.0% 0.000 0);
+  --color-gray-4:  oklch(92.5% 0.000 0);
+  --color-gray-5:  oklch(90.0% 0.000 0);
+  --color-gray-6:  oklch(86.0% 0.000 0);
+  --color-gray-7:  oklch(80.0% 0.000 0);
+  --color-gray-8:  oklch(70.0% 0.000 0);
+  --color-gray-9:  oklch(56.0% 0.000 0);
+  --color-gray-10: oklch(50.0% 0.000 0);
+  --color-gray-11: oklch(42.0% 0.000 0);
+  --color-gray-12: oklch(16.0% 0.000 0);
+
+  /* Mauve — light mode scale */
+  --color-mauve-1:  oklch(99.0% 0.004 310);
+  --color-mauve-2:  oklch(97.5% 0.006 310);
+  --color-mauve-3:  oklch(95.0% 0.008 310);
+  --color-mauve-4:  oklch(92.5% 0.010 310);
+  --color-mauve-5:  oklch(90.0% 0.012 310);
+  --color-mauve-6:  oklch(86.0% 0.012 310);
+  --color-mauve-7:  oklch(80.0% 0.014 310);
+  --color-mauve-8:  oklch(70.0% 0.018 310);
+  --color-mauve-9:  oklch(56.0% 0.014 310);
+  --color-mauve-10: oklch(50.0% 0.014 310);
+  --color-mauve-11: oklch(42.0% 0.014 310);
+  --color-mauve-12: oklch(16.0% 0.006 310);
+
+  /* Slate — light mode scale */
+  --color-slate-1:  oklch(99.0% 0.004 250);
+  --color-slate-2:  oklch(97.5% 0.006 250);
+  --color-slate-3:  oklch(95.0% 0.008 250);
+  --color-slate-4:  oklch(92.5% 0.010 250);
+  --color-slate-5:  oklch(90.0% 0.012 250);
+  --color-slate-6:  oklch(86.0% 0.012 250);
+  --color-slate-7:  oklch(80.0% 0.014 250);
+  --color-slate-8:  oklch(70.0% 0.018 250);
+  --color-slate-9:  oklch(56.0% 0.014 250);
+  --color-slate-10: oklch(50.0% 0.014 250);
+  --color-slate-11: oklch(42.0% 0.014 250);
+  --color-slate-12: oklch(16.0% 0.006 250);
+}
+
 @media (prefers-color-scheme: dark) {
-  :where(.dark, html) {
-    /* Gray — dark mode scale */
+  :root:not(.light):not([data-appearance='light']) {
     --color-gray-1:  oklch(14.0% 0.000 0);
     --color-gray-2:  oklch(17.0% 0.000 0);
     --color-gray-3:  oklch(21.0% 0.000 0);
@@ -29,7 +115,6 @@
     --color-gray-11: oklch(78.0% 0.000 0);
     --color-gray-12: oklch(95.0% 0.000 0);
 
-    /* Mauve — dark mode scale */
     --color-mauve-1:  oklch(14.0% 0.004 310);
     --color-mauve-2:  oklch(17.0% 0.006 310);
     --color-mauve-3:  oklch(21.0% 0.008 310);
@@ -43,7 +128,6 @@
     --color-mauve-11: oklch(78.0% 0.014 310);
     --color-mauve-12: oklch(95.0% 0.006 310);
 
-    /* Slate — dark mode scale */
     --color-slate-1:  oklch(14.0% 0.004 250);
     --color-slate-2:  oklch(17.0% 0.006 250);
     --color-slate-3:  oklch(21.0% 0.008 250);
@@ -56,9 +140,5 @@
     --color-slate-10: oklch(60.0% 0.014 250);
     --color-slate-11: oklch(78.0% 0.014 250);
     --color-slate-12: oklch(95.0% 0.006 250);
-
-    /* Surface tokens for dark */
-    --color-surface-raised:  var(--color-neutral-3);
-    --color-surface-overlay: var(--color-neutral-4);
   }
 }

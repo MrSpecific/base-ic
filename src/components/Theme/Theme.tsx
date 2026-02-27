@@ -333,9 +333,9 @@ export function Theme({
 
   const appearanceClass =
     appearance === 'dark'
-      ? styles.dark
+      ? 'dark'
       : appearance === 'light'
-      ? styles.light
+      ? 'light'
       : undefined;
 
   return (
@@ -349,6 +349,7 @@ export function Theme({
         data-gray-color={grayColor}
         data-radius={radius}
         data-scaling={scaling}
+        data-appearance={appearance}
       >
         {children}
       </div>

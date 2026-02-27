@@ -15,16 +15,17 @@ body,
 }
 
 body {
+  background: #0b0b0b;
+  font-family: var(--font-family-primary);
+}
+
+.site-shell {
+  min-height: 100vh;
   background:
     radial-gradient(1200px 600px at -10% -10%, color-mix(in oklch, var(--color-accent-4) 45%, transparent), transparent),
     radial-gradient(900px 500px at 110% -20%, color-mix(in oklch, var(--color-neutral-4) 90%, transparent), transparent),
     var(--color-surface-base);
   color: var(--color-text-primary);
-  font-family: var(--font-family-primary);
-}
-
-.site-shell {
-  min-height: 100%;
 }
 
 .site-header {

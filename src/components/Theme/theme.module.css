@@ -7,8 +7,8 @@
   font-family: var(--font-family-primary);
   color: var(--color-text-primary);
   background-color: var(--color-surface-base);
-  /* Ensure the theme fills its container */
-  min-height: inherit;
+  /* Ensure the theme surface covers full viewport backgrounds */
+  min-height: 100vh;
 }
 
 /**
