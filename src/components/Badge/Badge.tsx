@@ -71,8 +71,11 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
           '--bdg-accent-11': `var(--color-${color}-${highContrast ? 12 : 11})`,
           '--bdg-accent-12': `var(--color-${color}-12)`,
           '--bdg-accent-contrast': `var(--color-${color}-contrast)`,
-          '--bdg-surface-bg': `var(--color-${color}-3)`,
-          '--bdg-surface-border': `var(--color-${color}-7)`,
+          '--bdg-soft-bg': `color-mix(in oklch, var(--color-${color}-9) 28%, var(--color-surface-subtle))`,
+          '--bdg-soft-text': `color-mix(in oklch, var(--color-${color}-11) 44%, var(--color-text-primary))`,
+          '--bdg-surface-bg': `color-mix(in oklch, var(--color-${color}-9) 18%, transparent)`,
+          '--bdg-surface-border': `color-mix(in oklch, var(--color-${color}-9) 56%, transparent)`,
+          '--bdg-surface-text': `color-mix(in oklch, var(--color-${color}-10) 68%, var(--color-text-primary))`,
         }
       : {};
 

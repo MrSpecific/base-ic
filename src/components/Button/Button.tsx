@@ -85,10 +85,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           '--btn-accent-11': `var(--color-${color}-${highContrast ? 12 : 11})`,
           '--btn-accent-12': `var(--color-${color}-12)`,
           '--btn-accent-contrast': `var(--color-${color}-contrast)`,
-          '--btn-surface-bg': `var(--color-${color}-3)`,
-          '--btn-surface-bg-hover': `var(--color-${color}-4)`,
-          '--btn-surface-border': `var(--color-${color}-7)`,
-          '--btn-surface-border-hover': `var(--color-${color}-8)`,
+          '--btn-soft-bg': `color-mix(in oklch, var(--color-${color}-9) 30%, var(--color-surface-subtle))`,
+          '--btn-soft-bg-hover': `color-mix(in oklch, var(--color-${color}-9) 42%, var(--color-surface-subtle))`,
+          '--btn-soft-text': `color-mix(in oklch, var(--color-${color}-11) 46%, var(--color-text-primary))`,
+          '--btn-surface-bg': `color-mix(in oklch, var(--color-${color}-9) 20%, transparent)`,
+          '--btn-surface-bg-hover': `color-mix(in oklch, var(--color-${color}-9) 30%, transparent)`,
+          '--btn-surface-border': `color-mix(in oklch, var(--color-${color}-9) 60%, transparent)`,
+          '--btn-surface-border-hover': `color-mix(in oklch, var(--color-${color}-9) 72%, transparent)`,
+          '--btn-surface-text': `color-mix(in oklch, var(--color-${color}-10) 70%, var(--color-text-primary))`,
         }
       : {};
 

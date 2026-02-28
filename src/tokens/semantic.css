@@ -194,10 +194,14 @@
   --button-4-gap:        var(--space-2);
   --button-4-icon-size:  20px;
 
-  --button-surface-bg:          var(--color-accent-3);
-  --button-surface-bg-hover:    var(--color-accent-4);
-  --button-surface-border:      var(--color-accent-7);
-  --button-surface-border-hover: var(--color-accent-8);
+  --button-surface-bg:          color-mix(in oklch, var(--color-accent-9) 16%, transparent);
+  --button-surface-bg-hover:    color-mix(in oklch, var(--color-accent-9) 24%, transparent);
+  --button-surface-border:      color-mix(in oklch, var(--color-accent-9) 50%, transparent);
+  --button-surface-border-hover: color-mix(in oklch, var(--color-accent-9) 62%, transparent);
+  --button-surface-text:        color-mix(in oklch, var(--color-accent-11) 72%, var(--color-text-primary));
+  --button-soft-bg:             color-mix(in oklch, var(--color-accent-9) 30%, var(--color-surface-subtle));
+  --button-soft-bg-hover:       color-mix(in oklch, var(--color-accent-9) 42%, var(--color-surface-subtle));
+  --button-soft-text:           color-mix(in oklch, var(--color-accent-11) 46%, var(--color-text-primary));
 
   /* Backwards compat aliases for existing doc code */
   --button-padding-y:         var(--space-2);
@@ -223,8 +227,11 @@
   --badge-3-px:         var(--space-3);
   --badge-3-font-size:  var(--font-size-3);
 
-  --badge-surface-bg:      var(--color-accent-3);
-  --badge-surface-border:  var(--color-accent-7);
+  --badge-surface-bg:      color-mix(in oklch, var(--color-accent-9) 14%, transparent);
+  --badge-surface-border:  color-mix(in oklch, var(--color-accent-9) 46%, transparent);
+  --badge-surface-text:    color-mix(in oklch, var(--color-accent-11) 70%, var(--color-text-primary));
+  --badge-soft-bg:         color-mix(in oklch, var(--color-accent-9) 28%, var(--color-surface-subtle));
+  --badge-soft-text:       color-mix(in oklch, var(--color-accent-11) 44%, var(--color-text-primary));
 
   /* Backwards compat aliases */
   --badge-padding-y:          var(--space-1);
@@ -469,6 +476,19 @@
     --color-marketing-band-border: color-mix(in oklch, var(--color-border) 85%, var(--color-accent-7));
     --color-marketing-band-heading: var(--color-text-primary);
     --color-marketing-band-body:    var(--color-text-secondary);
+    --button-surface-bg: color-mix(in oklch, var(--color-accent-9) 24%, transparent);
+    --button-surface-bg-hover: color-mix(in oklch, var(--color-accent-9) 34%, transparent);
+    --button-surface-border: color-mix(in oklch, var(--color-accent-9) 62%, transparent);
+    --button-surface-border-hover: color-mix(in oklch, var(--color-accent-9) 74%, transparent);
+    --button-surface-text: color-mix(in oklch, var(--color-accent-10) 70%, var(--color-text-primary));
+    --button-soft-bg: color-mix(in oklch, var(--color-accent-9) 38%, var(--color-surface-subtle));
+    --button-soft-bg-hover: color-mix(in oklch, var(--color-accent-9) 50%, var(--color-surface-subtle));
+    --button-soft-text: color-mix(in oklch, var(--color-accent-10) 66%, var(--color-text-primary));
+    --badge-surface-bg: color-mix(in oklch, var(--color-accent-9) 20%, transparent);
+    --badge-surface-border: color-mix(in oklch, var(--color-accent-9) 56%, transparent);
+    --badge-surface-text: color-mix(in oklch, var(--color-accent-10) 68%, var(--color-text-primary));
+    --badge-soft-bg: color-mix(in oklch, var(--color-accent-9) 34%, var(--color-surface-subtle));
+    --badge-soft-text: color-mix(in oklch, var(--color-accent-10) 64%, var(--color-text-primary));
     --card-gradient-start: color-mix(in oklch, var(--color-accent-4) 18%, var(--color-surface-overlay));
     --card-gradient-end:   var(--color-surface-overlay);
     --card-gradient-border: color-mix(in oklch, var(--color-border) 80%, var(--color-accent-7));
@@ -515,6 +535,19 @@
   --color-marketing-band-border: color-mix(in oklch, var(--color-border) 85%, var(--color-accent-7));
   --color-marketing-band-heading: var(--color-text-primary);
   --color-marketing-band-body:    var(--color-text-secondary);
+  --button-surface-bg: color-mix(in oklch, var(--color-accent-9) 24%, transparent);
+  --button-surface-bg-hover: color-mix(in oklch, var(--color-accent-9) 34%, transparent);
+  --button-surface-border: color-mix(in oklch, var(--color-accent-9) 62%, transparent);
+  --button-surface-border-hover: color-mix(in oklch, var(--color-accent-9) 74%, transparent);
+  --button-surface-text: color-mix(in oklch, var(--color-accent-10) 70%, var(--color-text-primary));
+  --button-soft-bg: color-mix(in oklch, var(--color-accent-9) 38%, var(--color-surface-subtle));
+  --button-soft-bg-hover: color-mix(in oklch, var(--color-accent-9) 50%, var(--color-surface-subtle));
+  --button-soft-text: color-mix(in oklch, var(--color-accent-10) 66%, var(--color-text-primary));
+  --badge-surface-bg: color-mix(in oklch, var(--color-accent-9) 20%, transparent);
+  --badge-surface-border: color-mix(in oklch, var(--color-accent-9) 56%, transparent);
+  --badge-surface-text: color-mix(in oklch, var(--color-accent-10) 68%, var(--color-text-primary));
+  --badge-soft-bg: color-mix(in oklch, var(--color-accent-9) 34%, var(--color-surface-subtle));
+  --badge-soft-text: color-mix(in oklch, var(--color-accent-10) 64%, var(--color-text-primary));
   --card-gradient-start: color-mix(in oklch, var(--color-accent-4) 18%, var(--color-surface-overlay));
   --card-gradient-end:   var(--color-surface-overlay);
   --card-gradient-border: color-mix(in oklch, var(--color-border) 80%, var(--color-accent-7));

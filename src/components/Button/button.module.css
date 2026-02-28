@@ -64,26 +64,26 @@
  * Variant: soft
  * --------------------------------------------------------------------------- */
 .soft {
-  background: var(--btn-accent-3, var(--color-accent-3));
-  color: var(--btn-accent-11, var(--color-accent-11));
+  background: var(--btn-soft-bg, var(--button-soft-bg, var(--btn-accent-3, var(--color-accent-3))));
+  color: var(--btn-soft-text, var(--button-soft-text, var(--btn-accent-11, var(--color-accent-11))));
 }
 
 .soft:hover:not([data-disabled]) {
-  background: var(--btn-accent-4, var(--color-accent-4));
+  background: var(--btn-soft-bg-hover, var(--button-soft-bg-hover, var(--btn-accent-4, var(--color-accent-4))));
 }
 
 /* ---------------------------------------------------------------------------
  * Variant: surface
  * --------------------------------------------------------------------------- */
 .surface {
-  background: var(--btn-surface-bg, var(--btn-accent-3, var(--color-accent-3)));
-  color: var(--btn-accent-11, var(--color-accent-11));
-  border-color: var(--btn-surface-border, var(--btn-accent-7, var(--color-accent-7)));
+  background: var(--btn-surface-bg, var(--button-surface-bg, var(--btn-accent-3, var(--color-accent-3))));
+  color: var(--btn-surface-text, var(--button-surface-text, var(--btn-accent-11, var(--color-accent-11))));
+  border-color: var(--btn-surface-border, var(--button-surface-border, var(--btn-accent-7, var(--color-accent-7))));
 }
 
 .surface:hover:not([data-disabled]) {
-  background: var(--btn-surface-bg-hover, var(--btn-accent-4, var(--color-accent-4)));
-  border-color: var(--btn-surface-border-hover, var(--btn-accent-8, var(--color-accent-8)));
+  background: var(--btn-surface-bg-hover, var(--button-surface-bg-hover, var(--btn-accent-4, var(--color-accent-4))));
+  border-color: var(--btn-surface-border-hover, var(--button-surface-border-hover, var(--btn-accent-8, var(--color-accent-8))));
 }
 
 /* ---------------------------------------------------------------------------

@@ -29,15 +29,15 @@
 
 /* --- Variant: soft --- */
 .soft {
-  background: var(--bdg-accent-3, var(--color-accent-3));
-  color: var(--bdg-accent-11, var(--color-accent-11));
+  background: var(--bdg-soft-bg, var(--badge-soft-bg, var(--bdg-accent-3, var(--color-accent-3))));
+  color: var(--bdg-soft-text, var(--badge-soft-text, var(--bdg-accent-11, var(--color-accent-11))));
 }
 
 /* --- Variant: surface --- */
 .surface {
-  background: var(--bdg-surface-bg, var(--bdg-accent-3, var(--color-accent-3)));
-  color: var(--bdg-accent-11, var(--color-accent-11));
-  border-color: var(--bdg-surface-border, var(--bdg-accent-7, var(--color-accent-7)));
+  background: var(--bdg-surface-bg, var(--badge-surface-bg, var(--bdg-accent-3, var(--color-accent-3))));
+  color: var(--bdg-surface-text, var(--badge-surface-text, var(--bdg-accent-11, var(--color-accent-11))));
+  border-color: var(--bdg-surface-border, var(--badge-surface-border, var(--bdg-accent-7, var(--color-accent-7))));
 }
 
 /* --- Variant: outline --- */

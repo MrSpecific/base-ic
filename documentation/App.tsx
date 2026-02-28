@@ -184,7 +184,7 @@ export default function App() {
               <Button
                 key={item.page}
                 data-active={route.page === item.page}
-                variant="soft"
+                variant={route.page === item.page ? "solid" : "ghost"}
                 color={route.page === item.page ? "accent" : "gray"}
                 onClick={() => goTo(item.page)}
               >
