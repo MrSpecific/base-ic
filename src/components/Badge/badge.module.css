@@ -1,7 +1,14 @@
+/* ==========================================================================
+ * Badge
+ * ==========================================================================
+ * Same pattern as Button: CSS owns visual formulas, JS wires raw scale refs.
+ */
+
 .badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: var(--space-1);
   min-height: var(--bdg-height);
   padding: var(--bdg-padding-top, var(--bdg-padding-y, 0))
            var(--bdg-padding-right, var(--bdg-padding-x, var(--bdg-px)))
@@ -23,44 +30,50 @@
 
 /* --- Variant: solid --- */
 .solid {
-  background: var(--bdg-accent-9, var(--color-accent-9));
+  background-color: var(--bdg-accent-9, var(--color-accent-9));
   color: var(--bdg-accent-contrast, var(--color-accent-contrast));
 }
 
-/* --- Variant: soft --- */
+/* --- Variant: soft — translucent accent tint --- */
 .soft {
-  background: var(--bdg-soft-bg, var(--badge-soft-bg, var(--bdg-accent-3, var(--color-accent-3))));
-  color: var(--bdg-soft-text, var(--badge-soft-text, var(--bdg-accent-11, var(--color-accent-11))));
+  background-color: color-mix(
+    in srgb,
+    var(--bdg-accent-9, var(--color-accent-9)) var(--interactive-soft-strength),
+    var(--interactive-soft-mix-base)
+  );
+  color: var(--bdg-accent-11, var(--color-accent-11));
 }
 
-/* --- Variant: surface --- */
+/* --- Variant: surface — translucent accent tint + border --- */
 .surface {
-  background: var(--bdg-surface-bg, var(--badge-surface-bg, var(--bdg-accent-3, var(--color-accent-3))));
-  color: var(--bdg-surface-text, var(--badge-surface-text, var(--bdg-accent-11, var(--color-accent-11))));
-  border-color: var(--bdg-surface-border, var(--badge-surface-border, var(--bdg-accent-7, var(--color-accent-7))));
+  background-color: color-mix(
+    in srgb,
+    var(--bdg-accent-9, var(--color-accent-9)) var(--interactive-surface-strength),
+    var(--interactive-surface-mix-base)
+  );
+  color: var(--bdg-accent-11, var(--color-accent-11));
+  border-color: color-mix(
+    in srgb,
+    var(--bdg-accent-9, var(--color-accent-9)) var(--interactive-surface-border-strength),
+    var(--color-border-subtle)
+  );
 }
 
 /* --- Variant: outline --- */
 .outline {
-  background: transparent;
+  background-color: transparent;
   color: var(--bdg-accent-11, var(--color-accent-11));
   border-color: var(--bdg-accent-7, var(--color-accent-7));
 }
 
 /* --- highContrast --- */
 .solid.highContrast {
-  background: var(--bdg-accent-12, var(--color-accent-12));
+  background-color: var(--bdg-accent-12, var(--color-accent-12));
   color: var(--color-surface-base);
 }
 
-.soft.highContrast {
-  color: var(--bdg-accent-12, var(--color-accent-12));
-}
-
-.surface.highContrast {
-  color: var(--bdg-accent-12, var(--color-accent-12));
-}
-
+.soft.highContrast,
+.surface.highContrast,
 .outline.highContrast {
   color: var(--bdg-accent-12, var(--color-accent-12));
 }

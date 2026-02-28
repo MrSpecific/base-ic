@@ -72,27 +72,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       '--btn-icon-size': `var(--button-${size}-icon-size)`,
     };
 
+    // Only wire raw scale references — CSS owns the visual formulas (color-mix etc.)
     const colorVars: Record<string, string> = color
       ? {
+          '--btn-accent-2': `var(--color-${color}-2)`,
           '--btn-accent-3': `var(--color-${color}-3)`,
           '--btn-accent-4': `var(--color-${color}-4)`,
-          '--btn-accent-5': `var(--color-${color}-5)`,
           '--btn-accent-6': `var(--color-${color}-6)`,
           '--btn-accent-7': `var(--color-${color}-7)`,
-          '--btn-accent-8': `var(--color-${color}-8)`,
           '--btn-accent-9': `var(--color-${color}-9)`,
           '--btn-accent-10': `var(--color-${color}-10)`,
           '--btn-accent-11': `var(--color-${color}-${highContrast ? 12 : 11})`,
           '--btn-accent-12': `var(--color-${color}-12)`,
           '--btn-accent-contrast': `var(--color-${color}-contrast)`,
-          '--btn-soft-bg': `color-mix(in oklch, var(--color-${color}-9) 24%, transparent)`,
-          '--btn-soft-bg-hover': `color-mix(in oklch, var(--color-${color}-9) 32%, transparent)`,
-          '--btn-soft-text': `color-mix(in oklch, var(--color-${color}-10) 60%, var(--color-text-primary))`,
-          '--btn-surface-bg': `color-mix(in oklch, var(--color-${color}-9) 20%, transparent)`,
-          '--btn-surface-bg-hover': `color-mix(in oklch, var(--color-${color}-9) 30%, transparent)`,
-          '--btn-surface-border': `color-mix(in oklch, var(--color-${color}-9) 60%, transparent)`,
-          '--btn-surface-border-hover': `color-mix(in oklch, var(--color-${color}-9) 72%, transparent)`,
-          '--btn-surface-text': `color-mix(in oklch, var(--color-${color}-10) 70%, var(--color-text-primary))`,
         }
       : {};
 

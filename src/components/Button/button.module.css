@@ -1,8 +1,15 @@
 /* ==========================================================================
  * Button
  * ==========================================================================
- * Sized via --btn-* CSS custom properties set inline from the `size` prop.
- * Color overrides via --btn-accent-* set inline from the `color` prop.
+ * Sizing: --btn-* CSS vars set inline from `size` prop.
+ * Color:  --btn-accent-* set inline from `color` prop; falls back to accent.
+ *
+ * Fallback pattern (2 levels):
+ *   var(--btn-accent-N, var(--color-accent-N))
+ *   Component-scoped override → global accent
+ *
+ * Visual formulas (color-mix, box-shadow) live HERE in CSS — not in JS.
+ * The JS only wires raw color-scale references.
  */
 
 .button {
@@ -38,8 +45,9 @@
   outline-offset: var(--focus-ring-offset);
 }
 
+/* Softer press — subtle translateY feels more tactile than scale */
 .button:active:not([data-disabled]) {
-  transform: scale(0.97);
+  transform: translateY(1px);
 }
 
 .button[data-disabled] {
@@ -52,89 +60,108 @@
  * Variant: solid
  * --------------------------------------------------------------------------- */
 .solid {
-  background: var(--btn-accent-9, var(--color-accent-9));
+  background-color: var(--btn-accent-9, var(--color-accent-9));
   color: var(--btn-accent-contrast, var(--color-accent-contrast));
+  /* Subtle inner highlight for depth */
+  box-shadow: inset 0 1px 0 oklch(100% 0 0 / 10%),
+              0 1px 2px oklch(0% 0 0 / 8%);
 }
 
 .solid:hover:not([data-disabled]) {
-  background: var(--btn-accent-10, var(--color-accent-10));
+  background-color: var(--btn-accent-10, var(--color-accent-10));
 }
 
 /* ---------------------------------------------------------------------------
- * Variant: soft
+ * Variant: soft — translucent accent tint
  * --------------------------------------------------------------------------- */
 .soft {
-  background: var(--btn-soft-bg, var(--button-soft-bg, var(--btn-accent-3, var(--color-accent-3))));
-  color: var(--btn-soft-text, var(--button-soft-text, var(--btn-accent-11, var(--color-accent-11))));
+  background-color: color-mix(
+    in oklch,
+    var(--btn-accent-9, var(--color-accent-9)) var(--interactive-soft-strength),
+    var(--interactive-soft-mix-base)
+  );
+  color: var(--btn-accent-11, var(--color-accent-11));
 }
 
 .soft:hover:not([data-disabled]) {
-  background: var(--btn-soft-bg-hover, var(--button-soft-bg-hover, var(--btn-accent-4, var(--color-accent-4))));
+  background-color: color-mix(
+    in oklch,
+    var(--btn-accent-9, var(--color-accent-9)) var(--interactive-soft-hover-strength),
+    var(--interactive-soft-mix-base)
+  );
 }
 
 /* ---------------------------------------------------------------------------
- * Variant: surface
+ * Variant: surface — translucent accent tint with border
  * --------------------------------------------------------------------------- */
 .surface {
-  background: var(--btn-surface-bg, var(--button-surface-bg, var(--btn-accent-3, var(--color-accent-3))));
-  color: var(--btn-surface-text, var(--button-surface-text, var(--btn-accent-11, var(--color-accent-11))));
-  border-color: var(--btn-surface-border, var(--button-surface-border, var(--btn-accent-7, var(--color-accent-7))));
+  background-color: color-mix(
+    in srgb,
+    var(--btn-accent-9, var(--color-accent-9)) var(--interactive-surface-strength),
+    var(--interactive-surface-mix-base)
+  );
+  color: var(--btn-accent-11, var(--color-accent-11));
+  border-color: color-mix(
+    in srgb,
+    var(--btn-accent-9, var(--color-accent-9)) var(--interactive-surface-border-strength),
+    var(--color-border-subtle)
+  );
 }
 
 .surface:hover:not([data-disabled]) {
-  background: var(--btn-surface-bg-hover, var(--button-surface-bg-hover, var(--btn-accent-4, var(--color-accent-4))));
-  border-color: var(--btn-surface-border-hover, var(--button-surface-border-hover, var(--btn-accent-8, var(--color-accent-8))));
+  background-color: color-mix(
+    in srgb,
+    var(--btn-accent-9, var(--color-accent-9)) var(--interactive-surface-hover-strength),
+    var(--interactive-surface-mix-base)
+  );
+  border-color: color-mix(
+    in srgb,
+    var(--btn-accent-9, var(--color-accent-9)) var(--interactive-surface-border-hover-strength),
+    var(--color-border)
+  );
 }
 
 /* ---------------------------------------------------------------------------
- * Variant: outline
+ * Variant: outline — transparent with border
  * --------------------------------------------------------------------------- */
 .outline {
-  background: transparent;
+  background-color: transparent;
   color: var(--btn-accent-11, var(--color-accent-11));
   border-color: var(--btn-accent-7, var(--color-accent-7));
 }
 
 .outline:hover:not([data-disabled]) {
-  background: var(--btn-accent-3, var(--color-accent-3));
+  background-color: color-mix(in oklch, var(--btn-accent-9, var(--color-accent-9)) 10%, transparent);
 }
 
 /* ---------------------------------------------------------------------------
- * Variant: ghost
+ * Variant: ghost — no chrome
  * --------------------------------------------------------------------------- */
 .ghost {
-  background: transparent;
+  background-color: transparent;
   color: var(--btn-accent-11, var(--color-accent-11));
 }
 
 .ghost:hover:not([data-disabled]) {
-  background: var(--btn-accent-3, var(--color-accent-3));
+  background-color: color-mix(in oklch, var(--btn-accent-9, var(--color-accent-9)) 10%, transparent);
 }
 
 /* ---------------------------------------------------------------------------
  * highContrast modifier
  * --------------------------------------------------------------------------- */
 .solid.highContrast {
-  background: var(--btn-accent-12, var(--color-accent-12));
+  background-color: var(--btn-accent-12, var(--color-accent-12));
   color: var(--color-surface-base);
+  box-shadow: 0 1px 2px oklch(0% 0 0 / 12%);
 }
 
 .solid.highContrast:hover:not([data-disabled]) {
-  background: color-mix(in oklch, var(--btn-accent-12, var(--color-accent-12)) 88%, black);
+  background-color: color-mix(in oklch, var(--btn-accent-12, var(--color-accent-12)) 88%, black);
 }
 
-.soft.highContrast {
-  color: var(--btn-accent-12, var(--color-accent-12));
-}
-
-.surface.highContrast {
-  color: var(--btn-accent-12, var(--color-accent-12));
-}
-
-.outline.highContrast {
-  color: var(--btn-accent-12, var(--color-accent-12));
-}
-
+.soft.highContrast,
+.surface.highContrast,
+.outline.highContrast,
 .ghost.highContrast {
   color: var(--btn-accent-12, var(--color-accent-12));
 }

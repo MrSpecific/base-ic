@@ -1,3 +1,10 @@
+/* ==========================================================================
+ * Card
+ * ==========================================================================
+ * Container surface with padding, radius, and optional interactivity.
+ * Transitions now covered by --transition-colors (includes box-shadow).
+ */
+
 .card {
   padding: var(--card-padding-top, var(--card-padding-y, var(--card-padding, var(--space-3))))
            var(--card-padding-right, var(--card-padding-x, var(--card-padding, var(--space-3))))
@@ -14,14 +21,14 @@
 
 /* --- Variant: surface --- */
 .surface {
-  background: var(--color-surface-overlay);
+  background-color: var(--color-surface-overlay);
   border: 1px solid var(--color-border-subtle);
   box-shadow: var(--shadow-surface);
 }
 
 /* --- Variant: classic --- */
 .classic {
-  background: var(--color-surface-raised);
+  background-color: var(--color-surface-raised);
   border: 1px solid var(--color-border-subtle);
   box-shadow: var(--shadow-2);
 }
@@ -35,7 +42,7 @@
 
 /* --- Variant: ghost --- */
 .ghost {
-  background: transparent;
+  background-color: transparent;
   border: 1px solid transparent;
 }
 
@@ -43,18 +50,14 @@
 .interactive {
   cursor: pointer;
   transition: var(--transition-colors),
-              transform var(--duration-2) var(--ease-2),
-              box-shadow var(--duration-2) var(--ease-2);
+              transform var(--duration-2) var(--ease-2);
 }
 
 .interactive:hover {
   box-shadow: var(--shadow-3);
 }
 
-.interactive.surface:hover {
-  border-color: var(--color-border);
-}
-
+.interactive.surface:hover,
 .interactive.classic:hover {
   border-color: var(--color-border);
 }
@@ -64,12 +67,13 @@
 }
 
 .interactive.ghost:hover {
-  background: var(--color-surface-subtle);
+  background-color: var(--color-surface-subtle);
   border-color: var(--color-border-subtle);
 }
 
+/* Softer press — consistent with Button */
 .interactive:active {
-  transform: scale(0.98);
+  transform: translateY(1px);
 }
 
 .interactive:focus-visible {

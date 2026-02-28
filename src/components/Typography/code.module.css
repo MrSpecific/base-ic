@@ -1,3 +1,9 @@
+/* ==========================================================================
+ * Code — inline code
+ * ==========================================================================
+ * Accent-aware: soft variant gets a subtle accent tint, not just gray.
+ */
+
 .code {
   font-family: var(--font-family-mono);
   font-size: calc(var(--typo-font-size, var(--text-3-size)) * 0.9);
@@ -14,21 +20,26 @@
           var(--code-margin-left, var(--code-margin-x, var(--code-margin, 0)));
 }
 
-.soft {
-  padding: var(--code-padding-top, var(--code-padding-y, var(--code-padding, 0.15em)))
-           var(--code-padding-right, var(--code-padding-x, var(--code-padding, 0.4em)))
-           var(--code-padding-bottom, var(--code-padding-y, var(--code-padding, 0.15em)))
-           var(--code-padding-left, var(--code-padding-x, var(--code-padding, 0.4em)));
-  border-radius: var(--code-inline-radius, var(--radius-2));
-  background: var(--color-neutral-3);
-}
-
+/* Shared padding for soft + outline variants */
+.soft,
 .outline {
   padding: var(--code-padding-top, var(--code-padding-y, var(--code-padding, 0.15em)))
            var(--code-padding-right, var(--code-padding-x, var(--code-padding, 0.4em)))
            var(--code-padding-bottom, var(--code-padding-y, var(--code-padding, 0.15em)))
            var(--code-padding-left, var(--code-padding-x, var(--code-padding, 0.4em)));
   border-radius: var(--code-inline-radius, var(--radius-2));
+}
+
+/* Accent-tinted background instead of flat neutral */
+.soft {
+  background-color: color-mix(
+    in srgb,
+    var(--color-accent-9) var(--interactive-soft-strength),
+    var(--interactive-soft-mix-base)
+  );
+}
+
+.outline {
   border: 1px solid var(--color-border-subtle);
 }
 

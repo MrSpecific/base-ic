@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { cx, toSpaceVar, withVar } from '../Layout/layout.utils';
+import { buildSpaceVars, cx, type SpaceProps, toSpaceVar, withVar } from '../Layout/layout.utils';
 import styles from './card.module.css';
 
 type CardSize = '1' | '2' | '3' | '4' | '5';
 type CardVariant = 'surface' | 'classic' | 'gradient' | 'ghost';
-type SpaceValue = number | string;
 type CardRadius = 'none' | 'small' | 'medium' | 'large' | 'full';
 
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement>, SpaceProps {
   /** Padding size preset. Default: '3' */
   size?: CardSize;
   /** Visual variant. Default: 'surface' */
@@ -16,34 +15,6 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   asButton?: boolean;
   /** Override border radius for this card. */
   radius?: CardRadius;
-  /** Padding shorthand */
-  p?: SpaceValue;
-  /** Padding-inline shorthand */
-  px?: SpaceValue;
-  /** Padding-block shorthand */
-  py?: SpaceValue;
-  /** Padding-top */
-  pt?: SpaceValue;
-  /** Padding-right */
-  pr?: SpaceValue;
-  /** Padding-bottom */
-  pb?: SpaceValue;
-  /** Padding-left */
-  pl?: SpaceValue;
-  /** Margin shorthand */
-  m?: SpaceValue;
-  /** Margin-inline shorthand */
-  mx?: SpaceValue;
-  /** Margin-block shorthand */
-  my?: SpaceValue;
-  /** Margin-top */
-  mt?: SpaceValue;
-  /** Margin-right */
-  mr?: SpaceValue;
-  /** Margin-bottom */
-  mb?: SpaceValue;
-  /** Margin-left */
-  ml?: SpaceValue;
 }
 
 const radiusMap: Record<CardRadius, string> = {
@@ -63,40 +34,20 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       radius,
       className,
       style,
-      p,
-      px,
-      py,
-      pt,
-      pr,
-      pb,
-      pl,
-      m,
-      mx,
-      my,
-      mt,
-      mr,
-      mb,
-      ml,
+      p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
       ...rest
     },
     ref,
   ) {
+    // Use size as default padding; explicit `p` overrides it
+    const spaceVars = buildSpaceVars('card', {
+      p: p ?? size,
+      px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
+    });
+
     const nextStyle = withVar(style, {
-      '--card-padding': p != null ? toSpaceVar(p) : `var(--space-${size})`,
+      ...spaceVars,
       '--card-radius': radius ? radiusMap[radius] : undefined,
-      '--card-padding-x': toSpaceVar(px),
-      '--card-padding-y': toSpaceVar(py),
-      '--card-padding-top': toSpaceVar(pt),
-      '--card-padding-right': toSpaceVar(pr),
-      '--card-padding-bottom': toSpaceVar(pb),
-      '--card-padding-left': toSpaceVar(pl),
-      '--card-margin': toSpaceVar(m),
-      '--card-margin-x': toSpaceVar(mx),
-      '--card-margin-y': toSpaceVar(my),
-      '--card-margin-top': toSpaceVar(mt),
-      '--card-margin-right': toSpaceVar(mr),
-      '--card-margin-bottom': toSpaceVar(mb),
-      '--card-margin-left': toSpaceVar(ml),
     });
 
     return (

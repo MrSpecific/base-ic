@@ -194,22 +194,22 @@
   --button-4-gap:        var(--space-2);
   --button-4-icon-size:  20px;
 
-  --button-surface-bg:          color-mix(in oklch, var(--color-accent-9) 16%, transparent);
-  --button-surface-bg-hover:    color-mix(in oklch, var(--color-accent-9) 24%, transparent);
-  --button-surface-border:      color-mix(in oklch, var(--color-accent-9) 50%, transparent);
-  --button-surface-border-hover: color-mix(in oklch, var(--color-accent-9) 62%, transparent);
-  --button-surface-text:        color-mix(in oklch, var(--color-accent-11) 72%, var(--color-text-primary));
-  --button-soft-bg:             color-mix(in oklch, var(--color-accent-9) 24%, transparent);
-  --button-soft-bg-hover:       color-mix(in oklch, var(--color-accent-9) 32%, transparent);
-  --button-soft-text:           color-mix(in oklch, var(--color-accent-10) 60%, var(--color-text-primary));
+  /* -------------------------------------------------------------------------
+   * Semantic interactive patterns — soft/surface variant tuning
+   * -------------------------------------------------------------------------
+   * Shared across Button/Badge/inline accent surfaces.
+   * Uses a single accent anchor and appearance-aware mix constants so
+   * variants stay hue-correct and readable in both light and dark modes.
+   */
+  --interactive-soft-mix-base:            white;
+  --interactive-soft-strength:            18%;
+  --interactive-soft-hover-strength:      24%;
 
-  /* Backwards compat aliases for existing doc code */
-  --button-padding-y:         var(--space-2);
-  --button-padding-x:         var(--space-4);
-  --button-min-height:        var(--size-4);
-  --button-font-size:         var(--font-size-3);
-  --button-radius:            var(--component-radius);
-  --button-line-height:       var(--line-height-1);
+  --interactive-surface-mix-base:         white;
+  --interactive-surface-strength:         12%;
+  --interactive-surface-hover-strength:   18%;
+  --interactive-surface-border-strength:  42%;
+  --interactive-surface-border-hover-strength: 56%;
 
   /* -------------------------------------------------------------------------
    * Semantic interactive patterns — Badge sizing (3 sizes)
@@ -226,20 +226,6 @@
   --badge-3-height:     var(--size-3);       /* 32px */
   --badge-3-px:         var(--space-3);
   --badge-3-font-size:  var(--font-size-3);
-
-  --badge-surface-bg:      color-mix(in oklch, var(--color-accent-9) 14%, transparent);
-  --badge-surface-border:  color-mix(in oklch, var(--color-accent-9) 46%, transparent);
-  --badge-surface-text:    color-mix(in oklch, var(--color-accent-11) 70%, var(--color-text-primary));
-  --badge-soft-bg:         color-mix(in oklch, var(--color-accent-9) 20%, transparent);
-  --badge-soft-text:       color-mix(in oklch, var(--color-accent-10) 62%, var(--color-text-primary));
-
-  /* Backwards compat aliases */
-  --badge-padding-y:          var(--space-1);
-  --badge-padding-x:          var(--space-3);
-  --badge-min-height:         var(--size-3);
-  --badge-font-size:          var(--font-size-2);
-  --badge-radius:             min(var(--component-radius), var(--radius-full));
-  --badge-line-height:        var(--line-height-1);
 
   /* -------------------------------------------------------------------------
    * Semantic tooltip patterns
@@ -289,11 +275,11 @@
   --status-surface-gap:        var(--space-1);
   --status-surface-radius:     var(--surface-radius);
 
-  --status-badge-padding-y:    var(--badge-padding-y);
-  --status-badge-padding-x:    var(--badge-padding-x);
-  --status-badge-min-height:   var(--badge-min-height);
-  --status-badge-radius:       var(--badge-radius);
-  --status-badge-line-height:  var(--badge-line-height);
+  --status-badge-padding-y:    var(--space-1);
+  --status-badge-padding-x:    var(--badge-2-px);
+  --status-badge-min-height:   var(--badge-2-height);
+  --status-badge-radius:       min(var(--component-radius), var(--radius-full));
+  --status-badge-line-height:  var(--line-height-1);
 
   /* -------------------------------------------------------------------------
    * Text typography presets (body/inline — generous line-height for readability)
@@ -344,10 +330,12 @@
    * Transition shorthands
    * -------------------------------------------------------------------------
    */
-  --transition-colors: color var(--duration-2) var(--ease-2),
-                       background var(--duration-2) var(--ease-2),
-                       border-color var(--duration-2) var(--ease-2);
-  --transition-all:    all var(--duration-2) var(--ease-2);
+  --transition-colors: color var(--duration-3) var(--ease-2),
+                       background-color var(--duration-3) var(--ease-2),
+                       border-color var(--duration-3) var(--ease-2),
+                       box-shadow var(--duration-3) var(--ease-2),
+                       outline-color var(--duration-3) var(--ease-2);
+  --transition-all:    all var(--duration-3) var(--ease-2);
   --transition-transform: transform var(--duration-2) var(--ease-spring);
 
   /* -------------------------------------------------------------------------
@@ -476,19 +464,7 @@
     --color-marketing-band-border: color-mix(in oklch, var(--color-border) 85%, var(--color-accent-7));
     --color-marketing-band-heading: var(--color-text-primary);
     --color-marketing-band-body:    var(--color-text-secondary);
-    --button-surface-bg: color-mix(in oklch, var(--color-accent-9) 24%, transparent);
-    --button-surface-bg-hover: color-mix(in oklch, var(--color-accent-9) 34%, transparent);
-    --button-surface-border: color-mix(in oklch, var(--color-accent-9) 62%, transparent);
-    --button-surface-border-hover: color-mix(in oklch, var(--color-accent-9) 74%, transparent);
-    --button-surface-text: color-mix(in oklch, var(--color-accent-10) 70%, var(--color-text-primary));
-    --button-soft-bg: color-mix(in oklch, var(--color-accent-9) 34%, transparent);
-    --button-soft-bg-hover: color-mix(in oklch, var(--color-accent-9) 46%, transparent);
-    --button-soft-text: color-mix(in oklch, var(--color-accent-10) 78%, var(--color-text-primary));
-    --badge-surface-bg: color-mix(in oklch, var(--color-accent-9) 20%, transparent);
-    --badge-surface-border: color-mix(in oklch, var(--color-accent-9) 56%, transparent);
-    --badge-surface-text: color-mix(in oklch, var(--color-accent-10) 68%, var(--color-text-primary));
-    --badge-soft-bg: color-mix(in oklch, var(--color-accent-9) 30%, transparent);
-    --badge-soft-text: color-mix(in oklch, var(--color-accent-10) 76%, var(--color-text-primary));
+
     --card-gradient-start: color-mix(in oklch, var(--color-accent-4) 18%, var(--color-surface-overlay));
     --card-gradient-end:   var(--color-surface-overlay);
     --card-gradient-border: color-mix(in oklch, var(--color-border) 80%, var(--color-accent-7));
@@ -499,6 +475,15 @@
     --shadow-surface: 0 1px 1px oklch(0% 0 0 / 18%), 0 10px 24px -12px oklch(0% 0 0 / 55%);
     --shadow-floating: 0 8px 24px -12px oklch(0% 0 0 / 58%), 0 2px 8px oklch(0% 0 0 / 28%);
     --shadow-panel: 0 20px 50px -28px oklch(0% 0 0 / 68%), 0 8px 20px oklch(0% 0 0 / 42%);
+
+    --interactive-soft-mix-base:            black;
+    --interactive-soft-strength:            32%;
+    --interactive-soft-hover-strength:      40%;
+    --interactive-surface-mix-base:         black;
+    --interactive-surface-strength:         24%;
+    --interactive-surface-hover-strength:   30%;
+    --interactive-surface-border-strength:  68%;
+    --interactive-surface-border-hover-strength: 82%;
   }
 }
 
@@ -535,19 +520,7 @@
   --color-marketing-band-border: color-mix(in oklch, var(--color-border) 85%, var(--color-accent-7));
   --color-marketing-band-heading: var(--color-text-primary);
   --color-marketing-band-body:    var(--color-text-secondary);
-  --button-surface-bg: color-mix(in oklch, var(--color-accent-9) 24%, transparent);
-  --button-surface-bg-hover: color-mix(in oklch, var(--color-accent-9) 34%, transparent);
-  --button-surface-border: color-mix(in oklch, var(--color-accent-9) 62%, transparent);
-  --button-surface-border-hover: color-mix(in oklch, var(--color-accent-9) 74%, transparent);
-  --button-surface-text: color-mix(in oklch, var(--color-accent-10) 70%, var(--color-text-primary));
-  --button-soft-bg: color-mix(in oklch, var(--color-accent-9) 34%, transparent);
-  --button-soft-bg-hover: color-mix(in oklch, var(--color-accent-9) 46%, transparent);
-  --button-soft-text: color-mix(in oklch, var(--color-accent-10) 78%, var(--color-text-primary));
-  --badge-surface-bg: color-mix(in oklch, var(--color-accent-9) 20%, transparent);
-  --badge-surface-border: color-mix(in oklch, var(--color-accent-9) 56%, transparent);
-  --badge-surface-text: color-mix(in oklch, var(--color-accent-10) 68%, var(--color-text-primary));
-  --badge-soft-bg: color-mix(in oklch, var(--color-accent-9) 30%, transparent);
-  --badge-soft-text: color-mix(in oklch, var(--color-accent-10) 76%, var(--color-text-primary));
+
   --card-gradient-start: color-mix(in oklch, var(--color-accent-4) 18%, var(--color-surface-overlay));
   --card-gradient-end:   var(--color-surface-overlay);
   --card-gradient-border: color-mix(in oklch, var(--color-border) 80%, var(--color-accent-7));
@@ -558,6 +531,15 @@
   --shadow-surface: 0 1px 1px oklch(0% 0 0 / 18%), 0 10px 24px -12px oklch(0% 0 0 / 55%);
   --shadow-floating: 0 8px 24px -12px oklch(0% 0 0 / 58%), 0 2px 8px oklch(0% 0 0 / 28%);
   --shadow-panel: 0 20px 50px -28px oklch(0% 0 0 / 68%), 0 8px 20px oklch(0% 0 0 / 42%);
+
+  --interactive-soft-mix-base:            black;
+  --interactive-soft-strength:            32%;
+  --interactive-soft-hover-strength:      40%;
+  --interactive-surface-mix-base:         black;
+  --interactive-surface-strength:         24%;
+  --interactive-surface-hover-strength:   30%;
+  --interactive-surface-border-strength:  68%;
+  --interactive-surface-border-hover-strength: 82%;
 }
 
 :where(.light, [data-appearance='light']) {
@@ -600,6 +582,15 @@
   --shadow-surface: var(--shadow-2);
   --shadow-floating: var(--shadow-4);
   --shadow-panel: var(--shadow-5);
+
+  --interactive-soft-mix-base:            white;
+  --interactive-soft-strength:            18%;
+  --interactive-soft-hover-strength:      24%;
+  --interactive-surface-mix-base:         white;
+  --interactive-surface-strength:         12%;
+  --interactive-surface-hover-strength:   18%;
+  --interactive-surface-border-strength:  42%;
+  --interactive-surface-border-hover-strength: 56%;
 }
 
 /**

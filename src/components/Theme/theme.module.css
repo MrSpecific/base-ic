@@ -9,6 +9,33 @@
   background-color: var(--color-surface-base);
   /* Ensure the theme surface covers full viewport backgrounds */
   min-height: 100vh;
+
+  /* Text rendering — sharper on macOS, cleaner everywhere */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Accent-tinted text selection */
+.theme ::selection {
+  background: var(--color-accent-5);
+  color: var(--color-accent-12);
+}
+
+/* -------------------------------------------------------------------------
+ * Reduced motion — respect user preference
+ * -------------------------------------------------------------------------
+ * Disables transitions and animations for users who prefer reduced motion.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .theme *,
+  .theme *::before,
+  .theme *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /**

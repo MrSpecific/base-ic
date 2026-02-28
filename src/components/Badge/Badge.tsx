@@ -61,21 +61,17 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       '--bdg-fs': `var(--badge-${size}-font-size)`,
     };
 
+    // Only wire raw scale references — CSS owns the visual formulas
     const colorVars: Record<string, string> = color
       ? {
+          '--bdg-accent-2': `var(--color-${color}-2)`,
           '--bdg-accent-3': `var(--color-${color}-3)`,
-          '--bdg-accent-4': `var(--color-${color}-4)`,
+          '--bdg-accent-6': `var(--color-${color}-6)`,
           '--bdg-accent-7': `var(--color-${color}-7)`,
-          '--bdg-accent-8': `var(--color-${color}-8)`,
           '--bdg-accent-9': `var(--color-${color}-9)`,
           '--bdg-accent-11': `var(--color-${color}-${highContrast ? 12 : 11})`,
           '--bdg-accent-12': `var(--color-${color}-12)`,
           '--bdg-accent-contrast': `var(--color-${color}-contrast)`,
-          '--bdg-soft-bg': `color-mix(in oklch, var(--color-${color}-9) 20%, transparent)`,
-          '--bdg-soft-text': `color-mix(in oklch, var(--color-${color}-10) 62%, var(--color-text-primary))`,
-          '--bdg-surface-bg': `color-mix(in oklch, var(--color-${color}-9) 18%, transparent)`,
-          '--bdg-surface-border': `color-mix(in oklch, var(--color-${color}-9) 56%, transparent)`,
-          '--bdg-surface-text': `color-mix(in oklch, var(--color-${color}-10) 68%, var(--color-text-primary))`,
         }
       : {};
 
