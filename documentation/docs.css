@@ -50,8 +50,6 @@
   padding: var(--space-2);
   border-radius: var(--component-radius);
   border: 1px solid transparent;
-  background: transparent;
-  color: var(--color-text-secondary);
   font-size: var(--font-size-2);
   transition:
     color var(--duration-2) var(--ease-2),
@@ -59,12 +57,14 @@
     border-color var(--duration-2) var(--ease-2);
 }
 
-.docs-sidebar-link.docs-sidebar-link:hover {
-  color: var(--color-text-primary);
-  background: var(--color-surface-subtle);
+.docs-sidebar-link.docs-sidebar-link:not(:hover) {
+  color: var(--color-text-secondary);
+  background: transparent;
+  /* color: var(--color-text-primary); */
+  /* background: var(--color-surface-subtle); */
 }
 
-.docs-sidebar-link[data-active='true'] {
+.docs-sidebar-link[data-active="true"] {
   color: var(--color-accent-11);
   border-color: var(--color-accent-6);
   background: var(--color-accent-3);

@@ -130,7 +130,9 @@ export function DocsPage({
                   </Button>
                 ))}
               </div>
-              {index < docsNavGroups.length - 1 ? <Separator className="docs-sidebar-separator" /> : null}
+              {index < docsNavGroups.length - 1 ? (
+                <Separator className="docs-sidebar-separator" />
+              ) : null}
             </div>
           ))}
         </aside>
