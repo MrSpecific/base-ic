@@ -37,7 +37,7 @@
 /* --- Variant: soft — translucent accent tint --- */
 .soft {
   background-color: color-mix(
-    in srgb,
+    in oklch,
     var(--bdg-accent-9, var(--color-accent-9)) var(--interactive-soft-strength),
     var(--interactive-soft-mix-base)
   );
@@ -47,13 +47,13 @@
 /* --- Variant: surface — translucent accent tint + border --- */
 .surface {
   background-color: color-mix(
-    in srgb,
+    in oklch,
     var(--bdg-accent-9, var(--color-accent-9)) var(--interactive-surface-strength),
     var(--interactive-surface-mix-base)
   );
   color: var(--bdg-accent-11, var(--color-accent-11));
   border-color: color-mix(
-    in srgb,
+    in oklch,
     var(--bdg-accent-9, var(--color-accent-9)) var(--interactive-surface-border-strength),
     var(--color-border-subtle)
   );

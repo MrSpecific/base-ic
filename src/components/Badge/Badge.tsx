@@ -61,12 +61,9 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       '--bdg-fs': `var(--badge-${size}-font-size)`,
     };
 
-    // Only wire raw scale references — CSS owns the visual formulas
+    // Only wire scale references consumed by CSS (7,9,11,12,contrast)
     const colorVars: Record<string, string> = color
       ? {
-          '--bdg-accent-2': `var(--color-${color}-2)`,
-          '--bdg-accent-3': `var(--color-${color}-3)`,
-          '--bdg-accent-6': `var(--color-${color}-6)`,
           '--bdg-accent-7': `var(--color-${color}-7)`,
           '--bdg-accent-9': `var(--color-${color}-9)`,
           '--bdg-accent-11': `var(--color-${color}-${highContrast ? 12 : 11})`,

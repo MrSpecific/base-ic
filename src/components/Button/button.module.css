@@ -96,13 +96,13 @@
  * --------------------------------------------------------------------------- */
 .surface {
   background-color: color-mix(
-    in srgb,
+    in oklch,
     var(--btn-accent-9, var(--color-accent-9)) var(--interactive-surface-strength),
     var(--interactive-surface-mix-base)
   );
   color: var(--btn-accent-11, var(--color-accent-11));
   border-color: color-mix(
-    in srgb,
+    in oklch,
     var(--btn-accent-9, var(--color-accent-9)) var(--interactive-surface-border-strength),
     var(--color-border-subtle)
   );
@@ -110,12 +110,12 @@
 
 .surface:hover:not([data-disabled]) {
   background-color: color-mix(
-    in srgb,
+    in oklch,
     var(--btn-accent-9, var(--color-accent-9)) var(--interactive-surface-hover-strength),
     var(--interactive-surface-mix-base)
   );
   border-color: color-mix(
-    in srgb,
+    in oklch,
     var(--btn-accent-9, var(--color-accent-9)) var(--interactive-surface-border-hover-strength),
     var(--color-border)
   );

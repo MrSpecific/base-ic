@@ -72,13 +72,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       '--btn-icon-size': `var(--button-${size}-icon-size)`,
     };
 
-    // Only wire raw scale references — CSS owns the visual formulas (color-mix etc.)
+    // Only wire scale references consumed by CSS (7,9,10,11,12,contrast)
     const colorVars: Record<string, string> = color
       ? {
-          '--btn-accent-2': `var(--color-${color}-2)`,
-          '--btn-accent-3': `var(--color-${color}-3)`,
-          '--btn-accent-4': `var(--color-${color}-4)`,
-          '--btn-accent-6': `var(--color-${color}-6)`,
           '--btn-accent-7': `var(--color-${color}-7)`,
           '--btn-accent-9': `var(--color-${color}-9)`,
           '--btn-accent-10': `var(--color-${color}-10)`,

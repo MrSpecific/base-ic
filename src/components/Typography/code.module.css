@@ -33,7 +33,7 @@
 /* Accent-tinted background instead of flat neutral */
 .soft {
   background-color: color-mix(
-    in srgb,
+    in oklch,
     var(--color-accent-9) var(--interactive-soft-strength),
     var(--interactive-soft-mix-base)
   );
