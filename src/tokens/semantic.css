@@ -190,10 +190,10 @@
   --button-4-gap:        var(--space-2);
   --button-4-icon-size:  20px;
 
-  --button-surface-bg:          color-mix(in oklch, var(--color-accent-9) 16%, var(--color-surface-overlay));
-  --button-surface-bg-hover:    color-mix(in oklch, var(--color-accent-9) 24%, var(--color-surface-overlay));
-  --button-surface-border:      color-mix(in oklch, var(--color-accent-9) 45%, var(--color-border-subtle));
-  --button-surface-border-hover: color-mix(in oklch, var(--color-accent-9) 58%, var(--color-border));
+  --button-surface-bg:          var(--color-accent-3);
+  --button-surface-bg-hover:    var(--color-accent-4);
+  --button-surface-border:      var(--color-accent-7);
+  --button-surface-border-hover: var(--color-accent-8);
 
   /* Backwards compat aliases for existing doc code */
   --button-padding-y:         var(--space-2);
@@ -219,8 +219,8 @@
   --badge-3-px:         var(--space-3);
   --badge-3-font-size:  var(--font-size-3);
 
-  --badge-surface-bg:      color-mix(in oklch, var(--color-accent-9) 14%, var(--color-surface-overlay));
-  --badge-surface-border:  color-mix(in oklch, var(--color-accent-9) 42%, var(--color-border-subtle));
+  --badge-surface-bg:      var(--color-accent-3);
+  --badge-surface-border:  var(--color-accent-7);
 
   /* Backwards compat aliases */
   --badge-padding-y:          var(--space-1);

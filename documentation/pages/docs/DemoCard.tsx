@@ -22,7 +22,9 @@ export function DemoCard({
     <Card>
       <Box mb="4">
         <Flex align="center" justify="space-between">
-          <Heading>{title}</Heading>
+          <Heading as="h3" size="3">
+            {title}
+          </Heading>
           <Button
             variant="outline"
             size="1"

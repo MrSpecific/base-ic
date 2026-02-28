@@ -35,9 +35,9 @@
 
 /* --- Variant: surface --- */
 .surface {
-  background: var(--bdg-accent-3, var(--badge-surface-bg, var(--color-accent-3)));
+  background: var(--bdg-surface-bg, var(--bdg-accent-3, var(--color-accent-3)));
   color: var(--bdg-accent-11, var(--color-accent-11));
-  border-color: var(--bdg-accent-7, var(--badge-surface-border, var(--color-accent-7)));
+  border-color: var(--bdg-surface-border, var(--bdg-accent-7, var(--color-accent-7)));
 }
 
 /* --- Variant: outline --- */

@@ -85,6 +85,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           '--btn-accent-11': `var(--color-${color}-${highContrast ? 12 : 11})`,
           '--btn-accent-12': `var(--color-${color}-12)`,
           '--btn-accent-contrast': `var(--color-${color}-contrast)`,
+          '--btn-surface-bg': `var(--color-${color}-3)`,
+          '--btn-surface-bg-hover': `var(--color-${color}-4)`,
+          '--btn-surface-border': `var(--color-${color}-7)`,
+          '--btn-surface-border-hover': `var(--color-${color}-8)`,
         }
       : {};
 

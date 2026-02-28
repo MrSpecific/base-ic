@@ -213,6 +213,21 @@ function buildAccentVars(accentColor: AccentColor): Record<string, string> {
 }
 
 /**
+ * Build component pattern tokens that should follow the active accent.
+ * These are emitted in Theme scope so they stay in sync with runtime accent changes.
+ */
+function buildDerivedAccentPatternVars(accentColor: AccentColor): Record<string, string> {
+  return {
+    '--button-surface-bg': `var(--color-${accentColor}-3)`,
+    '--button-surface-bg-hover': `var(--color-${accentColor}-4)`,
+    '--button-surface-border': `var(--color-${accentColor}-7)`,
+    '--button-surface-border-hover': `var(--color-${accentColor}-8)`,
+    '--badge-surface-bg': `var(--color-${accentColor}-3)`,
+    '--badge-surface-border': `var(--color-${accentColor}-7)`,
+  };
+}
+
+/**
  * Build CSS custom properties that wire --color-neutral-N to the chosen gray.
  */
 function buildNeutralVars(grayColor: GrayColor): Record<string, string> {
@@ -318,6 +333,8 @@ export function Theme({
     ...buildScaledTokenVars(),
     // Accent color wiring
     ...buildAccentVars(accentColor),
+    // Derived component pattern tokens tied to the active accent
+    ...buildDerivedAccentPatternVars(accentColor),
     // Neutral color wiring
     ...buildNeutralVars(grayColor),
     // Custom color definitions
