@@ -18,6 +18,7 @@ export function CardDocsPage() {
     '<div className="docs-demo-grid">',
     '  <Card variant="surface">Surface card</Card>',
     '  <Card variant="classic">Classic card</Card>',
+    '  <Card variant="gradient">Gradient card</Card>',
     '  <Card variant="ghost">Ghost card</Card>',
     '</div>',
   ].join('\n');
@@ -47,7 +48,7 @@ export function CardDocsPage() {
         <h1>Card</h1>
         <p>
           `Card` is a surface primitive for grouping related content. It supports visual variants and optional
-          interactive affordances.
+          interactive affordances, including a theme-aware gradient style.
         </p>
       </DocsSection>
       <DocsSection>
@@ -57,6 +58,7 @@ export function CardDocsPage() {
             <DocsDemoGrid>
               <Card variant="surface">Surface card</Card>
               <Card variant="classic">Classic card</Card>
+              <Card variant="gradient">Gradient card</Card>
               <Card variant="ghost">Ghost card</Card>
             </DocsDemoGrid>
           </DemoCard>

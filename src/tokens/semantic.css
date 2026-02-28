@@ -161,6 +161,10 @@
   --surface-radius-full:      calc(var(--space-4) + 2px);
   --surface-radius:           var(--surface-radius-medium);
   --card-radius:              var(--surface-radius);
+  --card-gradient-start:      color-mix(in oklch, var(--color-accent-3) 34%, var(--color-surface-overlay));
+  --card-gradient-end:        var(--color-surface-overlay);
+  --card-gradient-border:     color-mix(in oklch, var(--color-border-subtle) 78%, var(--color-accent-6));
+  --card-gradient-border-hover: color-mix(in oklch, var(--color-border) 78%, var(--color-accent-7));
 
   /* -------------------------------------------------------------------------
    * Semantic interactive patterns — Button sizing (4 sizes)
@@ -465,6 +469,10 @@
     --color-marketing-band-border: color-mix(in oklch, var(--color-border) 85%, var(--color-accent-7));
     --color-marketing-band-heading: var(--color-text-primary);
     --color-marketing-band-body:    var(--color-text-secondary);
+    --card-gradient-start: color-mix(in oklch, var(--color-accent-4) 18%, var(--color-surface-overlay));
+    --card-gradient-end:   var(--color-surface-overlay);
+    --card-gradient-border: color-mix(in oklch, var(--color-border) 80%, var(--color-accent-7));
+    --card-gradient-border-hover: color-mix(in oklch, var(--color-border-strong) 80%, var(--color-accent-8));
 
     --focus-ring-color: color-mix(in oklch, var(--color-accent-7) 78%, transparent);
 
@@ -507,6 +515,10 @@
   --color-marketing-band-border: color-mix(in oklch, var(--color-border) 85%, var(--color-accent-7));
   --color-marketing-band-heading: var(--color-text-primary);
   --color-marketing-band-body:    var(--color-text-secondary);
+  --card-gradient-start: color-mix(in oklch, var(--color-accent-4) 18%, var(--color-surface-overlay));
+  --card-gradient-end:   var(--color-surface-overlay);
+  --card-gradient-border: color-mix(in oklch, var(--color-border) 80%, var(--color-accent-7));
+  --card-gradient-border-hover: color-mix(in oklch, var(--color-border-strong) 80%, var(--color-accent-8));
 
   --focus-ring-color: color-mix(in oklch, var(--color-accent-7) 78%, transparent);
 
@@ -547,6 +559,10 @@
   --color-marketing-band-border: var(--color-border-subtle);
   --color-marketing-band-heading: var(--color-text-primary);
   --color-marketing-band-body:    var(--color-text-secondary);
+  --card-gradient-start: color-mix(in oklch, var(--color-accent-3) 34%, var(--color-surface-overlay));
+  --card-gradient-end:   var(--color-surface-overlay);
+  --card-gradient-border: color-mix(in oklch, var(--color-border-subtle) 78%, var(--color-accent-6));
+  --card-gradient-border-hover: color-mix(in oklch, var(--color-border) 78%, var(--color-accent-7));
 
   --shadow-surface: var(--shadow-2);
   --shadow-floating: var(--shadow-4);

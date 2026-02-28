@@ -26,6 +26,13 @@
   box-shadow: var(--shadow-2);
 }
 
+/* --- Variant: gradient --- */
+.gradient {
+  background: linear-gradient(145deg, var(--card-gradient-start), var(--card-gradient-end));
+  border: 1px solid var(--card-gradient-border);
+  box-shadow: var(--shadow-surface);
+}
+
 /* --- Variant: ghost --- */
 .ghost {
   background: transparent;
@@ -50,6 +57,10 @@
 
 .interactive.classic:hover {
   border-color: var(--color-border);
+}
+
+.interactive.gradient:hover {
+  border-color: var(--card-gradient-border-hover);
 }
 
 .interactive.ghost:hover {

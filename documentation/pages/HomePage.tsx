@@ -15,26 +15,28 @@ import type { Page } from "../types";
 export function HomePage({ goTo }: { goTo: (page: Page) => void }) {
   return (
     <Container as="main" className="site-page">
-      <Section className="hero" py={0} mb={6}>
-        <Box>
-          <Badge variant="soft" size="2">
-            Intelligent Components
-          </Badge>
-        </Box>
-        <Heading size="9">Build fast, theme deeply.</Heading>
-        <Text as="p" className="hero-copy">
-          Base-ic gives you an ergonomic component API with a token system
-          designed to be extended, not fought. Ship brand-aligned interfaces
-          with predictable semantics and production-ready primitives.
-        </Text>
-        <Flex className="hero-actions" gap={2}>
-          <Button variant="solid" size="3" onClick={() => goTo("docs")}>
-            Read Docs
-          </Button>
-          <Button variant="surface" size="3" onClick={() => goTo("playground")}>
-            Open Playground
-          </Button>
-        </Flex>
+      <Section py={0} mb={6}>
+        <Card className="hero" variant="gradient" p="7">
+          <Box>
+            <Badge variant="surface" size="2">
+              Intelligent Components
+            </Badge>
+          </Box>
+          <Heading size="9">Build fast, theme deeply.</Heading>
+          <Text as="p" className="hero-copy">
+            Base-ic gives you an ergonomic component API with a token system
+            designed to be extended, not fought. Ship brand-aligned interfaces
+            with predictable semantics and production-ready primitives.
+          </Text>
+          <Flex className="hero-actions" gap={2}>
+            <Button variant="solid" size="3" onClick={() => goTo("docs")}>
+              Read Docs
+            </Button>
+            <Button variant="surface" size="3" onClick={() => goTo("playground")}>
+              Open Playground
+            </Button>
+          </Flex>
+        </Card>
       </Section>
 
       <Grid columns="repeat(auto-fit, minmax(220px, 1fr))" gap={4}>

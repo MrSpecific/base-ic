@@ -3,7 +3,7 @@ import { cx, toSpaceVar, withVar } from '../Layout/layout.utils';
 import styles from './card.module.css';
 
 type CardSize = '1' | '2' | '3' | '4' | '5';
-type CardVariant = 'surface' | 'classic' | 'ghost';
+type CardVariant = 'surface' | 'classic' | 'gradient' | 'ghost';
 type SpaceValue = number | string;
 type CardRadius = 'none' | 'small' | 'medium' | 'large' | 'full';
 
