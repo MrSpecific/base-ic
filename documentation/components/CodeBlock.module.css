@@ -14,32 +14,9 @@
   font-size: var(--font-size-3);
 }
 
-.copyButton.copyButton {
-  --btn-height: 32px;
-  --btn-px: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-2);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface-overlay);
-  color: var(--color-text-primary);
-}
-
 .copyButton:hover {
   border-color: var(--color-border-strong);
   background: var(--color-surface-subtle);
-}
-
-.copyButton[data-state='copied'] {
-  background: var(--color-success-solid);
-  border-color: var(--color-success-solid);
-  color: var(--color-success-contrast);
-}
-
-.copyButton[data-state='error'] {
-  background: var(--color-danger-solid);
-  border-color: var(--color-danger-solid);
-  color: var(--color-danger-contrast);
 }
 
 .icon {

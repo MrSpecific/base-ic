@@ -8,6 +8,14 @@ import { BadgeDocsPage } from "./docs/BadgeDocsPage";
 import { CardDocsPage } from "./docs/CardDocsPage";
 import { SeparatorDocsPage } from "./docs/SeparatorDocsPage";
 import { TypographyDocsPage } from "./docs/TypographyDocsPage";
+import { TextDocsPage } from "./docs/TextDocsPage";
+import { HeadingDocsPage } from "./docs/HeadingDocsPage";
+import { LinkDocsPage } from "./docs/LinkDocsPage";
+import { CodeDocsPage } from "./docs/CodeDocsPage";
+import { KbdDocsPage } from "./docs/KbdDocsPage";
+import { EmDocsPage } from "./docs/EmDocsPage";
+import { StrongDocsPage } from "./docs/StrongDocsPage";
+import { QuoteDocsPage } from "./docs/QuoteDocsPage";
 import { BoxDocsPage } from "./docs/BoxDocsPage";
 import { FlexDocsPage } from "./docs/FlexDocsPage";
 import { GridDocsPage } from "./docs/GridDocsPage";
@@ -62,7 +70,17 @@ export function DocsPage({
     },
     {
       title: "Typography",
-      items: [{ id: "typography", label: "Typography" }],
+      items: [
+        { id: "typography", label: "Overview" },
+        { id: "text", label: "Text" },
+        { id: "heading", label: "Heading" },
+        { id: "link", label: "Link" },
+        { id: "code", label: "Code" },
+        { id: "kbd", label: "Kbd" },
+        { id: "em", label: "Em" },
+        { id: "strong", label: "Strong" },
+        { id: "quote", label: "Quote" },
+      ],
     },
   ];
 
@@ -80,6 +98,14 @@ export function DocsPage({
     if (section === "tooltip") return <TooltipDocsPage />;
     if (section === "popover") return <PopoverDocsPage />;
     if (section === "typography") return <TypographyDocsPage />;
+    if (section === "text") return <TextDocsPage />;
+    if (section === "heading") return <HeadingDocsPage />;
+    if (section === "link") return <LinkDocsPage />;
+    if (section === "code") return <CodeDocsPage />;
+    if (section === "kbd") return <KbdDocsPage />;
+    if (section === "em") return <EmDocsPage />;
+    if (section === "strong") return <StrongDocsPage />;
+    if (section === "quote") return <QuoteDocsPage />;
     return <OverviewDocsPage />;
   })();
 

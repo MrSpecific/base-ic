@@ -1,10 +1,26 @@
 .section {
-  padding: var(--section-padding-top, var(--section-padding-y, var(--section-padding, var(--layout-section-2))))
-           var(--section-padding-right, var(--section-padding-x, var(--section-padding, 0)))
-           var(--section-padding-bottom, var(--section-padding-y, var(--section-padding, var(--layout-section-2))))
-           var(--section-padding-left, var(--section-padding-x, var(--section-padding, 0)));
-  margin: var(--section-margin-top, var(--section-margin-y, var(--section-margin, 0)))
-          var(--section-margin-right, var(--section-margin-x, var(--section-margin, 0)))
-          var(--section-margin-bottom, var(--section-margin-y, var(--section-margin, 0)))
-          var(--section-margin-left, var(--section-margin-x, var(--section-margin, 0)));
+  --section-padding: var(--layout-section-2);
+  --section-padding-x: var(--section-padding);
+  --section-padding-y: var(--section-padding);
+  --section-padding-top: var(--section-padding-y);
+  --section-padding-right: var(--section-padding-x);
+  --section-padding-bottom: var(--section-padding-y);
+  --section-padding-left: var(--section-padding-x);
+
+  --section-margin: 0;
+  --section-margin-x: var(--section-margin);
+  --section-margin-y: var(--section-margin);
+  --section-margin-top: var(--section-margin-y);
+  --section-margin-right: var(--section-margin-x);
+  --section-margin-bottom: var(--section-margin-y);
+  --section-margin-left: var(--section-margin-x);
+
+  padding: var(--section-padding-top)
+           var(--section-padding-right)
+           var(--section-padding-bottom)
+           var(--section-padding-left);
+  margin: var(--section-margin-top)
+          var(--section-margin-right)
+          var(--section-margin-bottom)
+          var(--section-margin-left);
 }

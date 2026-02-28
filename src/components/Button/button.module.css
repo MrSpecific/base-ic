@@ -76,14 +76,14 @@
  * Variant: surface
  * --------------------------------------------------------------------------- */
 .surface {
-  background: color-mix(in oklch, var(--btn-accent-3, var(--color-accent-3)) 40%, var(--color-surface-overlay));
+  background: var(--btn-accent-3, var(--button-surface-bg, var(--color-accent-3)));
   color: var(--btn-accent-11, var(--color-accent-11));
-  border-color: var(--btn-accent-7, var(--color-accent-7));
+  border-color: var(--btn-accent-7, var(--button-surface-border, var(--color-accent-7)));
 }
 
 .surface:hover:not([data-disabled]) {
-  background: var(--btn-accent-3, var(--color-accent-3));
-  border-color: var(--btn-accent-8, var(--color-accent-8));
+  background: var(--btn-accent-4, var(--button-surface-bg-hover, var(--color-accent-4)));
+  border-color: var(--btn-accent-8, var(--button-surface-border-hover, var(--color-accent-8)));
 }
 
 /* ---------------------------------------------------------------------------

@@ -1,15 +1,15 @@
-import { Button } from '../../../src';
-import { CodeBlock } from '../../components/CodeBlock';
-import { DocsDemoGrid, DocsDemoRow } from '../../components/DocsPrimitives';
-import { DocsSection } from '../../components/DocsSection';
-import { DemoCard } from './DemoCard';
+import { Button, Heading, Link, Text } from "../../../src";
+import { CodeBlock } from "../../components/CodeBlock";
+import { DocsDemoGrid, DocsDemoRow } from "../../components/DocsPrimitives";
+import { DocsSection } from "../../components/DocsSection";
+import { DemoCard } from "./DemoCard";
 
 export function ButtonDocsPage() {
   const usageSnippet = [
     "import { Button } from 'base-ic';",
-    '',
+    "",
     '<Button size="2" variant="solid">Save changes</Button>',
-  ].join('\n');
+  ].join("\n");
 
   const variantsSnippet = [
     '<div className="docs-demo-button-row">',
@@ -18,38 +18,44 @@ export function ButtonDocsPage() {
     '  <Button variant="surface">Surface</Button>',
     '  <Button variant="outline">Outline</Button>',
     '  <Button variant="ghost">Ghost</Button>',
-    '</div>',
-  ].join('\n');
+    "</div>",
+  ].join("\n");
 
   const statesSnippet = [
     '<div className="docs-demo-button-row">',
-    '  <Button>Default</Button>',
-    '  <Button loading>Loading</Button>',
-    '  <Button disabled>Disabled</Button>',
-    '  <Button highContrast>High Contrast</Button>',
-    '</div>',
-  ].join('\n');
+    "  <Button>Default</Button>",
+    "  <Button loading>Loading</Button>",
+    "  <Button disabled>Disabled</Button>",
+    "  <Button highContrast>High Contrast</Button>",
+    "</div>",
+  ].join("\n");
 
   return (
     <>
       <DocsSection>
-        <h1>Button</h1>
-        <p>
-          `Button` is a styled action primitive with size, variant, radius, color override, and loading states.
-        </p>
+        <Heading>Button</Heading>
+        <Text as="p">
+          `Button` is a styled action primitive with size, variant, radius,
+          color override, and loading states.
+        </Text>
       </DocsSection>
       <DocsSection>
-        <h2>Built On Base UI</h2>
-        <p>
-          This component wraps the Base UI Button primitive. Base primitive docs:{' '}
-          <a href="https://base-ui.com/react/components/button" target="_blank" rel="noreferrer">
+        <Heading>Built On Base-UI</Heading>
+        <Text as="p">
+          This component wraps the Base UI Button primitive. Base primitive
+          docs:{" "}
+          <Link
+            href="https://base-ui.com/react/components/button"
+            target="_blank"
+            rel="noreferrer"
+          >
             base-ui.com/react/components/button
-          </a>
+          </Link>
           .
-        </p>
+        </Text>
       </DocsSection>
       <DocsSection>
-        <h2>Demo</h2>
+        <Heading>Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Variants"
@@ -79,7 +85,7 @@ export function ButtonDocsPage() {
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <h2>Usage</h2>
+        <Heading>Usage</Heading>
         <CodeBlock title="Button Usage" code={usageSnippet} />
       </DocsSection>
     </>

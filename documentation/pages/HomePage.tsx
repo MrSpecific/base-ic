@@ -21,7 +21,7 @@ export function HomePage({ goTo }: { goTo: (page: Page) => void }) {
             Intelligent Components
           </Badge>
         </Box>
-        <Heading>Build fast, theme deeply.</Heading>
+        <Heading size="9">Build fast, theme deeply.</Heading>
         <Text as="p" className="hero-copy">
           Base-ic gives you an ergonomic component API with a token system
           designed to be extended, not fought. Ship brand-aligned interfaces
@@ -52,7 +52,7 @@ export function HomePage({ goTo }: { goTo: (page: Page) => void }) {
             "Built on modern accessible primitives so behavior and interaction quality stay high by default.",
           ],
         ].map(([title, body]) => (
-          <Card key={title}>
+          <Card key={title} size="5">
             <Heading as="h3" size="3" mb="2">
               {title}
             </Heading>

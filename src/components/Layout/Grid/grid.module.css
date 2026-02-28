@@ -1,18 +1,41 @@
 .grid {
+  --grid-columns: none;
+  --grid-rows: none;
+  --grid-auto-flow: row;
+  --grid-align: stretch;
+  --grid-justify: stretch;
+  --grid-gap: var(--layout-gap-default);
+
+  --grid-padding: 0;
+  --grid-padding-x: var(--grid-padding);
+  --grid-padding-y: var(--grid-padding);
+  --grid-padding-top: var(--grid-padding-y);
+  --grid-padding-right: var(--grid-padding-x);
+  --grid-padding-bottom: var(--grid-padding-y);
+  --grid-padding-left: var(--grid-padding-x);
+
+  --grid-margin: 0;
+  --grid-margin-x: var(--grid-margin);
+  --grid-margin-y: var(--grid-margin);
+  --grid-margin-top: var(--grid-margin-y);
+  --grid-margin-right: var(--grid-margin-x);
+  --grid-margin-bottom: var(--grid-margin-y);
+  --grid-margin-left: var(--grid-margin-x);
+
   display: grid;
   min-width: 0;
-  gap: var(--grid-gap, var(--layout-gap-default));
-  padding: var(--grid-padding-top, var(--grid-padding-y, var(--grid-padding, 0)))
-           var(--grid-padding-right, var(--grid-padding-x, var(--grid-padding, 0)))
-           var(--grid-padding-bottom, var(--grid-padding-y, var(--grid-padding, 0)))
-           var(--grid-padding-left, var(--grid-padding-x, var(--grid-padding, 0)));
-  margin: var(--grid-margin-top, var(--grid-margin-y, var(--grid-margin, 0)))
-          var(--grid-margin-right, var(--grid-margin-x, var(--grid-margin, 0)))
-          var(--grid-margin-bottom, var(--grid-margin-y, var(--grid-margin, 0)))
-          var(--grid-margin-left, var(--grid-margin-x, var(--grid-margin, 0)));
+  gap: var(--grid-gap);
+  padding: var(--grid-padding-top)
+           var(--grid-padding-right)
+           var(--grid-padding-bottom)
+           var(--grid-padding-left);
+  margin: var(--grid-margin-top)
+          var(--grid-margin-right)
+          var(--grid-margin-bottom)
+          var(--grid-margin-left);
   grid-template-columns: var(--grid-columns);
   grid-template-rows: var(--grid-rows);
-  grid-auto-flow: var(--grid-auto-flow, row);
-  align-items: var(--grid-align, stretch);
-  justify-items: var(--grid-justify, stretch);
+  grid-auto-flow: var(--grid-auto-flow);
+  align-items: var(--grid-align);
+  justify-items: var(--grid-justify);
 }

@@ -1,11 +1,27 @@
 .box {
+  --box-padding: 0;
+  --box-padding-x: var(--box-padding);
+  --box-padding-y: var(--box-padding);
+  --box-padding-top: var(--box-padding-y);
+  --box-padding-right: var(--box-padding-x);
+  --box-padding-bottom: var(--box-padding-y);
+  --box-padding-left: var(--box-padding-x);
+
+  --box-margin: 0;
+  --box-margin-x: var(--box-margin);
+  --box-margin-y: var(--box-margin);
+  --box-margin-top: var(--box-margin-y);
+  --box-margin-right: var(--box-margin-x);
+  --box-margin-bottom: var(--box-margin-y);
+  --box-margin-left: var(--box-margin-x);
+
   min-width: 0;
-  padding: var(--box-padding-top, var(--box-padding-y, var(--box-padding, 0)))
-           var(--box-padding-right, var(--box-padding-x, var(--box-padding, 0)))
-           var(--box-padding-bottom, var(--box-padding-y, var(--box-padding, 0)))
-           var(--box-padding-left, var(--box-padding-x, var(--box-padding, 0)));
-  margin: var(--box-margin-top, var(--box-margin-y, var(--box-margin, 0)))
-          var(--box-margin-right, var(--box-margin-x, var(--box-margin, 0)))
-          var(--box-margin-bottom, var(--box-margin-y, var(--box-margin, 0)))
-          var(--box-margin-left, var(--box-margin-x, var(--box-margin, 0)));
+  padding: var(--box-padding-top)
+           var(--box-padding-right)
+           var(--box-padding-bottom)
+           var(--box-padding-left);
+  margin: var(--box-margin-top)
+          var(--box-margin-right)
+          var(--box-margin-bottom)
+          var(--box-margin-left);
 }

@@ -12,6 +12,14 @@ export function getRouteFromPath(pathname: string): RouteState {
       slug === 'card' ||
       slug === 'separator' ||
       slug === 'typography' ||
+      slug === 'text' ||
+      slug === 'heading' ||
+      slug === 'link' ||
+      slug === 'code' ||
+      slug === 'kbd' ||
+      slug === 'em' ||
+      slug === 'strong' ||
+      slug === 'quote' ||
       slug === 'tooltip' ||
       slug === 'popover' ||
       slug === 'box' ||

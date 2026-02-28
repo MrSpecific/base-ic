@@ -1,30 +1,24 @@
-import { Code, Em, Heading, Kbd, Link, Quote, Strong, Text } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
-import { DocsDemoGrid } from '../../components/DocsPrimitives';
+import { DocsList } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
-import { DemoCard } from './DemoCard';
 
 export function TypographyDocsPage() {
   const usageSnippet = [
-    "import { Heading, Text, Link, Code, Kbd } from 'base-ic';",
+    "import { Text, Heading, Link, Code, Kbd, Em, Strong, Quote } from 'base-ic';",
     '',
     '<Heading as="h2" size="7">Typography</Heading>',
-    '<Text size="4">Readable body text with semantic tokens.</Text>',
-    '<Link href="#" underline="hover">Read docs</Link>',
-    '<Code>npm install base-ic</Code>',
-    '<Kbd>⌘K</Kbd>',
+    '<Text as="p" size="4">Readable body text with semantic tokens.</Text>',
+    '<Text as="p">Press <Kbd>⌘K</Kbd> and run <Code>npm run build</Code>.</Text>',
+    '<Text as="p"><Em>Emphasis</Em> and <Strong>strong emphasis</Strong> are semantic helpers.</Text>',
+    '<Quote>Design systems succeed when language and spacing are consistent.</Quote>',
+    '<Link href="https://base-ui.com/react" underline="hover">Explore primitives</Link>',
   ].join('\n');
 
-  const scaleSnippet = [
-    '<div>',
-    '  <Heading as="h3" size="8">Display Heading</Heading>',
-    '  <Text size="5">Body copy tuned for readability.</Text>',
-    '</div>',
-  ].join('\n');
-
-  const inlineSnippet = [
-    '<Text>',
-    '  Press <Kbd>⌘K</Kbd> to open search and run <Code>npm run build</Code> before release.',
+  const starterSnippet = [
+    '<Heading as="h2" size="7">Typography</Heading>',
+    '<Text as="p" size="4">Readable body text with semantic tokens.</Text>',
+    '<Text as="p">',
+    '  Press <Kbd>⌘K</Kbd> and run <Code>npm run build</Code> before release.',
     '</Text>',
   ].join('\n');
 
@@ -38,32 +32,23 @@ export function TypographyDocsPage() {
         </p>
       </DocsSection>
       <DocsSection>
-        <h2>Demo</h2>
-        <DocsDemoGrid>
-          <DemoCard title="Scale" description="Compose heading and body levels with tokenized sizes." code={scaleSnippet}>
-            <div>
-              <Heading as="h3" size="8">Display Heading</Heading>
-              <Text size="5">Body copy tuned for readability.</Text>
-            </div>
-          </DemoCard>
-          <DemoCard title="Inline Semantics" description="Use semantic inline primitives in rich copy." code={inlineSnippet}>
-            <Text>
-              Press <Kbd>⌘K</Kbd> to open search and run <Code>npm run build</Code> before release.
-              <br />
-              <Em>Emphasis</Em> and <Strong>strong emphasis</Strong> stay readable in both themes.
-            </Text>
-            <Quote>
-              Design systems succeed when language, spacing, and interaction patterns are consistent.
-            </Quote>
-            <Link href="https://base-ui.com/react" target="_blank" rel="noreferrer" underline="hover">
-              Explore Base UI primitives
-            </Link>
-          </DemoCard>
-        </DocsDemoGrid>
+        <h2>Component Pages</h2>
+        <p>
+          Typography is now split into dedicated pages for each primitive. Use the sidebar to explore
+          `Text`, `Heading`, `Link`, `Code`, `Kbd`, `Em`, `Strong`, and `Quote`.
+        </p>
+        <DocsList>
+          <li>Text: body copy and semantic text rendering.</li>
+          <li>Heading: semantic levels and display scale.</li>
+          <li>Link: anchor behavior and underline modes.</li>
+          <li>Code and Kbd: inline technical tokens and shortcuts.</li>
+          <li>Em, Strong, Quote: semantic emphasis primitives.</li>
+        </DocsList>
       </DocsSection>
       <DocsSection>
         <h2>Usage</h2>
-        <CodeBlock title="Typography Usage" code={usageSnippet} />
+        <CodeBlock title="Typography Overview Usage" code={starterSnippet} />
+        <CodeBlock title="Typography Full Import" code={usageSnippet} />
       </DocsSection>
     </>
   );
