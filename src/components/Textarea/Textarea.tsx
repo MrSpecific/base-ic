@@ -42,7 +42,8 @@ const radiusMap: Record<TextareaRadius, string> = {
   small: 'var(--radius-2)',
   medium: 'var(--radius-3)',
   large: 'var(--radius-5)',
-  full: 'var(--radius-full)',
+  // For multiline fields, keep "full" rounded but constrained.
+  full: 'var(--surface-radius-full)',
 };
 
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(

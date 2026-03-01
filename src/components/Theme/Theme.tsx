@@ -290,6 +290,7 @@ const ThemeContext = React.createContext<ThemeContextValue>({
   appearance: 'inherit',
   fontFamily: {},
 });
+const ThemeNestingContext = React.createContext(0);
 
 export function useTheme(): ThemeContextValue {
   return React.useContext(ThemeContext);
@@ -311,6 +312,34 @@ export function Theme({
   className,
   style,
 }: ThemeProps) {
+  const nestingLevel = React.useContext(ThemeNestingContext);
+  const isRootTheme = nestingLevel === 0;
+
+  // Sync appearance to <html> so portaled elements (tooltips, popovers, etc.)
+  // that render outside this Theme div still inherit dark/light mode CSS vars.
+  React.useEffect(() => {
+    if (!isRootTheme) return;
+    if (typeof document === 'undefined') return;
+    const html = document.documentElement;
+    if (appearance === 'dark') {
+      html.classList.add('dark');
+      html.classList.remove('light');
+      html.setAttribute('data-appearance', 'dark');
+    } else if (appearance === 'light') {
+      html.classList.add('light');
+      html.classList.remove('dark');
+      html.setAttribute('data-appearance', 'light');
+    } else {
+      // 'inherit' — rely on @media (prefers-color-scheme)
+      html.classList.remove('dark', 'light');
+      html.removeAttribute('data-appearance');
+    }
+    return () => {
+      html.classList.remove('dark', 'light');
+      html.removeAttribute('data-appearance');
+    };
+  }, [appearance, isRootTheme]);
+
   const cssVars: React.CSSProperties = {
     // Component-level scaling
     '--component-scaling': scalingMap[scaling],
@@ -337,26 +366,28 @@ export function Theme({
 
   const appearanceClass =
     appearance === 'dark'
-      ? 'dark'
+      ? styles.dark
       : appearance === 'light'
-      ? 'light'
+      ? styles.light
       : undefined;
 
   return (
-    <ThemeContext.Provider value={contextValue}>
-      <div
-        className={[styles.theme, appearanceClass, className]
-          .filter(Boolean)
-          .join(' ')}
-        style={cssVars}
-        data-accent-color={accentColor}
-        data-gray-color={grayColor}
-        data-radius={radius}
-        data-scaling={scaling}
-        data-appearance={appearance}
-      >
-        {children}
-      </div>
-    </ThemeContext.Provider>
+    <ThemeNestingContext.Provider value={nestingLevel + 1}>
+      <ThemeContext.Provider value={contextValue}>
+        <div
+          className={[styles.theme, appearanceClass, className]
+            .filter(Boolean)
+            .join(' ')}
+          style={cssVars}
+          data-accent-color={accentColor}
+          data-gray-color={grayColor}
+          data-radius={radius}
+          data-scaling={scaling}
+          data-appearance={appearance}
+        >
+          {children}
+        </div>
+      </ThemeContext.Provider>
+    </ThemeNestingContext.Provider>
   );
 }

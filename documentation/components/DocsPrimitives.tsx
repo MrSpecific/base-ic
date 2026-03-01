@@ -1,10 +1,5 @@
 import type { CSSProperties, PropsWithChildren } from 'react';
-import { Box, Card, Flex, Text } from '../../src';
-
-const surfaceBoxStyle: CSSProperties = {
-  borderColor: 'var(--color-border)',
-  background: 'var(--color-surface-subtle)',
-};
+import { Badge, Card, Flex, Text } from '../../src';
 
 export function DocsDemoGrid({ children }: PropsWithChildren) {
   return <Flex direction="column" gap={4}>{children}</Flex>;
@@ -23,7 +18,7 @@ export function DocsList({ children }: PropsWithChildren) {
       mt={2}
       mb={2}
       p={0}
-      style={{ listStyle: 'none', color: 'var(--color-text-secondary)' }}
+      className="docs-list"
     >
       {children}
     </Flex>
@@ -32,25 +27,13 @@ export function DocsList({ children }: PropsWithChildren) {
 
 export function DocsEyebrow({ children }: PropsWithChildren) {
   return (
-    <Text
-      as="p"
-      size="1"
-      style={{
-        margin: 0,
-        letterSpacing: 'var(--letter-spacing-5)',
-        textTransform: 'uppercase',
-        color: 'var(--color-text-tertiary)',
-        fontFamily: 'var(--font-family-mono)',
-      }}
-    >
-      {children}
-    </Text>
+    <Text as="p" size="1" className="docs-eyebrow">{children}</Text>
   );
 }
 
 export function DocsLayoutSampleBox({ children, style }: PropsWithChildren<{ style?: CSSProperties }>) {
   return (
-    <Card variant="classic" size="4" style={{ ...surfaceBoxStyle, ...style }}>
+    <Card variant="surface" size="4" className="docs-layout-sample-box" style={style}>
       {children}
     </Card>
   );
@@ -58,26 +41,12 @@ export function DocsLayoutSampleBox({ children, style }: PropsWithChildren<{ sty
 
 export function DocsLayoutStack({ children }: PropsWithChildren) {
   return (
-    <Card variant="ghost" p={0} style={{ borderColor: 'var(--color-border-subtle)', background: 'var(--color-surface-subtle)' }}>
+    <Card variant="surface" p={0} className="docs-layout-sample-stack">
       {children}
     </Card>
   );
 }
 
 export function DocsLayoutChip({ children }: PropsWithChildren) {
-  return (
-    <Box
-      px={3}
-      py={2}
-      style={{
-        borderRadius: 'var(--radius-3)',
-        border: '1px solid var(--color-border-subtle)',
-        background: 'var(--color-surface-overlay)',
-        color: 'var(--color-text-primary)',
-        fontSize: 'var(--font-size-2)',
-      }}
-    >
-      {children}
-    </Box>
-  );
+  return <Badge variant="surface" color="gray">{children}</Badge>;
 }

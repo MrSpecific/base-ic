@@ -180,6 +180,9 @@ export default function App() {
           <Button
             className="site-logo"
             variant="ghost"
+            size="1"
+            radius="none"
+            p="0"
             onClick={() => goTo("home")}
           >
             base-ic

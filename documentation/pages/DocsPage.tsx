@@ -155,7 +155,7 @@ export function DocsPage({
                     className="docs-sidebar-link"
                     data-active={section === item.id}
                     variant="ghost"
-                    size="2"
+                    size="1"
                     onClick={() => goToDocsSection(item.id)}
                   >
                     {item.label}

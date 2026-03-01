@@ -78,6 +78,26 @@ function CheckIcon() {
   );
 }
 
+function inferItemLabel(children: React.ReactNode): string | undefined {
+  const parts: string[] = [];
+  const walk = (node: React.ReactNode) => {
+    if (typeof node === 'string' || typeof node === 'number') {
+      parts.push(String(node));
+      return;
+    }
+    if (Array.isArray(node)) {
+      node.forEach(walk);
+      return;
+    }
+    if (React.isValidElement<{ children?: React.ReactNode }>(node)) {
+      walk(node.props.children);
+    }
+  };
+  walk(children);
+  const label = parts.join('').trim();
+  return label.length > 0 ? label : undefined;
+}
+
 /* ---------------------------------------------------------------------------
  * SelectRoot — top-level component
  * --------------------------------------------------------------------------- */
@@ -172,10 +192,12 @@ export interface SelectItemProps extends Omit<BaseSelect.Item.Props, 'render' | 
   children: React.ReactNode;
 }
 
-function SelectItem({ value, disabled, className, children, ...rest }: SelectItemProps) {
+function SelectItem({ value, disabled, className, children, label, ...rest }: SelectItemProps) {
+  const resolvedLabel = label ?? inferItemLabel(children);
   return (
     <BaseSelect.Item
       value={value}
+      label={resolvedLabel}
       disabled={disabled}
       className={cx(styles.item, className)}
       {...rest}

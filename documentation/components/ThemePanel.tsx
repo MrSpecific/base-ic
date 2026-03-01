@@ -8,7 +8,7 @@ import {
   SCALINGS,
   toDisplayName,
 } from '../constants';
-import { Button } from '../../src';
+import { Button, Select } from '../../src';
 import type { AccentColor, Appearance, GrayColor, Radius, Scaling } from '../types';
 import styles from './ThemePanel.module.css';
 
@@ -41,6 +41,7 @@ export function ThemePanel({
 }: ThemePanelProps) {
   const [open, setOpen] = useState(defaultOpen);
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'error'>('idle');
+  const copyButtonColor = copyStatus === 'copied' ? 'green' : copyStatus === 'error' ? 'red' : 'accent';
 
   const copyTheme = async () => {
     const snippet = [
@@ -90,46 +91,70 @@ export function ThemePanel({
         </div>
 
         <div className={styles.field}>
-          <label className={styles.label} htmlFor="theme-gray">Neutral Palette</label>
-          <div className={styles.selectWrap}>
-            <select id="theme-gray" className={styles.select} value={gray} onChange={(e) => setGray(e.target.value as GrayColor)}>
-              {GRAY_COLORS.map((c) => <option key={c} value={c}>{toDisplayName(c)}</option>)}
-            </select>
-            <span className={styles.selectCaret} aria-hidden="true">▾</span>
-          </div>
+          <span className={styles.label}>Neutral Palette</span>
+          <Select
+            value={gray}
+            onValueChange={(value) => {
+              if (typeof value === 'string') setGray(value as GrayColor);
+            }}
+            size="1"
+            triggerClassName={styles.selectControl}
+          >
+            {GRAY_COLORS.map((c) => (
+              <Select.Item key={c} value={c}>{toDisplayName(c)}</Select.Item>
+            ))}
+          </Select>
           <p className={styles.helper}>Sets the base gray family for borders and surfaces.</p>
         </div>
 
         <div className={styles.field}>
-          <label className={styles.label} htmlFor="theme-radius">Corner Radius</label>
-          <div className={styles.selectWrap}>
-            <select id="theme-radius" className={styles.select} value={radius} onChange={(e) => setRadius(e.target.value as Radius)}>
-              {RADII.map((r) => <option key={r} value={r}>{toDisplayName(r)}</option>)}
-            </select>
-            <span className={styles.selectCaret} aria-hidden="true">▾</span>
-          </div>
+          <span className={styles.label}>Corner Radius</span>
+          <Select
+            value={radius}
+            onValueChange={(value) => {
+              if (typeof value === 'string') setRadius(value as Radius);
+            }}
+            size="1"
+            triggerClassName={styles.selectControl}
+          >
+            {RADII.map((r) => (
+              <Select.Item key={r} value={r}>{toDisplayName(r)}</Select.Item>
+            ))}
+          </Select>
           <p className={styles.helper}>Controls rounded corners across components.</p>
         </div>
 
         <div className={styles.field}>
-          <label className={styles.label} htmlFor="theme-scaling">Scale</label>
-          <div className={styles.selectWrap}>
-            <select id="theme-scaling" className={styles.select} value={scaling} onChange={(e) => setScaling(e.target.value as Scaling)}>
-              {SCALINGS.map((s) => <option key={s} value={s}>{s}</option>)}
-            </select>
-            <span className={styles.selectCaret} aria-hidden="true">▾</span>
-          </div>
+          <span className={styles.label}>Scale</span>
+          <Select
+            value={scaling}
+            onValueChange={(value) => {
+              if (typeof value === 'string') setScaling(value as Scaling);
+            }}
+            size="1"
+            triggerClassName={styles.selectControl}
+          >
+            {SCALINGS.map((s) => (
+              <Select.Item key={s} value={s}>{s}</Select.Item>
+            ))}
+          </Select>
           <p className={styles.helper}>Global size multiplier for spacing and typography.</p>
         </div>
 
         <div className={styles.field}>
-          <label className={styles.label} htmlFor="theme-appearance">Appearance</label>
-          <div className={styles.selectWrap}>
-            <select id="theme-appearance" className={styles.select} value={appearance} onChange={(e) => setAppearance(e.target.value as Appearance)}>
-              {APPEARANCES.map((a) => <option key={a} value={a}>{toDisplayName(a)}</option>)}
-            </select>
-            <span className={styles.selectCaret} aria-hidden="true">▾</span>
-          </div>
+          <span className={styles.label}>Appearance</span>
+          <Select
+            value={appearance}
+            onValueChange={(value) => {
+              if (typeof value === 'string') setAppearance(value as Appearance);
+            }}
+            size="1"
+            triggerClassName={styles.selectControl}
+          >
+            {APPEARANCES.map((a) => (
+              <Select.Item key={a} value={a}>{toDisplayName(a)}</Select.Item>
+            ))}
+          </Select>
           <p className={styles.helper}>Light or dark rendering mode.</p>
         </div>
 
@@ -137,7 +162,7 @@ export function ThemePanel({
           className={styles.copyButton}
           variant="solid"
           size="2"
-          data-state={copyStatus}
+          color={copyButtonColor}
           onClick={copyTheme}
         >
           {copyStatus === 'copied' ? 'Copied Theme' : copyStatus === 'error' ? 'Copy Failed' : 'Copy Theme'}
@@ -152,6 +177,8 @@ export function ThemePanel({
         className={styles.toggle}
         variant="surface"
         size="2"
+        radius="full"
+        p="0"
         onClick={() => setOpen(!open)}
         title={open ? 'Close theme panel' : 'Open theme panel'}
         aria-label={open ? 'Close theme panel' : 'Open theme panel'}

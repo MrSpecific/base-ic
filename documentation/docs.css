@@ -41,10 +41,7 @@
 }
 
 .docs-sidebar-link.docs-sidebar-link {
-  --btn-height: auto;
-  --btn-px: 0;
   width: 100%;
-  min-height: 0;
   justify-content: flex-start;
   text-align: left;
   padding: var(--space-2);
@@ -100,6 +97,19 @@
   font-size: var(--font-size-2);
 }
 
+.docs-list {
+  list-style: none;
+  color: var(--color-text-secondary);
+}
+
+.docs-eyebrow {
+  margin: 0;
+  letter-spacing: var(--letter-spacing-5);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  font-family: var(--font-family-mono);
+}
+
 .docs-demo-surface {
   min-width: 0;
   display: grid;
@@ -111,10 +121,8 @@
 }
 
 .docs-layout-sample-box {
-  padding: var(--surface-padding-y) var(--surface-padding-x);
-  border-radius: var(--surface-radius);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface-subtle);
+  display: grid;
+  gap: var(--space-2);
   color: var(--color-text-secondary);
 }
 
@@ -139,9 +147,8 @@
 }
 
 .docs-layout-sample-stack {
-  border-radius: var(--surface-radius);
-  border: 1px solid var(--color-border-subtle);
-  background: var(--color-surface-subtle);
+  display: grid;
+  gap: 0;
 }
 
 .designer-grid {

@@ -33,12 +33,6 @@
   transform-origin: var(--transform-origin, center);
 }
 
-/* Account for arrow size on each side */
-.popup[data-side='top']    { margin-bottom: 4px; }
-.popup[data-side='bottom'] { margin-top:    4px; }
-.popup[data-side='left']   { margin-right:  4px; }
-.popup[data-side='right']  { margin-left:   4px; }
-
 /* Open / close animations */
 .popup[data-open] {
   animation: popover-in var(--duration-3) var(--ease-2);

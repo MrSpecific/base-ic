@@ -46,24 +46,16 @@ body {
   backdrop-filter: blur(8px);
 }
 
-.site-logo.site-logo {
-  --btn-height: auto;
-  --btn-px: 0;
-  --btn-gap: 0;
-  --btn-fs: var(--font-size-6);
-  min-height: 0;
-  padding: 0;
-  border: none;
-  background: transparent;
+.site-logo {
+  font-size: var(--font-size-6);
   color: var(--color-text-primary);
   font-family: var(--font-family-display);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--letter-spacing-2);
 }
 
-.site-logo.site-logo:hover {
+.site-logo:hover {
   opacity: 0.86;
-  background: transparent;
 }
 
 .site-page {
