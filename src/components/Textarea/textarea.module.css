@@ -1,0 +1,112 @@
+/* ==========================================================================
+ * Textarea
+ * ==========================================================================
+ * Shares size and variant tokens with Input for visual consistency.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Wrapper — provides focus ring and variant chrome
+ * --------------------------------------------------------------------------- */
+.wrapper {
+  display: flex;
+  position: relative;
+  background: var(--color-surface-sunken);
+  border: 1px solid var(--color-border);
+  border-radius: var(--inp-radius, var(--component-radius));
+  transition:
+    border-color var(--duration-1) var(--ease-1),
+    box-shadow var(--duration-1) var(--ease-1);
+}
+
+.wrapper:focus-within {
+  border-color: var(--color-accent-8);
+  box-shadow: 0 0 0 2px var(--color-accent-a4);
+  outline: none;
+}
+
+.wrapper.invalid {
+  border-color: var(--color-danger-8);
+}
+
+.wrapper.invalid:focus-within {
+  box-shadow: 0 0 0 2px var(--color-danger-a4);
+}
+
+.wrapper.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Variants */
+.outline {
+  background: transparent;
+}
+
+.ghost {
+  background: transparent;
+  border-color: transparent;
+}
+
+.ghost:focus-within {
+  border-color: var(--color-accent-8);
+  background: var(--color-surface-sunken);
+}
+
+/* ---------------------------------------------------------------------------
+ * Textarea element
+ * --------------------------------------------------------------------------- */
+.textarea {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  padding: var(--ta-py, var(--space-2)) var(--ta-px, var(--space-3));
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-primary);
+  font-size: var(--ta-font-size, var(--font-size-2));
+  line-height: var(--line-height-3);
+  resize: vertical;
+}
+
+.textarea::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.textarea:disabled {
+  cursor: not-allowed;
+}
+
+/* Remove resize handle when noResize */
+.noResize .textarea {
+  resize: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Sizes — share button/input tokens
+ * --------------------------------------------------------------------------- */
+.size1 {
+  --ta-py: var(--space-1);
+  --ta-px: var(--space-2);
+  --ta-font-size: var(--button-1-font-size);
+  font-size: var(--ta-font-size);
+}
+
+.size2 {
+  --ta-py: var(--space-2);
+  --ta-px: var(--space-3);
+  --ta-font-size: var(--button-2-font-size);
+}
+
+.size3 {
+  --ta-py: var(--space-2);
+  --ta-px: var(--space-3);
+  --ta-font-size: var(--button-3-font-size);
+}
+
+.size4 {
+  --ta-py: var(--space-3);
+  --ta-px: var(--space-4);
+  --ta-font-size: var(--button-4-font-size);
+}

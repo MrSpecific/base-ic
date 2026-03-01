@@ -257,6 +257,16 @@
   --popover-arrow-size:       12px;
 
   /* -------------------------------------------------------------------------
+   * Semantic dialog patterns
+   * -------------------------------------------------------------------------
+   */
+  --dialog-bg:                var(--color-surface);
+  --dialog-border:            var(--color-border);
+  --dialog-shadow:            var(--shadow-4);
+  --dialog-radius:            var(--component-radius);
+  --dialog-backdrop-bg:       oklch(0 0 0 / 0.45);
+
+  /* -------------------------------------------------------------------------
    * Semantic code patterns
    * -------------------------------------------------------------------------
    */

@@ -1,7 +1,24 @@
+/* ==========================================================================
+ * Popover
+ * ==========================================================================
+ * Uses Base UI Popover primitives.
+ * Popup animates via data-open / data-closed attributes.
+ * Arrow uses a three-path SVG technique to render border + fill cleanly.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Positioner — ensure z-index above page content
+ * --------------------------------------------------------------------------- */
+.positioner {
+  z-index: 50;
+}
+
+/* ---------------------------------------------------------------------------
+ * Popup
+ * --------------------------------------------------------------------------- */
 .popup {
   position: relative;
-  z-index: var(--z-4);
-  min-width: var(--popover-min-width);
+  min-width: var(--popover-min-width, 180px);
   max-width: 360px;
   padding: var(--popover-padding);
   border-radius: var(--popover-radius);
@@ -10,53 +27,96 @@
   color: var(--popover-text);
   box-shadow: var(--popover-shadow);
   font-family: var(--font-family-primary);
+  font-size: var(--text-2-size, 0.875rem);
+  line-height: var(--line-height-3);
+  /* Scale from the anchor side for a natural feel */
+  transform-origin: var(--transform-origin, center);
 }
 
-.popup[data-side='left'] {
-  padding-right: calc(var(--popover-padding) + 6px);
+/* Account for arrow size on each side */
+.popup[data-side='top']    { margin-bottom: 4px; }
+.popup[data-side='bottom'] { margin-top:    4px; }
+.popup[data-side='left']   { margin-right:  4px; }
+.popup[data-side='right']  { margin-left:   4px; }
+
+/* Open / close animations */
+.popup[data-open] {
+  animation: popover-in var(--duration-3) var(--ease-2);
 }
 
-.popup[data-side='right'] {
-  padding-left: calc(var(--popover-padding) + 6px);
+.popup[data-closed] {
+  animation: popover-out var(--duration-2) var(--ease-2);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .popup[data-open],
+  .popup[data-closed] {
+    animation: none;
+  }
+}
+
+@keyframes popover-in {
+  from {
+    opacity: 0;
+    scale: 0.96;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes popover-out {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 0.96;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Arrow — positioned by Base UI, we handle visual rotation
+ *
+ * The arrow receives data-side matching the popup's side.
+ *   data-side="top"    → popup is above trigger  → arrow points DOWN
+ *   data-side="bottom" → popup is below trigger  → arrow points UP (default)
+ *   data-side="left"   → popup is left of trigger → arrow points RIGHT
+ *   data-side="right"  → popup is right of trigger → arrow points LEFT
+ * --------------------------------------------------------------------------- */
 .arrow {
   position: absolute;
   pointer-events: none;
-  color: var(--popover-bg);
   display: flex;
+  align-items: center;
+  justify-content: center;
   width: 20px;
   height: 10px;
+  /* Base UI positions the arrow; we just handle the rotation */
 }
 
 .arrow[data-side='top'] {
-  bottom: 0;
-  transform: translateY(100%) rotate(180deg);
+  transform: rotate(180deg);
 }
-
-.arrow[data-side='bottom'] {
-  top: 0;
-  transform: translateY(-100%);
-}
-
+/* data-side="bottom" — default SVG orientation (points up) */
 .arrow[data-side='left'] {
-  right: 0;
-  transform: translateX(50%) rotate(90deg);
+  transform: rotate(90deg);
 }
-
 .arrow[data-side='right'] {
-  left: 0;
-  transform: translateX(-50%) rotate(-90deg);
+  transform: rotate(-90deg);
 }
 
+/* Three-path SVG fills */
 .arrowFill {
   fill: var(--popover-bg);
 }
 
 .arrowOuterStroke {
-  fill: var(--color-border);
+  fill: var(--popover-border);
 }
 
 .arrowInnerStroke {
-  fill: color-mix(in oklch, var(--popover-border) 70%, var(--popover-bg));
+  fill: var(--popover-bg);
 }

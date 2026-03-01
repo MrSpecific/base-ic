@@ -21,6 +21,11 @@ import { FlexDocsPage } from "./docs/FlexDocsPage";
 import { GridDocsPage } from "./docs/GridDocsPage";
 import { ContainerDocsPage } from "./docs/ContainerDocsPage";
 import { SectionDocsPage } from "./docs/SectionDocsPage";
+import { CheckboxDocsPage } from "./docs/CheckboxDocsPage";
+import { SwitchDocsPage } from "./docs/SwitchDocsPage";
+import { RadioGroupDocsPage } from "./docs/RadioGroupDocsPage";
+import { InputDocsPage } from "./docs/InputDocsPage";
+import { SelectDocsPage } from "./docs/SelectDocsPage";
 import type { DocsSection } from "../types";
 
 export function DocsPage({
@@ -49,6 +54,16 @@ export function DocsPage({
         { id: "badge", label: "Badge" },
         { id: "card", label: "Card" },
         { id: "separator", label: "Separator" },
+      ],
+    },
+    {
+      title: "Forms",
+      items: [
+        { id: "checkbox", label: "Checkbox" },
+        { id: "switch", label: "Switch" },
+        { id: "radio-group", label: "RadioGroup" },
+        { id: "input", label: "Input" },
+        { id: "select", label: "Select" },
       ],
     },
     {
@@ -97,6 +112,11 @@ export function DocsPage({
     if (section === "section") return <SectionDocsPage />;
     if (section === "tooltip") return <TooltipDocsPage />;
     if (section === "popover") return <PopoverDocsPage />;
+    if (section === "checkbox") return <CheckboxDocsPage />;
+    if (section === "switch") return <SwitchDocsPage />;
+    if (section === "radio-group") return <RadioGroupDocsPage />;
+    if (section === "input") return <InputDocsPage />;
+    if (section === "select") return <SelectDocsPage />;
     if (section === "typography") return <TypographyDocsPage />;
     if (section === "text") return <TextDocsPage />;
     if (section === "heading") return <HeadingDocsPage />;

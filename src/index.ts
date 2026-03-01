@@ -21,6 +21,8 @@ export { Tooltip, TooltipPrimitive } from './components/Tooltip';
 export type { TooltipProps } from './components/Tooltip';
 export { Popover, PopoverPrimitive } from './components/Popover';
 export type { PopoverProps } from './components/Popover';
+export { Dialog, DialogPrimitive } from './components/Dialog';
+export type { DialogProps } from './components/Dialog';
 
 // Layout components
 export { Box, Flex, Grid, Container, Section } from './components/Layout';
@@ -47,6 +49,22 @@ export type { BadgeProps } from './components/Badge';
 // Separator
 export { Separator } from './components/Separator';
 export type { SeparatorProps } from './components/Separator';
+
+// Form components
+export { Textarea } from './components/Textarea';
+export type { TextareaProps } from './components/Textarea';
+export { Tabs } from './components/Tabs';
+export type { TabsProps, TabsListProps, TabProps, TabsPanelProps } from './components/Tabs';
+export { Checkbox } from './components/Checkbox';
+export type { CheckboxProps } from './components/Checkbox';
+export { Switch } from './components/Switch';
+export type { SwitchProps } from './components/Switch';
+export { RadioGroup, Radio } from './components/RadioGroup';
+export type { RadioGroupProps, RadioProps } from './components/RadioGroup';
+export { Input } from './components/Input';
+export type { InputProps } from './components/Input';
+export { Select } from './components/Select';
+export type { SelectProps, SelectItemProps, SelectGroupProps } from './components/Select';
 
 // Typography components
 export {

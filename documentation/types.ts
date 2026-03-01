@@ -26,7 +26,15 @@ export type DocsSection =
   | 'flex'
   | 'grid'
   | 'container'
-  | 'section';
+  | 'section'
+  | 'checkbox'
+  | 'switch'
+  | 'radio-group'
+  | 'input'
+  | 'select'
+  | 'textarea'
+  | 'tabs'
+  | 'dialog';
 
 export type RouteState = {
   page: Page;

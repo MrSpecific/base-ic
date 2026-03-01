@@ -53,7 +53,7 @@ export function Tooltip({
     <BaseTooltip.Root {...rootProps}>
       <BaseTooltip.Trigger delay={delay} closeDelay={closeDelay} render={children} />
       <BaseTooltip.Portal>
-        <BaseTooltip.Positioner side={side} align={align} sideOffset={sideOffset} alignOffset={alignOffset}>
+        <BaseTooltip.Positioner className={styles.positioner} side={side} align={align} sideOffset={sideOffset} alignOffset={alignOffset}>
           <BaseTooltip.Popup className={styles.popup}>
             {content}
             {!disableArrow && (

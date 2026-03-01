@@ -1,0 +1,186 @@
+/* ==========================================================================
+ * Tabs
+ * ==========================================================================
+ * Uses Base UI Tabs primitives.
+ * Three variants: line (underline), solid (filled pill), soft (bg pill).
+ */
+
+/* ---------------------------------------------------------------------------
+ * Root
+ * --------------------------------------------------------------------------- */
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.root[data-orientation='vertical'] {
+  flex-direction: row;
+  gap: var(--space-4);
+}
+
+/* ---------------------------------------------------------------------------
+ * List — tab bar
+ * --------------------------------------------------------------------------- */
+.list {
+  display: flex;
+  flex-direction: row;
+  gap: var(--tabs-gap, 0px);
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Vertical layout */
+.root[data-orientation='vertical'] .list {
+  flex-direction: column;
+  border-right: 1px solid var(--color-border);
+  border-bottom: none;
+  padding-right: var(--space-1);
+  min-width: 160px;
+}
+
+/* Line variant underline */
+.listLine {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 1px;
+}
+
+/* Soft variant pill container */
+.listSoft {
+  background: var(--color-surface-sunken);
+  border-radius: var(--radius-3);
+  padding: var(--space-1);
+  gap: var(--space-1);
+}
+
+/* ---------------------------------------------------------------------------
+ * Tab — individual trigger button
+ * --------------------------------------------------------------------------- */
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--tabs-py, var(--space-2)) var(--tabs-px, var(--space-3));
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-primary);
+  font-size: var(--tabs-font-size, var(--font-size-2));
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  border-radius: var(--radius-2);
+  transition:
+    color var(--duration-1) var(--ease-1),
+    background var(--duration-1) var(--ease-1);
+  outline: none;
+  user-select: none;
+}
+
+.tab:hover {
+  color: var(--color-text-primary);
+}
+
+.tab:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-accent-a4);
+}
+
+.tab[data-disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Line variant — selected state */
+.tabLine[data-selected] {
+  color: var(--color-accent-11);
+}
+
+.tabLine[data-selected]::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-accent-9);
+  border-radius: var(--radius-full);
+}
+
+.tabLine {
+  position: relative;
+  border-radius: var(--radius-2) var(--radius-2) 0 0;
+}
+
+/* Soft variant — selected fills in */
+.tabSoft[data-selected] {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-1);
+}
+
+/* Solid variant — active tab gets accent fill */
+.tabSolid[data-selected] {
+  background: var(--color-accent-9);
+  color: var(--color-accent-contrast);
+}
+
+.tabSolid {
+  border-radius: var(--radius-2);
+}
+
+.tabSolid:hover:not([data-selected]) {
+  background: color-mix(in oklch, var(--color-accent-9) var(--interactive-soft-strength), var(--interactive-soft-mix-base));
+}
+
+/* ---------------------------------------------------------------------------
+ * Indicator — sliding underline for line variant
+ * (Base UI renders this, we style it)
+ * --------------------------------------------------------------------------- */
+.indicator {
+  position: absolute;
+  bottom: -2px;
+  left: var(--active-tab-left);
+  width: var(--active-tab-width);
+  height: 2px;
+  background: var(--color-accent-9);
+  border-radius: var(--radius-full);
+  transition: left var(--duration-3) var(--ease-spring, var(--ease-2)),
+              width var(--duration-3) var(--ease-spring, var(--ease-2));
+}
+
+/* ---------------------------------------------------------------------------
+ * Panel
+ * --------------------------------------------------------------------------- */
+.panel {
+  flex: 1;
+  min-width: 0;
+  outline: none;
+}
+
+.panel:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-accent-a4);
+  border-radius: var(--radius-2);
+}
+
+/* ---------------------------------------------------------------------------
+ * Sizes
+ * --------------------------------------------------------------------------- */
+.size1 {
+  --tabs-py: var(--space-1);
+  --tabs-px: var(--space-2);
+  --tabs-font-size: var(--font-size-1);
+}
+
+.size2 {
+  --tabs-py: var(--space-2);
+  --tabs-px: var(--space-3);
+  --tabs-font-size: var(--font-size-2);
+}
+
+.size3 {
+  --tabs-py: var(--space-2);
+  --tabs-px: var(--space-4);
+  --tabs-font-size: var(--font-size-3);
+}

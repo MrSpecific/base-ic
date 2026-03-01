@@ -1,0 +1,179 @@
+/* ==========================================================================
+ * Dialog
+ * ==========================================================================
+ * Uses Base UI Dialog primitives.
+ * Backdrop fades in; popup scales in from center.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Backdrop
+ * --------------------------------------------------------------------------- */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--dialog-backdrop-bg);
+  z-index: 100;
+}
+
+.backdrop[data-open] {
+  animation: dialog-backdrop-in var(--duration-3) var(--ease-2);
+}
+
+.backdrop[data-closed] {
+  animation: dialog-backdrop-out var(--duration-2) var(--ease-2);
+}
+
+@keyframes dialog-backdrop-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes dialog-backdrop-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* ---------------------------------------------------------------------------
+ * Popup
+ * --------------------------------------------------------------------------- */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: 101;
+  width: var(--dialog-width, 480px);
+  max-width: calc(100vw - var(--space-6));
+  max-height: calc(100dvh - var(--space-6));
+  overflow-y: auto;
+  background: var(--dialog-bg);
+  border: 1px solid var(--dialog-border);
+  border-radius: var(--dialog-radius);
+  box-shadow: var(--dialog-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  outline: none;
+}
+
+.popup[data-open] {
+  animation: dialog-in var(--duration-3) var(--ease-2);
+}
+
+.popup[data-closed] {
+  animation: dialog-out var(--duration-2) var(--ease-2);
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    scale: 0.96;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes dialog-out {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 0.96;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop[data-open],
+  .backdrop[data-closed],
+  .popup[data-open],
+  .popup[data-closed] {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Header — title + optional close button row
+ * --------------------------------------------------------------------------- */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+/* ---------------------------------------------------------------------------
+ * Title
+ * --------------------------------------------------------------------------- */
+.title {
+  margin: 0;
+  font-family: var(--font-family-display, var(--font-family-sans-stack));
+  font-size: var(--font-size-5);
+  font-weight: 600;
+  line-height: var(--line-height-2);
+  color: var(--color-text-primary);
+}
+
+/* ---------------------------------------------------------------------------
+ * Description
+ * --------------------------------------------------------------------------- */
+.description {
+  margin: 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-3);
+  color: var(--color-text-secondary);
+}
+
+/* ---------------------------------------------------------------------------
+ * Footer — action buttons row
+ * --------------------------------------------------------------------------- */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ---------------------------------------------------------------------------
+ * Close icon button
+ * --------------------------------------------------------------------------- */
+.closeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-2);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background var(--duration-1) var(--ease-1), color var(--duration-1) var(--ease-1);
+  outline: none;
+}
+
+.closeButton:hover {
+  background: var(--color-neutral-3);
+  color: var(--color-text-primary);
+}
+
+.closeButton:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-accent-a4);
+}
+
+/* ---------------------------------------------------------------------------
+ * Size variants
+ * --------------------------------------------------------------------------- */
+.sizeSmall  { --dialog-width: 360px; }
+.sizeMedium { --dialog-width: 480px; }
+.sizeLarge  { --dialog-width: 640px; }
+.sizeFull   { --dialog-width: min(900px, calc(100vw - var(--space-6))); }

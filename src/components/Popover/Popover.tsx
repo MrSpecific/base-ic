@@ -49,7 +49,7 @@ export function Popover({
     <BasePopover.Root {...rootProps}>
       <BasePopover.Trigger render={children} />
       <BasePopover.Portal>
-        <BasePopover.Positioner side={side} align={align} sideOffset={sideOffset} alignOffset={alignOffset}>
+        <BasePopover.Positioner className={styles.positioner} side={side} align={align} sideOffset={sideOffset} alignOffset={alignOffset}>
           <BasePopover.Popup className={styles.popup}>
             {content}
             {!disableArrow && (

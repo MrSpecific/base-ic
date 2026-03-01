@@ -7,7 +7,7 @@ type InputVariant = 'surface' | 'outline' | 'ghost';
 type InputRadius = 'none' | 'small' | 'medium' | 'large' | 'full';
 
 export interface InputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix' | 'suffix'> {
   /** Visual size. Default: '2' */
   size?: InputSize;
   /** Visual variant. Default: 'surface' */
@@ -69,9 +69,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       : undefined;
 
     // Pad input away from prefix/suffix
-    const adornmentVars: React.CSSProperties = {};
-    if (prefix) adornmentVars['--inp-pl' as string] = '0px';
-    if (suffix) adornmentVars['--inp-pr' as string] = '0px';
+    const adornmentVars: Record<string, string> = {};
+    if (prefix) adornmentVars['--inp-pl'] = '0px';
+    if (suffix) adornmentVars['--inp-pr'] = '0px';
 
     return (
       <div

@@ -73,7 +73,7 @@ function CheckIcon() {
  * SelectRoot — top-level component
  * --------------------------------------------------------------------------- */
 
-export interface SelectProps extends Omit<BaseSelect.Root.Props, 'children'> {
+export interface SelectProps extends Omit<BaseSelect.Root.Props<unknown>, 'children'> {
   /** Visual size for trigger + items. Default: '2' */
   size?: SelectSize;
   /** Override the border-radius of trigger and popup. */
@@ -199,7 +199,7 @@ function SelectGroup({ label, children }: SelectGroupProps) {
  * --------------------------------------------------------------------------- */
 
 function SelectSeparator() {
-  return <BaseSelect.SeparatorItem className={styles.separator} />;
+  return <BaseSelect.Separator className={styles.separator} />;
 }
 
 /* ---------------------------------------------------------------------------
