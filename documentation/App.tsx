@@ -22,7 +22,7 @@ import { DocsPage } from "./pages/DocsPage";
 import { CustomizationPage } from "./pages/CustomizationPage";
 import { ForDesignersPage } from "./pages/ForDesignersPage";
 import { PlaygroundPage } from "./pages/PlaygroundPage";
-import type { DocsSection, Page } from "./types";
+import type { DocsSection, Page, RouteState } from "./types";
 import "../src/tokens/index.css";
 import "./documentation.css";
 import "./docs.css";
@@ -97,7 +97,17 @@ export default function App() {
   const [appearance, setAppearance] = useState<Appearance>(
     persistedTheme?.appearance ?? "light",
   );
-  const route = getRouteFromPath(window.location.pathname);
+  const [route, setRoute] = useState<RouteState>(() =>
+    getRouteFromPath(window.location.pathname),
+  );
+
+  useEffect(() => {
+    const syncRouteFromLocation = () => {
+      setRoute(getRouteFromPath(window.location.pathname));
+    };
+    window.addEventListener("popstate", syncRouteFromLocation);
+    return () => window.removeEventListener("popstate", syncRouteFromLocation);
+  }, []);
 
   useEffect(() => {
     const nextTheme: PersistedTheme = {
@@ -120,7 +130,8 @@ export default function App() {
   ) => {
     const nextPath = pageToPath(nextPage, docsSection);
     if (window.location.pathname !== nextPath) {
-      window.location.href = nextPath;
+      window.history.pushState(null, "", nextPath);
+      setRoute(getRouteFromPath(nextPath));
     }
   };
 

@@ -51,6 +51,16 @@ export function DocsPage({
       items: [{ id: "theme", label: "Theme" }],
     },
     {
+      title: "Layout",
+      items: [
+        { id: "box", label: "Box" },
+        { id: "flex", label: "Flex" },
+        { id: "grid", label: "Grid" },
+        { id: "container", label: "Container" },
+        { id: "section", label: "Section" },
+      ],
+    },
+    {
       title: "Components",
       items: [
         { id: "button", label: "Button" },
@@ -71,16 +81,6 @@ export function DocsPage({
       ],
     },
     {
-      title: "Layout",
-      items: [
-        { id: "box", label: "Box" },
-        { id: "flex", label: "Flex" },
-        { id: "grid", label: "Grid" },
-        { id: "container", label: "Container" },
-        { id: "section", label: "Section" },
-      ],
-    },
-    {
       title: "Overlays",
       items: [
         { id: "tooltip", label: "Tooltip" },
@@ -90,9 +90,7 @@ export function DocsPage({
     },
     {
       title: "Navigation",
-      items: [
-        { id: "tabs", label: "Tabs" },
-      ],
+      items: [{ id: "tabs", label: "Tabs" }],
     },
     {
       title: "Typography",

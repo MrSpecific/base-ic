@@ -1,6 +1,6 @@
-import { Flex, Heading, Input, Text } from "../../../src";
+import { Flex, Heading, Input, Link, Text } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
-import { DocsDemoGrid, DocsDemoRow } from "../../components/DocsPrimitives";
+import { DocsDemoGrid, DocsList } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
 import { DemoCard } from "./DemoCard";
 
@@ -38,14 +38,43 @@ export function InputDocsPage() {
     '<Input suffix={<span>kg</span>} type="number" placeholder="0.00" />',
   ].join("\n");
 
+  const radiusSnippet = [
+    '<Input radius="small" placeholder="Small radius" />',
+    '<Input radius="medium" placeholder="Medium radius" />',
+    '<Input radius="large" placeholder="Large radius" />',
+    '<Input radius="full" placeholder="Full radius" />',
+  ].join("\n");
+
+  const typeSnippet = [
+    '<Input type="email" placeholder="Email address" />',
+    '<Input type="password" placeholder="Password" />',
+    '<Input type="url" placeholder="Website URL" />',
+    '<Input type="search" placeholder="Search" />',
+  ].join("\n");
+
   return (
     <>
       <DocsSection>
-        <Heading>Input</Heading>
+        <Heading as="h1">Input</Heading>
         <Text as="p">
           A styled text input with size variants, visual styles, and optional
           prefix/suffix adornments. Wraps a native{" "}
           <code>&lt;input&gt;</code> element for full browser compatibility.
+        </Text>
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h3">Built on Native Input</Heading>
+        <Text as="p">
+          `Input` keeps standard browser input behavior and form integration.
+          Native input reference:{" "}
+          <Link
+            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"
+            target="_blank"
+            rel="noreferrer"
+          >
+            developer.mozilla.org/.../Element/input
+          </Link>
+          .
         </Text>
       </DocsSection>
       <DocsSection>
@@ -97,6 +126,30 @@ export function InputDocsPage() {
             </Flex>
           </DemoCard>
           <DemoCard
+            title="Radius"
+            description="Override corner radius per field when needed."
+            code={radiusSnippet}
+          >
+            <Flex direction="column" gap={2} style={{ width: "100%" }}>
+              <Input radius="small" placeholder="Small radius" />
+              <Input radius="medium" placeholder="Medium radius" />
+              <Input radius="large" placeholder="Large radius" />
+              <Input radius="full" placeholder="Full radius" />
+            </Flex>
+          </DemoCard>
+          <DemoCard
+            title="Common Input Types"
+            description="Leverage native HTML input types with consistent styling."
+            code={typeSnippet}
+          >
+            <Flex direction="column" gap={2} style={{ width: "100%" }}>
+              <Input type="email" placeholder="Email address" />
+              <Input type="password" placeholder="Password" />
+              <Input type="url" placeholder="Website URL" />
+              <Input type="search" placeholder="Search" />
+            </Flex>
+          </DemoCard>
+          <DemoCard
             title="States"
             description="Disabled and invalid validation states."
             code={'<Input disabled placeholder="Disabled" />\n<Input invalid placeholder="Error state" />'}
@@ -111,6 +164,23 @@ export function InputDocsPage() {
       <DocsSection>
         <Heading as="h2">Usage</Heading>
         <CodeBlock title="Input Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Notes</Heading>
+        <DocsList>
+          <li>
+            Use `invalid` to reflect validation state while keeping native input
+            semantics.
+          </li>
+          <li>
+            `prefix` and `suffix` are ideal for icons, units, and protocol
+            hints.
+          </li>
+          <li>
+            `wrapperClassName` and `wrapperRef` target the outer shell for
+            advanced layout control.
+          </li>
+        </DocsList>
       </DocsSection>
     </>
   );

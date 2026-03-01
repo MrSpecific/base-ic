@@ -1,6 +1,16 @@
-import { Button, Dialog, DialogPrimitive, Flex, Heading, Input, Text, Textarea } from "../../../src";
+import {
+  Button,
+  Dialog,
+  DialogPrimitive,
+  Flex,
+  Heading,
+  Input,
+  Link,
+  Text,
+  Textarea,
+} from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
-import { DocsDemoGrid, DocsDemoRow } from "../../components/DocsPrimitives";
+import { DocsDemoGrid, DocsDemoRow, DocsList } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
 import { DemoCard } from "./DemoCard";
 
@@ -30,10 +40,25 @@ export function DialogDocsPage() {
   return (
     <>
       <DocsSection>
-        <Heading>Dialog</Heading>
+        <Heading as="h1">Dialog</Heading>
         <Text as="p">
           A modal dialog with animated backdrop, accessible focus trapping, and
           keyboard dismissal. Built on Base UI's Dialog primitive.
+        </Text>
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h3">Built On Base-UI</Heading>
+        <Text as="p">
+          This component wraps the Base UI Dialog primitive. Base primitive
+          docs:{" "}
+          <Link
+            href="https://base-ui.com/react/components/dialog"
+            target="_blank"
+            rel="noreferrer"
+          >
+            base-ui.com/react/components/dialog
+          </Link>
+          .
         </Text>
       </DocsSection>
       <DocsSection>
@@ -138,11 +163,63 @@ export function DialogDocsPage() {
               </Dialog>
             </DocsDemoRow>
           </DemoCard>
+          <DemoCard
+            title="Full Screen"
+            description={'Use `size="full"` for immersive workflows like editors and previews.'}
+            code={'<Dialog size="full" title="Asset Browser" ...>'}
+          >
+            <DocsDemoRow>
+              <Dialog
+                size="full"
+                title="Asset Browser"
+                description="Browse and select media assets for the campaign."
+                content={
+                  <Flex direction="column" gap={2}>
+                    <Text as="p">
+                      Full-size dialogs are useful for high-density tasks that
+                      need more room than a standard modal.
+                    </Text>
+                    <Textarea
+                      rows={6}
+                      defaultValue="Selected asset notes..."
+                    />
+                  </Flex>
+                }
+                footer={
+                  <>
+                    <DialogPrimitive.Close
+                      render={<Button variant="ghost">Cancel</Button>}
+                    />
+                    <Button variant="solid">Select asset</Button>
+                  </>
+                }
+              >
+                <Button variant="outline">Full Screen</Button>
+              </Dialog>
+            </DocsDemoRow>
+          </DemoCard>
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Usage</Heading>
         <CodeBlock title="Dialog Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Notes</Heading>
+        <DocsList>
+          <li>
+            Keep dialogs focused on one task; push multi-step flows to full
+            pages when possible.
+          </li>
+          <li>
+            Use `DialogPrimitive.Close` for footer actions that should dismiss
+            the modal.
+          </li>
+          <li>
+            For destructive actions, pair clear consequence copy with a distinct
+            confirm button style.
+          </li>
+        </DocsList>
       </DocsSection>
     </>
   );

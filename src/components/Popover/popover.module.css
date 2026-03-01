@@ -97,14 +97,23 @@
   /* Base UI positions the arrow; we just handle the rotation */
 }
 
+/* Edge placement — Base UI injects only the centering axis (left: x for top/bottom,
+ * top: y for left/right). We must specify which popup edge the arrow snaps to.
+ * Arrow SVG is 20×10 — tip extends 10px past the popup edge after placement. */
 .arrow[data-side='top'] {
+  bottom: -10px;
   transform: rotate(180deg);
 }
-/* data-side="bottom" — default SVG orientation (points up) */
+.arrow[data-side='bottom'] {
+  top: -10px;
+  /* default SVG orientation already points up */
+}
 .arrow[data-side='left'] {
+  right: -15px;
   transform: rotate(90deg);
 }
 .arrow[data-side='right'] {
+  left: -15px;
   transform: rotate(-90deg);
 }
 

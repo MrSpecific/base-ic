@@ -230,10 +230,12 @@
   /* -------------------------------------------------------------------------
    * Semantic tooltip patterns
    * -------------------------------------------------------------------------
+   * Tooltips use pure gray primitives (not theme-mapped neutral) so they
+   * stay achromatic regardless of the theme's grayColor (mauve, slate, etc.).
    */
-  --tooltip-bg:               var(--color-surface-overlay);
-  --tooltip-text:             var(--color-text-primary);
-  --tooltip-border:           var(--color-border);
+  --tooltip-bg:               color-mix(in oklch, white 94%, var(--color-gray-3));
+  --tooltip-text:             var(--color-gray-12);
+  --tooltip-border:           var(--color-gray-7);
   --tooltip-shadow:           var(--shadow-floating);
   --tooltip-radius:           min(var(--component-radius), var(--radius-4));
   --tooltip-padding-y:        var(--space-1);
@@ -260,7 +262,7 @@
    * Semantic dialog patterns
    * -------------------------------------------------------------------------
    */
-  --dialog-bg:                var(--color-surface);
+  --dialog-bg:                var(--color-surface-overlay);
   --dialog-border:            var(--color-border);
   --dialog-shadow:            var(--shadow-4);
   --dialog-radius:            var(--component-radius);
@@ -496,6 +498,11 @@
     --interactive-surface-hover-strength:   18%;
     --interactive-surface-border-strength:  68%;
     --interactive-surface-border-hover-strength: 82%;
+
+    /* Tooltip — pure gray dark surface (gray-3 dark ≈ oklch(21% 0 0)) */
+    --tooltip-bg:     color-mix(in oklch, var(--color-gray-3) 96%, black);
+    --tooltip-text:   oklch(95% 0 0);
+    --tooltip-border: oklch(43% 0 0 / 68%);
   }
 }
 
@@ -554,6 +561,11 @@
   --interactive-surface-hover-strength:   18%;
   --interactive-surface-border-strength:  68%;
   --interactive-surface-border-hover-strength: 82%;
+
+  /* Tooltip — pure gray dark surface (gray-3 dark ≈ oklch(21% 0 0)) */
+  --tooltip-bg:     color-mix(in oklch, var(--color-gray-3) 96%, black);
+  --tooltip-text:   oklch(95% 0 0);
+  --tooltip-border: oklch(43% 0 0 / 68%);
 }
 
 :where(.light, [data-appearance='light']) {

@@ -20,6 +20,7 @@ export function PopoverDocsPage() {
     '  <Button variant="surface">Open</Button>',
     "</Popover>",
   ].join("\n");
+
   const actionsDemoSnippet = [
     "<Popover",
     '  side="bottom"',
@@ -38,18 +39,41 @@ export function PopoverDocsPage() {
     '  <Button className="tooltip-demo-trigger" variant="surface">Open actions</Button>',
     "</Popover>",
   ].join("\n");
-  const settingsDemoSnippet = [
+
+  const placementDemoSnippet = [
+    '<div className="popover-demo-row">',
+    "  <Popover",
+    '    side="right"',
+    '    align="start"',
+    '    sideOffset={12}',
+    "    content={<div className=\"popover-demo-content\"><div className=\"popover-demo-title\">Right / Start</div><p className=\"popover-demo-text\">Pinned to trigger edge for compact menus.</p></div>}",
+    "  >",
+    '    <Button className="tooltip-demo-trigger" variant="surface">Right start</Button>',
+    "  </Popover>",
+    "  <Popover",
+    '    side="bottom"',
+    '    align="end"',
+    '    alignOffset={-8}',
+    "    content={<div className=\"popover-demo-content\"><div className=\"popover-demo-title\">Bottom / End</div><p className=\"popover-demo-text\">Useful near card edges.</p></div>}",
+    "  >",
+    '    <Button className="tooltip-demo-trigger" variant="surface">Bottom end</Button>',
+    "  </Popover>",
+    "</div>",
+  ].join("\n");
+
+  const noArrowDemoSnippet = [
     "<Popover",
     '  side="right"',
     '  align="center"',
+    "  disableArrow",
     "  content={",
     '    <div className="popover-demo-content">',
-    '      <div className="popover-demo-title">Density</div>',
-    '      <p className="popover-demo-text">Compact mode increases information density in tables.</p>',
+    '      <div className="popover-demo-title">Arrow Disabled</div>',
+    '      <p className="popover-demo-text">Use this for flat helper panels when the anchor is obvious.</p>',
     "    </div>",
     "  }",
     ">",
-    '  <Button className="tooltip-demo-trigger" variant="surface">Open settings</Button>',
+    '  <Button className="tooltip-demo-trigger" variant="surface">Open panel</Button>',
     "</Popover>",
   ].join("\n");
 
@@ -125,19 +149,20 @@ export function PopoverDocsPage() {
             </div>
           </DemoCard>
           <DemoCard
-            title="Settings Popover"
-            description="Use a compact panel for secondary settings and toggles."
-            code={settingsDemoSnippet}
+            title="Placement and Offsets"
+            description="Fine-tune side, alignment, and offsets for dense UI anchors."
+            code={placementDemoSnippet}
           >
             <div className="popover-demo-row">
               <Popover
                 side="right"
-                align="center"
+                align="start"
+                sideOffset={12}
                 content={
                   <div className="popover-demo-content">
-                    <div className="popover-demo-title">Density</div>
+                    <div className="popover-demo-title">Right / Start</div>
                     <Text as="p" className="popover-demo-text">
-                      Compact mode increases information density in tables.
+                      Pinned to trigger edge for compact menus.
                     </Text>
                   </div>
                 }
@@ -147,7 +172,58 @@ export function PopoverDocsPage() {
                   variant="surface"
                   size="2"
                 >
-                  Open settings
+                  Right start
+                </Button>
+              </Popover>
+              <Popover
+                side="bottom"
+                align="end"
+                alignOffset={-8}
+                content={
+                  <div className="popover-demo-content">
+                    <div className="popover-demo-title">Bottom / End</div>
+                    <Text as="p" className="popover-demo-text">
+                      Useful near card edges.
+                    </Text>
+                  </div>
+                }
+              >
+                <Button
+                  className="tooltip-demo-trigger"
+                  variant="surface"
+                  size="2"
+                >
+                  Bottom end
+                </Button>
+              </Popover>
+            </div>
+          </DemoCard>
+          <DemoCard
+            title="Arrow Toggle"
+            description="Disable the arrow for flatter panel treatments."
+            code={noArrowDemoSnippet}
+          >
+            <div className="popover-demo-row">
+              <Popover
+                side="right"
+                align="center"
+                disableArrow
+                content={
+                  <div className="popover-demo-content">
+                    <div className="popover-demo-title">Arrow Disabled</div>
+                    <Text as="p" className="popover-demo-text">
+                      Use this for flat helper panels when the anchor is
+                      obvious.
+                    </Text>
+                  </div>
+                }
+              >
+                <Button
+                  className="tooltip-demo-trigger"
+                  variant="surface"
+                  size="2"
+                >
+                  Open panel
                 </Button>
               </Popover>
             </div>

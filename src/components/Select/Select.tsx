@@ -21,6 +21,15 @@ const radiusMap: Record<SelectRadius, string> = {
   full: 'var(--radius-full)',
 };
 
+const popupRadiusMap: Record<SelectRadius, string> = {
+  none: '0',
+  small: 'var(--radius-2)',
+  medium: 'var(--radius-3)',
+  large: 'var(--radius-5)',
+  // Keep popup radius constrained even when trigger is pill-shaped.
+  full: 'var(--card-radius, var(--surface-radius))',
+};
+
 /* ---------------------------------------------------------------------------
  * Caret / chevron icon
  * --------------------------------------------------------------------------- */
@@ -109,15 +118,18 @@ export function Select({
   sideOffset = 4,
   ...rootProps
 }: SelectProps) {
-  const radiusVar = radius
+  const triggerRadiusVar = radius
     ? ({ '--sel-radius': radiusMap[radius] } as React.CSSProperties)
+    : undefined;
+  const popupRadiusVar = radius
+    ? ({ '--sel-popup-radius': popupRadiusMap[radius] } as React.CSSProperties)
     : undefined;
 
   return (
     <BaseSelect.Root {...rootProps}>
       <BaseSelect.Trigger
         className={cx(styles.trigger, sizeClass[size], triggerClassName)}
-        style={radiusVar}
+        style={triggerRadiusVar}
       >
         {triggerContent ?? (
           <BaseSelect.Value className={styles.value} placeholder={placeholder} />
@@ -130,13 +142,14 @@ export function Select({
       <BaseSelect.Portal>
         <BaseSelect.Positioner
           className={styles.positioner}
+          alignItemWithTrigger={false}
           side={side}
           align={align}
           sideOffset={sideOffset}
         >
           <BaseSelect.Popup
             className={cx(styles.popup, sizeClass[size], popupClassName)}
-            style={radiusVar}
+            style={popupRadiusVar}
           >
             {children}
           </BaseSelect.Popup>

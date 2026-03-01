@@ -46,7 +46,7 @@
   max-width: calc(100vw - var(--space-6));
   max-height: calc(100dvh - var(--space-6));
   overflow-y: auto;
-  background: var(--dialog-bg);
+  background: var(--dialog-bg, var(--color-surface-overlay));
   border: 1px solid var(--dialog-border);
   border-radius: var(--dialog-radius);
   box-shadow: var(--dialog-shadow);

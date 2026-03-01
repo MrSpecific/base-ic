@@ -86,12 +86,14 @@
  * Popup
  * --------------------------------------------------------------------------- */
 .popup {
-  min-width: var(--available-width, 180px);
-  max-height: 320px;
+  width: var(--anchor-width, 180px);
+  max-width: min(var(--available-width, calc(100vw - var(--space-4))), 100vw);
+  max-height: min(var(--available-height, 320px), 320px);
   overflow-y: auto;
+  overflow-x: hidden;
   background-color: var(--color-surface-overlay);
   border: 1px solid var(--color-border);
-  border-radius: var(--sel-radius, min(var(--component-radius), var(--radius-4)));
+  border-radius: var(--sel-popup-radius, min(var(--component-radius), var(--radius-4)));
   box-shadow: var(--shadow-floating);
   padding: var(--space-1) 0;
   outline: none;

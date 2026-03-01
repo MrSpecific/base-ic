@@ -21,15 +21,26 @@ export function TooltipDocsPage() {
     '  <Tooltip content="Top helper text" side="top"><Button className="tooltip-demo-trigger" variant="surface">Top</Button></Tooltip>',
     '  <Tooltip content="Right helper text" side="right"><Button className="tooltip-demo-trigger" variant="surface">Right</Button></Tooltip>',
     '  <Tooltip content="Bottom helper text" side="bottom"><Button className="tooltip-demo-trigger" variant="surface">Bottom</Button></Tooltip>',
+    '  <Tooltip content="Left helper text" side="left"><Button className="tooltip-demo-trigger" variant="surface">Left</Button></Tooltip>',
     "</div>",
   ].join("\n");
-  const formHelpDemoSnippet = [
+  const alignmentDemoSnippet = [
     '<div className="tooltip-demo-row">',
-    '  <Tooltip content="Controls visual density and touch target size." side="top">',
-    '    <Button className="tooltip-demo-trigger" variant="surface">Density</Button>',
+    '  <Tooltip content="Bottom / start" side="bottom" align="start"><Button className="tooltip-demo-trigger" variant="surface">Start</Button></Tooltip>',
+    '  <Tooltip content="Bottom / center" side="bottom" align="center"><Button className="tooltip-demo-trigger" variant="surface">Center</Button></Tooltip>',
+    '  <Tooltip content="Bottom / end" side="bottom" align="end"><Button className="tooltip-demo-trigger" variant="surface">End</Button></Tooltip>',
+    "</div>",
+  ].join("\n");
+  const behaviorDemoSnippet = [
+    '<div className="tooltip-demo-row">',
+    '  <Tooltip content="Open after 400ms" delay={400}>',
+    '    <Button className="tooltip-demo-trigger" variant="surface">Delayed open</Button>',
     "  </Tooltip>",
-    '  <Tooltip content="Show helper text only when users need it." side="top">',
-    '    <Button className="tooltip-demo-trigger" variant="surface">Info</Button>',
+    '  <Tooltip content="Stays for 500ms after pointer out" closeDelay={500}>',
+    '    <Button className="tooltip-demo-trigger" variant="surface">Delayed close</Button>',
+    "  </Tooltip>",
+    '  <Tooltip content="Arrow hidden" disableArrow>',
+    '    <Button className="tooltip-demo-trigger" variant="surface">No arrow</Button>',
     "  </Tooltip>",
     "</div>",
   ].join("\n");
@@ -94,36 +105,86 @@ export function TooltipDocsPage() {
                   Bottom
                 </Button>
               </Tooltip>
+              <Tooltip content="Left helper text" side="left">
+                <Button
+                  className="tooltip-demo-trigger"
+                  variant="surface"
+                  size="2"
+                >
+                  Left
+                </Button>
+              </Tooltip>
             </DocsDemoRow>
           </DemoCard>
           <DemoCard
-            title="Form Help"
-            description="Use tooltips to explain dense controls without adding persistent text."
-            code={formHelpDemoSnippet}
+            title="Alignment"
+            description="Control horizontal placement when multiple triggers sit close together."
+            code={alignmentDemoSnippet}
           >
             <DocsDemoRow>
-              <Tooltip
-                content="Controls visual density and touch target size."
-                side="top"
-              >
+              <Tooltip content="Bottom / start" side="bottom" align="start">
                 <Button
                   className="tooltip-demo-trigger"
                   variant="surface"
                   size="2"
                 >
-                  Density
+                  Start
+                </Button>
+              </Tooltip>
+              <Tooltip content="Bottom / center" side="bottom" align="center">
+                <Button
+                  className="tooltip-demo-trigger"
+                  variant="surface"
+                  size="2"
+                >
+                  Center
+                </Button>
+              </Tooltip>
+              <Tooltip content="Bottom / end" side="bottom" align="end">
+                <Button
+                  className="tooltip-demo-trigger"
+                  variant="surface"
+                  size="2"
+                >
+                  End
+                </Button>
+              </Tooltip>
+            </DocsDemoRow>
+          </DemoCard>
+          <DemoCard
+            title="Timing and Arrow"
+            description="Tune open/close delay and arrow rendering for different interaction patterns."
+            code={behaviorDemoSnippet}
+          >
+            <DocsDemoRow>
+              <Tooltip content="Open after 400ms" delay={400}>
+                <Button
+                  className="tooltip-demo-trigger"
+                  variant="surface"
+                  size="2"
+                >
+                  Delayed open
                 </Button>
               </Tooltip>
               <Tooltip
-                content="Show helper text only when users need it."
-                side="top"
+                content="Stays for 500ms after pointer out"
+                closeDelay={500}
               >
                 <Button
                   className="tooltip-demo-trigger"
                   variant="surface"
                   size="2"
                 >
-                  Info
+                  Delayed close
+                </Button>
+              </Tooltip>
+              <Tooltip content="Arrow hidden" disableArrow>
+                <Button
+                  className="tooltip-demo-trigger"
+                  variant="surface"
+                  size="2"
+                >
+                  No arrow
                 </Button>
               </Tooltip>
             </DocsDemoRow>
