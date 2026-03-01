@@ -36,13 +36,13 @@
   border-right: 1px solid var(--color-border);
   border-bottom: none;
   padding-right: var(--space-1);
-  min-width: 160px;
+  min-width: calc(160px * var(--component-scaling));
 }
 
 /* Line variant underline */
 .listLine {
   border-bottom: 1px solid var(--color-border);
-  padding-bottom: 1px;
+  padding-bottom: var(--tabs-indicator-size, calc(2px * var(--component-scaling)));
 }
 
 /* Soft variant pill container */
@@ -84,7 +84,7 @@
 }
 
 .tab:focus-visible {
-  box-shadow: 0 0 0 2px var(--color-accent-a4);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
 }
 
 .tab[data-disabled] {
@@ -102,10 +102,10 @@
 .tabLine[aria-selected='true']::after {
   content: '';
   position: absolute;
-  bottom: -2px;
+  bottom: calc(var(--tabs-indicator-size, calc(2px * var(--component-scaling))) * -1);
   left: 0;
   right: 0;
-  height: 2px;
+  height: var(--tabs-indicator-size, calc(2px * var(--component-scaling)));
   background: var(--color-accent-9);
   border-radius: var(--radius-full);
 }
@@ -145,10 +145,10 @@
  * --------------------------------------------------------------------------- */
 .indicator {
   position: absolute;
-  bottom: -2px;
+  bottom: calc(var(--tabs-indicator-size, calc(2px * var(--component-scaling))) * -1);
   left: var(--active-tab-left);
   width: var(--active-tab-width);
-  height: 2px;
+  height: var(--tabs-indicator-size, calc(2px * var(--component-scaling)));
   background: var(--color-accent-9);
   border-radius: var(--radius-full);
   transition: left var(--duration-3) var(--ease-spring, var(--ease-2)),
@@ -165,7 +165,7 @@
 }
 
 .panel:focus-visible {
-  box-shadow: 0 0 0 2px var(--color-accent-a4);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
   border-radius: var(--radius-2);
 }
 

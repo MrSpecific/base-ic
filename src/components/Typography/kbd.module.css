@@ -11,11 +11,11 @@
           var(--kbd-margin-bottom, var(--kbd-margin-y, var(--kbd-margin, 0)))
           var(--kbd-margin-left, var(--kbd-margin-x, var(--kbd-margin, 0)));
   border-radius: var(--radius-2);
-  border: 1px solid var(--color-border);
-  border-bottom-width: 2px;
+  border: calc(1px * var(--component-scaling)) solid var(--color-border);
+  border-bottom-width: calc(2px * var(--component-scaling));
   background: var(--color-surface-raised);
   color: var(--color-text-primary);
-  box-shadow: 0 1px 0 var(--color-border-subtle);
+  box-shadow: 0 calc(1px * var(--component-scaling)) 0 var(--color-border-subtle);
   white-space: nowrap;
   display: inline-block;
   vertical-align: baseline;

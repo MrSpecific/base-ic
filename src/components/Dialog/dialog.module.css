@@ -42,7 +42,7 @@
   left: 50%;
   translate: -50% -50%;
   z-index: 101;
-  width: var(--dialog-width, 480px);
+  width: var(--dialog-width, calc(480px * var(--component-scaling)));
   max-width: calc(100vw - var(--space-6));
   max-height: calc(100dvh - var(--space-6));
   overflow-y: auto;
@@ -149,8 +149,10 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 28px;
-  height: 28px;
+  width: calc(28px * var(--component-scaling));
+  height: calc(28px * var(--component-scaling));
+  font-size: calc(16px * var(--component-scaling));
+  line-height: 1;
   padding: 0;
   background: transparent;
   border: none;
@@ -167,13 +169,13 @@
 }
 
 .closeButton:focus-visible {
-  box-shadow: 0 0 0 2px var(--color-accent-a4);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
 }
 
 /* ---------------------------------------------------------------------------
  * Size variants
  * --------------------------------------------------------------------------- */
-.sizeSmall  { --dialog-width: 360px; }
-.sizeMedium { --dialog-width: 480px; }
-.sizeLarge  { --dialog-width: 640px; }
-.sizeFull   { --dialog-width: min(900px, calc(100vw - var(--space-6))); }
+.sizeSmall  { --dialog-width: calc(360px * var(--component-scaling)); }
+.sizeMedium { --dialog-width: calc(480px * var(--component-scaling)); }
+.sizeLarge  { --dialog-width: calc(640px * var(--component-scaling)); }
+.sizeFull   { --dialog-width: min(calc(900px * var(--component-scaling)), calc(100vw - var(--space-6))); }

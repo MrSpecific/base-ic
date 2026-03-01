@@ -95,6 +95,6 @@
 /* ---------------------------------------------------------------------------
  * Size variants
  * --------------------------------------------------------------------------- */
-.size1 { --radio-size: 14px; }
-.size2 { --radio-size: 16px; }
-.size3 { --radio-size: 20px; }
+.size1 { --radio-size: calc(14px * var(--component-scaling)); }
+.size2 { --radio-size: calc(16px * var(--component-scaling)); }
+.size3 { --radio-size: calc(20px * var(--component-scaling)); }

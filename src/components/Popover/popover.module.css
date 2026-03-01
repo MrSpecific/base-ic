@@ -19,7 +19,7 @@
 .popup {
   position: relative;
   min-width: var(--popover-min-width, 180px);
-  max-width: 360px;
+  max-width: var(--popover-max-width, 360px);
   padding: var(--popover-padding);
   border-radius: var(--popover-radius);
   border: 1px solid var(--popover-border);
@@ -86,8 +86,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 10px;
+  width: calc(var(--popover-arrow-size, 10px) * 2);
+  height: var(--popover-arrow-size, 10px);
   /* Base UI positions the arrow; we just handle the rotation */
 }
 
@@ -95,19 +95,19 @@
  * top: y for left/right). We must specify which popup edge the arrow snaps to.
  * Arrow SVG is 20×10 — tip extends 10px past the popup edge after placement. */
 .arrow[data-side='top'] {
-  bottom: -10px;
+  bottom: calc(var(--popover-arrow-size, 10px) * -1);
   transform: rotate(180deg);
 }
 .arrow[data-side='bottom'] {
-  top: -10px;
+  top: calc(var(--popover-arrow-size, 10px) * -1);
   /* default SVG orientation already points up */
 }
 .arrow[data-side='left'] {
-  right: -15px;
+  right: calc(var(--popover-arrow-size, 10px) * -1.5);
   transform: rotate(90deg);
 }
 .arrow[data-side='right'] {
-  left: -15px;
+  left: calc(var(--popover-arrow-size, 10px) * -1.5);
   transform: rotate(-90deg);
 }
 

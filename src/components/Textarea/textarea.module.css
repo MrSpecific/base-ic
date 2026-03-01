@@ -20,7 +20,7 @@
 
 .wrapper:focus-within {
   border-color: var(--color-accent-8);
-  box-shadow: 0 0 0 2px var(--color-accent-a4);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
   outline: none;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .wrapper.invalid:focus-within {
-  box-shadow: 0 0 0 2px var(--color-danger-a4);
+  box-shadow: 0 0 0 var(--focus-ring-width) color-mix(in oklch, var(--color-danger-border) 72%, transparent);
 }
 
 .wrapper.disabled {

@@ -80,6 +80,6 @@
 /* ---------------------------------------------------------------------------
  * Size variants
  * --------------------------------------------------------------------------- */
-.size1 { --chk-size: 14px; }
-.size2 { --chk-size: 16px; }
-.size3 { --chk-size: 20px; }
+.size1 { --chk-size: calc(14px * var(--component-scaling)); }
+.size2 { --chk-size: calc(16px * var(--component-scaling)); }
+.size3 { --chk-size: calc(20px * var(--component-scaling)); }

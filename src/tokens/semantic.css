@@ -158,7 +158,7 @@
   --surface-radius-small:     calc(var(--radius-3) * var(--component-scaling));
   --surface-radius-medium:    calc(var(--radius-4) * var(--component-scaling));
   --surface-radius-large:     calc(var(--radius-6) * var(--component-scaling));
-  --surface-radius-full:      calc(var(--space-4) + 2px);
+  --surface-radius-full:      calc(var(--space-4) + calc(2px * var(--component-scaling)));
   --surface-radius:           var(--surface-radius-medium);
   --card-radius:              var(--surface-radius);
   --card-gradient-start:      color-mix(in oklch, var(--color-accent-3) 34%, var(--color-surface-overlay));
@@ -174,25 +174,25 @@
   --button-1-px:         var(--space-2);      /* 8px */
   --button-1-font-size:  var(--font-size-1);  /* 12px */
   --button-1-gap:        var(--space-1);
-  --button-1-icon-size:  14px;
+  --button-1-icon-size:  calc(14px * var(--component-scaling));
 
   --button-2-height:     var(--size-3);       /* 32px */
   --button-2-px:         var(--space-3);      /* 12px */
   --button-2-font-size:  var(--font-size-2);  /* 13px */
   --button-2-gap:        var(--space-1);
-  --button-2-icon-size:  16px;
+  --button-2-icon-size:  calc(16px * var(--component-scaling));
 
   --button-3-height:     var(--size-4);       /* 40px */
   --button-3-px:         var(--space-4);      /* 16px */
   --button-3-font-size:  var(--font-size-3);  /* 14px */
   --button-3-gap:        var(--space-2);
-  --button-3-icon-size:  18px;
+  --button-3-icon-size:  calc(18px * var(--component-scaling));
 
   --button-4-height:     var(--size-5);       /* 48px */
   --button-4-px:         var(--space-5);      /* 20px */
   --button-4-font-size:  var(--font-size-4);  /* 16px */
   --button-4-gap:        var(--space-2);
-  --button-4-icon-size:  20px;
+  --button-4-icon-size:  calc(20px * var(--component-scaling));
 
   /* -------------------------------------------------------------------------
    * Semantic interactive patterns — soft/surface variant tuning
@@ -241,7 +241,8 @@
   --tooltip-padding-y:        var(--space-1);
   --tooltip-padding-x:        var(--space-2);
   --tooltip-font-size:        var(--font-size-2);
-  --tooltip-arrow-size:       10px;
+  --tooltip-arrow-size:       calc(10px * var(--component-scaling));
+  --tooltip-max-width:        calc(320px * var(--component-scaling));
 
   /* -------------------------------------------------------------------------
    * Semantic popover patterns
@@ -253,10 +254,11 @@
   --popover-shadow:           var(--shadow-panel);
   --popover-radius:           min(var(--component-radius), var(--radius-5));
   --popover-padding:          var(--space-3);
-  --popover-min-width:        240px;
+  --popover-min-width:        calc(240px * var(--component-scaling));
+  --popover-max-width:        calc(360px * var(--component-scaling));
   --popover-title-size:       var(--font-size-3);
   --popover-body-size:        var(--font-size-2);
-  --popover-arrow-size:       12px;
+  --popover-arrow-size:       calc(12px * var(--component-scaling));
 
   /* -------------------------------------------------------------------------
    * Semantic dialog patterns
@@ -327,8 +329,8 @@
    * Focus ring
    * -------------------------------------------------------------------------
    */
-  --focus-ring-width:  2px;
-  --focus-ring-offset: 2px;
+  --focus-ring-width:  calc(2px * var(--component-scaling));
+  --focus-ring-offset: calc(2px * var(--component-scaling));
   --focus-ring-color:  color-mix(in oklch, var(--color-accent-8) 72%, transparent);
 
   /* -------------------------------------------------------------------------

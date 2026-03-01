@@ -73,25 +73,25 @@
  *  Size 3: 44×24 track, 20px thumb
  * --------------------------------------------------------------------------- */
 .size1 {
-  --sw-width:  28px;
-  --sw-height: 16px;
-  --sw-thumb:  12px;
-  --sw-pad:    2px;
-  --sw-travel: 12px;
+  --sw-width:  calc(28px * var(--component-scaling));
+  --sw-height: calc(16px * var(--component-scaling));
+  --sw-thumb:  calc(12px * var(--component-scaling));
+  --sw-pad:    calc(2px * var(--component-scaling));
+  --sw-travel: calc(12px * var(--component-scaling));
 }
 
 .size2 {
-  --sw-width:  36px;
-  --sw-height: 20px;
-  --sw-thumb:  16px;
-  --sw-pad:    2px;
-  --sw-travel: 16px;
+  --sw-width:  calc(36px * var(--component-scaling));
+  --sw-height: calc(20px * var(--component-scaling));
+  --sw-thumb:  calc(16px * var(--component-scaling));
+  --sw-pad:    calc(2px * var(--component-scaling));
+  --sw-travel: calc(16px * var(--component-scaling));
 }
 
 .size3 {
-  --sw-width:  44px;
-  --sw-height: 24px;
-  --sw-thumb:  20px;
-  --sw-pad:    2px;
-  --sw-travel: 20px;
+  --sw-width:  calc(44px * var(--component-scaling));
+  --sw-height: calc(24px * var(--component-scaling));
+  --sw-thumb:  calc(20px * var(--component-scaling));
+  --sw-pad:    calc(2px * var(--component-scaling));
+  --sw-travel: calc(20px * var(--component-scaling));
 }

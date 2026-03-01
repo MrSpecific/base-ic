@@ -73,7 +73,7 @@
 
 /* Softer press — consistent with Button */
 .interactive:active {
-  transform: translateY(1px);
+  transform: translateY(calc(1px * var(--component-scaling)));
 }
 
 .interactive:focus-visible {

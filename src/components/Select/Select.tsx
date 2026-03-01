@@ -37,8 +37,8 @@ const popupRadiusMap: Record<SelectRadius, string> = {
 function CaretIcon() {
   return (
     <svg
-      width="12"
-      height="12"
+      width="1em"
+      height="1em"
       viewBox="0 0 12 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -61,8 +61,8 @@ function CaretIcon() {
 function CheckIcon() {
   return (
     <svg
-      width="12"
-      height="12"
+      width="1em"
+      height="1em"
       viewBox="0 0 12 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

@@ -315,6 +315,27 @@ export function Theme({
   const nestingLevel = React.useContext(ThemeNestingContext);
   const isRootTheme = nestingLevel === 0;
 
+  const themeVars = React.useMemo(
+    () =>
+      ({
+        // Component-level scaling
+        '--component-scaling': scalingMap[scaling],
+        // Scaled primitive aliases (space, size, type)
+        ...buildScaledTokenVars(),
+        // Accent color wiring
+        ...buildAccentVars(accentColor),
+        // Neutral color wiring
+        ...buildNeutralVars(grayColor),
+        // Custom color definitions
+        ...(customColors ? buildCustomColorVars(customColors) : {}),
+        // Font family overrides (only writes vars for specified slots)
+        ...(fontFamily ? buildFontFamilyVars(fontFamily) : {}),
+        // Component-level radius
+        '--component-radius': radiusMap[radius],
+      } as React.CSSProperties),
+    [accentColor, customColors, fontFamily, grayColor, radius, scaling]
+  );
+
   // Sync appearance to <body> so portaled elements (tooltips, popovers, etc.)
   // that render outside this Theme div still inherit dark/light mode CSS vars.
   //
@@ -346,24 +367,39 @@ export function Theme({
     };
   }, [appearance, isRootTheme]);
 
+  // Sync theme CSS variables to <body> for portaled components so scaling,
+  // accent, neutral, radius, and font overrides remain consistent everywhere.
+  React.useEffect(() => {
+    if (!isRootTheme) return;
+    if (typeof document === 'undefined') return;
+
+    const body = document.body;
+    const entries = Object.entries(themeVars).filter(
+      ([key]) => key.startsWith('--')
+    ) as Array<[string, string | number]>;
+    const previous = new Map<string, string>();
+
+    for (const [key, value] of entries) {
+      previous.set(key, body.style.getPropertyValue(key));
+      body.style.setProperty(key, String(value));
+    }
+
+    return () => {
+      for (const [key, prev] of previous.entries()) {
+        if (prev.trim().length > 0) {
+          body.style.setProperty(key, prev);
+        } else {
+          body.style.removeProperty(key);
+        }
+      }
+    };
+  }, [isRootTheme, themeVars]);
+
   const cssVars: React.CSSProperties = {
-    // Component-level scaling
-    '--component-scaling': scalingMap[scaling],
-    // Scaled primitive aliases (space, size, type)
-    ...buildScaledTokenVars(),
-    // Accent color wiring
-    ...buildAccentVars(accentColor),
-    // Neutral color wiring
-    ...buildNeutralVars(grayColor),
-    // Custom color definitions
-    ...(customColors ? buildCustomColorVars(customColors) : {}),
-    // Font family overrides (only writes vars for specified slots)
-    ...(fontFamily ? buildFontFamilyVars(fontFamily) : {}),
-    // Component-level radius
-    '--component-radius': radiusMap[radius],
+    ...themeVars,
     // Pass-through user styles
     ...style,
-  } as React.CSSProperties;
+  };
 
   const contextValue = React.useMemo<ThemeContextValue>(
     () => ({ accentColor, grayColor, radius, scaling, appearance, fontFamily: fontFamily ?? {} }),

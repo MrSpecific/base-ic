@@ -73,6 +73,8 @@
 .icon {
   display: flex;
   align-items: center;
+  font-size: var(--sel-icon-size, var(--button-2-icon-size));
+  line-height: 1;
   color: var(--color-text-tertiary);
   flex-shrink: 0;
   transition: transform var(--duration-2) var(--ease-2);
@@ -86,9 +88,12 @@
  * Popup
  * --------------------------------------------------------------------------- */
 .popup {
-  width: var(--anchor-width, 180px);
+  width: var(--anchor-width, var(--select-popup-fallback-width, calc(180px * var(--component-scaling))));
   max-width: min(var(--available-width, calc(100vw - var(--space-4))), 100vw);
-  max-height: min(var(--available-height, 320px), 320px);
+  max-height: min(
+    var(--available-height, var(--select-popup-max-height, calc(320px * var(--component-scaling)))),
+    var(--select-popup-max-height, calc(320px * var(--component-scaling)))
+  );
   overflow-y: auto;
   overflow-x: hidden;
   background-color: var(--color-surface-overlay);
@@ -199,7 +204,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
+  width: var(--sel-item-icon-size, var(--button-2-icon-size));
+  font-size: var(--sel-item-icon-size, var(--button-2-icon-size));
+  line-height: 1;
   flex-shrink: 0;
   color: var(--color-accent-9);
 }
@@ -208,7 +215,7 @@
  * Separator between item groups
  * --------------------------------------------------------------------------- */
 .separator {
-  height: 1px;
+  height: calc(1px * var(--component-scaling));
   background-color: var(--color-border-subtle);
   margin: var(--space-1) 0;
 }
@@ -238,6 +245,8 @@
   --sel-height: var(--button-1-height);
   --sel-px:     var(--button-1-px);
   --sel-fs:     var(--button-1-font-size);
+  --sel-icon-size: var(--button-1-icon-size);
+  --sel-item-icon-size: var(--button-1-icon-size);
   --sel-item-height: var(--button-1-height);
   --sel-item-fs:     var(--button-1-font-size);
 }
@@ -246,6 +255,8 @@
   --sel-height: var(--button-2-height);
   --sel-px:     var(--button-2-px);
   --sel-fs:     var(--button-2-font-size);
+  --sel-icon-size: var(--button-2-icon-size);
+  --sel-item-icon-size: var(--button-2-icon-size);
   --sel-item-height: var(--button-2-height);
   --sel-item-fs:     var(--button-2-font-size);
 }
@@ -254,6 +265,8 @@
   --sel-height: var(--button-3-height);
   --sel-px:     var(--button-3-px);
   --sel-fs:     var(--button-3-font-size);
+  --sel-icon-size: var(--button-3-icon-size);
+  --sel-item-icon-size: var(--button-3-icon-size);
   --sel-item-height: var(--button-3-height);
   --sel-item-fs:     var(--button-3-font-size);
 }
@@ -262,6 +275,8 @@
   --sel-height: var(--button-4-height);
   --sel-px:     var(--button-4-px);
   --sel-fs:     var(--button-4-font-size);
+  --sel-icon-size: var(--button-4-icon-size);
+  --sel-item-icon-size: var(--button-4-icon-size);
   --sel-item-height: var(--button-4-height);
   --sel-item-fs:     var(--button-4-font-size);
 }

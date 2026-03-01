@@ -15,10 +15,10 @@ export interface SeparatorProps extends React.HTMLAttributes<HTMLDivElement>, Sp
 }
 
 const sizeMap: Record<SeparatorSize, string> = {
-  '1': '1px',
-  '2': '2px',
-  '3': '3px',
-  '4': '4px',
+  '1': 'calc(1px * var(--component-scaling))',
+  '2': 'calc(2px * var(--component-scaling))',
+  '3': 'calc(3px * var(--component-scaling))',
+  '4': 'calc(4px * var(--component-scaling))',
 };
 
 export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
