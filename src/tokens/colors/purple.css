@@ -1,0 +1,19 @@
+/**
+ * Purple scale
+ */
+
+:root {
+  --color-purple-1:  oklch(98.5% 0.012 285);
+  --color-purple-2:  oklch(97.0% 0.020 285);
+  --color-purple-3:  oklch(93.5% 0.044 285);
+  --color-purple-4:  oklch(89.5% 0.070 285);
+  --color-purple-5:  oklch(85.0% 0.090 285);
+  --color-purple-6:  oklch(79.0% 0.104 285);
+  --color-purple-7:  oklch(71.0% 0.120 285);
+  --color-purple-8:  oklch(60.0% 0.148 285);
+  --color-purple-9:  oklch(52.0% 0.210 285);
+  --color-purple-10: oklch(46.0% 0.200 285);
+  --color-purple-11: oklch(40.0% 0.178 285);
+  --color-purple-12: oklch(22.0% 0.100 285);
+  --color-purple-contrast: white;
+}

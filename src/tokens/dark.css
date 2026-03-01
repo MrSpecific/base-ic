@@ -119,6 +119,21 @@
   --color-blue-12: color-mix(in oklch, white 70%, var(--color-blue-9));
   --color-blue-contrast: white;
 
+  /* Sky */
+  --color-sky-9:  oklch(56.0% 0.190 230);
+  --color-sky-1:  color-mix(in oklch, black 74%, var(--color-sky-9));
+  --color-sky-2:  color-mix(in oklch, black 68%, var(--color-sky-9));
+  --color-sky-3:  color-mix(in oklch, black 61%, var(--color-sky-9));
+  --color-sky-4:  color-mix(in oklch, black 54%, var(--color-sky-9));
+  --color-sky-5:  color-mix(in oklch, black 47%, var(--color-sky-9));
+  --color-sky-6:  color-mix(in oklch, black 37%, var(--color-sky-9));
+  --color-sky-7:  color-mix(in oklch, black 25%, var(--color-sky-9));
+  --color-sky-8:  color-mix(in oklch, black 12%, var(--color-sky-9));
+  --color-sky-10: color-mix(in oklch, white 12%, var(--color-sky-9));
+  --color-sky-11: color-mix(in oklch, white 34%, var(--color-sky-9));
+  --color-sky-12: color-mix(in oklch, white 70%, var(--color-sky-9));
+  --color-sky-contrast: white;
+
   /* Indigo */
   --color-indigo-9:  oklch(52.0% 0.205 274);
   --color-indigo-1:  color-mix(in oklch, black 74%, var(--color-indigo-9));
@@ -133,6 +148,21 @@
   --color-indigo-11: color-mix(in oklch, white 34%, var(--color-indigo-9));
   --color-indigo-12: color-mix(in oklch, white 70%, var(--color-indigo-9));
   --color-indigo-contrast: white;
+
+  /* Purple */
+  --color-purple-9:  oklch(52.0% 0.210 285);
+  --color-purple-1:  color-mix(in oklch, black 74%, var(--color-purple-9));
+  --color-purple-2:  color-mix(in oklch, black 68%, var(--color-purple-9));
+  --color-purple-3:  color-mix(in oklch, black 61%, var(--color-purple-9));
+  --color-purple-4:  color-mix(in oklch, black 54%, var(--color-purple-9));
+  --color-purple-5:  color-mix(in oklch, black 47%, var(--color-purple-9));
+  --color-purple-6:  color-mix(in oklch, black 37%, var(--color-purple-9));
+  --color-purple-7:  color-mix(in oklch, black 25%, var(--color-purple-9));
+  --color-purple-8:  color-mix(in oklch, black 12%, var(--color-purple-9));
+  --color-purple-10: color-mix(in oklch, white 12%, var(--color-purple-9));
+  --color-purple-11: color-mix(in oklch, white 34%, var(--color-purple-9));
+  --color-purple-12: color-mix(in oklch, white 70%, var(--color-purple-9));
+  --color-purple-contrast: white;
 
   /* Violet */
   --color-violet-9:  oklch(52.0% 0.210 295);
@@ -164,6 +194,21 @@
   --color-red-12: color-mix(in oklch, white 70%, var(--color-red-9));
   --color-red-contrast: white;
 
+  /* Ruby */
+  --color-ruby-9:  oklch(52.0% 0.215 5);
+  --color-ruby-1:  color-mix(in oklch, black 74%, var(--color-ruby-9));
+  --color-ruby-2:  color-mix(in oklch, black 68%, var(--color-ruby-9));
+  --color-ruby-3:  color-mix(in oklch, black 61%, var(--color-ruby-9));
+  --color-ruby-4:  color-mix(in oklch, black 54%, var(--color-ruby-9));
+  --color-ruby-5:  color-mix(in oklch, black 47%, var(--color-ruby-9));
+  --color-ruby-6:  color-mix(in oklch, black 37%, var(--color-ruby-9));
+  --color-ruby-7:  color-mix(in oklch, black 25%, var(--color-ruby-9));
+  --color-ruby-8:  color-mix(in oklch, black 12%, var(--color-ruby-9));
+  --color-ruby-10: color-mix(in oklch, white 12%, var(--color-ruby-9));
+  --color-ruby-11: color-mix(in oklch, white 34%, var(--color-ruby-9));
+  --color-ruby-12: color-mix(in oklch, white 70%, var(--color-ruby-9));
+  --color-ruby-contrast: white;
+
   /* Green */
   --color-green-9:  oklch(54.0% 0.190 155);
   --color-green-1:  color-mix(in oklch, black 74%, var(--color-green-9));
@@ -178,6 +223,21 @@
   --color-green-11: color-mix(in oklch, white 34%, var(--color-green-9));
   --color-green-12: color-mix(in oklch, white 70%, var(--color-green-9));
   --color-green-contrast: white;
+
+  /* Jade */
+  --color-jade-9:  oklch(56.0% 0.186 170);
+  --color-jade-1:  color-mix(in oklch, black 74%, var(--color-jade-9));
+  --color-jade-2:  color-mix(in oklch, black 68%, var(--color-jade-9));
+  --color-jade-3:  color-mix(in oklch, black 61%, var(--color-jade-9));
+  --color-jade-4:  color-mix(in oklch, black 54%, var(--color-jade-9));
+  --color-jade-5:  color-mix(in oklch, black 47%, var(--color-jade-9));
+  --color-jade-6:  color-mix(in oklch, black 37%, var(--color-jade-9));
+  --color-jade-7:  color-mix(in oklch, black 25%, var(--color-jade-9));
+  --color-jade-8:  color-mix(in oklch, black 12%, var(--color-jade-9));
+  --color-jade-10: color-mix(in oklch, white 12%, var(--color-jade-9));
+  --color-jade-11: color-mix(in oklch, white 34%, var(--color-jade-9));
+  --color-jade-12: color-mix(in oklch, white 70%, var(--color-jade-9));
+  --color-jade-contrast: white;
 
   /* Orange */
   --color-orange-9:  oklch(64.0% 0.188 55);
@@ -400,6 +460,21 @@
   --color-blue-12: oklch(22.0% 0.100 250);
   --color-blue-contrast: white;
 
+  /* Sky — light mode scale */
+  --color-sky-1:  oklch(98.5% 0.010 230);
+  --color-sky-2:  oklch(97.0% 0.018 230);
+  --color-sky-3:  oklch(93.5% 0.040 230);
+  --color-sky-4:  oklch(89.5% 0.064 230);
+  --color-sky-5:  oklch(85.0% 0.082 230);
+  --color-sky-6:  oklch(79.0% 0.094 230);
+  --color-sky-7:  oklch(71.0% 0.110 230);
+  --color-sky-8:  oklch(60.0% 0.140 230);
+  --color-sky-9:  oklch(56.0% 0.190 230);
+  --color-sky-10: oklch(50.0% 0.182 230);
+  --color-sky-11: oklch(42.0% 0.162 230);
+  --color-sky-12: oklch(22.0% 0.090 230);
+  --color-sky-contrast: white;
+
   /* Indigo — light mode scale */
   --color-indigo-1:  oklch(98.5% 0.012 274);
   --color-indigo-2:  oklch(97.0% 0.022 274);
@@ -414,6 +489,21 @@
   --color-indigo-11: oklch(40.0% 0.172 274);
   --color-indigo-12: oklch(22.0% 0.100 274);
   --color-indigo-contrast: white;
+
+  /* Purple — light mode scale */
+  --color-purple-1:  oklch(98.5% 0.012 285);
+  --color-purple-2:  oklch(97.0% 0.020 285);
+  --color-purple-3:  oklch(93.5% 0.044 285);
+  --color-purple-4:  oklch(89.5% 0.070 285);
+  --color-purple-5:  oklch(85.0% 0.090 285);
+  --color-purple-6:  oklch(79.0% 0.104 285);
+  --color-purple-7:  oklch(71.0% 0.120 285);
+  --color-purple-8:  oklch(60.0% 0.148 285);
+  --color-purple-9:  oklch(52.0% 0.210 285);
+  --color-purple-10: oklch(46.0% 0.200 285);
+  --color-purple-11: oklch(40.0% 0.178 285);
+  --color-purple-12: oklch(22.0% 0.100 285);
+  --color-purple-contrast: white;
 
   /* Violet — light mode scale */
   --color-violet-1:  oklch(98.5% 0.012 295);
@@ -445,6 +535,21 @@
   --color-red-12: oklch(22.0% 0.100 22);
   --color-red-contrast: white;
 
+  /* Ruby — light mode scale */
+  --color-ruby-1:  oklch(98.5% 0.010 5);
+  --color-ruby-2:  oklch(97.0% 0.018 5);
+  --color-ruby-3:  oklch(93.5% 0.044 5);
+  --color-ruby-4:  oklch(89.5% 0.072 5);
+  --color-ruby-5:  oklch(85.0% 0.094 5);
+  --color-ruby-6:  oklch(79.0% 0.110 5);
+  --color-ruby-7:  oklch(71.0% 0.130 5);
+  --color-ruby-8:  oklch(60.0% 0.158 5);
+  --color-ruby-9:  oklch(52.0% 0.215 5);
+  --color-ruby-10: oklch(46.0% 0.205 5);
+  --color-ruby-11: oklch(40.0% 0.182 5);
+  --color-ruby-12: oklch(22.0% 0.100 5);
+  --color-ruby-contrast: white;
+
   /* Green — light mode scale */
   --color-green-1:  oklch(98.5% 0.010 155);
   --color-green-2:  oklch(97.0% 0.018 155);
@@ -459,6 +564,21 @@
   --color-green-11: oklch(40.0% 0.160 155);
   --color-green-12: oklch(22.0% 0.090 155);
   --color-green-contrast: white;
+
+  /* Jade — light mode scale */
+  --color-jade-1:  oklch(98.5% 0.010 170);
+  --color-jade-2:  oklch(97.0% 0.018 170);
+  --color-jade-3:  oklch(93.5% 0.040 170);
+  --color-jade-4:  oklch(89.5% 0.066 170);
+  --color-jade-5:  oklch(85.0% 0.086 170);
+  --color-jade-6:  oklch(79.0% 0.102 170);
+  --color-jade-7:  oklch(71.0% 0.118 170);
+  --color-jade-8:  oklch(60.0% 0.144 170);
+  --color-jade-9:  oklch(56.0% 0.186 170);
+  --color-jade-10: oklch(50.0% 0.174 170);
+  --color-jade-11: oklch(42.0% 0.154 170);
+  --color-jade-12: oklch(22.0% 0.086 170);
+  --color-jade-contrast: white;
 
   /* Orange — light mode scale */
   --color-orange-1:  oklch(98.5% 0.010 60);
@@ -675,6 +795,20 @@
     --color-blue-12: color-mix(in oklch, white 70%, var(--color-blue-9));
     --color-blue-contrast: white;
 
+    --color-sky-9:  oklch(56.0% 0.190 230);
+    --color-sky-1:  color-mix(in oklch, black 74%, var(--color-sky-9));
+    --color-sky-2:  color-mix(in oklch, black 68%, var(--color-sky-9));
+    --color-sky-3:  color-mix(in oklch, black 61%, var(--color-sky-9));
+    --color-sky-4:  color-mix(in oklch, black 54%, var(--color-sky-9));
+    --color-sky-5:  color-mix(in oklch, black 47%, var(--color-sky-9));
+    --color-sky-6:  color-mix(in oklch, black 37%, var(--color-sky-9));
+    --color-sky-7:  color-mix(in oklch, black 25%, var(--color-sky-9));
+    --color-sky-8:  color-mix(in oklch, black 12%, var(--color-sky-9));
+    --color-sky-10: color-mix(in oklch, white 12%, var(--color-sky-9));
+    --color-sky-11: color-mix(in oklch, white 34%, var(--color-sky-9));
+    --color-sky-12: color-mix(in oklch, white 70%, var(--color-sky-9));
+    --color-sky-contrast: white;
+
     --color-indigo-9:  oklch(52.0% 0.205 274);
     --color-indigo-1:  color-mix(in oklch, black 74%, var(--color-indigo-9));
     --color-indigo-2:  color-mix(in oklch, black 68%, var(--color-indigo-9));
@@ -688,6 +822,20 @@
     --color-indigo-11: color-mix(in oklch, white 34%, var(--color-indigo-9));
     --color-indigo-12: color-mix(in oklch, white 70%, var(--color-indigo-9));
     --color-indigo-contrast: white;
+
+    --color-purple-9:  oklch(52.0% 0.210 285);
+    --color-purple-1:  color-mix(in oklch, black 74%, var(--color-purple-9));
+    --color-purple-2:  color-mix(in oklch, black 68%, var(--color-purple-9));
+    --color-purple-3:  color-mix(in oklch, black 61%, var(--color-purple-9));
+    --color-purple-4:  color-mix(in oklch, black 54%, var(--color-purple-9));
+    --color-purple-5:  color-mix(in oklch, black 47%, var(--color-purple-9));
+    --color-purple-6:  color-mix(in oklch, black 37%, var(--color-purple-9));
+    --color-purple-7:  color-mix(in oklch, black 25%, var(--color-purple-9));
+    --color-purple-8:  color-mix(in oklch, black 12%, var(--color-purple-9));
+    --color-purple-10: color-mix(in oklch, white 12%, var(--color-purple-9));
+    --color-purple-11: color-mix(in oklch, white 34%, var(--color-purple-9));
+    --color-purple-12: color-mix(in oklch, white 70%, var(--color-purple-9));
+    --color-purple-contrast: white;
 
     --color-violet-9:  oklch(52.0% 0.210 295);
     --color-violet-1:  color-mix(in oklch, black 74%, var(--color-violet-9));
@@ -717,6 +865,20 @@
     --color-red-12: color-mix(in oklch, white 70%, var(--color-red-9));
     --color-red-contrast: white;
 
+    --color-ruby-9:  oklch(52.0% 0.215 5);
+    --color-ruby-1:  color-mix(in oklch, black 74%, var(--color-ruby-9));
+    --color-ruby-2:  color-mix(in oklch, black 68%, var(--color-ruby-9));
+    --color-ruby-3:  color-mix(in oklch, black 61%, var(--color-ruby-9));
+    --color-ruby-4:  color-mix(in oklch, black 54%, var(--color-ruby-9));
+    --color-ruby-5:  color-mix(in oklch, black 47%, var(--color-ruby-9));
+    --color-ruby-6:  color-mix(in oklch, black 37%, var(--color-ruby-9));
+    --color-ruby-7:  color-mix(in oklch, black 25%, var(--color-ruby-9));
+    --color-ruby-8:  color-mix(in oklch, black 12%, var(--color-ruby-9));
+    --color-ruby-10: color-mix(in oklch, white 12%, var(--color-ruby-9));
+    --color-ruby-11: color-mix(in oklch, white 34%, var(--color-ruby-9));
+    --color-ruby-12: color-mix(in oklch, white 70%, var(--color-ruby-9));
+    --color-ruby-contrast: white;
+
     --color-green-9:  oklch(54.0% 0.190 155);
     --color-green-1:  color-mix(in oklch, black 74%, var(--color-green-9));
     --color-green-2:  color-mix(in oklch, black 68%, var(--color-green-9));
@@ -730,6 +892,20 @@
     --color-green-11: color-mix(in oklch, white 34%, var(--color-green-9));
     --color-green-12: color-mix(in oklch, white 70%, var(--color-green-9));
     --color-green-contrast: white;
+
+    --color-jade-9:  oklch(56.0% 0.186 170);
+    --color-jade-1:  color-mix(in oklch, black 74%, var(--color-jade-9));
+    --color-jade-2:  color-mix(in oklch, black 68%, var(--color-jade-9));
+    --color-jade-3:  color-mix(in oklch, black 61%, var(--color-jade-9));
+    --color-jade-4:  color-mix(in oklch, black 54%, var(--color-jade-9));
+    --color-jade-5:  color-mix(in oklch, black 47%, var(--color-jade-9));
+    --color-jade-6:  color-mix(in oklch, black 37%, var(--color-jade-9));
+    --color-jade-7:  color-mix(in oklch, black 25%, var(--color-jade-9));
+    --color-jade-8:  color-mix(in oklch, black 12%, var(--color-jade-9));
+    --color-jade-10: color-mix(in oklch, white 12%, var(--color-jade-9));
+    --color-jade-11: color-mix(in oklch, white 34%, var(--color-jade-9));
+    --color-jade-12: color-mix(in oklch, white 70%, var(--color-jade-9));
+    --color-jade-contrast: white;
 
     --color-orange-9:  oklch(64.0% 0.188 55);
     --color-orange-1:  color-mix(in oklch, black 74%, var(--color-orange-9));

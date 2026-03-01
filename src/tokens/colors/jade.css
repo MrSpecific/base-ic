@@ -1,0 +1,19 @@
+/**
+ * Jade scale
+ */
+
+:root {
+  --color-jade-1:  oklch(98.5% 0.010 170);
+  --color-jade-2:  oklch(97.0% 0.018 170);
+  --color-jade-3:  oklch(93.5% 0.040 170);
+  --color-jade-4:  oklch(89.5% 0.066 170);
+  --color-jade-5:  oklch(85.0% 0.086 170);
+  --color-jade-6:  oklch(79.0% 0.102 170);
+  --color-jade-7:  oklch(71.0% 0.118 170);
+  --color-jade-8:  oklch(60.0% 0.144 170);
+  --color-jade-9:  oklch(56.0% 0.186 170);
+  --color-jade-10: oklch(50.0% 0.174 170);
+  --color-jade-11: oklch(42.0% 0.154 170);
+  --color-jade-12: oklch(22.0% 0.086 170);
+  --color-jade-contrast: white;
+}

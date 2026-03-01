@@ -1,0 +1,19 @@
+/**
+ * Sky scale
+ */
+
+:root {
+  --color-sky-1:  oklch(98.5% 0.010 230);
+  --color-sky-2:  oklch(97.0% 0.018 230);
+  --color-sky-3:  oklch(93.5% 0.040 230);
+  --color-sky-4:  oklch(89.5% 0.064 230);
+  --color-sky-5:  oklch(85.0% 0.082 230);
+  --color-sky-6:  oklch(79.0% 0.094 230);
+  --color-sky-7:  oklch(71.0% 0.110 230);
+  --color-sky-8:  oklch(60.0% 0.140 230);
+  --color-sky-9:  oklch(56.0% 0.190 230);
+  --color-sky-10: oklch(50.0% 0.182 230);
+  --color-sky-11: oklch(42.0% 0.162 230);
+  --color-sky-12: oklch(22.0% 0.090 230);
+  --color-sky-contrast: white;
+}

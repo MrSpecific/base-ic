@@ -1,0 +1,19 @@
+/**
+ * Ruby scale
+ */
+
+:root {
+  --color-ruby-1:  oklch(98.5% 0.010 5);
+  --color-ruby-2:  oklch(97.0% 0.018 5);
+  --color-ruby-3:  oklch(93.5% 0.044 5);
+  --color-ruby-4:  oklch(89.5% 0.072 5);
+  --color-ruby-5:  oklch(85.0% 0.094 5);
+  --color-ruby-6:  oklch(79.0% 0.110 5);
+  --color-ruby-7:  oklch(71.0% 0.130 5);
+  --color-ruby-8:  oklch(60.0% 0.158 5);
+  --color-ruby-9:  oklch(52.0% 0.215 5);
+  --color-ruby-10: oklch(46.0% 0.205 5);
+  --color-ruby-11: oklch(40.0% 0.182 5);
+  --color-ruby-12: oklch(22.0% 0.100 5);
+  --color-ruby-contrast: white;
+}
