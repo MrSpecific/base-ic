@@ -44,7 +44,7 @@ export function Tooltip({
   align = 'center',
   sideOffset = 8,
   alignOffset,
-  delay,
+  delay = 150,
   closeDelay,
   disableArrow = false,
   ...rootProps

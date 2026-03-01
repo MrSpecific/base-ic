@@ -68,6 +68,13 @@
   gap: 4px;
 }
 
+.labelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1);
+}
+
 .label {
   font-size: var(--font-size-1);
   font-weight: var(--font-weight-medium);
@@ -75,6 +82,29 @@
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-5);
   line-height: 1.1;
+}
+
+.infoButton.infoButton {
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  min-height: 20px;
+  padding: 0;
+  color: var(--color-text-secondary);
+  border-color: var(--color-border-subtle);
+  background: var(--color-surface-subtle);
+  flex-shrink: 0;
+}
+
+.infoButton.infoButton:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+  background: var(--color-surface-overlay);
+}
+
+.infoIcon {
+  width: 13px;
+  height: 13px;
 }
 
 .selectControl {

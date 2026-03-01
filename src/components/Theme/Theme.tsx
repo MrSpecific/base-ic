@@ -315,28 +315,34 @@ export function Theme({
   const nestingLevel = React.useContext(ThemeNestingContext);
   const isRootTheme = nestingLevel === 0;
 
-  // Sync appearance to <html> so portaled elements (tooltips, popovers, etc.)
+  // Sync appearance to <body> so portaled elements (tooltips, popovers, etc.)
   // that render outside this Theme div still inherit dark/light mode CSS vars.
+  //
+  // Why <body> and not <html>?
+  // dark.css uses `:where(.dark, [data-appearance='dark'])` which has zero
+  // specificity (0,0,0). The `:root {}` rules in gray.css have (0,1,0), so
+  // they beat the dark overrides when both match <html>. <body> is not targeted
+  // by :root, so the zero-specificity dark vars apply without conflict.
   React.useEffect(() => {
     if (!isRootTheme) return;
     if (typeof document === 'undefined') return;
-    const html = document.documentElement;
+    const body = document.body;
     if (appearance === 'dark') {
-      html.classList.add('dark');
-      html.classList.remove('light');
-      html.setAttribute('data-appearance', 'dark');
+      body.classList.add('dark');
+      body.classList.remove('light');
+      body.setAttribute('data-appearance', 'dark');
     } else if (appearance === 'light') {
-      html.classList.add('light');
-      html.classList.remove('dark');
-      html.setAttribute('data-appearance', 'light');
+      body.classList.add('light');
+      body.classList.remove('dark');
+      body.setAttribute('data-appearance', 'light');
     } else {
       // 'inherit' — rely on @media (prefers-color-scheme)
-      html.classList.remove('dark', 'light');
-      html.removeAttribute('data-appearance');
+      body.classList.remove('dark', 'light');
+      body.removeAttribute('data-appearance');
     }
     return () => {
-      html.classList.remove('dark', 'light');
-      html.removeAttribute('data-appearance');
+      body.classList.remove('dark', 'light');
+      body.removeAttribute('data-appearance');
     };
   }, [appearance, isRootTheme]);
 

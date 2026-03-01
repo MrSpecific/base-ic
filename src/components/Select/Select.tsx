@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Select as BaseSelect } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
+import { useTheme } from '../Theme';
 import styles from './select.module.css';
 
 type SelectSize = '1' | '2' | '3' | '4';
@@ -98,6 +99,59 @@ function inferItemLabel(children: React.ReactNode): string | undefined {
   return label.length > 0 ? label : undefined;
 }
 
+function collectItemLabels(children: React.ReactNode): Record<string, React.ReactNode> {
+  const labels: Record<string, React.ReactNode> = {};
+
+  const walk = (node: React.ReactNode) => {
+    if (node == null || typeof node === 'boolean') return;
+    if (Array.isArray(node)) {
+      node.forEach(walk);
+      return;
+    }
+    if (!React.isValidElement<{ children?: React.ReactNode }>(node)) return;
+
+    if (node.type === SelectItem) {
+      const itemElement = node as React.ReactElement<SelectItemProps>;
+      const value = itemElement.props.value;
+      if (value != null) {
+        const label =
+          itemElement.props.label ??
+          inferItemLabel(itemElement.props.children) ??
+          itemElement.props.children;
+        labels[String(value)] = label;
+      }
+      return;
+    }
+
+    if (node.props.children) {
+      walk(node.props.children);
+    }
+  };
+
+  walk(children);
+  return labels;
+}
+
+function renderSelectedValue(
+  value: unknown,
+  labels: Record<string, React.ReactNode>,
+  placeholder: string,
+): React.ReactNode {
+  if (value == null) return placeholder;
+
+  if (Array.isArray(value)) {
+    if (value.length === 0) return placeholder;
+    return value.map((entry, index) => (
+      <React.Fragment key={`${String(entry)}-${index}`}>
+        {index > 0 ? ', ' : null}
+        {labels[String(entry)] ?? String(entry)}
+      </React.Fragment>
+    ));
+  }
+
+  return labels[String(value)] ?? String(value);
+}
+
 /* ---------------------------------------------------------------------------
  * SelectRoot — top-level component
  * --------------------------------------------------------------------------- */
@@ -136,44 +190,67 @@ export function Select({
   side = 'bottom',
   align = 'start',
   sideOffset = 4,
+  items,
   ...rootProps
 }: SelectProps) {
+  const { appearance } = useTheme();
   const triggerRadiusVar = radius
     ? ({ '--sel-radius': radiusMap[radius] } as React.CSSProperties)
     : undefined;
   const popupRadiusVar = radius
     ? ({ '--sel-popup-radius': popupRadiusMap[radius] } as React.CSSProperties)
     : undefined;
+  const triggerAnchorRef = React.useRef<HTMLSpanElement | null>(null);
+  const [portalContainer, setPortalContainer] = React.useState<HTMLElement | null>(null);
+  const derivedItems = React.useMemo(() => collectItemLabels(children), [children]);
+  const resolvedItems =
+    items ??
+    (Object.keys(derivedItems).length > 0 ? derivedItems : undefined);
+  const forcedAppearance =
+    appearance === 'dark' || appearance === 'light' ? appearance : undefined;
+
+  React.useEffect(() => {
+    const nearestThemeRoot =
+      triggerAnchorRef.current?.closest<HTMLElement>('[data-accent-color]') ??
+      document.querySelector<HTMLElement>('[data-accent-color]');
+    setPortalContainer(nearestThemeRoot ?? null);
+  }, []);
 
   return (
-    <BaseSelect.Root {...rootProps}>
-      <BaseSelect.Trigger
-        className={cx(styles.trigger, sizeClass[size], triggerClassName)}
-        style={triggerRadiusVar}
-      >
-        {triggerContent ?? (
-          <BaseSelect.Value className={styles.value} placeholder={placeholder} />
-        )}
-        <BaseSelect.Icon className={styles.icon}>
-          <CaretIcon />
-        </BaseSelect.Icon>
-      </BaseSelect.Trigger>
-
-      <BaseSelect.Portal>
-        <BaseSelect.Positioner
-          className={styles.positioner}
-          alignItemWithTrigger={false}
-          side={side}
-          align={align}
-          sideOffset={sideOffset}
+    <BaseSelect.Root items={resolvedItems} {...rootProps}>
+      <span ref={triggerAnchorRef} style={{ display: 'contents' }}>
+        <BaseSelect.Trigger
+          className={cx(styles.trigger, sizeClass[size], triggerClassName)}
+          style={triggerRadiusVar}
         >
-          <BaseSelect.Popup
-            className={cx(styles.popup, sizeClass[size], popupClassName)}
-            style={popupRadiusVar}
+          {triggerContent ?? (
+            <BaseSelect.Value className={styles.value} placeholder={placeholder}>
+              {(value) => renderSelectedValue(value, derivedItems, placeholder)}
+            </BaseSelect.Value>
+          )}
+          <BaseSelect.Icon className={styles.icon}>
+            <CaretIcon />
+          </BaseSelect.Icon>
+        </BaseSelect.Trigger>
+      </span>
+
+      <BaseSelect.Portal container={portalContainer ?? undefined}>
+        <div data-appearance={forcedAppearance}>
+          <BaseSelect.Positioner
+            className={styles.positioner}
+            alignItemWithTrigger={false}
+            side={side}
+            align={align}
+            sideOffset={sideOffset}
           >
-            {children}
-          </BaseSelect.Popup>
-        </BaseSelect.Positioner>
+            <BaseSelect.Popup
+              className={cx(styles.popup, sizeClass[size], popupClassName)}
+              style={popupRadiusVar}
+            >
+              {children}
+            </BaseSelect.Popup>
+          </BaseSelect.Positioner>
+        </div>
       </BaseSelect.Portal>
     </BaseSelect.Root>
   );

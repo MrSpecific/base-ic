@@ -8,7 +8,8 @@ import {
   SCALINGS,
   toDisplayName,
 } from '../constants';
-import { Button, Select } from '../../src';
+import { Button, Select, Tooltip } from '../../src';
+import { IconInfo } from '../icons';
 import type { AccentColor, Appearance, GrayColor, Radius, Scaling } from '../types';
 import styles from './ThemePanel.module.css';
 
@@ -25,6 +26,26 @@ type ThemePanelProps = {
   setAppearance: (v: Appearance) => void;
   defaultOpen: boolean;
 };
+
+function FieldLabel({ label, description }: { label: string; description: string }) {
+  return (
+    <div className={styles.labelRow}>
+      <span className={styles.label}>{label}</span>
+      <Tooltip content={description} side="left" align="center">
+        <Button
+          className={styles.infoButton}
+          variant="surface"
+          color="gray"
+          size="1"
+          radius="full"
+          aria-label={`${label} information`}
+        >
+          <IconInfo className={styles.infoIcon} />
+        </Button>
+      </Tooltip>
+    </div>
+  );
+}
 
 export function ThemePanel({
   accent,
@@ -72,7 +93,10 @@ export function ThemePanel({
         <div className={styles.title}>Theme</div>
 
         <div className={styles.field}>
-          <span className={styles.label}>Accent Color</span>
+          <FieldLabel
+            label="Accent Color"
+            description="Primary brand color for interactive elements."
+          />
           <div className={styles.colors}>
             {ACCENT_COLORS.map((c) => (
               <button
@@ -87,11 +111,13 @@ export function ThemePanel({
               />
             ))}
           </div>
-          <p className={styles.helper}>Primary brand color for interactive elements.</p>
         </div>
 
         <div className={styles.field}>
-          <span className={styles.label}>Neutral Palette</span>
+          <FieldLabel
+            label="Neutral Palette"
+            description="Sets the base gray family for borders and surfaces."
+          />
           <Select
             value={gray}
             onValueChange={(value) => {
@@ -104,11 +130,13 @@ export function ThemePanel({
               <Select.Item key={c} value={c}>{toDisplayName(c)}</Select.Item>
             ))}
           </Select>
-          <p className={styles.helper}>Sets the base gray family for borders and surfaces.</p>
         </div>
 
         <div className={styles.field}>
-          <span className={styles.label}>Corner Radius</span>
+          <FieldLabel
+            label="Corner Radius"
+            description="Controls rounded corners across components."
+          />
           <Select
             value={radius}
             onValueChange={(value) => {
@@ -121,11 +149,13 @@ export function ThemePanel({
               <Select.Item key={r} value={r}>{toDisplayName(r)}</Select.Item>
             ))}
           </Select>
-          <p className={styles.helper}>Controls rounded corners across components.</p>
         </div>
 
         <div className={styles.field}>
-          <span className={styles.label}>Scale</span>
+          <FieldLabel
+            label="Scale"
+            description="Global size multiplier for spacing and typography."
+          />
           <Select
             value={scaling}
             onValueChange={(value) => {
@@ -138,11 +168,13 @@ export function ThemePanel({
               <Select.Item key={s} value={s}>{s}</Select.Item>
             ))}
           </Select>
-          <p className={styles.helper}>Global size multiplier for spacing and typography.</p>
         </div>
 
         <div className={styles.field}>
-          <span className={styles.label}>Appearance</span>
+          <FieldLabel
+            label="Appearance"
+            description="Light or dark rendering mode."
+          />
           <Select
             value={appearance}
             onValueChange={(value) => {
@@ -155,7 +187,6 @@ export function ThemePanel({
               <Select.Item key={a} value={a}>{toDisplayName(a)}</Select.Item>
             ))}
           </Select>
-          <p className={styles.helper}>Light or dark rendering mode.</p>
         </div>
 
         <Button
