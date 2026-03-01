@@ -1,0 +1,20 @@
+/**
+ * Sage scale — gray with a soft green tint
+ * Good neutral companion for green/teal accents.
+ */
+
+:root {
+  --color-sage-1:  oklch(99.0% 0.004 160);
+  --color-sage-2:  oklch(97.5% 0.006 160);
+  --color-sage-3:  oklch(95.0% 0.008 160);
+  --color-sage-4:  oklch(92.5% 0.010 160);
+  --color-sage-5:  oklch(90.0% 0.012 160);
+  --color-sage-6:  oklch(86.0% 0.012 160);
+  --color-sage-7:  oklch(79.0% 0.014 160);
+  --color-sage-8:  oklch(68.0% 0.018 160);
+  --color-sage-9:  oklch(56.0% 0.014 160);
+  --color-sage-10: oklch(50.0% 0.014 160);
+  --color-sage-11: oklch(42.0% 0.014 160);
+  --color-sage-12: oklch(18.0% 0.014 160);
+  --color-sage-contrast: white;
+}

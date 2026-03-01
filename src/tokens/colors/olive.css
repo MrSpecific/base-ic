@@ -1,0 +1,20 @@
+/**
+ * Olive scale — gray with an olive-green tint
+ * Good neutral companion for green, lime, and yellow accents.
+ */
+
+:root {
+  --color-olive-1:  oklch(99.0% 0.004 125);
+  --color-olive-2:  oklch(97.5% 0.006 125);
+  --color-olive-3:  oklch(95.0% 0.008 125);
+  --color-olive-4:  oklch(92.5% 0.010 125);
+  --color-olive-5:  oklch(90.0% 0.012 125);
+  --color-olive-6:  oklch(86.0% 0.012 125);
+  --color-olive-7:  oklch(79.0% 0.014 125);
+  --color-olive-8:  oklch(68.0% 0.018 125);
+  --color-olive-9:  oklch(56.0% 0.014 125);
+  --color-olive-10: oklch(50.0% 0.014 125);
+  --color-olive-11: oklch(42.0% 0.014 125);
+  --color-olive-12: oklch(18.0% 0.014 125);
+  --color-olive-contrast: white;
+}

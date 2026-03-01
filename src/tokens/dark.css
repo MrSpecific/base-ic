@@ -55,6 +55,48 @@
   --color-slate-11: oklch(78.0% 0.014 250);
   --color-slate-12: oklch(95.0% 0.006 250);
 
+  /* Sage — dark mode scale */
+  --color-sage-1:  oklch(14.0% 0.004 160);
+  --color-sage-2:  oklch(17.0% 0.006 160);
+  --color-sage-3:  oklch(21.0% 0.008 160);
+  --color-sage-4:  oklch(24.0% 0.010 160);
+  --color-sage-5:  oklch(27.0% 0.012 160);
+  --color-sage-6:  oklch(32.0% 0.012 160);
+  --color-sage-7:  oklch(39.0% 0.014 160);
+  --color-sage-8:  oklch(52.0% 0.018 160);
+  --color-sage-9:  oklch(56.0% 0.014 160);
+  --color-sage-10: oklch(60.0% 0.014 160);
+  --color-sage-11: oklch(78.0% 0.014 160);
+  --color-sage-12: oklch(95.0% 0.006 160);
+
+  /* Olive — dark mode scale */
+  --color-olive-1:  oklch(14.0% 0.004 125);
+  --color-olive-2:  oklch(17.0% 0.006 125);
+  --color-olive-3:  oklch(21.0% 0.008 125);
+  --color-olive-4:  oklch(24.0% 0.010 125);
+  --color-olive-5:  oklch(27.0% 0.012 125);
+  --color-olive-6:  oklch(32.0% 0.012 125);
+  --color-olive-7:  oklch(39.0% 0.014 125);
+  --color-olive-8:  oklch(52.0% 0.018 125);
+  --color-olive-9:  oklch(56.0% 0.014 125);
+  --color-olive-10: oklch(60.0% 0.014 125);
+  --color-olive-11: oklch(78.0% 0.014 125);
+  --color-olive-12: oklch(95.0% 0.006 125);
+
+  /* Sand — dark mode scale */
+  --color-sand-1:  oklch(14.0% 0.004 95);
+  --color-sand-2:  oklch(17.0% 0.006 95);
+  --color-sand-3:  oklch(21.0% 0.008 95);
+  --color-sand-4:  oklch(24.0% 0.010 95);
+  --color-sand-5:  oklch(27.0% 0.012 95);
+  --color-sand-6:  oklch(32.0% 0.012 95);
+  --color-sand-7:  oklch(39.0% 0.014 95);
+  --color-sand-8:  oklch(52.0% 0.018 95);
+  --color-sand-9:  oklch(56.0% 0.014 95);
+  --color-sand-10: oklch(60.0% 0.014 95);
+  --color-sand-11: oklch(78.0% 0.014 95);
+  --color-sand-12: oklch(95.0% 0.006 95);
+
   /* -----------------------------------------------------------------------
    * Chromatic scales — dark mode
    * -----------------------------------------------------------------------
@@ -256,6 +298,48 @@
   --color-slate-11: oklch(42.0% 0.014 250);
   --color-slate-12: oklch(16.0% 0.006 250);
 
+  /* Sage — light mode scale */
+  --color-sage-1:  oklch(99.0% 0.004 160);
+  --color-sage-2:  oklch(97.5% 0.006 160);
+  --color-sage-3:  oklch(95.0% 0.008 160);
+  --color-sage-4:  oklch(92.5% 0.010 160);
+  --color-sage-5:  oklch(90.0% 0.012 160);
+  --color-sage-6:  oklch(86.0% 0.012 160);
+  --color-sage-7:  oklch(80.0% 0.014 160);
+  --color-sage-8:  oklch(70.0% 0.018 160);
+  --color-sage-9:  oklch(56.0% 0.014 160);
+  --color-sage-10: oklch(50.0% 0.014 160);
+  --color-sage-11: oklch(42.0% 0.014 160);
+  --color-sage-12: oklch(16.0% 0.006 160);
+
+  /* Olive — light mode scale */
+  --color-olive-1:  oklch(99.0% 0.004 125);
+  --color-olive-2:  oklch(97.5% 0.006 125);
+  --color-olive-3:  oklch(95.0% 0.008 125);
+  --color-olive-4:  oklch(92.5% 0.010 125);
+  --color-olive-5:  oklch(90.0% 0.012 125);
+  --color-olive-6:  oklch(86.0% 0.012 125);
+  --color-olive-7:  oklch(80.0% 0.014 125);
+  --color-olive-8:  oklch(70.0% 0.018 125);
+  --color-olive-9:  oklch(56.0% 0.014 125);
+  --color-olive-10: oklch(50.0% 0.014 125);
+  --color-olive-11: oklch(42.0% 0.014 125);
+  --color-olive-12: oklch(16.0% 0.006 125);
+
+  /* Sand — light mode scale */
+  --color-sand-1:  oklch(99.0% 0.004 95);
+  --color-sand-2:  oklch(97.5% 0.006 95);
+  --color-sand-3:  oklch(95.0% 0.008 95);
+  --color-sand-4:  oklch(92.5% 0.010 95);
+  --color-sand-5:  oklch(90.0% 0.012 95);
+  --color-sand-6:  oklch(86.0% 0.012 95);
+  --color-sand-7:  oklch(80.0% 0.014 95);
+  --color-sand-8:  oklch(70.0% 0.018 95);
+  --color-sand-9:  oklch(56.0% 0.014 95);
+  --color-sand-10: oklch(50.0% 0.014 95);
+  --color-sand-11: oklch(42.0% 0.014 95);
+  --color-sand-12: oklch(16.0% 0.006 95);
+
   /* Blue — light mode scale */
   --color-blue-1:  oklch(98.5% 0.010 250);
   --color-blue-2:  oklch(97.0% 0.018 250);
@@ -447,6 +531,45 @@
     --color-slate-10: oklch(60.0% 0.014 250);
     --color-slate-11: oklch(78.0% 0.014 250);
     --color-slate-12: oklch(95.0% 0.006 250);
+
+    --color-sage-1:  oklch(14.0% 0.004 160);
+    --color-sage-2:  oklch(17.0% 0.006 160);
+    --color-sage-3:  oklch(21.0% 0.008 160);
+    --color-sage-4:  oklch(24.0% 0.010 160);
+    --color-sage-5:  oklch(27.0% 0.012 160);
+    --color-sage-6:  oklch(32.0% 0.012 160);
+    --color-sage-7:  oklch(39.0% 0.014 160);
+    --color-sage-8:  oklch(52.0% 0.018 160);
+    --color-sage-9:  oklch(56.0% 0.014 160);
+    --color-sage-10: oklch(60.0% 0.014 160);
+    --color-sage-11: oklch(78.0% 0.014 160);
+    --color-sage-12: oklch(95.0% 0.006 160);
+
+    --color-olive-1:  oklch(14.0% 0.004 125);
+    --color-olive-2:  oklch(17.0% 0.006 125);
+    --color-olive-3:  oklch(21.0% 0.008 125);
+    --color-olive-4:  oklch(24.0% 0.010 125);
+    --color-olive-5:  oklch(27.0% 0.012 125);
+    --color-olive-6:  oklch(32.0% 0.012 125);
+    --color-olive-7:  oklch(39.0% 0.014 125);
+    --color-olive-8:  oklch(52.0% 0.018 125);
+    --color-olive-9:  oklch(56.0% 0.014 125);
+    --color-olive-10: oklch(60.0% 0.014 125);
+    --color-olive-11: oklch(78.0% 0.014 125);
+    --color-olive-12: oklch(95.0% 0.006 125);
+
+    --color-sand-1:  oklch(14.0% 0.004 95);
+    --color-sand-2:  oklch(17.0% 0.006 95);
+    --color-sand-3:  oklch(21.0% 0.008 95);
+    --color-sand-4:  oklch(24.0% 0.010 95);
+    --color-sand-5:  oklch(27.0% 0.012 95);
+    --color-sand-6:  oklch(32.0% 0.012 95);
+    --color-sand-7:  oklch(39.0% 0.014 95);
+    --color-sand-8:  oklch(52.0% 0.018 95);
+    --color-sand-9:  oklch(56.0% 0.014 95);
+    --color-sand-10: oklch(60.0% 0.014 95);
+    --color-sand-11: oklch(78.0% 0.014 95);
+    --color-sand-12: oklch(95.0% 0.006 95);
 
     --color-blue-9:  oklch(54.0% 0.200 250);
     --color-blue-1:  color-mix(in oklch, black 74%, var(--color-blue-9));

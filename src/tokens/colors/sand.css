@@ -1,0 +1,20 @@
+/**
+ * Sand scale — gray with a warm sand tint
+ * Good neutral companion for orange, amber, and brown accents.
+ */
+
+:root {
+  --color-sand-1:  oklch(99.0% 0.004 95);
+  --color-sand-2:  oklch(97.5% 0.006 95);
+  --color-sand-3:  oklch(95.0% 0.008 95);
+  --color-sand-4:  oklch(92.5% 0.010 95);
+  --color-sand-5:  oklch(90.0% 0.012 95);
+  --color-sand-6:  oklch(86.0% 0.012 95);
+  --color-sand-7:  oklch(79.0% 0.014 95);
+  --color-sand-8:  oklch(68.0% 0.018 95);
+  --color-sand-9:  oklch(56.0% 0.014 95);
+  --color-sand-10: oklch(50.0% 0.014 95);
+  --color-sand-11: oklch(42.0% 0.014 95);
+  --color-sand-12: oklch(18.0% 0.014 95);
+  --color-sand-contrast: white;
+}

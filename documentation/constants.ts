@@ -12,7 +12,7 @@ export const ACCENT_COLORS: AccentColor[] = [
   'blue', 'violet', 'red', 'green', 'orange', 'yellow', 'pink', 'teal', 'cyan', 'black',
 ];
 
-export const GRAY_COLORS: GrayColor[] = ['gray', 'mauve', 'slate'];
+export const GRAY_COLORS: GrayColor[] = ['gray', 'mauve', 'slate', 'sage', 'olive', 'sand'];
 
 export const RADII: Radius[] = ['none', 'small', 'medium', 'large', 'full'];
 
@@ -25,7 +25,7 @@ export const SCALINGS: Scaling[] = [
 export const APPEARANCES: Appearance[] = ['light', 'dark', 'inherit'];
 
 export const ALL_HUES = [
-  'gray', 'mauve', 'slate', 'blue', 'violet', 'red',
+  'gray', 'mauve', 'slate', 'sage', 'olive', 'sand', 'blue', 'violet', 'red',
   'green', 'orange', 'yellow', 'pink', 'teal',
 ];
 
