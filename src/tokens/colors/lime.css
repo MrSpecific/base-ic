@@ -1,0 +1,19 @@
+/**
+ * Lime scale
+ */
+
+:root {
+  --color-lime-1:  oklch(98.8% 0.010 125);
+  --color-lime-2:  oklch(97.5% 0.020 125);
+  --color-lime-3:  oklch(94.0% 0.046 125);
+  --color-lime-4:  oklch(90.0% 0.074 125);
+  --color-lime-5:  oklch(86.0% 0.096 125);
+  --color-lime-6:  oklch(80.0% 0.114 125);
+  --color-lime-7:  oklch(73.0% 0.130 125);
+  --color-lime-8:  oklch(65.0% 0.155 125);
+  --color-lime-9:  oklch(76.0% 0.190 125);
+  --color-lime-10: oklch(70.0% 0.184 125);
+  --color-lime-11: oklch(46.0% 0.135 125);
+  --color-lime-12: oklch(24.0% 0.080 125);
+  --color-lime-contrast: black;
+}

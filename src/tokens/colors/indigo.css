@@ -1,0 +1,19 @@
+/**
+ * Indigo scale
+ */
+
+:root {
+  --color-indigo-1:  oklch(98.5% 0.012 274);
+  --color-indigo-2:  oklch(97.0% 0.022 274);
+  --color-indigo-3:  oklch(93.5% 0.046 274);
+  --color-indigo-4:  oklch(89.5% 0.072 274);
+  --color-indigo-5:  oklch(85.0% 0.092 274);
+  --color-indigo-6:  oklch(79.0% 0.108 274);
+  --color-indigo-7:  oklch(71.0% 0.124 274);
+  --color-indigo-8:  oklch(60.0% 0.152 274);
+  --color-indigo-9:  oklch(52.0% 0.205 274);
+  --color-indigo-10: oklch(46.0% 0.195 274);
+  --color-indigo-11: oklch(40.0% 0.172 274);
+  --color-indigo-12: oklch(22.0% 0.100 274);
+  --color-indigo-contrast: white;
+}

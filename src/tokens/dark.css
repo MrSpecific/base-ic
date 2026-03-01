@@ -119,6 +119,21 @@
   --color-blue-12: color-mix(in oklch, white 70%, var(--color-blue-9));
   --color-blue-contrast: white;
 
+  /* Indigo */
+  --color-indigo-9:  oklch(52.0% 0.205 274);
+  --color-indigo-1:  color-mix(in oklch, black 74%, var(--color-indigo-9));
+  --color-indigo-2:  color-mix(in oklch, black 68%, var(--color-indigo-9));
+  --color-indigo-3:  color-mix(in oklch, black 61%, var(--color-indigo-9));
+  --color-indigo-4:  color-mix(in oklch, black 54%, var(--color-indigo-9));
+  --color-indigo-5:  color-mix(in oklch, black 47%, var(--color-indigo-9));
+  --color-indigo-6:  color-mix(in oklch, black 37%, var(--color-indigo-9));
+  --color-indigo-7:  color-mix(in oklch, black 25%, var(--color-indigo-9));
+  --color-indigo-8:  color-mix(in oklch, black 12%, var(--color-indigo-9));
+  --color-indigo-10: color-mix(in oklch, white 12%, var(--color-indigo-9));
+  --color-indigo-11: color-mix(in oklch, white 34%, var(--color-indigo-9));
+  --color-indigo-12: color-mix(in oklch, white 70%, var(--color-indigo-9));
+  --color-indigo-contrast: white;
+
   /* Violet */
   --color-violet-9:  oklch(52.0% 0.210 295);
   --color-violet-1:  color-mix(in oklch, black 74%, var(--color-violet-9));
@@ -178,6 +193,36 @@
   --color-orange-11: color-mix(in oklch, white 34%, var(--color-orange-9));
   --color-orange-12: color-mix(in oklch, white 70%, var(--color-orange-9));
   --color-orange-contrast: black;
+
+  /* Amber */
+  --color-amber-9:  oklch(70.0% 0.185 75);
+  --color-amber-1:  color-mix(in oklch, black 74%, var(--color-amber-9));
+  --color-amber-2:  color-mix(in oklch, black 68%, var(--color-amber-9));
+  --color-amber-3:  color-mix(in oklch, black 61%, var(--color-amber-9));
+  --color-amber-4:  color-mix(in oklch, black 54%, var(--color-amber-9));
+  --color-amber-5:  color-mix(in oklch, black 47%, var(--color-amber-9));
+  --color-amber-6:  color-mix(in oklch, black 37%, var(--color-amber-9));
+  --color-amber-7:  color-mix(in oklch, black 25%, var(--color-amber-9));
+  --color-amber-8:  color-mix(in oklch, black 12%, var(--color-amber-9));
+  --color-amber-10: color-mix(in oklch, white 12%, var(--color-amber-9));
+  --color-amber-11: color-mix(in oklch, white 34%, var(--color-amber-9));
+  --color-amber-12: color-mix(in oklch, white 70%, var(--color-amber-9));
+  --color-amber-contrast: black;
+
+  /* Lime */
+  --color-lime-9:  oklch(76.0% 0.190 125);
+  --color-lime-1:  color-mix(in oklch, black 74%, var(--color-lime-9));
+  --color-lime-2:  color-mix(in oklch, black 68%, var(--color-lime-9));
+  --color-lime-3:  color-mix(in oklch, black 61%, var(--color-lime-9));
+  --color-lime-4:  color-mix(in oklch, black 54%, var(--color-lime-9));
+  --color-lime-5:  color-mix(in oklch, black 47%, var(--color-lime-9));
+  --color-lime-6:  color-mix(in oklch, black 37%, var(--color-lime-9));
+  --color-lime-7:  color-mix(in oklch, black 25%, var(--color-lime-9));
+  --color-lime-8:  color-mix(in oklch, black 12%, var(--color-lime-9));
+  --color-lime-10: color-mix(in oklch, white 12%, var(--color-lime-9));
+  --color-lime-11: color-mix(in oklch, white 34%, var(--color-lime-9));
+  --color-lime-12: color-mix(in oklch, white 70%, var(--color-lime-9));
+  --color-lime-contrast: black;
 
   /* Yellow */
   --color-yellow-9:  oklch(76.0% 0.180 95);
@@ -355,6 +400,21 @@
   --color-blue-12: oklch(22.0% 0.100 250);
   --color-blue-contrast: white;
 
+  /* Indigo — light mode scale */
+  --color-indigo-1:  oklch(98.5% 0.012 274);
+  --color-indigo-2:  oklch(97.0% 0.022 274);
+  --color-indigo-3:  oklch(93.5% 0.046 274);
+  --color-indigo-4:  oklch(89.5% 0.072 274);
+  --color-indigo-5:  oklch(85.0% 0.092 274);
+  --color-indigo-6:  oklch(79.0% 0.108 274);
+  --color-indigo-7:  oklch(71.0% 0.124 274);
+  --color-indigo-8:  oklch(60.0% 0.152 274);
+  --color-indigo-9:  oklch(52.0% 0.205 274);
+  --color-indigo-10: oklch(46.0% 0.195 274);
+  --color-indigo-11: oklch(40.0% 0.172 274);
+  --color-indigo-12: oklch(22.0% 0.100 274);
+  --color-indigo-contrast: white;
+
   /* Violet — light mode scale */
   --color-violet-1:  oklch(98.5% 0.012 295);
   --color-violet-2:  oklch(97.0% 0.020 295);
@@ -414,6 +474,36 @@
   --color-orange-11: oklch(44.0% 0.150 55);
   --color-orange-12: oklch(24.0% 0.080 55);
   --color-orange-contrast: black;
+
+  /* Amber — light mode scale */
+  --color-amber-1:  oklch(98.5% 0.010 75);
+  --color-amber-2:  oklch(97.0% 0.018 75);
+  --color-amber-3:  oklch(93.5% 0.042 75);
+  --color-amber-4:  oklch(89.5% 0.068 75);
+  --color-amber-5:  oklch(85.0% 0.090 75);
+  --color-amber-6:  oklch(79.0% 0.106 75);
+  --color-amber-7:  oklch(71.0% 0.122 75);
+  --color-amber-8:  oklch(60.0% 0.150 75);
+  --color-amber-9:  oklch(70.0% 0.185 75);
+  --color-amber-10: oklch(64.0% 0.178 75);
+  --color-amber-11: oklch(48.0% 0.145 75);
+  --color-amber-12: oklch(25.0% 0.090 75);
+  --color-amber-contrast: black;
+
+  /* Lime — light mode scale */
+  --color-lime-1:  oklch(98.8% 0.010 125);
+  --color-lime-2:  oklch(97.5% 0.020 125);
+  --color-lime-3:  oklch(94.0% 0.046 125);
+  --color-lime-4:  oklch(90.0% 0.074 125);
+  --color-lime-5:  oklch(86.0% 0.096 125);
+  --color-lime-6:  oklch(80.0% 0.114 125);
+  --color-lime-7:  oklch(73.0% 0.130 125);
+  --color-lime-8:  oklch(65.0% 0.155 125);
+  --color-lime-9:  oklch(76.0% 0.190 125);
+  --color-lime-10: oklch(70.0% 0.184 125);
+  --color-lime-11: oklch(46.0% 0.135 125);
+  --color-lime-12: oklch(24.0% 0.080 125);
+  --color-lime-contrast: black;
 
   /* Yellow — light mode scale */
   --color-yellow-1:  oklch(99.0% 0.010 100);
@@ -585,6 +675,20 @@
     --color-blue-12: color-mix(in oklch, white 70%, var(--color-blue-9));
     --color-blue-contrast: white;
 
+    --color-indigo-9:  oklch(52.0% 0.205 274);
+    --color-indigo-1:  color-mix(in oklch, black 74%, var(--color-indigo-9));
+    --color-indigo-2:  color-mix(in oklch, black 68%, var(--color-indigo-9));
+    --color-indigo-3:  color-mix(in oklch, black 61%, var(--color-indigo-9));
+    --color-indigo-4:  color-mix(in oklch, black 54%, var(--color-indigo-9));
+    --color-indigo-5:  color-mix(in oklch, black 47%, var(--color-indigo-9));
+    --color-indigo-6:  color-mix(in oklch, black 37%, var(--color-indigo-9));
+    --color-indigo-7:  color-mix(in oklch, black 25%, var(--color-indigo-9));
+    --color-indigo-8:  color-mix(in oklch, black 12%, var(--color-indigo-9));
+    --color-indigo-10: color-mix(in oklch, white 12%, var(--color-indigo-9));
+    --color-indigo-11: color-mix(in oklch, white 34%, var(--color-indigo-9));
+    --color-indigo-12: color-mix(in oklch, white 70%, var(--color-indigo-9));
+    --color-indigo-contrast: white;
+
     --color-violet-9:  oklch(52.0% 0.210 295);
     --color-violet-1:  color-mix(in oklch, black 74%, var(--color-violet-9));
     --color-violet-2:  color-mix(in oklch, black 68%, var(--color-violet-9));
@@ -640,6 +744,34 @@
     --color-orange-11: color-mix(in oklch, white 34%, var(--color-orange-9));
     --color-orange-12: color-mix(in oklch, white 70%, var(--color-orange-9));
     --color-orange-contrast: black;
+
+    --color-amber-9:  oklch(70.0% 0.185 75);
+    --color-amber-1:  color-mix(in oklch, black 74%, var(--color-amber-9));
+    --color-amber-2:  color-mix(in oklch, black 68%, var(--color-amber-9));
+    --color-amber-3:  color-mix(in oklch, black 61%, var(--color-amber-9));
+    --color-amber-4:  color-mix(in oklch, black 54%, var(--color-amber-9));
+    --color-amber-5:  color-mix(in oklch, black 47%, var(--color-amber-9));
+    --color-amber-6:  color-mix(in oklch, black 37%, var(--color-amber-9));
+    --color-amber-7:  color-mix(in oklch, black 25%, var(--color-amber-9));
+    --color-amber-8:  color-mix(in oklch, black 12%, var(--color-amber-9));
+    --color-amber-10: color-mix(in oklch, white 12%, var(--color-amber-9));
+    --color-amber-11: color-mix(in oklch, white 34%, var(--color-amber-9));
+    --color-amber-12: color-mix(in oklch, white 70%, var(--color-amber-9));
+    --color-amber-contrast: black;
+
+    --color-lime-9:  oklch(76.0% 0.190 125);
+    --color-lime-1:  color-mix(in oklch, black 74%, var(--color-lime-9));
+    --color-lime-2:  color-mix(in oklch, black 68%, var(--color-lime-9));
+    --color-lime-3:  color-mix(in oklch, black 61%, var(--color-lime-9));
+    --color-lime-4:  color-mix(in oklch, black 54%, var(--color-lime-9));
+    --color-lime-5:  color-mix(in oklch, black 47%, var(--color-lime-9));
+    --color-lime-6:  color-mix(in oklch, black 37%, var(--color-lime-9));
+    --color-lime-7:  color-mix(in oklch, black 25%, var(--color-lime-9));
+    --color-lime-8:  color-mix(in oklch, black 12%, var(--color-lime-9));
+    --color-lime-10: color-mix(in oklch, white 12%, var(--color-lime-9));
+    --color-lime-11: color-mix(in oklch, white 34%, var(--color-lime-9));
+    --color-lime-12: color-mix(in oklch, white 70%, var(--color-lime-9));
+    --color-lime-contrast: black;
 
     --color-yellow-9:  oklch(76.0% 0.180 95);
     --color-yellow-1:  color-mix(in oklch, black 74%, var(--color-yellow-9));

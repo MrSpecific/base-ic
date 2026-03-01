@@ -1,0 +1,19 @@
+/**
+ * Amber scale
+ */
+
+:root {
+  --color-amber-1:  oklch(98.5% 0.010 75);
+  --color-amber-2:  oklch(97.0% 0.018 75);
+  --color-amber-3:  oklch(93.5% 0.042 75);
+  --color-amber-4:  oklch(89.5% 0.068 75);
+  --color-amber-5:  oklch(85.0% 0.090 75);
+  --color-amber-6:  oklch(79.0% 0.106 75);
+  --color-amber-7:  oklch(71.0% 0.122 75);
+  --color-amber-8:  oklch(60.0% 0.150 75);
+  --color-amber-9:  oklch(70.0% 0.185 75);
+  --color-amber-10: oklch(64.0% 0.178 75);
+  --color-amber-11: oklch(48.0% 0.145 75);
+  --color-amber-12: oklch(25.0% 0.090 75);
+  --color-amber-contrast: black;
+}
