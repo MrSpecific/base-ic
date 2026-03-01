@@ -22,11 +22,20 @@ export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement>, 
   truncate?: boolean;
 }
 
+const defaultSizeByElement: Record<HeadingElement, HeadingSize> = {
+  h1: '8',
+  h2: '6',
+  h3: '5',
+  h4: '4',
+  h5: '3',
+  h6: '2',
+};
+
 export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   function Heading(
     {
       as: Tag = 'h1',
-      size = '6',
+      size,
       weight,
       color,
       highContrast,
@@ -41,7 +50,8 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     },
     ref,
   ) {
-    const sizeVars = buildTypoSizeVars('heading', size);
+    const resolvedSize = size ?? defaultSizeByElement[Tag];
+    const sizeVars = buildTypoSizeVars('heading', resolvedSize);
     const colorVars = buildTypoColorVar(color, highContrast);
     const weightVar = weight
       ? { '--typo-weight': `var(--font-weight-${weight})` } as React.CSSProperties

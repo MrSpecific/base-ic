@@ -18,7 +18,10 @@ export function DocsList({ children }: PropsWithChildren) {
       mt={2}
       mb={2}
       p={0}
-      className="docs-list"
+      style={{
+        listStyle: 'none',
+        color: 'var(--color-text-secondary)',
+      }}
     >
       {children}
     </Flex>
@@ -27,7 +30,19 @@ export function DocsList({ children }: PropsWithChildren) {
 
 export function DocsEyebrow({ children }: PropsWithChildren) {
   return (
-    <Text as="p" size="1" className="docs-eyebrow">{children}</Text>
+    <Text
+      as="p"
+      size="1"
+      m={0}
+      style={{
+        letterSpacing: 'var(--letter-spacing-5)',
+        textTransform: 'uppercase',
+        color: 'var(--color-text-tertiary)',
+        fontFamily: 'var(--font-family-mono)',
+      }}
+    >
+      {children}
+    </Text>
   );
 }
 
