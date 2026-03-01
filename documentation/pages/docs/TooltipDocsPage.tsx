@@ -1,4 +1,4 @@
-import { Button, Tooltip } from "../../../src";
+import { Button, Heading, Tooltip, Text, Link } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import {
   DocsDemoGrid,
@@ -37,29 +37,29 @@ export function TooltipDocsPage() {
   return (
     <>
       <DocsSection>
-        <h1>Tooltip</h1>
-        <p>
+        <Heading as="h1">Tooltip</Heading>
+        <Text as="p">
           `Tooltip` is a convenience wrapper around Base UI tooltip primitives,
           with system-level token styling.
-        </p>
+        </Text>
       </DocsSection>
       <DocsSection>
-        <h2>Built On Base-UI</h2>
-        <p>
+        <Heading as="h3">Built On Base-UI</Heading>
+        <Text as="p">
           This component wraps the Base UI Tooltip primitive. Base primitive
           docs:{" "}
-          <a
+          <Link
             href="https://base-ui.com/react/components/tooltip"
             target="_blank"
             rel="noreferrer"
           >
             base-ui.com/react/components/tooltip
-          </a>
+          </Link>
           .
-        </p>
+        </Text>
       </DocsSection>
       <DocsSection>
-        <h2>Demo</h2>
+        <Heading as="h3">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Directional Hints"

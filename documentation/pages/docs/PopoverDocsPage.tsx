@@ -1,4 +1,4 @@
-import { Button, Popover } from "../../../src";
+import { Button, Heading, Popover, Text, Link } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid, DocsList } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
@@ -56,29 +56,29 @@ export function PopoverDocsPage() {
   return (
     <>
       <DocsSection>
-        <h1>Popover</h1>
-        <p>
+        <Heading as="h1">Popover</Heading>
+        <Text as="p">
           `Popover` provides richer anchored content than tooltip, suitable for
           actions, forms, or contextual controls.
-        </p>
+        </Text>
       </DocsSection>
       <DocsSection>
-        <h2>Built On Base-UI</h2>
-        <p>
+        <Heading as="h3">Built On Base-UI</Heading>
+        <Text as="p">
           This component wraps the Base UI Popover primitive. Base primitive
           docs:{" "}
-          <a
+          <Link
             href="https://base-ui.com/react/components/popover"
             target="_blank"
             rel="noreferrer"
           >
             base-ui.com/react/components/popover
-          </a>
+          </Link>
           .
-        </p>
+        </Text>
       </DocsSection>
       <DocsSection>
-        <h2>Demo</h2>
+        <Heading as="h3">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Actions Popover"
@@ -92,9 +92,9 @@ export function PopoverDocsPage() {
                 content={
                   <div className="popover-demo-content">
                     <div className="popover-demo-title">Quick Actions</div>
-                    <p className="popover-demo-text">
+                    <Text as="p" className="popover-demo-text">
                       Apply a default configuration preset.
-                    </p>
+                    </Text>
                     <div className="popover-demo-actions">
                       <Button
                         className="popover-demo-button popover-demo-button-solid"
@@ -136,9 +136,9 @@ export function PopoverDocsPage() {
                 content={
                   <div className="popover-demo-content">
                     <div className="popover-demo-title">Density</div>
-                    <p className="popover-demo-text">
+                    <Text as="p" className="popover-demo-text">
                       Compact mode increases information density in tables.
-                    </p>
+                    </Text>
                   </div>
                 }
               >
@@ -155,11 +155,11 @@ export function PopoverDocsPage() {
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <h2>Usage</h2>
+        <Heading as="h2">Usage</Heading>
         <CodeBlock title="Popover Usage" code={popoverSnippet} />
       </DocsSection>
       <DocsSection>
-        <h2>Notes</h2>
+        <Heading as="h2">Notes</Heading>
         <DocsList>
           <li>
             Use popover for interactive content, tooltip for passive hints.

@@ -1,4 +1,4 @@
-import { Flex, Separator } from "../../../src";
+import { Flex, Heading, Link, Separator, Text } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
@@ -37,22 +37,22 @@ export function SeparatorDocsPage() {
         </p>
       </DocsSection>
       <DocsSection>
-        <h2>Built On Base-UI</h2>
-        <p>
+        <Heading as="h3">Built On Base-UI</Heading>
+        <Text as="p">
           This component wraps the Base UI Separator primitive. Base primitive
           docs:{" "}
-          <a
+          <Link
             href="https://base-ui.com/react/components/separator"
             target="_blank"
             rel="noreferrer"
           >
             base-ui.com/react/components/separator
-          </a>
+          </Link>
           .
-        </p>
+        </Text>
       </DocsSection>
       <DocsSection>
-        <h2>Demo</h2>
+        <Heading as="h3">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Horizontal"
@@ -79,7 +79,7 @@ export function SeparatorDocsPage() {
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <h2>Usage</h2>
+        <Heading as="h2">Usage</Heading>
         <CodeBlock title="Separator Usage" code={usageSnippet} />
       </DocsSection>
     </>

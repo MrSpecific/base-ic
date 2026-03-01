@@ -26,6 +26,9 @@ import { SwitchDocsPage } from "./docs/SwitchDocsPage";
 import { RadioGroupDocsPage } from "./docs/RadioGroupDocsPage";
 import { InputDocsPage } from "./docs/InputDocsPage";
 import { SelectDocsPage } from "./docs/SelectDocsPage";
+import { TextareaDocsPage } from "./docs/TextareaDocsPage";
+import { TabsDocsPage } from "./docs/TabsDocsPage";
+import { DialogDocsPage } from "./docs/DialogDocsPage";
 import type { DocsSection } from "../types";
 
 export function DocsPage({
@@ -59,11 +62,12 @@ export function DocsPage({
     {
       title: "Forms",
       items: [
+        { id: "input", label: "Input" },
+        { id: "textarea", label: "Textarea" },
+        { id: "select", label: "Select" },
         { id: "checkbox", label: "Checkbox" },
         { id: "switch", label: "Switch" },
         { id: "radio-group", label: "RadioGroup" },
-        { id: "input", label: "Input" },
-        { id: "select", label: "Select" },
       ],
     },
     {
@@ -81,6 +85,13 @@ export function DocsPage({
       items: [
         { id: "tooltip", label: "Tooltip" },
         { id: "popover", label: "Popover" },
+        { id: "dialog", label: "Dialog" },
+      ],
+    },
+    {
+      title: "Navigation",
+      items: [
+        { id: "tabs", label: "Tabs" },
       ],
     },
     {
@@ -117,6 +128,9 @@ export function DocsPage({
     if (section === "radio-group") return <RadioGroupDocsPage />;
     if (section === "input") return <InputDocsPage />;
     if (section === "select") return <SelectDocsPage />;
+    if (section === "textarea") return <TextareaDocsPage />;
+    if (section === "tabs") return <TabsDocsPage />;
+    if (section === "dialog") return <DialogDocsPage />;
     if (section === "typography") return <TypographyDocsPage />;
     if (section === "text") return <TextDocsPage />;
     if (section === "heading") return <HeadingDocsPage />;
