@@ -1,0 +1,207 @@
+/* ==========================================================================
+ * Input
+ * ==========================================================================
+ * Styled wrapper around <input>. Size tokens mirror button sizing.
+ * Supports prefix/suffix slots for icons or controls.
+ *
+ * Variants:
+ *   surface — bg: surface-sunken (default)
+ *   outline — bg: transparent, stronger border
+ *   ghost   — no bg, no border (purely text-like)
+ */
+
+/* ---------------------------------------------------------------------------
+ * Wrapper (handles prefix/suffix layout)
+ * --------------------------------------------------------------------------- */
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  border-radius: var(--inp-radius, var(--component-radius));
+  transition: var(--transition-colors);
+}
+
+.wrapper:focus-within {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Input element
+ * --------------------------------------------------------------------------- */
+.input {
+  width: 100%;
+  height: var(--inp-height);
+  /* Expand horizontal padding when prefix/suffix present */
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: var(--inp-pl, var(--inp-px));
+  padding-right: var(--inp-pr, var(--inp-px));
+  border: 1px solid var(--inp-border, var(--color-border-subtle));
+  border-radius: var(--inp-radius, var(--component-radius));
+  background-color: var(--inp-bg, var(--color-surface-sunken));
+  color: var(--color-text-primary);
+  font-family: var(--font-family-primary);
+  font-size: var(--inp-fs);
+  line-height: 1;
+  outline: none;
+  transition: var(--transition-colors);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.input::placeholder {
+  color: var(--color-text-disabled);
+}
+
+.input:hover:not(:disabled):not(:focus) {
+  border-color: var(--color-border);
+}
+
+.input:focus {
+  border-color: var(--color-accent-8);
+}
+
+.input:disabled {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  background-color: var(--color-surface-subtle);
+}
+
+/* When wrapper has a prefix/suffix, shift border management to wrapper */
+.hasPrefix .input {
+  border-radius: 0 var(--inp-radius, var(--component-radius)) var(--inp-radius, var(--component-radius)) 0;
+  border-left: none;
+}
+
+.hasSuffix .input {
+  border-radius: var(--inp-radius, var(--component-radius)) 0 0 var(--inp-radius, var(--component-radius));
+  border-right: none;
+}
+
+.hasPrefix.hasSuffix .input {
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Prefix / Suffix slots
+ * --------------------------------------------------------------------------- */
+.prefix,
+.suffix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--inp-height);
+  padding: 0 var(--inp-adornment-px, calc(var(--inp-px) * 0.75));
+  border: 1px solid var(--inp-border, var(--color-border-subtle));
+  background-color: var(--color-surface-subtle);
+  color: var(--color-text-secondary);
+  font-size: var(--inp-fs);
+  flex-shrink: 0;
+  transition: var(--transition-colors);
+  pointer-events: none;
+}
+
+.prefix {
+  border-right: none;
+  border-radius: var(--inp-radius, var(--component-radius)) 0 0 var(--inp-radius, var(--component-radius));
+}
+
+.suffix {
+  border-left: none;
+  border-radius: 0 var(--inp-radius, var(--component-radius)) var(--inp-radius, var(--component-radius)) 0;
+}
+
+/* Pointer events back on for interactive suffixes */
+.suffix:has(button, a, [role='button']) {
+  pointer-events: auto;
+}
+
+/* Focus-within border sync */
+.wrapper:focus-within .prefix,
+.wrapper:focus-within .suffix {
+  border-color: var(--color-accent-8);
+}
+
+/* ---------------------------------------------------------------------------
+ * Variant: outline — no fill background
+ * --------------------------------------------------------------------------- */
+.outline .input {
+  background-color: transparent;
+  --inp-border: var(--color-border);
+}
+
+.outline .prefix,
+.outline .suffix {
+  background-color: transparent;
+}
+
+/* ---------------------------------------------------------------------------
+ * Variant: ghost — pure text, no chrome
+ * --------------------------------------------------------------------------- */
+.ghost .input {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.ghost .input:hover:not(:disabled):not(:focus) {
+  border-color: transparent;
+  background-color: var(--color-surface-subtle);
+}
+
+.ghost .input:focus {
+  border-color: var(--color-accent-8);
+  background-color: var(--color-surface-sunken);
+}
+
+/* ---------------------------------------------------------------------------
+ * Invalid / error state
+ * --------------------------------------------------------------------------- */
+.invalid .input,
+.input[aria-invalid='true'] {
+  border-color: var(--color-danger-border);
+}
+
+.invalid .input:focus,
+.input[aria-invalid='true']:focus {
+  border-color: var(--color-danger-border);
+}
+
+.wrapper.invalid:focus-within {
+  outline-color: color-mix(in oklch, var(--color-danger-border) 72%, transparent);
+}
+
+/* ---------------------------------------------------------------------------
+ * Size variants — mirrors button sizes
+ * -------------------------------------------------------------------------
+ *  1: 24px height, 8px px
+ *  2: 32px height, 12px px  (default)
+ *  3: 40px height, 16px px
+ *  4: 48px height, 20px px
+ * --------------------------------------------------------------------------- */
+.size1 {
+  --inp-height: var(--button-1-height);
+  --inp-px:     var(--button-1-px);
+  --inp-fs:     var(--button-1-font-size);
+}
+
+.size2 {
+  --inp-height: var(--button-2-height);
+  --inp-px:     var(--button-2-px);
+  --inp-fs:     var(--button-2-font-size);
+}
+
+.size3 {
+  --inp-height: var(--button-3-height);
+  --inp-px:     var(--button-3-px);
+  --inp-fs:     var(--button-3-font-size);
+}
+
+.size4 {
+  --inp-height: var(--button-4-height);
+  --inp-px:     var(--button-4-px);
+  --inp-fs:     var(--button-4-font-size);
+}

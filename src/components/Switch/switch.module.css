@@ -1,0 +1,97 @@
+/* ==========================================================================
+ * Switch
+ * ==========================================================================
+ * Built on Base UI Switch.Root + Switch.Thumb.
+ * Track: pill shape. Thumb: circle that slides on check.
+ * data-checked / data-unchecked / data-disabled from Base UI.
+ */
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  width: var(--sw-width);
+  height: var(--sw-height);
+  padding: var(--sw-pad);
+  border: none;
+  border-radius: var(--radius-full);
+  background-color: var(--color-neutral-6);
+  cursor: pointer;
+  user-select: none;
+  flex-shrink: 0;
+  transition: background-color var(--duration-3) var(--ease-2),
+              box-shadow var(--duration-3) var(--ease-2);
+  outline: none;
+}
+
+.root:hover:not([data-disabled]) {
+  background-color: var(--color-neutral-7);
+}
+
+.root:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.root[data-checked] {
+  background-color: var(--sw-accent-9, var(--color-accent-9));
+}
+
+.root[data-checked]:hover:not([data-disabled]) {
+  background-color: var(--sw-accent-10, var(--color-accent-10));
+}
+
+.root[data-disabled] {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Thumb
+ * --------------------------------------------------------------------------- */
+.thumb {
+  display: block;
+  width: var(--sw-thumb);
+  height: var(--sw-thumb);
+  border-radius: var(--radius-full);
+  background-color: white;
+  box-shadow: 0 1px 3px oklch(0% 0 0 / 28%), 0 1px 1px oklch(0% 0 0 / 14%);
+  transition: transform var(--duration-3) var(--ease-spring);
+  transform: translateX(0);
+  flex-shrink: 0;
+}
+
+.root[data-checked] .thumb {
+  transform: translateX(var(--sw-travel));
+}
+
+/* ---------------------------------------------------------------------------
+ * Size variants
+ * -------------------------------------------------------------------------
+ *  Size 1: 28×16 track, 12px thumb
+ *  Size 2: 36×20 track, 16px thumb (default)
+ *  Size 3: 44×24 track, 20px thumb
+ * --------------------------------------------------------------------------- */
+.size1 {
+  --sw-width:  28px;
+  --sw-height: 16px;
+  --sw-thumb:  12px;
+  --sw-pad:    2px;
+  --sw-travel: 12px;
+}
+
+.size2 {
+  --sw-width:  36px;
+  --sw-height: 20px;
+  --sw-thumb:  16px;
+  --sw-pad:    2px;
+  --sw-travel: 16px;
+}
+
+.size3 {
+  --sw-width:  44px;
+  --sw-height: 24px;
+  --sw-thumb:  20px;
+  --sw-pad:    2px;
+  --sw-travel: 20px;
+}

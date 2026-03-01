@@ -1,0 +1,100 @@
+/* ==========================================================================
+ * RadioGroup + Radio
+ * ==========================================================================
+ * RadioGroup: layout container (column by default, or row).
+ * Radio.Root: the individual radio control.
+ * Radio.Indicator: the inner dot that appears when selected.
+ * data-checked / data-unchecked / data-disabled from Base UI.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Group layout
+ * --------------------------------------------------------------------------- */
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.group[data-orientation='horizontal'],
+.horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* ---------------------------------------------------------------------------
+ * Radio control
+ * --------------------------------------------------------------------------- */
+.radio {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--radio-size);
+  height: var(--radio-size);
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-border-strong);
+  background-color: transparent;
+  cursor: pointer;
+  user-select: none;
+  flex-shrink: 0;
+  transition: var(--transition-colors),
+              transform var(--duration-2) var(--ease-2);
+  outline: none;
+  padding: 0;
+}
+
+.radio:hover:not([data-disabled]) {
+  border-color: var(--color-accent-8);
+  background-color: color-mix(in oklch, var(--radio-accent-9, var(--color-accent-9)) 10%, transparent);
+}
+
+.radio:active:not([data-disabled]) {
+  transform: scale(0.94);
+}
+
+.radio:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.radio[data-checked] {
+  background-color: var(--radio-accent-9, var(--color-accent-9));
+  border-color: var(--radio-accent-9, var(--color-accent-9));
+}
+
+.radio[data-checked]:hover:not([data-disabled]) {
+  background-color: var(--radio-accent-10, var(--color-accent-10));
+  border-color: var(--radio-accent-10, var(--color-accent-10));
+}
+
+.radio[data-disabled] {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Indicator — inner dot, scales in when checked
+ * --------------------------------------------------------------------------- */
+.indicator {
+  display: block;
+  width: calc(var(--radio-size) * 0.42);
+  height: calc(var(--radio-size) * 0.42);
+  border-radius: var(--radius-full);
+  background-color: var(--radio-contrast, var(--color-accent-contrast));
+  transform: scale(0);
+  transition: transform var(--duration-2) var(--ease-spring);
+}
+
+.radio[data-checked] .indicator {
+  transform: scale(1);
+}
+
+/* ---------------------------------------------------------------------------
+ * Size variants
+ * --------------------------------------------------------------------------- */
+.size1 { --radio-size: 14px; }
+.size2 { --radio-size: 16px; }
+.size3 { --radio-size: 20px; }

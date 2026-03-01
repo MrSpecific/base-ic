@@ -476,12 +476,14 @@
     --shadow-floating: 0 8px 24px -12px oklch(0% 0 0 / 58%), 0 2px 8px oklch(0% 0 0 / 28%);
     --shadow-panel: 0 20px 50px -28px oklch(0% 0 0 / 68%), 0 8px 20px oklch(0% 0 0 / 42%);
 
-    --interactive-soft-mix-base:            black;
-    --interactive-soft-strength:            32%;
-    --interactive-soft-hover-strength:      40%;
-    --interactive-surface-mix-base:         black;
-    --interactive-surface-strength:         24%;
-    --interactive-surface-hover-strength:   30%;
+    /* Dark mode: mix against neutral-3 (~21% L) so results sit above the
+       ~14% background. With black as base, results were darker than bg. */
+    --interactive-soft-mix-base:            var(--color-neutral-3);
+    --interactive-soft-strength:            18%;
+    --interactive-soft-hover-strength:      26%;
+    --interactive-surface-mix-base:         var(--color-neutral-3);
+    --interactive-surface-strength:         12%;
+    --interactive-surface-hover-strength:   18%;
     --interactive-surface-border-strength:  68%;
     --interactive-surface-border-hover-strength: 82%;
   }
@@ -532,12 +534,14 @@
   --shadow-floating: 0 8px 24px -12px oklch(0% 0 0 / 58%), 0 2px 8px oklch(0% 0 0 / 28%);
   --shadow-panel: 0 20px 50px -28px oklch(0% 0 0 / 68%), 0 8px 20px oklch(0% 0 0 / 42%);
 
-  --interactive-soft-mix-base:            black;
-  --interactive-soft-strength:            32%;
-  --interactive-soft-hover-strength:      40%;
-  --interactive-surface-mix-base:         black;
-  --interactive-surface-strength:         24%;
-  --interactive-surface-hover-strength:   30%;
+  /* Dark mode: mix against neutral-3 (~21% L) so results sit above the
+     ~14% background. With black as base, results were darker than bg. */
+  --interactive-soft-mix-base:            var(--color-neutral-3);
+  --interactive-soft-strength:            18%;
+  --interactive-soft-hover-strength:      26%;
+  --interactive-surface-mix-base:         var(--color-neutral-3);
+  --interactive-surface-strength:         12%;
+  --interactive-surface-hover-strength:   18%;
   --interactive-surface-border-strength:  68%;
   --interactive-surface-border-hover-strength: 82%;
 }

@@ -1,0 +1,265 @@
+/* ==========================================================================
+ * Select
+ * ==========================================================================
+ * Built on Base UI Select primitives.
+ * Trigger looks like an Input. Popup is a styled dropdown with items.
+ *
+ * Trigger data attrs: data-open, data-closed, data-placeholder
+ * Popup data attrs:   data-open, data-closed (for animations)
+ * Item data attrs:    data-highlighted, data-selected, data-disabled
+ */
+
+/* ---------------------------------------------------------------------------
+ * Trigger — styled like Input surface variant
+ * --------------------------------------------------------------------------- */
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  height: var(--sel-height);
+  padding: 0 var(--sel-px);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--sel-radius, var(--component-radius));
+  background-color: var(--color-surface-sunken);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-primary);
+  font-size: var(--sel-fs);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  text-align: left;
+  outline: none;
+  transition: var(--transition-colors);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.trigger:hover:not([data-disabled]) {
+  border-color: var(--color-border);
+}
+
+.trigger[data-open] {
+  border-color: var(--color-accent-8);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
+}
+
+.trigger:focus-visible {
+  border-color: var(--color-accent-8);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
+}
+
+.trigger[data-disabled] {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  pointer-events: none;
+}
+
+.trigger[data-placeholder] .value {
+  color: var(--color-text-disabled);
+}
+
+/* ---------------------------------------------------------------------------
+ * Trigger value + caret icon
+ * --------------------------------------------------------------------------- */
+.value {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+  transition: transform var(--duration-2) var(--ease-2);
+}
+
+.trigger[data-open] .icon {
+  transform: rotate(180deg);
+}
+
+/* ---------------------------------------------------------------------------
+ * Popup
+ * --------------------------------------------------------------------------- */
+.popup {
+  min-width: var(--available-width, 180px);
+  max-height: 320px;
+  overflow-y: auto;
+  background-color: var(--color-surface-overlay);
+  border: 1px solid var(--color-border);
+  border-radius: var(--sel-radius, min(var(--component-radius), var(--radius-4)));
+  box-shadow: var(--shadow-floating);
+  padding: var(--space-1) 0;
+  outline: none;
+  /* Custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-neutral-6) transparent;
+  transform-origin: var(--transform-origin);
+}
+
+/* Open/close animation */
+.popup[data-open] {
+  animation: popup-in var(--duration-3) var(--ease-2);
+}
+
+.popup[data-closed] {
+  animation: popup-out var(--duration-2) var(--ease-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .popup[data-open],
+  .popup[data-closed] {
+    animation: none;
+  }
+}
+
+@keyframes popup-in {
+  from {
+    opacity: 0;
+    scale: 0.97;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes popup-out {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 0.97;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Positioner
+ * --------------------------------------------------------------------------- */
+.positioner {
+  z-index: 50;
+}
+
+/* ---------------------------------------------------------------------------
+ * Items
+ * --------------------------------------------------------------------------- */
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: var(--sel-item-height, var(--button-2-height));
+  padding: 0 var(--space-3) 0 var(--space-2);
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--font-family-primary);
+  font-size: var(--sel-item-fs, var(--button-2-font-size));
+  color: var(--color-text-primary);
+  outline: none;
+  transition: background-color var(--duration-1) var(--ease-2);
+}
+
+.item[data-highlighted] {
+  background-color: color-mix(in oklch, var(--color-accent-9) var(--interactive-soft-strength), var(--interactive-soft-mix-base));
+  color: var(--color-text-primary);
+}
+
+.item[data-selected] {
+  font-weight: var(--font-weight-medium);
+}
+
+.item[data-disabled] {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Item text
+ * --------------------------------------------------------------------------- */
+.itemText {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Item indicator (checkmark for selected item)
+ * --------------------------------------------------------------------------- */
+.itemIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  flex-shrink: 0;
+  color: var(--color-accent-9);
+}
+
+/* ---------------------------------------------------------------------------
+ * Separator between item groups
+ * --------------------------------------------------------------------------- */
+.separator {
+  height: 1px;
+  background-color: var(--color-border-subtle);
+  margin: var(--space-1) 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Group label
+ * --------------------------------------------------------------------------- */
+.groupLabel {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-3);
+  user-select: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Size variants — mirrors button/input sizes
+ * -------------------------------------------------------------------------
+ *  1: 24px height, 8px px
+ *  2: 32px height, 12px px  (default)
+ *  3: 40px height, 16px px
+ *  4: 48px height, 20px px
+ * --------------------------------------------------------------------------- */
+.size1 {
+  --sel-height: var(--button-1-height);
+  --sel-px:     var(--button-1-px);
+  --sel-fs:     var(--button-1-font-size);
+  --sel-item-height: var(--button-1-height);
+  --sel-item-fs:     var(--button-1-font-size);
+}
+
+.size2 {
+  --sel-height: var(--button-2-height);
+  --sel-px:     var(--button-2-px);
+  --sel-fs:     var(--button-2-font-size);
+  --sel-item-height: var(--button-2-height);
+  --sel-item-fs:     var(--button-2-font-size);
+}
+
+.size3 {
+  --sel-height: var(--button-3-height);
+  --sel-px:     var(--button-3-px);
+  --sel-fs:     var(--button-3-font-size);
+  --sel-item-height: var(--button-3-height);
+  --sel-item-fs:     var(--button-3-font-size);
+}
+
+.size4 {
+  --sel-height: var(--button-4-height);
+  --sel-px:     var(--button-4-px);
+  --sel-fs:     var(--button-4-font-size);
+  --sel-item-height: var(--button-4-height);
+  --sel-item-fs:     var(--button-4-font-size);
+}
