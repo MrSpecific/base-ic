@@ -367,6 +367,25 @@ export function Theme({
     };
   }, [appearance, isRootTheme]);
 
+  // Hoist --color-neutral-N and --color-accent-N as body inline styles so that
+  // portaled elements (Tooltip, Popover, Dialog) rendered outside the Theme div
+  // still resolve the correct themed hue for surface / accent colors.
+  // Inline styles beat selector-based rules for the same element; children
+  // inherit unless a closer ancestor (nested Theme div) overrides them.
+  React.useEffect(() => {
+    if (!isRootTheme || typeof document === 'undefined') return;
+    const body = document.body;
+    const vars = { ...buildNeutralVars(grayColor), ...buildAccentVars(accentColor) };
+    for (const [prop, val] of Object.entries(vars)) {
+      body.style.setProperty(prop, val);
+    }
+    return () => {
+      for (const prop of Object.keys(vars)) {
+        body.style.removeProperty(prop);
+      }
+    };
+  }, [accentColor, grayColor, isRootTheme]);
+
   // Sync theme CSS variables to <body> for portaled components so scaling,
   // accent, neutral, radius, and font overrides remain consistent everywhere.
   React.useEffect(() => {

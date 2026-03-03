@@ -228,14 +228,66 @@
   --badge-3-font-size:  var(--font-size-3);
 
   /* -------------------------------------------------------------------------
+   * Semantic interactive patterns — Accordion sizing (3 sizes)
+   * -------------------------------------------------------------------------
+   */
+  --accordion-1-py:         var(--space-2);
+  --accordion-1-px:         var(--space-3);
+  --accordion-1-font-size:  var(--font-size-2);
+
+  --accordion-2-py:         var(--space-3);
+  --accordion-2-px:         var(--space-4);
+  --accordion-2-font-size:  var(--font-size-3);
+
+  --accordion-3-py:         var(--space-4);
+  --accordion-3-px:         var(--space-5);
+  --accordion-3-font-size:  var(--font-size-4);
+
+  /* -------------------------------------------------------------------------
+   * Semantic interactive patterns — Slider sizing (3 sizes)
+   * -------------------------------------------------------------------------
+   */
+  --slider-1-track-height:  calc(4px * var(--component-scaling));
+  --slider-1-thumb-size:    calc(16px * var(--component-scaling));
+
+  --slider-2-track-height:  calc(5px * var(--component-scaling));
+  --slider-2-thumb-size:    calc(20px * var(--component-scaling));
+
+  --slider-3-track-height:  calc(6px * var(--component-scaling));
+  --slider-3-thumb-size:    calc(24px * var(--component-scaling));
+
+  /* -------------------------------------------------------------------------
+   * Semantic interactive patterns — Progress sizing (3 sizes)
+   * -------------------------------------------------------------------------
+   */
+  --progress-1-height:      calc(4px * var(--component-scaling));
+  --progress-2-height:      calc(6px * var(--component-scaling));
+  --progress-3-height:      calc(8px * var(--component-scaling));
+
+  /* -------------------------------------------------------------------------
+   * Semantic display patterns — Avatar sizing (5 sizes)
+   * -------------------------------------------------------------------------
+   */
+  --avatar-1-size:  var(--size-2);   /* 24px */
+  --avatar-2-size:  var(--size-3);   /* 32px */
+  --avatar-3-size:  var(--size-4);   /* 40px */
+  --avatar-4-size:  var(--size-5);   /* 48px */
+  --avatar-5-size:  var(--size-7);   /* 64px */
+
+  /* -------------------------------------------------------------------------
    * Semantic tooltip patterns
    * -------------------------------------------------------------------------
-   * Tooltips use pure gray primitives (not theme-mapped neutral) so they
-   * stay achromatic regardless of the theme's grayColor (mauve, slate, etc.).
+   * Inverse style: --color-gray-12 is near-black (16% L) in light mode and
+   * near-white (95% L) in dark mode (primitive flips via dark.css).
+   * NOTE: Dark re-declarations ARE required in both dark blocks below.
+   * CSS var() substitution resolves at the declaring element (:root), so
+   * body-level primitive overrides don't re-resolve tokens inherited from
+   * :root. Re-declaring in the dark context forces correct re-evaluation.
+   * Using pure gray keeps tooltips achromatic regardless of grayColor.
    */
-  --tooltip-bg:               color-mix(in oklch, white 94%, var(--color-gray-3));
-  --tooltip-text:             var(--color-gray-12);
-  --tooltip-border:           var(--color-gray-7);
+  --tooltip-bg:               var(--color-gray-12);
+  --tooltip-text:             var(--color-gray-1);
+  --tooltip-border:           transparent;
   --tooltip-shadow:           var(--shadow-floating);
   --tooltip-radius:           min(var(--component-radius), var(--radius-4));
   --tooltip-padding-y:        var(--space-1);
@@ -453,15 +505,15 @@
     --color-surface-overlay: color-mix(in oklch, var(--color-neutral-3) 96%, black);
     --color-surface-sunken:  color-mix(in oklch, var(--color-neutral-2) 82%, black);
 
-    --color-text-primary:   oklch(95% 0 0);
-    --color-text-secondary: oklch(83% 0 0);
-    --color-text-tertiary:  oklch(68% 0 0);
-    --color-text-disabled:  oklch(52% 0 0);
+    --color-text-primary:   oklch(95% 0 none);
+    --color-text-secondary: oklch(83% 0 none);
+    --color-text-tertiary:  oklch(68% 0 none);
+    --color-text-disabled:  oklch(52% 0 none);
     --color-text-link: var(--color-accent-10);
 
-    --color-border-subtle: oklch(36% 0 0 / 55%);
-    --color-border:        oklch(43% 0 0 / 68%);
-    --color-border-strong: oklch(53% 0 0 / 78%);
+    --color-border-subtle: oklch(36% 0 none / 55%);
+    --color-border:        oklch(43% 0 none / 68%);
+    --color-border-strong: oklch(53% 0 none / 78%);
 
     --color-backdrop-base:         oklch(8% 0.003 255);
     --color-backdrop-accent-glow:  color-mix(in oklch, var(--color-accent-6) 24%, transparent);
@@ -501,10 +553,17 @@
     --interactive-surface-border-strength:  68%;
     --interactive-surface-border-hover-strength: 82%;
 
-    /* Tooltip — pure gray dark surface (gray-3 dark ≈ oklch(21% 0 0)) */
-    --tooltip-bg:     color-mix(in oklch, var(--color-gray-3) 96%, black);
-    --tooltip-text:   oklch(95% 0 0);
-    --tooltip-border: oklch(43% 0 0 / 68%);
+    /* Overlay component tokens — re-declare so var() resolves in dark context.
+       Each references an anchor that is ALSO re-declared in this block, so
+       var() substitution here uses the correct dark-mode values. */
+    --tooltip-bg:     var(--color-gray-12);
+    --tooltip-text:   var(--color-gray-1);
+    --popover-bg:     var(--color-surface-overlay);
+    --popover-text:   var(--color-text-primary);
+    --popover-border: var(--color-border);
+    --dialog-bg:      var(--color-surface-overlay);
+    --dialog-border:  var(--color-border);
+
   }
 }
 
@@ -516,15 +575,15 @@
   --color-surface-sunken:  color-mix(in oklch, var(--color-neutral-2) 82%, black);
 
   /* Explicit dark text ramps for stable contrast */
-  --color-text-primary:   oklch(95% 0 0);
-  --color-text-secondary: oklch(83% 0 0);
-  --color-text-tertiary:  oklch(68% 0 0);
-  --color-text-disabled:  oklch(52% 0 0);
+  --color-text-primary:   oklch(95% 0 none);
+  --color-text-secondary: oklch(83% 0 none);
+  --color-text-tertiary:  oklch(68% 0 none);
+  --color-text-disabled:  oklch(52% 0 none);
   --color-text-link: var(--color-accent-10);
 
-  --color-border-subtle: oklch(36% 0 0 / 55%);
-  --color-border:        oklch(43% 0 0 / 68%);
-  --color-border-strong: oklch(53% 0 0 / 78%);
+  --color-border-subtle: oklch(36% 0 none / 55%);
+  --color-border:        oklch(43% 0 none / 68%);
+  --color-border-strong: oklch(53% 0 none / 78%);
 
   --color-backdrop-base:         oklch(8% 0.003 255);
   --color-backdrop-accent-glow:  color-mix(in oklch, var(--color-accent-6) 24%, transparent);
@@ -564,10 +623,16 @@
   --interactive-surface-border-strength:  68%;
   --interactive-surface-border-hover-strength: 82%;
 
-  /* Tooltip — pure gray dark surface (gray-3 dark ≈ oklch(21% 0 0)) */
-  --tooltip-bg:     color-mix(in oklch, var(--color-gray-3) 96%, black);
-  --tooltip-text:   oklch(95% 0 0);
-  --tooltip-border: oklch(43% 0 0 / 68%);
+  /* Overlay component tokens — re-declare so var() resolves in dark context.
+     Each references an anchor that is ALSO re-declared in this block, so
+     var() substitution here uses the correct dark-mode values. */
+  --tooltip-bg:     var(--color-gray-12);
+  --tooltip-text:   var(--color-gray-1);
+  --popover-bg:     var(--color-surface-overlay);
+  --popover-text:   var(--color-text-primary);
+  --popover-border: var(--color-border);
+  --dialog-bg:      var(--color-surface-overlay);
+  --dialog-border:  var(--color-border);
 }
 
 :where(.light, [data-appearance='light']) {

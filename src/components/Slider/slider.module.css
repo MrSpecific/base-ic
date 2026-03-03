@@ -1,0 +1,141 @@
+/* ==========================================================================
+ * Slider
+ * ==========================================================================
+ * Sizing: --sld-* CSS vars set from size class.
+ * Color:  --sld-accent-9, --sld-accent-10 set from color prop; falls back to accent.
+ *
+ * Fallback pattern:
+ *   var(--sld-accent-9, var(--color-accent-9))
+ */
+
+/* ---------------------------------------------------------------------------
+ * Root
+ * --------------------------------------------------------------------------- */
+.root {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  user-select: none;
+  touch-action: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Control (hit-area wrapper)
+ * --------------------------------------------------------------------------- */
+.control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  height: var(--sld-thumb-size);
+  cursor: pointer;
+}
+
+.control[data-disabled] {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Track
+ * --------------------------------------------------------------------------- */
+.track {
+  position: relative;
+  flex: 1;
+  height: var(--sld-track-height);
+  background-color: var(--color-neutral-4);
+  border-radius: var(--sld-radius, var(--radius-full));
+  overflow: visible;
+}
+
+/* ---------------------------------------------------------------------------
+ * Indicator (filled portion)
+ * --------------------------------------------------------------------------- */
+.indicator {
+  position: absolute;
+  height: 100%;
+  background-color: var(--sld-accent-9, var(--color-accent-9));
+  border-radius: inherit;
+  transition: background-color var(--duration-3) var(--ease-2);
+}
+
+/* ---------------------------------------------------------------------------
+ * Thumb
+ * --------------------------------------------------------------------------- */
+.thumb {
+  width: var(--sld-thumb-size);
+  height: var(--sld-thumb-size);
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface-raised);
+  border: calc(2px * var(--component-scaling)) solid var(--sld-accent-9, var(--color-accent-9));
+  box-shadow: var(--shadow-2);
+  cursor: grab;
+  outline: none;
+  transition: border-color var(--duration-3) var(--ease-2),
+              box-shadow var(--duration-3) var(--ease-2);
+}
+
+.thumb:hover:not([data-disabled]) {
+  border-color: var(--sld-accent-10, var(--color-accent-10));
+  box-shadow: var(--shadow-3);
+}
+
+.thumb:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.thumb[data-dragging] {
+  cursor: grabbing;
+  border-color: var(--sld-accent-10, var(--color-accent-10));
+  box-shadow: var(--shadow-3);
+}
+
+.thumb[data-disabled] {
+  cursor: var(--disabled-cursor);
+}
+
+/* ---------------------------------------------------------------------------
+ * Value output
+ * --------------------------------------------------------------------------- */
+.output {
+  font-size: var(--sld-font-size);
+  color: var(--color-text-secondary);
+  min-width: 2.5em;
+  text-align: right;
+  tabular-nums: initial;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------------------
+ * Size variants
+ * --------------------------------------------------------------------------- */
+.size1 {
+  --sld-track-height: calc(4px * var(--component-scaling));
+  --sld-thumb-size:   calc(16px * var(--component-scaling));
+  --sld-font-size:    var(--font-size-1);
+}
+
+.size2 {
+  --sld-track-height: calc(5px * var(--component-scaling));
+  --sld-thumb-size:   calc(20px * var(--component-scaling));
+  --sld-font-size:    var(--font-size-2);
+}
+
+.size3 {
+  --sld-track-height: calc(6px * var(--component-scaling));
+  --sld-thumb-size:   calc(24px * var(--component-scaling));
+  --sld-font-size:    var(--font-size-3);
+}
+
+/* ---------------------------------------------------------------------------
+ * Reduced motion
+ * --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .thumb,
+  .indicator {
+    transition: none;
+  }
+}

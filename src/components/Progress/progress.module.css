@@ -1,0 +1,85 @@
+/* ==========================================================================
+ * Progress
+ * ==========================================================================
+ * Sizing: --prog-* CSS vars set from size class.
+ * Color:  --prog-accent-9, --prog-accent-3 from color prop; falls back to accent.
+ *
+ * Fallback pattern:
+ *   var(--prog-accent-9, var(--color-accent-9))
+ */
+
+/* ---------------------------------------------------------------------------
+ * Root
+ * --------------------------------------------------------------------------- */
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+/* ---------------------------------------------------------------------------
+ * Track
+ * --------------------------------------------------------------------------- */
+.track {
+  position: relative;
+  width: 100%;
+  height: var(--prog-height);
+  background-color: color-mix(
+    in oklch,
+    var(--prog-accent-9, var(--color-accent-9)) 14%,
+    var(--color-surface-sunken)
+  );
+  border-radius: var(--prog-radius, var(--radius-full));
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------------------
+ * Indicator (fill)
+ * --------------------------------------------------------------------------- */
+.indicator {
+  height: 100%;
+  background-color: var(--prog-accent-9, var(--color-accent-9));
+  border-radius: inherit;
+  transition: width var(--duration-5) var(--ease-3);
+}
+
+/* Indeterminate animation */
+.indicator[data-indeterminate] {
+  animation: indeterminate-slide 1.4s linear infinite;
+  width: 40% !important;
+}
+
+@keyframes indeterminate-slide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
+/* ---------------------------------------------------------------------------
+ * Size variants
+ * --------------------------------------------------------------------------- */
+.size1 {
+  --prog-height: calc(4px * var(--component-scaling));
+}
+
+.size2 {
+  --prog-height: calc(6px * var(--component-scaling));
+}
+
+.size3 {
+  --prog-height: calc(8px * var(--component-scaling));
+}
+
+/* ---------------------------------------------------------------------------
+ * Reduced motion
+ * --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .indicator {
+    transition: none;
+  }
+
+  .indicator[data-indeterminate] {
+    animation: none;
+    width: 60% !important;
+  }
+}

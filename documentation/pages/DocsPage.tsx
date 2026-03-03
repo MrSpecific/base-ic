@@ -29,6 +29,11 @@ import { SelectDocsPage } from "./docs/SelectDocsPage";
 import { TextareaDocsPage } from "./docs/TextareaDocsPage";
 import { TabsDocsPage } from "./docs/TabsDocsPage";
 import { DialogDocsPage } from "./docs/DialogDocsPage";
+import { AlertDialogDocsPage } from "./docs/AlertDialogDocsPage";
+import { AccordionDocsPage } from "./docs/AccordionDocsPage";
+import { SliderDocsPage } from "./docs/SliderDocsPage";
+import { ProgressDocsPage } from "./docs/ProgressDocsPage";
+import { AvatarDocsPage } from "./docs/AvatarDocsPage";
 import type { DocsSection } from "../types";
 
 export function DocsPage({
@@ -65,8 +70,11 @@ export function DocsPage({
       items: [
         { id: "button", label: "Button" },
         { id: "badge", label: "Badge" },
+        { id: "avatar", label: "Avatar" },
         { id: "card", label: "Card" },
         { id: "separator", label: "Separator" },
+        { id: "accordion", label: "Accordion" },
+        { id: "progress", label: "Progress" },
       ],
     },
     {
@@ -78,6 +86,7 @@ export function DocsPage({
         { id: "checkbox", label: "Checkbox" },
         { id: "switch", label: "Switch" },
         { id: "radio-group", label: "RadioGroup" },
+        { id: "slider", label: "Slider" },
       ],
     },
     {
@@ -86,6 +95,7 @@ export function DocsPage({
         { id: "tooltip", label: "Tooltip" },
         { id: "popover", label: "Popover" },
         { id: "dialog", label: "Dialog" },
+        { id: "alert-dialog", label: "AlertDialog" },
       ],
     },
     {
@@ -129,6 +139,11 @@ export function DocsPage({
     if (section === "textarea") return <TextareaDocsPage />;
     if (section === "tabs") return <TabsDocsPage />;
     if (section === "dialog") return <DialogDocsPage />;
+    if (section === "alert-dialog") return <AlertDialogDocsPage />;
+    if (section === "accordion") return <AccordionDocsPage />;
+    if (section === "slider") return <SliderDocsPage />;
+    if (section === "progress") return <ProgressDocsPage />;
+    if (section === "avatar") return <AvatarDocsPage />;
     if (section === "typography") return <TypographyDocsPage />;
     if (section === "text") return <TextDocsPage />;
     if (section === "heading") return <HeadingDocsPage />;

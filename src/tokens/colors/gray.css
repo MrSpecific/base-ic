@@ -5,17 +5,17 @@
  */
 
 :root {
-  --color-gray-1:  oklch(99.0% 0.000 0);
-  --color-gray-2:  oklch(97.5% 0.000 0);
-  --color-gray-3:  oklch(95.0% 0.000 0);
-  --color-gray-4:  oklch(92.5% 0.000 0);
-  --color-gray-5:  oklch(90.0% 0.000 0);
-  --color-gray-6:  oklch(86.0% 0.000 0);
-  --color-gray-7:  oklch(80.0% 0.000 0);
-  --color-gray-8:  oklch(70.0% 0.000 0);
-  --color-gray-9:  oklch(56.0% 0.000 0);
-  --color-gray-10: oklch(50.0% 0.000 0);
-  --color-gray-11: oklch(42.0% 0.000 0);
-  --color-gray-12: oklch(16.0% 0.000 0);
+  --color-gray-1:  oklch(99.0% 0.000 none);
+  --color-gray-2:  oklch(97.5% 0.000 none);
+  --color-gray-3:  oklch(95.0% 0.000 none);
+  --color-gray-4:  oklch(92.5% 0.000 none);
+  --color-gray-5:  oklch(90.0% 0.000 none);
+  --color-gray-6:  oklch(86.0% 0.000 none);
+  --color-gray-7:  oklch(80.0% 0.000 none);
+  --color-gray-8:  oklch(70.0% 0.000 none);
+  --color-gray-9:  oklch(56.0% 0.000 none);
+  --color-gray-10: oklch(50.0% 0.000 none);
+  --color-gray-11: oklch(42.0% 0.000 none);
+  --color-gray-12: oklch(16.0% 0.000 none);
   --color-gray-contrast: white;
 }

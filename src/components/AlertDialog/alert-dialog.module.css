@@ -1,0 +1,142 @@
+/* ==========================================================================
+ * AlertDialog
+ * ==========================================================================
+ * Mirrors Dialog's layout but is smaller and focused on a single decision.
+ * Backdrop + popup animations match Dialog for visual consistency.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Backdrop
+ * --------------------------------------------------------------------------- */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-4);
+  background-color: var(--dialog-backdrop-bg);
+}
+
+.backdrop[data-open] {
+  animation: fadeIn var(--duration-3) var(--ease-3);
+}
+
+.backdrop[data-closed] {
+  animation: fadeOut var(--duration-3) var(--ease-2);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
+
+/* ---------------------------------------------------------------------------
+ * Popup
+ * --------------------------------------------------------------------------- */
+.popup {
+  position: fixed;
+  z-index: calc(var(--z-4) + 1);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  background-color: var(--dialog-bg);
+  border: 1px solid var(--dialog-border);
+  border-radius: var(--dialog-radius);
+  box-shadow: var(--shadow-5);
+  padding: var(--space-4) var(--space-5) var(--space-5);
+
+  max-height: calc(100vh - var(--space-8));
+  overflow-y: auto;
+}
+
+.popup[data-open] {
+  animation: scaleIn var(--duration-3) var(--ease-spring);
+}
+
+.popup[data-closed] {
+  animation: scaleOut var(--duration-2) var(--ease-2);
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+}
+
+@keyframes scaleOut {
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.97);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Size variants
+ * --------------------------------------------------------------------------- */
+.sizeSmall {
+  width: min(360px, calc(100vw - var(--space-6)));
+}
+
+.sizeMedium {
+  width: min(480px, calc(100vw - var(--space-6)));
+}
+
+.sizeLarge {
+  width: min(560px, calc(100vw - var(--space-6)));
+}
+
+/* ---------------------------------------------------------------------------
+ * Header
+ * --------------------------------------------------------------------------- */
+.header {
+  display: flex;
+  align-items: flex-start;
+}
+
+.title {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-4);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-3);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Description
+ * --------------------------------------------------------------------------- */
+.description {
+  font-size: var(--font-size-3);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-4);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Footer
+ * --------------------------------------------------------------------------- */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+/* ---------------------------------------------------------------------------
+ * Reduced motion
+ * --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .backdrop[data-open],
+  .backdrop[data-closed],
+  .popup[data-open],
+  .popup[data-closed] {
+    animation: none;
+  }
+}

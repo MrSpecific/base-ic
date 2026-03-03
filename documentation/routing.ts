@@ -34,7 +34,12 @@ export function getRouteFromPath(pathname: string): RouteState {
       slug === 'select' ||
       slug === 'textarea' ||
       slug === 'tabs' ||
-      slug === 'dialog'
+      slug === 'dialog' ||
+      slug === 'alert-dialog' ||
+      slug === 'accordion' ||
+      slug === 'slider' ||
+      slug === 'progress' ||
+      slug === 'avatar'
     ) {
       return { page: 'docs', docsSection: slug };
     }

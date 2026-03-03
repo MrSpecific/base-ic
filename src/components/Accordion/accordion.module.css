@@ -1,0 +1,172 @@
+/* ==========================================================================
+ * Accordion
+ * ==========================================================================
+ * Sizing: --acc-* CSS vars set from size class.
+ * Color:  inherits from --color-accent-* (no per-instance override).
+ *
+ * Animation: Uses --accordion-panel-height set by Base UI's Resize Observer.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Root
+ * --------------------------------------------------------------------------- */
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ---------------------------------------------------------------------------
+ * Variants
+ * --------------------------------------------------------------------------- */
+.variantOutline {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--component-radius);
+  overflow: hidden;
+}
+
+.variantSurface {
+  background-color: var(--color-surface-subtle);
+  border-radius: var(--component-radius);
+  overflow: hidden;
+}
+
+.variantGhost {
+  /* No container chrome — items use border-bottom only */
+}
+
+/* ---------------------------------------------------------------------------
+ * Item
+ * --------------------------------------------------------------------------- */
+.item {
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.variantGhost .item {
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.variantGhost .item:last-child {
+  border-bottom: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Header / Trigger
+ * --------------------------------------------------------------------------- */
+.header {
+  margin: 0;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--acc-py) var(--acc-px);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-family-primary);
+  font-size: var(--acc-font-size);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  text-align: left;
+  line-height: var(--line-height-3);
+  transition: background-color var(--duration-3) var(--ease-2);
+}
+
+.trigger:hover:not([data-disabled]) {
+  background-color: var(--color-surface-subtle);
+}
+
+.trigger:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: calc(-1 * var(--focus-ring-offset));
+}
+
+.trigger[data-disabled] {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  pointer-events: none;
+}
+
+.triggerLabel {
+  flex: 1;
+}
+
+/* ---------------------------------------------------------------------------
+ * Chevron icon
+ * --------------------------------------------------------------------------- */
+.chevron {
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+  transition: transform var(--duration-3) var(--ease-2);
+}
+
+.trigger[data-panel-open] .chevron {
+  transform: rotate(180deg);
+}
+
+/* ---------------------------------------------------------------------------
+ * Panel
+ * --------------------------------------------------------------------------- */
+.panel {
+  height: 0;
+  overflow: hidden;
+  transition: height var(--duration-4) var(--ease-3);
+}
+
+.panel[data-open] {
+  height: var(--accordion-panel-height);
+}
+
+/* Support keepMounted + hidden attribute */
+.panel[hidden] {
+  display: block;
+  height: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Panel inner (padding lives here so height animation works cleanly)
+ * --------------------------------------------------------------------------- */
+.panelInner {
+  padding: 0 var(--acc-px) var(--acc-py);
+  color: var(--color-text-secondary);
+  font-size: var(--acc-font-size);
+  line-height: var(--line-height-4);
+}
+
+/* ---------------------------------------------------------------------------
+ * Size variants
+ * --------------------------------------------------------------------------- */
+.size1 {
+  --acc-py: var(--space-2);
+  --acc-px: var(--space-3);
+  --acc-font-size: var(--font-size-2);
+}
+
+.size2 {
+  --acc-py: var(--space-3);
+  --acc-px: var(--space-4);
+  --acc-font-size: var(--font-size-3);
+}
+
+.size3 {
+  --acc-py: var(--space-4);
+  --acc-px: var(--space-5);
+  --acc-font-size: var(--font-size-4);
+}
+
+/* ---------------------------------------------------------------------------
+ * Reduced motion
+ * --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    transition: none;
+  }
+}

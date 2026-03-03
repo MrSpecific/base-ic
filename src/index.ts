@@ -16,6 +16,26 @@ export type {
   FontFamilies,
 } from './components/Theme';
 
+// Accordion
+export { Accordion } from './components/Accordion';
+export type { AccordionProps, AccordionItemProps, AccordionTriggerProps, AccordionContentProps } from './components/Accordion';
+
+// Slider
+export { Slider, SliderPrimitive } from './components/Slider';
+export type { SliderProps } from './components/Slider';
+
+// Progress
+export { Progress, ProgressPrimitive } from './components/Progress';
+export type { ProgressProps } from './components/Progress';
+
+// Avatar
+export { Avatar, AvatarPrimitive } from './components/Avatar';
+export type { AvatarProps } from './components/Avatar';
+
+// AlertDialog
+export { AlertDialog, AlertDialogPrimitive } from './components/AlertDialog';
+export type { AlertDialogProps } from './components/AlertDialog';
+
 // Overlay components
 export { Tooltip, TooltipPrimitive } from './components/Tooltip';
 export type { TooltipProps } from './components/Tooltip';

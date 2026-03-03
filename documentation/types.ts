@@ -34,7 +34,12 @@ export type DocsSection =
   | 'select'
   | 'textarea'
   | 'tabs'
-  | 'dialog';
+  | 'dialog'
+  | 'alert-dialog'
+  | 'accordion'
+  | 'slider'
+  | 'progress'
+  | 'avatar';
 
 export type RouteState = {
   page: Page;
