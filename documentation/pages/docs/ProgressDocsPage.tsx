@@ -12,19 +12,19 @@ export function ProgressDocsPage() {
   const usageSnippet = [
     "import { Progress } from 'base-ic';",
     "",
-    '<Progress value={0.6} aria-label="Upload progress" />',
+    '<Progress value={60} aria-label="Upload progress" />',
   ].join("\n");
 
   const sizesSnippet = [
-    '<Progress size="1" value={0.4} aria-label="Size 1" />',
-    '<Progress size="2" value={0.6} aria-label="Size 2" />',
-    '<Progress size="3" value={0.8} aria-label="Size 3" />',
+    '<Progress size="1" value={40} aria-label="Size 1" />',
+    '<Progress size="2" value={60} aria-label="Size 2" />',
+    '<Progress size="3" value={80} aria-label="Size 3" />',
   ].join("\n");
 
   const colorsSnippet = [
-    '<Progress value={0.7} color="violet" aria-label="Violet" />',
-    '<Progress value={0.55} color="green" aria-label="Green" />',
-    '<Progress value={0.3} color="red" aria-label="Red" />',
+    '<Progress value={70} color="violet" aria-label="Violet" />',
+    '<Progress value={55} color="green" aria-label="Green" />',
+    '<Progress value={30} color="red" aria-label="Red" />',
   ].join("\n");
 
   const indeterminateSnippet = ['<Progress aria-label="Loading" />'].join("\n");
