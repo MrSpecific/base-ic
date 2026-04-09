@@ -1,0 +1,217 @@
+/* ==========================================================================
+ * Menu
+ * ==========================================================================
+ * A dropdown menu built on Base UI Menu primitives.
+ * Popup pattern mirrors Select popup.
+ *
+ * Item data attrs: data-highlighted, data-disabled, data-checked (checkbox/radio)
+ * Popup data attrs: data-open, data-closed
+ */
+
+/* ---------------------------------------------------------------------------
+ * Positioner
+ * --------------------------------------------------------------------------- */
+.positioner {
+  z-index: calc(var(--z-5) + 2);
+}
+
+/* ---------------------------------------------------------------------------
+ * Popup
+ * --------------------------------------------------------------------------- */
+.popup {
+  min-width: calc(160px * var(--component-scaling));
+  max-width: min(var(--available-width, calc(100vw - var(--space-4))), calc(320px * var(--component-scaling)));
+  max-height: min(
+    var(--available-height, calc(360px * var(--component-scaling))),
+    calc(360px * var(--component-scaling))
+  );
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: var(--color-surface-overlay);
+  border: 1px solid var(--color-border);
+  border-radius: var(--menu-popup-radius, min(var(--component-radius), var(--radius-4)));
+  box-shadow: var(--shadow-floating);
+  padding: var(--space-1) 0;
+  outline: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-neutral-6) transparent;
+  transform-origin: var(--transform-origin);
+}
+
+/* Open / close animations */
+.popup[data-open] {
+  animation: menu-in var(--duration-3) var(--ease-2);
+}
+
+.popup[data-closed] {
+  animation: menu-out var(--duration-2) var(--ease-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .popup[data-open],
+  .popup[data-closed] {
+    animation: none;
+  }
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    scale: 0.97;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes menu-out {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 0.97;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Item — base row
+ * --------------------------------------------------------------------------- */
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: var(--menu-item-height);
+  padding: 0 var(--menu-item-px);
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--font-family-primary);
+  font-size: var(--menu-item-fs);
+  color: var(--color-text-primary);
+  outline: none;
+  transition: background-color var(--duration-1) var(--ease-2);
+}
+
+.item[data-highlighted] {
+  background-color: color-mix(
+    in oklch,
+    var(--color-accent-9) var(--interactive-soft-strength),
+    var(--interactive-soft-mix-base)
+  );
+}
+
+.item[data-disabled] {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Item icon (custom icon on the left)
+ * --------------------------------------------------------------------------- */
+.itemIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--menu-indicator-size);
+  font-size: var(--menu-indicator-size);
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+/* ---------------------------------------------------------------------------
+ * Item label
+ * --------------------------------------------------------------------------- */
+.itemLabel {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Checkbox / Radio items — indicator space on the left
+ * --------------------------------------------------------------------------- */
+.checkboxItem,
+.radioItem {
+  padding-left: calc(var(--menu-indicator-size) + var(--space-2) * 2);
+  position: relative;
+}
+
+/* ---------------------------------------------------------------------------
+ * Item indicator (checkmark / radio dot)
+ * --------------------------------------------------------------------------- */
+.itemIndicator {
+  position: absolute;
+  left: var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--menu-indicator-size);
+  font-size: var(--menu-indicator-size);
+  color: var(--color-accent-9);
+}
+
+/* ---------------------------------------------------------------------------
+ * Submenu trigger — item variant with chevron pushed right
+ * --------------------------------------------------------------------------- */
+.submenuTrigger {
+  justify-content: space-between;
+  color: var(--color-text-primary);
+}
+
+/* ---------------------------------------------------------------------------
+ * Radio group wrapper (no extra chrome — just groups semantically)
+ * --------------------------------------------------------------------------- */
+.radioGroup {
+  /* Intentionally empty — layout handled by items */
+}
+
+/* ---------------------------------------------------------------------------
+ * Separator
+ * --------------------------------------------------------------------------- */
+.separator {
+  height: calc(1px * var(--component-scaling));
+  background-color: var(--color-border-subtle);
+  margin: var(--space-1) 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Group label
+ * --------------------------------------------------------------------------- */
+.groupLabel {
+  padding: var(--space-1) var(--menu-item-px);
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-3);
+  user-select: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Size variants
+ * --------------------------------------------------------------------------- */
+.size1 {
+  --menu-item-height:     var(--button-1-height);
+  --menu-item-px:         var(--button-1-px);
+  --menu-item-fs:         var(--button-1-font-size);
+  --menu-indicator-size:  var(--button-1-icon-size);
+}
+
+.size2 {
+  --menu-item-height:     var(--button-2-height);
+  --menu-item-px:         var(--button-2-px);
+  --menu-item-fs:         var(--button-2-font-size);
+  --menu-indicator-size:  var(--button-2-icon-size);
+}
+
+.size3 {
+  --menu-item-height:     var(--button-3-height);
+  --menu-item-px:         var(--button-3-px);
+  --menu-item-fs:         var(--button-3-font-size);
+  --menu-indicator-size:  var(--button-3-icon-size);
+}

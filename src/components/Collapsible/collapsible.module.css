@@ -1,0 +1,155 @@
+/* ==========================================================================
+ * Collapsible
+ * ==========================================================================
+ * A single expandable/collapsible section. Unlike Accordion, this manages
+ * one section without Item wrappers.
+ *
+ * Trigger data attrs: data-panel-open, data-disabled
+ * Panel data attrs:   data-open, data-closed, data-starting-style, data-ending-style
+ *
+ * Animation: Base UI sets --collapsible-panel-height via ResizeObserver.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Root
+ * --------------------------------------------------------------------------- */
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ---------------------------------------------------------------------------
+ * Variants
+ * --------------------------------------------------------------------------- */
+.variantOutline {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--component-radius);
+  overflow: hidden;
+}
+
+.variantSurface {
+  background-color: var(--color-surface-subtle);
+  border-radius: var(--component-radius);
+  overflow: hidden;
+}
+
+.variantGhost {
+  /* No container chrome */
+}
+
+/* ---------------------------------------------------------------------------
+ * Trigger
+ * --------------------------------------------------------------------------- */
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--col-py) var(--col-px);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-family-primary);
+  font-size: var(--col-font-size);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  text-align: left;
+  line-height: var(--line-height-3);
+  transition: background-color var(--duration-3) var(--ease-2);
+}
+
+.trigger:hover:not([data-disabled]) {
+  background-color: color-mix(in oklch, var(--color-neutral-9) 8%, transparent);
+}
+
+.trigger:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: calc(-1 * var(--focus-ring-offset));
+}
+
+.trigger[data-disabled] {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  pointer-events: none;
+}
+
+.triggerLabel {
+  flex: 1;
+}
+
+/* ---------------------------------------------------------------------------
+ * Chevron icon
+ * --------------------------------------------------------------------------- */
+.chevron {
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+  transition: transform var(--duration-3) var(--ease-2);
+}
+
+.trigger[data-panel-open] .chevron {
+  transform: rotate(180deg);
+}
+
+/* ---------------------------------------------------------------------------
+ * Panel
+ * --------------------------------------------------------------------------- */
+.panel {
+  height: 0;
+  overflow: hidden;
+  transition: height var(--duration-4) var(--ease-3);
+}
+
+.panel[data-open] {
+  height: var(--collapsible-panel-height);
+}
+
+/* Support keepMounted + hidden attribute */
+.panel[hidden] {
+  display: block;
+  height: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Panel inner — padding lives here so height animation works cleanly
+ * --------------------------------------------------------------------------- */
+.panelInner {
+  padding: var(--col-py) var(--col-px);
+  color: var(--color-text-secondary);
+  font-size: var(--col-font-size);
+  line-height: var(--line-height-4);
+}
+
+/* ---------------------------------------------------------------------------
+ * Size variants
+ * --------------------------------------------------------------------------- */
+.size1 {
+  --col-py: var(--space-2);
+  --col-px: var(--space-3);
+  --col-font-size: var(--font-size-2);
+}
+
+.size2 {
+  --col-py: var(--space-3);
+  --col-px: var(--space-4);
+  --col-font-size: var(--font-size-3);
+}
+
+.size3 {
+  --col-py: var(--space-4);
+  --col-px: var(--space-5);
+  --col-font-size: var(--font-size-4);
+}
+
+/* ---------------------------------------------------------------------------
+ * Reduced motion
+ * --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    transition: none;
+  }
+  .chevron {
+    transition: none;
+  }
+}

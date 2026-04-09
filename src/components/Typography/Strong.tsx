@@ -7,7 +7,7 @@ export const Strong = React.forwardRef<HTMLElement, StrongProps>(
     return (
       <strong
         ref={ref}
-        style={{ fontWeight: 'var(--font-weight-semibold)' as any, ...style }}
+        style={{ fontWeight: 'var(--font-weight-semibold)' as React.CSSProperties['fontWeight'], ...style }}
         {...rest}
       />
     );

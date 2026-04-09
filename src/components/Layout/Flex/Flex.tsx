@@ -35,5 +35,5 @@ export const Flex = React.forwardRef<HTMLElement, FlexProps>(function Flex(
     ...buildSpaceVars('flex', { p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml }),
   });
 
-  return <Comp ref={ref as never} className={cx(styles.flex, className)} style={nextStyle} {...props} />;
-});
+  return <Comp ref={ref} className={cx(styles.flex, className)} style={nextStyle} {...props} />;
+}) as React.ForwardRefExoticComponent<FlexProps & React.RefAttributes<HTMLElement>>;

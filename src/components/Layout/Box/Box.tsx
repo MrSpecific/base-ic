@@ -19,5 +19,5 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
   const nextStyle = withVar(style, buildSpaceVars('box', {
     p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
   }));
-  return <Comp ref={ref as never} className={cx(styles.box, className)} style={nextStyle} {...props} />;
-});
+  return <Comp ref={ref} className={cx(styles.box, className)} style={nextStyle} {...props} />;
+}) as React.ForwardRefExoticComponent<BoxProps & React.RefAttributes<HTMLElement>>;

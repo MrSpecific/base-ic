@@ -39,7 +39,13 @@ export function getRouteFromPath(pathname: string): RouteState {
       slug === 'accordion' ||
       slug === 'slider' ||
       slug === 'progress' ||
-      slug === 'avatar'
+      slug === 'avatar' ||
+      slug === 'field' ||
+      slug === 'number-field' ||
+      slug === 'toggle' ||
+      slug === 'menu' ||
+      slug === 'collapsible' ||
+      slug === 'skeleton'
     ) {
       return { page: 'docs', docsSection: slug };
     }

@@ -1,0 +1,19 @@
+/**
+ * Gold scale
+ */
+
+:root {
+  --color-gold-1:  oklch(98.5% 0.012 85);
+  --color-gold-2:  oklch(97.0% 0.018 85);
+  --color-gold-3:  oklch(93.5% 0.028 85);
+  --color-gold-4:  oklch(89.5% 0.038 85);
+  --color-gold-5:  oklch(85.0% 0.048 85);
+  --color-gold-6:  oklch(79.0% 0.055 85);
+  --color-gold-7:  oklch(71.0% 0.065 85);
+  --color-gold-8:  oklch(60.0% 0.075 85);
+  --color-gold-9:  oklch(54.0% 0.085 85);
+  --color-gold-10: oklch(48.0% 0.080 85);
+  --color-gold-11: oklch(42.0% 0.070 85);
+  --color-gold-12: oklch(22.0% 0.040 85);
+  --color-gold-contrast: white;
+}

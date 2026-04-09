@@ -81,7 +81,7 @@
 }
 
 .trigger:hover:not([data-disabled]) {
-  background-color: var(--color-surface-subtle);
+  background-color: var(--color-neutral-3);
 }
 
 .trigger:focus-visible {
@@ -135,7 +135,7 @@
  * Panel inner (padding lives here so height animation works cleanly)
  * --------------------------------------------------------------------------- */
 .panelInner {
-  padding: 0 var(--acc-px) var(--acc-py);
+  padding: var(--acc-py) var(--acc-px);
   color: var(--color-text-secondary);
   font-size: var(--acc-font-size);
   line-height: var(--line-height-4);

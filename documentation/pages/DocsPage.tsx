@@ -34,6 +34,12 @@ import { AccordionDocsPage } from "./docs/AccordionDocsPage";
 import { SliderDocsPage } from "./docs/SliderDocsPage";
 import { ProgressDocsPage } from "./docs/ProgressDocsPage";
 import { AvatarDocsPage } from "./docs/AvatarDocsPage";
+import { FieldDocsPage } from "./docs/FieldDocsPage";
+import { NumberFieldDocsPage } from "./docs/NumberFieldDocsPage";
+import { ToggleDocsPage } from "./docs/ToggleDocsPage";
+import { MenuDocsPage } from "./docs/MenuDocsPage";
+import { CollapsibleDocsPage } from "./docs/CollapsibleDocsPage";
+import { SkeletonDocsPage } from "./docs/SkeletonDocsPage";
 import type { DocsSection } from "../types";
 
 export function DocsPage({
@@ -74,14 +80,20 @@ export function DocsPage({
         { id: "card", label: "Card" },
         { id: "separator", label: "Separator" },
         { id: "accordion", label: "Accordion" },
+        { id: "collapsible", label: "Collapsible" },
         { id: "progress", label: "Progress" },
+        { id: "skeleton", label: "Skeleton" },
+        { id: "menu", label: "Menu" },
+        { id: "toggle", label: "Toggle" },
       ],
     },
     {
       title: "Forms",
       items: [
+        { id: "field", label: "Field" },
         { id: "input", label: "Input" },
         { id: "textarea", label: "Textarea" },
+        { id: "number-field", label: "NumberField" },
         { id: "select", label: "Select" },
         { id: "checkbox", label: "Checkbox" },
         { id: "switch", label: "Switch" },
@@ -144,6 +156,12 @@ export function DocsPage({
     if (section === "slider") return <SliderDocsPage />;
     if (section === "progress") return <ProgressDocsPage />;
     if (section === "avatar") return <AvatarDocsPage />;
+    if (section === "field") return <FieldDocsPage />;
+    if (section === "number-field") return <NumberFieldDocsPage />;
+    if (section === "toggle") return <ToggleDocsPage />;
+    if (section === "menu") return <MenuDocsPage />;
+    if (section === "collapsible") return <CollapsibleDocsPage />;
+    if (section === "skeleton") return <SkeletonDocsPage />;
     if (section === "typography") return <TypographyDocsPage />;
     if (section === "text") return <TextDocsPage />;
     if (section === "heading") return <HeadingDocsPage />;

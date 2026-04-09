@@ -1,0 +1,19 @@
+/**
+ * Crimson scale
+ */
+
+:root {
+  --color-crimson-1:  oklch(98.5% 0.010 10);
+  --color-crimson-2:  oklch(97.0% 0.018 10);
+  --color-crimson-3:  oklch(93.5% 0.044 10);
+  --color-crimson-4:  oklch(89.5% 0.072 10);
+  --color-crimson-5:  oklch(85.0% 0.094 10);
+  --color-crimson-6:  oklch(79.0% 0.110 10);
+  --color-crimson-7:  oklch(71.0% 0.130 10);
+  --color-crimson-8:  oklch(60.0% 0.158 10);
+  --color-crimson-9:  oklch(54.0% 0.210 10);
+  --color-crimson-10: oklch(48.0% 0.200 10);
+  --color-crimson-11: oklch(42.0% 0.178 10);
+  --color-crimson-12: oklch(22.0% 0.100 10);
+  --color-crimson-contrast: white;
+}

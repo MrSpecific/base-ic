@@ -39,7 +39,13 @@ export type DocsSection =
   | 'accordion'
   | 'slider'
   | 'progress'
-  | 'avatar';
+  | 'avatar'
+  | 'field'
+  | 'number-field'
+  | 'toggle'
+  | 'menu'
+  | 'collapsible'
+  | 'skeleton';
 
 export type RouteState = {
   page: Page;

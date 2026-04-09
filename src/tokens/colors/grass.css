@@ -1,0 +1,19 @@
+/**
+ * Grass scale
+ */
+
+:root {
+  --color-grass-1:  oklch(98.5% 0.010 145);
+  --color-grass-2:  oklch(97.0% 0.018 145);
+  --color-grass-3:  oklch(93.5% 0.042 145);
+  --color-grass-4:  oklch(89.5% 0.068 145);
+  --color-grass-5:  oklch(85.0% 0.090 145);
+  --color-grass-6:  oklch(79.0% 0.106 145);
+  --color-grass-7:  oklch(71.0% 0.122 145);
+  --color-grass-8:  oklch(60.0% 0.148 145);
+  --color-grass-9:  oklch(54.0% 0.190 145);
+  --color-grass-10: oklch(48.0% 0.180 145);
+  --color-grass-11: oklch(40.0% 0.160 145);
+  --color-grass-12: oklch(22.0% 0.090 145);
+  --color-grass-contrast: white;
+}

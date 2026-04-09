@@ -1,0 +1,19 @@
+/**
+ * Plum scale
+ */
+
+:root {
+  --color-plum-1:  oklch(98.5% 0.010 320);
+  --color-plum-2:  oklch(97.0% 0.018 320);
+  --color-plum-3:  oklch(93.5% 0.038 320);
+  --color-plum-4:  oklch(89.5% 0.060 320);
+  --color-plum-5:  oklch(85.0% 0.078 320);
+  --color-plum-6:  oklch(79.0% 0.090 320);
+  --color-plum-7:  oklch(71.0% 0.110 320);
+  --color-plum-8:  oklch(60.0% 0.140 320);
+  --color-plum-9:  oklch(54.0% 0.180 320);
+  --color-plum-10: oklch(48.0% 0.170 320);
+  --color-plum-11: oklch(42.0% 0.160 320);
+  --color-plum-12: oklch(22.0% 0.095 320);
+  --color-plum-contrast: white;
+}

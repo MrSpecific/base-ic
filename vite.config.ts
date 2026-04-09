@@ -10,8 +10,8 @@ export default defineConfig({
     dts({
       include: ['src'],
       outDir: 'dist',
-      // Keep per-module declarations — mirrors the preserveModules JS output
-      rollupTypes: false,
+      // Roll up all declarations into a single index.d.ts for cleaner imports
+      rollupTypes: true,
     }),
     {
       name: 'copy-token-css',

@@ -20,7 +20,13 @@ const sizeClass: Record<ProgressSize, string> = {
   '3': styles.size3,
 };
 
-export interface ProgressProps extends Omit<BaseProgress.Root.Props, 'className' | 'style' | 'render'> {
+export interface ProgressProps extends Omit<BaseProgress.Root.Props, 'className' | 'style' | 'render' | 'value'> {
+  /**
+   * Current value between `min` and `max` (defaults: 0–100).
+   * Omit or pass `null` for indeterminate mode.
+   * @default null
+   */
+  value?: number | null;
   /** Visual size (track height). Default: '2' */
   size?: ProgressSize;
   /** Override the accent color for the fill. */
@@ -32,6 +38,7 @@ export interface ProgressProps extends Omit<BaseProgress.Root.Props, 'className'
 }
 
 export function Progress({
+  value = null,
   size = '2',
   color,
   radius,
@@ -52,6 +59,7 @@ export function Progress({
 
   return (
     <BaseProgress.Root
+      value={value}
       className={cx(styles.root, sizeClass[size], className)}
       style={{ ...colorVars, ...radiusVar, ...style }}
       {...rest}

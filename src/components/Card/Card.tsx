@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { buildSpaceVars, cx, type SpaceProps, toSpaceVar, withVar } from '../Layout/layout.utils';
+import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
 import styles from './card.module.css';
 
 type CardSize = '1' | '2' | '3' | '4' | '5';

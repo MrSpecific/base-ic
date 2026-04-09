@@ -35,5 +35,5 @@ export const Container = React.forwardRef<HTMLElement, ContainerProps>(function 
     '--container-margin-y': resolvedMarginY,
   });
 
-  return <Comp ref={ref as never} className={cx(styles.container, className)} style={nextStyle} {...props} />;
-});
+  return <Comp ref={ref} className={cx(styles.container, className)} style={nextStyle} {...props} />;
+}) as React.ForwardRefExoticComponent<ContainerProps & React.RefAttributes<HTMLElement>>;

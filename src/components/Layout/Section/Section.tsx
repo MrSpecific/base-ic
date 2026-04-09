@@ -27,5 +27,5 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(function Sect
     ...buildSpaceVars('section', { p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml }),
   });
 
-  return <Comp ref={ref as never} className={cx(styles.section, className)} style={nextStyle} {...props} />;
-});
+  return <Comp ref={ref} className={cx(styles.section, className)} style={nextStyle} {...props} />;
+}) as React.ForwardRefExoticComponent<SectionProps & React.RefAttributes<HTMLElement>>;

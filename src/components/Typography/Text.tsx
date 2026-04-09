@@ -52,7 +52,7 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(
 
     return (
       <Tag
-        ref={ref as any}
+        ref={ref as React.Ref<never>}
         className={cx(
           styles.text,
           truncate && styles.truncate,

@@ -1,0 +1,286 @@
+/* ==========================================================================
+ * Toggle
+ * ==========================================================================
+ * A two-state pressable button. Base UI sets `data-pressed` when active.
+ * Sizing: --tgl-* CSS vars set inline from `size` prop.
+ * Color:  --tgl-accent-* set inline from `color` prop; falls back to accent.
+ *
+ * Unpressed = neutral/off, Pressed = highlighted/on.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Base toggle
+ * --------------------------------------------------------------------------- */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tgl-gap, var(--space-2));
+  height: var(--tgl-height, var(--button-2-height));
+  min-width: var(--tgl-height, var(--button-2-height));
+  padding: 0 var(--tgl-px, var(--button-2-px));
+  border: 1px solid transparent;
+  border-radius: var(--tgl-radius, var(--component-radius));
+  font-family: var(--font-family-primary);
+  font-size: var(--tgl-fs, var(--button-2-font-size));
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: var(--transition-colors);
+}
+
+.toggle:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.toggle[data-disabled] {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Variant: solid
+ * Unpressed = surface-like. Pressed = full solid fill.
+ * --------------------------------------------------------------------------- */
+.solid {
+  background-color: color-mix(
+    in oklch,
+    var(--tgl-accent-9, var(--color-accent-9)) var(--interactive-surface-strength),
+    var(--interactive-surface-mix-base)
+  );
+  color: var(--tgl-accent-11, var(--color-accent-11));
+  border-color: color-mix(
+    in oklch,
+    var(--tgl-accent-9, var(--color-accent-9)) var(--interactive-surface-border-strength),
+    var(--color-border-subtle)
+  );
+}
+
+.solid:hover:not([data-disabled]):not([data-pressed]) {
+  background-color: color-mix(
+    in oklch,
+    var(--tgl-accent-9, var(--color-accent-9)) var(--interactive-surface-hover-strength),
+    var(--interactive-surface-mix-base)
+  );
+}
+
+.solid[data-pressed] {
+  background-color: var(--tgl-accent-9, var(--color-accent-9));
+  color: var(--tgl-accent-contrast, var(--color-accent-contrast));
+  border-color: var(--tgl-accent-9, var(--color-accent-9));
+  box-shadow: inset 0 1px 0 oklch(100% 0 0 / 10%);
+}
+
+.solid[data-pressed]:hover:not([data-disabled]) {
+  background-color: var(--tgl-accent-10, var(--color-accent-10));
+  border-color: var(--tgl-accent-10, var(--color-accent-10));
+}
+
+/* ---------------------------------------------------------------------------
+ * Variant: soft
+ * Unpressed = barely-there tint. Pressed = full soft fill.
+ * --------------------------------------------------------------------------- */
+.soft {
+  background-color: transparent;
+  color: var(--tgl-accent-11, var(--color-accent-11));
+}
+
+.soft:hover:not([data-disabled]):not([data-pressed]) {
+  background-color: color-mix(
+    in oklch,
+    var(--tgl-accent-9, var(--color-accent-9)) calc(var(--interactive-soft-strength) / 2),
+    var(--interactive-soft-mix-base)
+  );
+}
+
+.soft[data-pressed] {
+  background-color: color-mix(
+    in oklch,
+    var(--tgl-accent-9, var(--color-accent-9)) var(--interactive-soft-strength),
+    var(--interactive-soft-mix-base)
+  );
+}
+
+.soft[data-pressed]:hover:not([data-disabled]) {
+  background-color: color-mix(
+    in oklch,
+    var(--tgl-accent-9, var(--color-accent-9)) var(--interactive-soft-hover-strength),
+    var(--interactive-soft-mix-base)
+  );
+}
+
+/* ---------------------------------------------------------------------------
+ * Variant: surface
+ * Unpressed = subtle surface + border. Pressed = accent-tinted surface.
+ * --------------------------------------------------------------------------- */
+.surface {
+  background-color: color-mix(
+    in oklch,
+    var(--tgl-accent-9, var(--color-accent-9)) var(--interactive-surface-strength),
+    var(--interactive-surface-mix-base)
+  );
+  color: var(--tgl-accent-11, var(--color-accent-11));
+  border-color: color-mix(
+    in oklch,
+    var(--tgl-accent-9, var(--color-accent-9)) var(--interactive-surface-border-strength),
+    var(--color-border-subtle)
+  );
+}
+
+.surface:hover:not([data-disabled]):not([data-pressed]) {
+  background-color: color-mix(
+    in oklch,
+    var(--tgl-accent-9, var(--color-accent-9)) var(--interactive-surface-hover-strength),
+    var(--interactive-surface-mix-base)
+  );
+}
+
+.surface[data-pressed] {
+  background-color: color-mix(
+    in oklch,
+    var(--tgl-accent-9, var(--color-accent-9)) calc(var(--interactive-surface-strength) * 3),
+    var(--interactive-surface-mix-base)
+  );
+  border-color: color-mix(
+    in oklch,
+    var(--tgl-accent-9, var(--color-accent-9)) var(--interactive-surface-border-hover-strength),
+    var(--color-border)
+  );
+}
+
+/* ---------------------------------------------------------------------------
+ * Variant: outline
+ * Unpressed = transparent + border. Pressed = soft fill + border.
+ * --------------------------------------------------------------------------- */
+.outline {
+  background-color: transparent;
+  color: var(--tgl-accent-11, var(--color-accent-11));
+  border-color: var(--tgl-accent-7, var(--color-accent-7));
+}
+
+.outline:hover:not([data-disabled]):not([data-pressed]) {
+  background-color: color-mix(in oklch, var(--tgl-accent-9, var(--color-accent-9)) 10%, transparent);
+}
+
+.outline[data-pressed] {
+  background-color: color-mix(
+    in oklch,
+    var(--tgl-accent-9, var(--color-accent-9)) var(--interactive-soft-strength),
+    var(--interactive-soft-mix-base)
+  );
+  border-color: var(--tgl-accent-7, var(--color-accent-7));
+}
+
+.outline[data-pressed]:hover:not([data-disabled]) {
+  background-color: color-mix(
+    in oklch,
+    var(--tgl-accent-9, var(--color-accent-9)) var(--interactive-soft-hover-strength),
+    var(--interactive-soft-mix-base)
+  );
+}
+
+/* ---------------------------------------------------------------------------
+ * Variant: ghost
+ * Unpressed = fully transparent. Pressed = soft fill.
+ * --------------------------------------------------------------------------- */
+.ghost {
+  background-color: transparent;
+  color: var(--tgl-accent-11, var(--color-accent-11));
+}
+
+.ghost:hover:not([data-disabled]):not([data-pressed]) {
+  background-color: color-mix(in oklch, var(--tgl-accent-9, var(--color-accent-9)) 10%, transparent);
+}
+
+.ghost[data-pressed] {
+  background-color: color-mix(
+    in oklch,
+    var(--tgl-accent-9, var(--color-accent-9)) var(--interactive-soft-strength),
+    var(--interactive-soft-mix-base)
+  );
+}
+
+.ghost[data-pressed]:hover:not([data-disabled]) {
+  background-color: color-mix(
+    in oklch,
+    var(--tgl-accent-9, var(--color-accent-9)) var(--interactive-soft-hover-strength),
+    var(--interactive-soft-mix-base)
+  );
+}
+
+/* ---------------------------------------------------------------------------
+ * Group — a loose collection of toggles
+ * --------------------------------------------------------------------------- */
+.group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* ---------------------------------------------------------------------------
+ * GroupConnected — segmented control / pill bar
+ * overflow:hidden clips the child toggle border-radii at the edges.
+ * --------------------------------------------------------------------------- */
+.groupConnected {
+  display: inline-flex;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--component-radius);
+  overflow: hidden;
+  gap: 0;
+  padding: 2px;
+  background-color: var(--color-neutral-3);
+}
+
+/* Squash individual toggle styles inside connected group */
+.groupConnected .toggle {
+  border: none;
+  border-radius: calc(var(--component-radius) - 2px);
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.groupConnected .toggle[data-pressed] {
+  background-color: var(--color-surface-base);
+  box-shadow: 0 1px 2px oklch(0% 0 0 / 10%);
+}
+
+/* ---------------------------------------------------------------------------
+ * Size classes — mirror button tokens
+ * --------------------------------------------------------------------------- */
+.size1 {
+  --tgl-height:    var(--button-1-height);
+  --tgl-px:        var(--button-1-px);
+  --tgl-fs:        var(--button-1-font-size);
+  --tgl-gap:       var(--button-1-gap, var(--space-1));
+  --tgl-icon-size: var(--button-1-icon-size);
+}
+
+.size2 {
+  --tgl-height:    var(--button-2-height);
+  --tgl-px:        var(--button-2-px);
+  --tgl-fs:        var(--button-2-font-size);
+  --tgl-gap:       var(--button-2-gap, var(--space-2));
+  --tgl-icon-size: var(--button-2-icon-size);
+}
+
+.size3 {
+  --tgl-height:    var(--button-3-height);
+  --tgl-px:        var(--button-3-px);
+  --tgl-fs:        var(--button-3-font-size);
+  --tgl-gap:       var(--button-3-gap, var(--space-2));
+  --tgl-icon-size: var(--button-3-icon-size);
+}
+
+.size4 {
+  --tgl-height:    var(--button-4-height);
+  --tgl-px:        var(--button-4-px);
+  --tgl-fs:        var(--button-4-font-size);
+  --tgl-gap:       var(--button-4-gap, var(--space-2));
+  --tgl-icon-size: var(--button-4-icon-size);
+}

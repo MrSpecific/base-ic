@@ -1,0 +1,64 @@
+/* ==========================================================================
+ * Field
+ * ==========================================================================
+ * A form field wrapper that links label, control, description, and error.
+ * Uses Base UI Field primitives for proper a11y associations.
+ *
+ * Root data attrs: data-invalid, data-valid, data-disabled, data-touched,
+ *                  data-dirty, data-filled, data-focused
+ */
+
+/* ---------------------------------------------------------------------------
+ * Root
+ * --------------------------------------------------------------------------- */
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+/* ---------------------------------------------------------------------------
+ * Label
+ * --------------------------------------------------------------------------- */
+.label {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-3);
+  color: var(--color-text-primary);
+  user-select: none;
+}
+
+.required {
+  color: var(--color-red-11);
+  margin-left: 1px;
+}
+
+/* Show label error color when field is invalid */
+.root[data-invalid] .label {
+  color: var(--color-red-11);
+}
+
+/* ---------------------------------------------------------------------------
+ * Description
+ * --------------------------------------------------------------------------- */
+.description {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-3);
+  color: var(--color-text-secondary);
+}
+
+/* ---------------------------------------------------------------------------
+ * Error
+ * --------------------------------------------------------------------------- */
+.error {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-3);
+  color: var(--color-red-11);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}

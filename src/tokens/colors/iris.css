@@ -1,0 +1,19 @@
+/**
+ * Iris scale
+ */
+
+:root {
+  --color-iris-1:  oklch(98.5% 0.010 280);
+  --color-iris-2:  oklch(97.0% 0.018 280);
+  --color-iris-3:  oklch(93.5% 0.038 280);
+  --color-iris-4:  oklch(89.5% 0.060 280);
+  --color-iris-5:  oklch(85.0% 0.078 280);
+  --color-iris-6:  oklch(79.0% 0.090 280);
+  --color-iris-7:  oklch(71.0% 0.110 280);
+  --color-iris-8:  oklch(60.0% 0.140 280);
+  --color-iris-9:  oklch(54.0% 0.180 280);
+  --color-iris-10: oklch(48.0% 0.170 280);
+  --color-iris-11: oklch(42.0% 0.160 280);
+  --color-iris-12: oklch(22.0% 0.095 280);
+  --color-iris-contrast: white;
+}

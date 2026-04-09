@@ -1,0 +1,19 @@
+/**
+ * Brown scale
+ */
+
+:root {
+  --color-brown-1:  oklch(98.5% 0.008 50);
+  --color-brown-2:  oklch(97.0% 0.012 50);
+  --color-brown-3:  oklch(93.5% 0.020 50);
+  --color-brown-4:  oklch(89.5% 0.028 50);
+  --color-brown-5:  oklch(85.0% 0.035 50);
+  --color-brown-6:  oklch(79.0% 0.040 50);
+  --color-brown-7:  oklch(71.0% 0.045 50);
+  --color-brown-8:  oklch(60.0% 0.052 50);
+  --color-brown-9:  oklch(54.0% 0.060 50);
+  --color-brown-10: oklch(48.0% 0.055 50);
+  --color-brown-11: oklch(42.0% 0.048 50);
+  --color-brown-12: oklch(22.0% 0.030 50);
+  --color-brown-contrast: white;
+}

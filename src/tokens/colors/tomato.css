@@ -1,0 +1,19 @@
+/**
+ * Tomato scale
+ */
+
+:root {
+  --color-tomato-1:  oklch(98.5% 0.010 28);
+  --color-tomato-2:  oklch(97.0% 0.018 28);
+  --color-tomato-3:  oklch(93.5% 0.044 28);
+  --color-tomato-4:  oklch(89.5% 0.072 28);
+  --color-tomato-5:  oklch(85.0% 0.094 28);
+  --color-tomato-6:  oklch(79.0% 0.110 28);
+  --color-tomato-7:  oklch(71.0% 0.130 28);
+  --color-tomato-8:  oklch(60.0% 0.158 28);
+  --color-tomato-9:  oklch(54.0% 0.210 28);
+  --color-tomato-10: oklch(48.0% 0.200 28);
+  --color-tomato-11: oklch(42.0% 0.178 28);
+  --color-tomato-12: oklch(22.0% 0.100 28);
+  --color-tomato-contrast: white;
+}

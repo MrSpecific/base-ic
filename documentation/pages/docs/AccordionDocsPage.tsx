@@ -61,7 +61,7 @@ export function AccordionDocsPage() {
   ].join("\n");
 
   const multipleSnippet = [
-    '<Accordion openMultiple>',
+    '<Accordion multiple>',
     '  <Accordion.Item value="billing">',
     "    <Accordion.Trigger>Billing</Accordion.Trigger>",
     "    <Accordion.Content>Manage your plan and payment methods.</Accordion.Content>",
@@ -146,10 +146,10 @@ export function AccordionDocsPage() {
           </DemoCard>
           <DemoCard
             title="Multiple items"
-            description="Allow several items open at once with openMultiple."
+            description="Allow several items open at once with multiple."
             code={multipleSnippet}
           >
-            <Accordion openMultiple style={{ width: "100%" }}>
+            <Accordion multiple style={{ width: "100%" }}>
               <Accordion.Item value="billing">
                 <Accordion.Trigger>Billing</Accordion.Trigger>
                 <Accordion.Content>
@@ -219,7 +219,7 @@ export function AccordionDocsPage() {
         <Heading as="h2">Notes</Heading>
         <DocsList>
           <li>
-            Use `openMultiple` to allow several items to be open simultaneously.
+            Use `multiple` to allow several items to be open simultaneously.
           </li>
           <li>
             Each `Accordion.Item` requires a unique `value` prop for controlled

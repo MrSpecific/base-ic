@@ -3,7 +3,7 @@
 
 **An opinionated React UI library with the comfort of Radix Themes, built on the modern foundation of Base UI.**
 
-> Status: Early development — API is not stable.
+> A stable, production-ready v1 release.
 
 ---
 
@@ -151,6 +151,28 @@ import './your-theme.css';
 - `Card` — surface primitive for grouped content and interactive regions
 - `Tooltip` — contextual hint overlay (Base UI-backed)
 - `Popover` — anchored content overlay (Base UI-backed)
+- `Dialog` — modal dialog with backdrop (Base UI-backed)
+- `AlertDialog` — confirmation dialog with required action (Base UI-backed)
+- `Menu` — dropdown menu with items, checkboxes, radio groups, and submenus (Base UI-backed)
+- `Tabs` — tabbed navigation (Base UI-backed)
+- `Accordion` — collapsible content sections (Base UI-backed)
+- `Collapsible` — single collapsible region (Base UI-backed)
+- `Select` — dropdown select input (Base UI-backed)
+- `Skeleton` — loading placeholder
+
+### Form Controls
+
+- `Input` — text input field
+- `Textarea` — multi-line text input
+- `Checkbox` — checkbox toggle (Base UI-backed)
+- `Switch` — on/off switch toggle (Base UI-backed)
+- `RadioGroup` — radio button group (Base UI-backed)
+- `Slider` — range slider (Base UI-backed)
+- `NumberField` — numeric input with increment/decrement (Base UI-backed)
+- `Toggle` / `ToggleGroup` — pressable toggle buttons (Base UI-backed)
+- `Field` — form field wrapper with label, description, and error states (Base UI-backed)
+- `Progress` — progress bar indicator (Base UI-backed)
+- `Avatar` — user avatar with image and fallback
 
 ### Typography
 
@@ -255,7 +277,7 @@ Targets modern browsers that support:
 
 ## Contributing
 
-This project is in early development. Architecture decisions are documented in [`DESIGN.md`](./DESIGN.md). If you have thoughts on the API design, open a discussion.
+Architecture decisions are documented in [`DESIGN.md`](./DESIGN.md). If you have thoughts on the API design, open a discussion.
 
 ---
 

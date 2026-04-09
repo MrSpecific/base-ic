@@ -1,0 +1,19 @@
+/**
+ * Bronze scale
+ */
+
+:root {
+  --color-bronze-1:  oklch(98.5% 0.008 55);
+  --color-bronze-2:  oklch(97.0% 0.012 55);
+  --color-bronze-3:  oklch(93.5% 0.020 55);
+  --color-bronze-4:  oklch(89.5% 0.028 55);
+  --color-bronze-5:  oklch(85.0% 0.035 55);
+  --color-bronze-6:  oklch(79.0% 0.040 55);
+  --color-bronze-7:  oklch(71.0% 0.045 55);
+  --color-bronze-8:  oklch(60.0% 0.052 55);
+  --color-bronze-9:  oklch(54.0% 0.060 55);
+  --color-bronze-10: oklch(48.0% 0.055 55);
+  --color-bronze-11: oklch(42.0% 0.048 55);
+  --color-bronze-12: oklch(22.0% 0.030 55);
+  --color-bronze-contrast: white;
+}

@@ -1,0 +1,158 @@
+/* ==========================================================================
+ * NumberField
+ * ==========================================================================
+ * A numeric input with decrement (−) and increment (+) stepper buttons.
+ * The Group wrapper looks like our Input component.
+ *
+ * Root data attrs: data-scrubbing, data-disabled, data-readonly, data-required
+ */
+
+/* ---------------------------------------------------------------------------
+ * Root (invisible wrapper, provides context)
+ * --------------------------------------------------------------------------- */
+.root {
+  display: inline-block;
+  width: 100%;
+}
+
+/* ---------------------------------------------------------------------------
+ * Group — the visible pill/box
+ * --------------------------------------------------------------------------- */
+.group {
+  display: inline-flex;
+  align-items: stretch;
+  width: 100%;
+  height: var(--nf-height);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--nf-radius, var(--component-radius));
+  background-color: var(--color-surface-sunken);
+  overflow: hidden;
+  transition: var(--transition-colors);
+}
+
+.group:focus-within {
+  border-color: var(--color-accent-8);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
+}
+
+.group:hover:not(:focus-within) {
+  border-color: var(--color-border);
+}
+
+/* Disabled state propagated from Root */
+.root[data-disabled] .group {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Input
+ * --------------------------------------------------------------------------- */
+.input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  padding: 0 var(--space-2);
+  font-family: var(--font-family-primary);
+  font-size: var(--nf-fs);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-primary);
+  text-align: center;
+  outline: none;
+  /* Number inputs: hide the native steppers */
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.input::-webkit-inner-spin-button,
+.input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input::placeholder {
+  color: var(--color-text-disabled);
+}
+
+/* ---------------------------------------------------------------------------
+ * Step buttons (decrement / increment)
+ * --------------------------------------------------------------------------- */
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--nf-btn-size);
+  border: none;
+  background: transparent;
+  color: var(--color-text-tertiary);
+  font-size: var(--nf-icon-size);
+  cursor: pointer;
+  transition: background-color var(--duration-2) var(--ease-2),
+              color var(--duration-2) var(--ease-2);
+}
+
+/* Decrement: separator on right */
+.button:first-child {
+  border-right: 1px solid var(--color-border-subtle);
+}
+
+/* Increment: separator on left */
+.button:last-child {
+  border-left: 1px solid var(--color-border-subtle);
+}
+
+.button:hover:not([data-disabled]) {
+  background-color: var(--color-surface-subtle);
+  color: var(--color-text-primary);
+}
+
+.button:active:not([data-disabled]) {
+  background-color: color-mix(in oklch, var(--color-accent-9) 14%, white);
+  color: var(--color-accent-11);
+}
+
+.button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: calc(-1 * var(--focus-ring-offset));
+}
+
+.button[data-disabled] {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Sizes — mirrors button/input sizing
+ * --------------------------------------------------------------------------- */
+.size1 {
+  --nf-height:    var(--button-1-height);
+  --nf-fs:        var(--button-1-font-size);
+  --nf-btn-size:  var(--button-1-height);
+  --nf-icon-size: var(--button-1-icon-size);
+}
+
+.size2 {
+  --nf-height:    var(--button-2-height);
+  --nf-fs:        var(--button-2-font-size);
+  --nf-btn-size:  var(--button-2-height);
+  --nf-icon-size: var(--button-2-icon-size);
+}
+
+.size3 {
+  --nf-height:    var(--button-3-height);
+  --nf-fs:        var(--button-3-font-size);
+  --nf-btn-size:  var(--button-3-height);
+  --nf-icon-size: var(--button-3-icon-size);
+}
+
+.size4 {
+  --nf-height:    var(--button-4-height);
+  --nf-fs:        var(--button-4-font-size);
+  --nf-btn-size:  var(--button-4-height);
+  --nf-icon-size: var(--button-4-icon-size);
+}
