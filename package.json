@@ -1,5 +1,5 @@
 {
-  "name": "base-ic",
+  "name": "@wlcr/base-ic",
   "version": "1.0.0",
   "description": "An opinionated UI system leveraging Base-UI",
   "license": "MIT",
