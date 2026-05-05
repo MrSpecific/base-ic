@@ -46,8 +46,16 @@ export default defineConfig({
         // Ensure .js extensions on output files
         entryFileNames: '[name].js',
         chunkFileNames: '[name].js',
+        // Place the consolidated style.css at a fixed path (no hash) so the
+        // package.json export "./style.css" resolves to a stable filename.
+        assetFileNames: '[name][extname]',
       },
     },
+    // All component CSS extracted into a single dist/style.css so consumers
+    // can import '@wlcr/base-ic/style.css' and bundlers discover it reliably.
+    // Without this, CSS module proxy files have no import chain to dist/assets/
+    // and Turbopack / webpack skip the CSS entirely.
+    cssCodeSplit: false,
     // Do not minify — consumers handle that in their own build
     minify: false,
     // Source maps for debuggability in downstream projects

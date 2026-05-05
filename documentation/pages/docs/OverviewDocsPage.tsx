@@ -5,6 +5,7 @@ export function OverviewDocsPage() {
   const usageSnippet = [
     "import { Theme } from '@wlcr/base-ic';",
     "import '@wlcr/base-ic/tokens';",
+    "import '@wlcr/base-ic/style.css';",
     '',
     'export default function App() {',
     '  return (',

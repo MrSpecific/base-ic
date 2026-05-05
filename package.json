@@ -14,14 +14,15 @@
     "dist"
   ],
   "sideEffects": [
-    "dist/tokens/**/*.css",
-    "dist/assets/**/*.css"
+    "dist/style.css",
+    "dist/tokens/**/*.css"
   ],
   "exports": {
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./style.css": "./dist/style.css",
     "./tokens": {
       "types": "./dist/tokens/index.d.ts",
       "default": "./dist/tokens/index.css"

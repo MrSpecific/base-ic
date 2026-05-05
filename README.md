@@ -47,8 +47,9 @@ npm install @wlcr/base-ic
 ```
 
 ```tsx
-import { Theme, Button, Text } from 'base-ic';
-import 'base-ic/tokens';
+import { Theme, Button, Text } from '@wlcr/base-ic';
+import '@wlcr/base-ic/tokens';    // CSS custom property token definitions
+import '@wlcr/base-ic/style.css'; // component styles
 
 export default function App() {
   return (
