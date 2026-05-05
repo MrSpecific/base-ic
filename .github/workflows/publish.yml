@@ -27,8 +27,7 @@ jobs:
         id: version
         run: |
           LOCAL=$(node -p "require('./package.json').version")
-          PUBLISHED=$(npm view @wlcr/base-ic version 2>/dev/null || echo "none")
-          if [ "$LOCAL" = "$PUBLISHED" ]; then
+          if curl -sf "https://registry.npmjs.org/@wlcr%2fbase-ic/${LOCAL}" > /dev/null; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             echo "changed=true" >> $GITHUB_OUTPUT
