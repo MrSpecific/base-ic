@@ -11,7 +11,7 @@
     "sourceMap": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "noEmit": false,
+    "noEmit": true,
     "outDir": "./dist"
   },
   "include": ["src"],

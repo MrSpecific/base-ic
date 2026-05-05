@@ -23,4 +23,19 @@ jobs:
 
       - run: npm run build
 
-      - run: npm publish --access public
+      - name: Check if version is new
+        id: version
+        run: |
+          LOCAL=$(node -p "require('./package.json').version")
+          PUBLISHED=$(npm view @wlcr/base-ic version 2>/dev/null || echo "none")
+          if [ "$LOCAL" = "$PUBLISHED" ]; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish to npm
+        if: steps.version.outputs.changed == 'true'
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

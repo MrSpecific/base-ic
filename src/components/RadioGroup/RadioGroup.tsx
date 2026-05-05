@@ -26,7 +26,7 @@ export interface RadioGroupProps
   children: React.ReactNode;
 }
 
-export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
+const RadioGroupRoot = React.forwardRef<HTMLDivElement, RadioGroupProps>(
   function RadioGroup({ orientation = 'vertical', className, style, children, ...rest }, ref) {
     return (
       <BaseRadioGroup
@@ -64,6 +64,8 @@ export interface RadioProps
   /** Base UI render prop. */
   render?: React.ReactElement;
 }
+
+export const RadioGroup = Object.assign(RadioGroupRoot, { Item: undefined as unknown as typeof Radio });
 
 export const Radio = React.forwardRef<HTMLButtonElement, RadioProps>(
   function Radio({ size = '2', color, className, style, render, ...rest }, ref) {

@@ -13,6 +13,10 @@
   "files": [
     "dist"
   ],
+  "sideEffects": [
+    "dist/tokens/**/*.css",
+    "dist/assets/**/*.css"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.js",

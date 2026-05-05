@@ -10,8 +10,7 @@ export default defineConfig({
     dts({
       include: ['src'],
       outDir: 'dist',
-      // Roll up all declarations into a single index.d.ts for cleaner imports
-      rollupTypes: true,
+      rollupTypes: false,
     }),
     {
       name: 'copy-token-css',
@@ -57,8 +56,8 @@ export default defineConfig({
   },
   css: {
     modules: {
-      // Readable in DevTools, collision-free: e.g. "theme__abc12"
-      generateScopedName: '[local]__[hash:base64:5]',
+      // Readable in DevTools, collision-free: e.g. "button.module__root__abc12"
+      generateScopedName: '[name]__[local]__[hash:base64:5]',
     },
   },
 });
