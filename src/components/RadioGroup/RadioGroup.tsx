@@ -65,8 +65,6 @@ export interface RadioProps
   render?: React.ReactElement;
 }
 
-export const RadioGroup = Object.assign(RadioGroupRoot, { Item: undefined as unknown as typeof Radio });
-
 export const Radio = React.forwardRef<HTMLButtonElement, RadioProps>(
   function Radio({ size = '2', color, className, style, render, ...rest }, ref) {
     const colorVars = color
@@ -90,3 +88,9 @@ export const Radio = React.forwardRef<HTMLButtonElement, RadioProps>(
     );
   },
 );
+
+/* ---------------------------------------------------------------------------
+ * Attach sub-components
+ * --------------------------------------------------------------------------- */
+
+export const RadioGroup = Object.assign(RadioGroupRoot, { Item: Radio });
