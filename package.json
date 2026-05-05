@@ -1,6 +1,6 @@
 {
   "name": "@wlcr/base-ic",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An opinionated UI system leveraging Base-UI",
   "repository": {
     "type": "git",
