@@ -10,7 +10,7 @@ import { DemoCard } from "./DemoCard";
 
 export function AvatarDocsPage() {
   const usageSnippet = [
-    "import { Avatar } from 'base-ic';",
+    "import { Avatar } from '@wlcr/base-ic';",
     "",
     "// With image",
     '<Avatar src="https://i.pravatar.cc/80" alt="Jane Doe" fallback="JD" />',

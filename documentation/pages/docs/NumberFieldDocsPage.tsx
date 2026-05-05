@@ -10,7 +10,7 @@ import { DemoCard } from "./DemoCard";
 
 export function NumberFieldDocsPage() {
   const usageSnippet = [
-    "import { NumberField } from 'base-ic';",
+    "import { NumberField } from '@wlcr/base-ic';",
     "",
     "<NumberField defaultValue={0} min={0} max={100} />",
   ].join("\n");

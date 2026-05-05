@@ -6,7 +6,7 @@ import { DemoCard } from './DemoCard';
 
 export function EmDocsPage() {
   const usageSnippet = [
-    "import { Em } from 'base-ic';",
+    "import { Em } from '@wlcr/base-ic';",
     '',
     '<Text>Use <Em>emphasis</Em> for nuanced stress.</Text>',
   ].join('\n');

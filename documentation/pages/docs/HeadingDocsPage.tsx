@@ -6,7 +6,7 @@ import { DemoCard } from './DemoCard';
 
 export function HeadingDocsPage() {
   const usageSnippet = [
-    "import { Heading } from 'base-ic';",
+    "import { Heading } from '@wlcr/base-ic';",
     '',
     '<Heading as="h2" size="7">Section title</Heading>',
   ].join('\n');

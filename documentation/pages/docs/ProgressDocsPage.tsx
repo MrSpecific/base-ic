@@ -10,7 +10,7 @@ import { DemoCard } from "./DemoCard";
 
 export function ProgressDocsPage() {
   const usageSnippet = [
-    "import { Progress } from 'base-ic';",
+    "import { Progress } from '@wlcr/base-ic';",
     "",
     '<Progress value={60} aria-label="Upload progress" />',
   ].join("\n");

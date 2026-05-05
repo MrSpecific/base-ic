@@ -37,7 +37,7 @@ function UnderlineIcon() {
 
 export function ToggleDocsPage() {
   const usageSnippet = [
-    "import { Toggle } from 'base-ic';",
+    "import { Toggle } from '@wlcr/base-ic';",
     "",
     "<Toggle>Bold</Toggle>",
   ].join("\n");
@@ -58,7 +58,7 @@ export function ToggleDocsPage() {
   ].join("\n");
 
   const groupSnippet = [
-    "import { Toggle, ToggleGroup } from 'base-ic';",
+    "import { Toggle, ToggleGroup } from '@wlcr/base-ic';",
     "",
     "<ToggleGroup>",
     "  <Toggle>Bold</Toggle>",

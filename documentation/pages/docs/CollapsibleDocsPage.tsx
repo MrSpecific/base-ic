@@ -10,7 +10,7 @@ import { DemoCard } from "./DemoCard";
 
 export function CollapsibleDocsPage() {
   const usageSnippet = [
-    "import { Collapsible } from 'base-ic';",
+    "import { Collapsible } from '@wlcr/base-ic';",
     "",
     "<Collapsible>",
     "  <Collapsible.Trigger>What is base-ic?</Collapsible.Trigger>",

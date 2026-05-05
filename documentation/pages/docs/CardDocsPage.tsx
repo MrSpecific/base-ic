@@ -6,7 +6,7 @@ import { DemoCard } from './DemoCard';
 
 export function CardDocsPage() {
   const usageSnippet = [
-    "import { Card } from 'base-ic';",
+    "import { Card } from '@wlcr/base-ic';",
     '',
     '<Card variant="surface" size="3">',
     '  <h3>Card title</h3>',

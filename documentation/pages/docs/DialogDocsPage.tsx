@@ -16,7 +16,7 @@ import { DemoCard } from "./DemoCard";
 
 export function DialogDocsPage() {
   const usageSnippet = [
-    "import { Dialog, DialogPrimitive, Button } from 'base-ic';",
+    "import { Dialog, DialogPrimitive, Button } from '@wlcr/base-ic';",
     "",
     "<Dialog",
     '  title="Edit Profile"',

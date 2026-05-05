@@ -6,7 +6,7 @@ import { DemoCard } from './DemoCard';
 
 export function TextDocsPage() {
   const usageSnippet = [
-    "import { Text } from 'base-ic';",
+    "import { Text } from '@wlcr/base-ic';",
     '',
     '<Text as="p" size="4" color="gray">Readable body content.</Text>',
   ].join('\n');

@@ -6,7 +6,7 @@ import { DemoCard } from "./DemoCard";
 
 export function BadgeDocsPage() {
   const usageSnippet = [
-    "import { Badge } from 'base-ic';",
+    "import { Badge } from '@wlcr/base-ic';",
     "",
     '<Badge variant="soft" color="blue">New</Badge>',
   ].join("\n");

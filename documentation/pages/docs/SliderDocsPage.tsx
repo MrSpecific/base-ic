@@ -10,7 +10,7 @@ import { DemoCard } from "./DemoCard";
 
 export function SliderDocsPage() {
   const usageSnippet = [
-    "import { Slider } from 'base-ic';",
+    "import { Slider } from '@wlcr/base-ic';",
     "",
     '<Slider defaultValue={50} min={0} max={100} aria-label="Volume" />',
   ].join("\n");

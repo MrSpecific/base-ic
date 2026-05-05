@@ -6,7 +6,7 @@ import { DemoCard } from './DemoCard';
 
 export function QuoteDocsPage() {
   const usageSnippet = [
-    "import { Quote } from 'base-ic';",
+    "import { Quote } from '@wlcr/base-ic';",
     '',
     '<Quote>Design consistency scales product quality.</Quote>',
   ].join('\n');

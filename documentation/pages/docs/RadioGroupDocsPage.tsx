@@ -6,7 +6,7 @@ import { DemoCard } from "./DemoCard";
 
 export function RadioGroupDocsPage() {
   const usageSnippet = [
-    "import { RadioGroup, Radio } from 'base-ic';",
+    "import { RadioGroup, Radio } from '@wlcr/base-ic';",
     "",
     "<RadioGroup defaultValue=\"b\">",
     '  <Radio value="a" />',

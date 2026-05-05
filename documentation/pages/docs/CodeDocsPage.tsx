@@ -6,14 +6,14 @@ import { DemoCard } from './DemoCard';
 
 export function CodeDocsPage() {
   const usageSnippet = [
-    "import { Code } from 'base-ic';",
+    "import { Code } from '@wlcr/base-ic';",
     '',
-    '<Code>npm install base-ic</Code>',
+    '<Code>npm install @wlcr/base-ic</Code>',
   ].join('\n');
 
   const variantsSnippet = [
     '<div>',
-    '  <Code variant="soft">npm install base-ic</Code>',
+    '  <Code variant="soft">npm install @wlcr/base-ic</Code>',
     '  <Code variant="outline">npm run build</Code>',
     '  <Code variant="ghost">pnpm -C documentation dev</Code>',
     '</div>',
@@ -39,7 +39,7 @@ export function CodeDocsPage() {
         <DocsDemoGrid>
           <DemoCard title="Variants" description="Different visual treatments for inline code." code={variantsSnippet}>
             <div>
-              <Code variant="soft">npm install base-ic</Code>
+              <Code variant="soft">npm install @wlcr/base-ic</Code>
               <br />
               <Code variant="outline">npm run build</Code>
               <br />

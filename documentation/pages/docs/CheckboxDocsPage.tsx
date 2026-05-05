@@ -6,7 +6,7 @@ import { DemoCard } from "./DemoCard";
 
 export function CheckboxDocsPage() {
   const usageSnippet = [
-    "import { Checkbox } from 'base-ic';",
+    "import { Checkbox } from '@wlcr/base-ic';",
     "",
     '<Checkbox defaultChecked aria-label="Accept terms" />',
   ].join("\n");

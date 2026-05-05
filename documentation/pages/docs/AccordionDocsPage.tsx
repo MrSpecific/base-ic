@@ -10,7 +10,7 @@ import { DemoCard } from "./DemoCard";
 
 export function AccordionDocsPage() {
   const usageSnippet = [
-    "import { Accordion } from 'base-ic';",
+    "import { Accordion } from '@wlcr/base-ic';",
     "",
     "<Accordion>",
     '  <Accordion.Item value="one">',

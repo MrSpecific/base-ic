@@ -1,10 +1,10 @@
 import { CodeBlock } from '../../components/CodeBlock';
 import { DocsSection } from '../../components/DocsSection';
 export function OverviewDocsPage() {
-  const installSnippet = 'npm install base-ic';
+  const installSnippet = 'npm install @wlcr/base-ic';
   const usageSnippet = [
-    "import { Theme } from 'base-ic';",
-    "import 'base-ic/tokens';",
+    "import { Theme } from '@wlcr/base-ic';",
+    "import '@wlcr/base-ic/tokens';",
     '',
     'export default function App() {',
     '  return (',

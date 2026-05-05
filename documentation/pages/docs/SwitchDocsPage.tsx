@@ -6,7 +6,7 @@ import { DemoCard } from "./DemoCard";
 
 export function SwitchDocsPage() {
   const usageSnippet = [
-    "import { Switch } from 'base-ic';",
+    "import { Switch } from '@wlcr/base-ic';",
     "",
     '<Switch defaultChecked aria-label="Enable notifications" />',
   ].join("\n");

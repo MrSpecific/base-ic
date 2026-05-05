@@ -10,7 +10,7 @@ import { DemoCard } from "./DemoCard";
 
 export function MenuDocsPage() {
   const usageSnippet = [
-    "import { Button, Menu } from 'base-ic';",
+    "import { Button, Menu } from '@wlcr/base-ic';",
     "",
     "<Menu trigger={<Button>Options</Button>}>",
     "  <Menu.Item>Edit</Menu.Item>",

@@ -6,7 +6,7 @@ import { DemoCard } from './DemoCard';
 
 export function StrongDocsPage() {
   const usageSnippet = [
-    "import { Strong } from 'base-ic';",
+    "import { Strong } from '@wlcr/base-ic';",
     '',
     '<Text><Strong>Important:</Strong> Run tests before release.</Text>',
   ].join('\n');

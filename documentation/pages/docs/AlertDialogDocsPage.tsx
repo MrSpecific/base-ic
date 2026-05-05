@@ -10,7 +10,7 @@ import { DemoCard } from "./DemoCard";
 
 export function AlertDialogDocsPage() {
   const usageSnippet = [
-    "import { AlertDialog, Button } from 'base-ic';",
+    "import { AlertDialog, Button } from '@wlcr/base-ic';",
     "",
     "<AlertDialog",
     '  title="Delete project"',

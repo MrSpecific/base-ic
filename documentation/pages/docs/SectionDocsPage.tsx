@@ -6,7 +6,7 @@ import { DemoCard } from './DemoCard';
 
 export function SectionDocsPage() {
   const snippet = [
-    "import { Section } from 'base-ic';",
+    "import { Section } from '@wlcr/base-ic';",
     '',
     '<Section size="2">',
     '  <h2>Roadmap</h2>',

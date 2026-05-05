@@ -6,7 +6,7 @@ import { DemoCard } from "./DemoCard";
 
 export function PopoverDocsPage() {
   const popoverSnippet = [
-    "import { Button, Popover } from 'base-ic';",
+    "import { Button, Popover } from '@wlcr/base-ic';",
     "",
     "<Popover",
     '  side="bottom"',

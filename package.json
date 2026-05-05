@@ -18,7 +18,10 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./tokens": "./dist/tokens/index.css",
+    "./tokens": {
+      "types": "./dist/tokens/index.d.ts",
+      "default": "./dist/tokens/index.css"
+    },
     "./tokens/*": "./dist/tokens/*"
   },
   "scripts": {

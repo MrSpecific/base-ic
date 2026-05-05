@@ -6,7 +6,7 @@ import { DemoCard } from './DemoCard';
 
 export function BoxDocsPage() {
   const snippet = [
-    "import { Box } from 'base-ic';",
+    "import { Box } from '@wlcr/base-ic';",
     '',
     '<Box as="article" className="card">',
     '  <h3>Box is a primitive wrapper</h3>',

@@ -6,7 +6,7 @@ import { DemoCard } from './DemoCard';
 
 export function KbdDocsPage() {
   const usageSnippet = [
-    "import { Kbd } from 'base-ic';",
+    "import { Kbd } from '@wlcr/base-ic';",
     '',
     '<Kbd>Ctrl</Kbd> + <Kbd>K</Kbd>',
   ].join('\n');

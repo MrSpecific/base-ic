@@ -17,7 +17,7 @@ export function ThemeDocsPage() {
     '</Theme>',
   ].join('\n');
   const productThemeDemoSnippet = [
-    "import { Button, Theme } from 'base-ic';",
+    "import { Button, Theme } from '@wlcr/base-ic';",
     '',
     '<Theme accentColor="blue" grayColor="slate" radius="medium" scaling="100%">',
     '  <p className="docs-demo-eyebrow">Blue + Slate</p>',
@@ -29,7 +29,7 @@ export function ThemeDocsPage() {
   ].join('\n');
 
   const marketingThemeDemoSnippet = [
-    "import { Button, Theme } from 'base-ic';",
+    "import { Button, Theme } from '@wlcr/base-ic';",
     '',
     '<Theme accentColor="orange" grayColor="gray" radius="large" scaling="100%">',
     '  <p className="docs-demo-eyebrow">Orange + Gray</p>',

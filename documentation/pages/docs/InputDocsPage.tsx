@@ -15,7 +15,7 @@ function SearchIcon() {
 
 export function InputDocsPage() {
   const usageSnippet = [
-    "import { Input } from 'base-ic';",
+    "import { Input } from '@wlcr/base-ic';",
     "",
     '<Input placeholder="Email address" type="email" />',
   ].join("\n");

@@ -10,7 +10,7 @@ import { DemoCard } from "./DemoCard";
 
 export function TooltipDocsPage() {
   const tooltipSnippet = [
-    "import { Button, Tooltip } from 'base-ic';",
+    "import { Button, Tooltip } from '@wlcr/base-ic';",
     "",
     '<Tooltip content="Helpful context" side="top">',
     '  <Button variant="surface">Hover me</Button>',

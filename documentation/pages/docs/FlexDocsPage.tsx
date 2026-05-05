@@ -6,7 +6,7 @@ import { DemoCard } from "./DemoCard";
 
 export function FlexDocsPage() {
   const snippet = [
-    "import { Flex } from 'base-ic';",
+    "import { Flex } from '@wlcr/base-ic';",
     "",
     '<Flex align="center" justify="space-between" gap={3}>',
     "  <span>Left</span>",
@@ -14,7 +14,7 @@ export function FlexDocsPage() {
     "</Flex>",
   ].join("\n");
   const toolbarDemoSnippet = [
-    "import { Button, Flex } from 'base-ic';",
+    "import { Button, Flex } from '@wlcr/base-ic';",
     "",
     '<Flex align="center" justify="space-between" gap={3} className="docs-layout-sample-box">',
     "  <strong>Workspace</strong>",

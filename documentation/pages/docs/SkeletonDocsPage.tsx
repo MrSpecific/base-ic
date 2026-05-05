@@ -10,7 +10,7 @@ import { DemoCard } from "./DemoCard";
 
 export function SkeletonDocsPage() {
   const usageSnippet = [
-    "import { Skeleton } from 'base-ic';",
+    "import { Skeleton } from '@wlcr/base-ic';",
     "",
     "<Skeleton width={200} height={20} />",
   ].join("\n");

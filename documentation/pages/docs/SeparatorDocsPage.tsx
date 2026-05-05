@@ -6,7 +6,7 @@ import { DemoCard } from "./DemoCard";
 
 export function SeparatorDocsPage() {
   const usageSnippet = [
-    "import { Separator } from 'base-ic';",
+    "import { Separator } from '@wlcr/base-ic';",
     "",
     "<Separator />",
   ].join("\n");

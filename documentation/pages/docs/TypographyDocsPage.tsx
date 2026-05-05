@@ -4,7 +4,7 @@ import { DocsSection } from '../../components/DocsSection';
 
 export function TypographyDocsPage() {
   const usageSnippet = [
-    "import { Text, Heading, Link, Code, Kbd, Em, Strong, Quote } from 'base-ic';",
+    "import { Text, Heading, Link, Code, Kbd, Em, Strong, Quote } from '@wlcr/base-ic';",
     '',
     '<Heading as="h2" size="7">Typography</Heading>',
     '<Text as="p" size="4">Readable body text with semantic tokens.</Text>',

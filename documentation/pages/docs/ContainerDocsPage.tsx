@@ -6,7 +6,7 @@ import { DemoCard } from './DemoCard';
 
 export function ContainerDocsPage() {
   const snippet = [
-    "import { Container } from 'base-ic';",
+    "import { Container } from '@wlcr/base-ic';",
     '',
     '<Container size="3">',
     '  <YourContent />',

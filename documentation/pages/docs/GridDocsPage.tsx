@@ -6,7 +6,7 @@ import { DemoCard } from './DemoCard';
 
 export function GridDocsPage() {
   const snippet = [
-    "import { Grid } from 'base-ic';",
+    "import { Grid } from '@wlcr/base-ic';",
     '',
     '<Grid columns="repeat(3, minmax(0, 1fr))" gap={3}>',
     '  <Card />',

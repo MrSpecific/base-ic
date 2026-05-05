@@ -6,7 +6,7 @@ import { DemoCard } from './DemoCard';
 
 export function LinkDocsPage() {
   const usageSnippet = [
-    "import { Link } from 'base-ic';",
+    "import { Link } from '@wlcr/base-ic';",
     '',
     '<Link href="https://base-ui.com/react" underline="hover">Read docs</Link>',
   ].join('\n');

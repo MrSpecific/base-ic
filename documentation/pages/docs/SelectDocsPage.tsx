@@ -6,7 +6,7 @@ import { DemoCard } from "./DemoCard";
 
 export function SelectDocsPage() {
   const usageSnippet = [
-    "import { Select } from 'base-ic';",
+    "import { Select } from '@wlcr/base-ic';",
     "",
     "<Select placeholder=\"Choose a color\">",
     '  <Select.Item value="red">Red</Select.Item>',

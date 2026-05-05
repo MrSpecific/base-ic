@@ -10,7 +10,7 @@ import { DemoCard } from "./DemoCard";
 
 export function ButtonDocsPage() {
   const usageSnippet = [
-    "import { Button } from 'base-ic';",
+    "import { Button } from '@wlcr/base-ic';",
     "",
     '<Button size="2" variant="solid">Save changes</Button>',
   ].join("\n");

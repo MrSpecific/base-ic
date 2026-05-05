@@ -6,7 +6,7 @@ import { DemoCard } from "./DemoCard";
 
 export function TabsDocsPage() {
   const usageSnippet = [
-    "import { Tabs } from 'base-ic';",
+    "import { Tabs } from '@wlcr/base-ic';",
     "",
     "<Tabs defaultValue=\"account\">",
     "  <Tabs.List>",

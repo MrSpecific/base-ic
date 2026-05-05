@@ -10,7 +10,7 @@ import { DemoCard } from "./DemoCard";
 
 export function FieldDocsPage() {
   const usageSnippet = [
-    "import { Field, Input } from 'base-ic';",
+    "import { Field, Input } from '@wlcr/base-ic';",
     "",
     "<Field label=\"Email\" required>",
     "  <Input type=\"email\" placeholder=\"you@example.com\" />",

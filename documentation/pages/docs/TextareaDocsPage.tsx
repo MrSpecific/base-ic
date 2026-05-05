@@ -6,7 +6,7 @@ import { DemoCard } from "./DemoCard";
 
 export function TextareaDocsPage() {
   const usageSnippet = [
-    "import { Textarea } from 'base-ic';",
+    "import { Textarea } from '@wlcr/base-ic';",
     "",
     '<Textarea placeholder="Enter your message…" rows={4} />',
   ].join("\n");
