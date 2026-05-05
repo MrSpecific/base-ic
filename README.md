@@ -43,7 +43,7 @@ base-ic keeps everything that's great about the Radix Themes DX while building o
 ## Quick Start
 
 ```bash
-npm install base-ic
+npm install @wlcr/base-ic
 ```
 
 ```tsx
