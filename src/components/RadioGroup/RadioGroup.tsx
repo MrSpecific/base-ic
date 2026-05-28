@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { RadioGroup as BaseRadioGroup, Radio as BaseRadio } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
+import type { AccentColor } from '../Theme';
 import styles from './radio-group.module.css';
 
 type RadioSize = '1' | '2' | '3';
@@ -56,7 +57,7 @@ export interface RadioProps
   /** Visual size. Default: '2' */
   size?: RadioSize;
   /** Override the accent color. */
-  color?: string;
+  color?: AccentColor;
   /** Custom className. */
   className?: string;
   /** Custom style. */

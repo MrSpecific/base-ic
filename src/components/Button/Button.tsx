@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Button as BaseButton } from '@base-ui/react';
 import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
+import type { AccentColor } from '../Theme';
 import styles from './button.module.css';
 
 type ButtonSize = '1' | '2' | '3' | '4';
@@ -13,7 +14,7 @@ export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
   /** Visual variant. Default: 'solid' */
   variant?: ButtonVariant;
   /** Override the accent color for this button. */
-  color?: string;
+  color?: AccentColor;
   /** Increase contrast against the background. */
   highContrast?: boolean;
   /** Override the border-radius for this button. */

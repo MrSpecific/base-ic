@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
 import { buildTypoColorVar, buildTypoSizeVars } from './typography.utils';
+import type { AccentColor } from '../Theme';
 import styles from './heading.module.css';
 
 type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -14,7 +15,7 @@ export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement>, 
   as?: HeadingElement;
   size?: HeadingSize;
   weight?: HeadingWeight;
-  color?: string;
+  color?: AccentColor;
   highContrast?: boolean;
   align?: HeadingAlign;
   wrap?: HeadingWrap;

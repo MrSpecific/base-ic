@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Slider as BaseSlider } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
+import type { AccentColor } from '../Theme';
 import styles from './slider.module.css';
 
 type SliderSize = '1' | '2' | '3';
@@ -24,7 +25,7 @@ export interface SliderProps extends Omit<BaseSlider.Root.Props, 'className' | '
   /** Visual size preset. Default: '2' */
   size?: SliderSize;
   /** Override the accent color. */
-  color?: string;
+  color?: AccentColor;
   /** Override the border-radius of the track. */
   radius?: SliderRadius;
   /** Show a value output alongside the thumb. */

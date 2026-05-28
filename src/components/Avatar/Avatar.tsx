@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Avatar as BaseAvatar } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
+import type { AccentColor } from '../Theme';
 import styles from './avatar.module.css';
 
 type AvatarSize = '1' | '2' | '3' | '4' | '5';
@@ -32,7 +33,7 @@ export interface AvatarProps {
   /** Content shown when image is missing or fails — typically initials. */
   fallback?: React.ReactNode;
   /** Override the fallback background color. */
-  color?: string;
+  color?: AccentColor;
   /** Shape override. Default: 'full' (circle) */
   radius?: AvatarRadius;
   className?: string;

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Progress as BaseProgress } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
+import type { AccentColor } from '../Theme';
 import styles from './progress.module.css';
 
 type ProgressSize = '1' | '2' | '3';
@@ -30,7 +31,7 @@ export interface ProgressProps extends Omit<BaseProgress.Root.Props, 'className'
   /** Visual size (track height). Default: '2' */
   size?: ProgressSize;
   /** Override the accent color for the fill. */
-  color?: string;
+  color?: AccentColor;
   /** Override the border-radius of the track. */
   radius?: ProgressRadius;
   className?: string;

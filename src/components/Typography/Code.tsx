@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
 import { buildTypoColorVar, buildTypoSizeVars } from './typography.utils';
+import type { AccentColor } from '../Theme';
 import styles from './code.module.css';
 
 type CodeSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
@@ -11,7 +12,7 @@ export interface CodeProps extends React.HTMLAttributes<HTMLElement>, SpaceProps
   size?: CodeSize;
   variant?: CodeVariant;
   weight?: CodeWeight;
-  color?: string;
+  color?: AccentColor;
   highContrast?: boolean;
 }
 

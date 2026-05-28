@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
 import { buildTypoColorVar, buildTypoSizeVars } from './typography.utils';
+import type { AccentColor } from '../Theme';
 import styles from './text.module.css';
 
 type TextElement = 'span' | 'div' | 'label' | 'p';
@@ -14,7 +15,7 @@ export interface TextProps extends React.HTMLAttributes<HTMLElement>, SpaceProps
   as?: TextElement;
   size?: TextSize;
   weight?: TextWeight;
-  color?: string;
+  color?: AccentColor;
   highContrast?: boolean;
   align?: TextAlign;
   wrap?: TextWrap;

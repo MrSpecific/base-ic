@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
 import { buildTypoColorVar } from './typography.utils';
+import type { AccentColor } from '../Theme';
 import styles from './quote.module.css';
 
 export interface QuoteProps extends React.BlockquoteHTMLAttributes<HTMLQuoteElement>, SpaceProps {
-  color?: string;
+  color?: AccentColor;
   highContrast?: boolean;
 }
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Checkbox as BaseCheckbox } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
+import type { AccentColor } from '../Theme';
 import styles from './checkbox.module.css';
 
 type CheckboxSize = '1' | '2' | '3';
@@ -10,7 +11,7 @@ export interface CheckboxProps
   /** Visual size. Default: '2' */
   size?: CheckboxSize;
   /** Override the accent color for this checkbox. */
-  color?: string;
+  color?: AccentColor;
   /** Custom className applied to the root. */
   className?: string;
   /** Custom style applied to the root. */

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
+import type { AccentColor } from '../Theme';
 import styles from './badge.module.css';
 
 type BadgeSize = '1' | '2' | '3';
@@ -12,7 +13,7 @@ export interface BadgeProps extends Omit<React.HTMLAttributes<HTMLSpanElement>, 
   /** Visual variant. Default: 'soft' */
   variant?: BadgeVariant;
   /** Override accent color. */
-  color?: string;
+  color?: AccentColor;
   /** Increase contrast against the background. */
   highContrast?: boolean;
   /** Override border-radius. */

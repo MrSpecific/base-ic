@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
 import { buildTypoColorVar, buildTypoSizeVars } from './typography.utils';
+import type { AccentColor } from '../Theme';
 import styles from './link.module.css';
 
 type LinkSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
@@ -10,7 +11,7 @@ type LinkUnderline = 'auto' | 'always' | 'hover' | 'none';
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>, SpaceProps {
   size?: LinkSize;
   weight?: LinkWeight;
-  color?: string;
+  color?: AccentColor;
   highContrast?: boolean;
   underline?: LinkUnderline;
   truncate?: boolean;

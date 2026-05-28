@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Separator as BaseSeparator } from '@base-ui/react';
 import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
+import type { AccentColor } from '../Theme';
 import styles from './separator.module.css';
 
 type SeparatorSize = '1' | '2' | '3' | '4';
@@ -9,7 +10,7 @@ export interface SeparatorProps extends React.HTMLAttributes<HTMLDivElement>, Sp
   /** Orientation. Default: 'horizontal' */
   orientation?: 'horizontal' | 'vertical';
   /** Override accent color for the separator line. */
-  color?: string;
+  color?: AccentColor;
   /** Line thickness. Default: '1' */
   size?: SeparatorSize;
 }

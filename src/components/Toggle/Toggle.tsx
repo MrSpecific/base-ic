@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Toggle as BaseToggle, ToggleGroup as BaseToggleGroup } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
+import type { AccentColor } from '../Theme';
 import styles from './toggle.module.css';
 
 /* ---------------------------------------------------------------------------
@@ -42,7 +43,7 @@ export interface ToggleProps extends Omit<BaseToggle.Props, 'className' | 'style
   /** Visual variant. Default: 'surface' */
   variant?: ToggleVariant;
   /** Accent color override. */
-  color?: string;
+  color?: AccentColor;
   /** Increase text/icon contrast. */
   highContrast?: boolean;
   className?: string;

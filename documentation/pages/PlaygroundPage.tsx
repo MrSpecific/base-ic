@@ -242,8 +242,8 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
 
         <Box mt="6">
           <Heading as="h2">Component Radius</Heading>
-          <Text as="p">
-            Current: <code>{radius}</code>
+          <Text as="p" mb={4}>
+            Current: <Badge>{radius}</Badge>
           </Text>
           <div className="spacing-row">
             <Button>Button</Button>

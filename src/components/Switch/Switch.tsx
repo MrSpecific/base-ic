@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Switch as BaseSwitch } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
+import type { AccentColor } from '../Theme';
 import styles from './switch.module.css';
 
 type SwitchSize = '1' | '2' | '3';
@@ -10,7 +11,7 @@ export interface SwitchProps
   /** Visual size. Default: '2' */
   size?: SwitchSize;
   /** Override the accent color. */
-  color?: string;
+  color?: AccentColor;
   /** Custom className. */
   className?: string;
   /** Custom style. */
