@@ -8,3 +8,4 @@ export { Container } from './Container';
 export type { ContainerProps } from './Container';
 export { Section } from './Section';
 export type { SectionProps } from './Section';
+export type { SpaceProps, SpaceValue } from './layout.utils';

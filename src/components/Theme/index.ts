@@ -8,4 +8,5 @@ export type {
   Appearance,
   CustomColorScale,
   FontFamilies,
+  ThemeContextValue,
 } from './Theme';

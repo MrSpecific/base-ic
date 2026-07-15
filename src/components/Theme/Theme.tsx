@@ -273,7 +273,7 @@ function buildScaledTokenVars(): Record<string, string> {
 // Context
 // ============================================================================
 
-interface ThemeContextValue {
+export interface ThemeContextValue {
   accentColor: AccentColor;
   grayColor: GrayColor;
   radius: Radius;

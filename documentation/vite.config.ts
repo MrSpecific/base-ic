@@ -38,6 +38,7 @@ export default defineConfig({
       input: {
         home: resolve(__dirname, 'index.html'),
         docs: resolve(__dirname, 'docs/index.html'),
+        docsTypes: resolve(__dirname, 'docs/types/index.html'),
         docsTheme: resolve(__dirname, 'docs/theme/index.html'),
         docsButton: resolve(__dirname, 'docs/button/index.html'),
         docsBadge: resolve(__dirname, 'docs/badge/index.html'),

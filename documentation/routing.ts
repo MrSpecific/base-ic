@@ -7,6 +7,7 @@ export function getRouteFromPath(pathname: string): RouteState {
     const slug = normalized.slice('/docs/'.length) as DocsSection;
     if (
       slug === 'theme' ||
+      slug === 'types' ||
       slug === 'button' ||
       slug === 'badge' ||
       slug === 'card' ||

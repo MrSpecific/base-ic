@@ -6,6 +6,7 @@ export type Page = 'home' | 'docs' | 'customization' | 'for-designers' | 'playgr
 
 export type DocsSection =
   | 'overview'
+  | 'types'
   | 'theme'
   | 'button'
   | 'badge'

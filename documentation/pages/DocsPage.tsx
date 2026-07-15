@@ -40,6 +40,7 @@ import { ToggleDocsPage } from "./docs/ToggleDocsPage";
 import { MenuDocsPage } from "./docs/MenuDocsPage";
 import { CollapsibleDocsPage } from "./docs/CollapsibleDocsPage";
 import { SkeletonDocsPage } from "./docs/SkeletonDocsPage";
+import { TypesDocsPage } from "./docs/TypesDocsPage";
 import type { DocsSection } from "../types";
 
 export function DocsPage({
@@ -55,7 +56,10 @@ export function DocsPage({
   }> = [
     {
       title: "Overview",
-      items: [{ id: "overview", label: "Getting Started" }],
+      items: [
+        { id: "overview", label: "Getting Started" },
+        { id: "types", label: "Types" },
+      ],
     },
     {
       title: "Theming",
@@ -131,6 +135,7 @@ export function DocsPage({
   ];
 
   const docsBody = (() => {
+    if (section === "types") return <TypesDocsPage />;
     if (section === "theme") return <ThemeDocsPage />;
     if (section === "button") return <ButtonDocsPage />;
     if (section === "badge") return <BadgeDocsPage />;
