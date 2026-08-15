@@ -33,6 +33,7 @@ export function getRouteFromPath(pathname: string): RouteState {
       slug === 'radio-group' ||
       slug === 'input' ||
       slug === 'select' ||
+      slug === 'autocomplete' ||
       slug === 'textarea' ||
       slug === 'tabs' ||
       slug === 'dialog' ||
@@ -49,6 +50,7 @@ export function getRouteFromPath(pathname: string): RouteState {
       slug === 'menubar' ||
       slug === 'navigation-menu' ||
       slug === 'drawer' ||
+      slug === 'toast' ||
       slug === 'fieldset' ||
       slug === 'collapsible' ||
       slug === 'skeleton'

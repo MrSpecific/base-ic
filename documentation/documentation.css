@@ -58,6 +58,14 @@ body {
   opacity: 0.86;
 }
 
+.site-version {
+  font-size: var(--font-size-1);
+  color: var(--color-text-tertiary);
+  font-family: var(--font-family-mono);
+  line-height: 1;
+  user-select: none;
+}
+
 .site-page {
   width: min(1120px, 100% - var(--space-8));
   margin: 0 auto;

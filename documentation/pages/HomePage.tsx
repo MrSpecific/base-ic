@@ -35,6 +35,19 @@ export function HomePage({ goTo }: { goTo: (page: Page) => void }) {
             <Button variant="surface" size="3" onClick={() => goTo("playground")}>
               Open Playground
             </Button>
+            <Button
+              variant="ghost"
+              size="3"
+              render={
+                <a
+                  href="https://github.com/MrSpecific/base-ic"
+                  target="_blank"
+                  rel="noreferrer"
+                />
+              }
+            >
+              View Source
+            </Button>
           </Flex>
         </Card>
       </Section>

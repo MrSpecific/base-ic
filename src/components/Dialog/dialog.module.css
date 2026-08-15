@@ -12,7 +12,7 @@
   position: fixed;
   inset: 0;
   background: var(--dialog-backdrop-bg);
-  z-index: 100;
+  z-index: var(--z-4);
 }
 
 .backdrop[data-open] {
@@ -41,7 +41,7 @@
   top: 50%;
   left: 50%;
   translate: -50% -50%;
-  z-index: 101;
+  z-index: calc(var(--z-4) + 1);
   width: var(--dialog-width, calc(480px * var(--component-scaling)));
   max-width: calc(100vw - var(--space-6));
   max-height: calc(100dvh - var(--space-6));

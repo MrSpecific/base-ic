@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { version } from "../package.json";
 import { Box, Button, Flex, Theme } from "../src";
 import type {
   AccentColor,
@@ -177,16 +178,19 @@ export default function App() {
           align="center"
           justify="space-between"
         >
-          <Button
-            className="site-logo"
-            variant="ghost"
-            size="1"
-            radius="none"
-            p="0"
-            onClick={() => goTo("home")}
-          >
-            base-ic
-          </Button>
+          <Box>
+            <Button
+              className="site-logo"
+              variant="ghost"
+              size="1"
+              radius="none"
+              p="0"
+              onClick={() => goTo("home")}
+            >
+              base-ic
+            </Button>
+            <div className="site-version">v{version}</div>
+          </Box>
           <Flex
             as="nav"
             className="site-nav"

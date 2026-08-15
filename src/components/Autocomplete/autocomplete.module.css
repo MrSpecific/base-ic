@@ -1,0 +1,288 @@
+/* ==========================================================================
+ * Autocomplete
+ * ==========================================================================
+ * Built on Base UI Autocomplete (Combobox) primitives.
+ * Input group styled like Input. Popup mirrors Select's popup/item styling.
+ *
+ * InputGroup data attrs: data-popup-open, data-disabled, data-readonly
+ * Popup data attrs:       data-open, data-closed, data-empty (for animations)
+ * Item data attrs:        data-highlighted, data-disabled
+ * Clear data attrs:       data-popup-open, data-disabled, data-visible
+ */
+
+/* ---------------------------------------------------------------------------
+ * Input group — wrapper (handles clear-button overlay), styled like Input
+ * --------------------------------------------------------------------------- */
+.inputGroup {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  border-radius: var(--auto-radius, var(--component-radius));
+  transition: var(--transition-colors);
+}
+
+.inputGroup:focus-within,
+.inputGroup[data-popup-open] {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: 0;
+}
+
+.inputGroup:has(.clear) .input {
+  padding-right: calc(var(--auto-px) + var(--auto-clear-size));
+}
+
+/* ---------------------------------------------------------------------------
+ * Input element
+ * --------------------------------------------------------------------------- */
+.input {
+  width: 100%;
+  height: var(--auto-height);
+  padding: 0 var(--auto-px);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--auto-radius, var(--component-radius));
+  background-color: var(--color-surface-sunken);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-primary);
+  font-size: var(--auto-fs);
+  line-height: 1;
+  outline: none;
+  transition: var(--transition-colors);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.input::placeholder {
+  color: var(--color-text-disabled);
+}
+
+.input:hover:not([data-disabled]):not(:focus) {
+  border-color: var(--color-border);
+}
+
+.input:focus {
+  border-color: var(--color-accent-8);
+}
+
+.input[data-disabled] {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  background-color: var(--color-surface-subtle);
+}
+
+/* ---------------------------------------------------------------------------
+ * Clear button
+ * --------------------------------------------------------------------------- */
+.clear {
+  position: absolute;
+  top: 50%;
+  right: calc(var(--auto-px) * 0.4);
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--auto-clear-size);
+  height: var(--auto-clear-size);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-text-tertiary);
+  font-size: calc(var(--auto-clear-size) * 0.55);
+  line-height: 1;
+  cursor: pointer;
+  transition: var(--transition-colors);
+}
+
+.clear:hover:not([data-disabled]) {
+  background-color: var(--color-surface-subtle);
+  color: var(--color-text-secondary);
+}
+
+.clear[data-disabled] {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Popup — mirrors Select's popup styling
+ * --------------------------------------------------------------------------- */
+.popup {
+  width: var(--anchor-width, var(--autocomplete-popup-fallback-width, calc(220px * var(--component-scaling))));
+  max-width: min(var(--available-width, calc(100vw - var(--space-4))), 100vw);
+  max-height: min(
+    var(--available-height, var(--autocomplete-popup-max-height, calc(320px * var(--component-scaling)))),
+    var(--autocomplete-popup-max-height, calc(320px * var(--component-scaling)))
+  );
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: var(--color-surface-overlay);
+  border: 1px solid var(--color-border);
+  border-radius: var(--auto-popup-radius, min(var(--component-radius), var(--radius-4)));
+  box-shadow: var(--shadow-floating);
+  padding: var(--space-1) 0;
+  outline: none;
+  /* Custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-neutral-6) transparent;
+  transform-origin: var(--transform-origin);
+}
+
+/* Open/close animation */
+.popup[data-open] {
+  animation: popup-in var(--duration-3) var(--ease-2);
+}
+
+.popup[data-closed] {
+  animation: popup-out var(--duration-2) var(--ease-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .popup[data-open],
+  .popup[data-closed] {
+    animation: none;
+  }
+}
+
+@keyframes popup-in {
+  from {
+    opacity: 0;
+    scale: 0.97;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes popup-out {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 0.97;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Positioner
+ * --------------------------------------------------------------------------- */
+.positioner {
+  z-index: calc(var(--z-5) + 1);
+}
+
+/* ---------------------------------------------------------------------------
+ * Items
+ * --------------------------------------------------------------------------- */
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: var(--auto-item-height, var(--button-2-height));
+  padding: 0 var(--space-3) 0 var(--space-2);
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--font-family-primary);
+  font-size: var(--auto-item-fs, var(--button-2-font-size));
+  color: var(--color-text-primary);
+  outline: none;
+  transition: background-color var(--duration-1) var(--ease-2);
+}
+
+.item[data-highlighted] {
+  background-color: color-mix(in oklch, var(--color-accent-9) var(--interactive-soft-strength), var(--interactive-soft-mix-base));
+  color: var(--color-text-primary);
+}
+
+.item[data-disabled] {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Groups
+ * --------------------------------------------------------------------------- */
+.group {
+  display: block;
+}
+
+.groupLabel {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-3);
+  user-select: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Separator between item groups
+ * --------------------------------------------------------------------------- */
+.separator {
+  height: calc(1px * var(--component-scaling));
+  background-color: var(--color-border-subtle);
+  margin: var(--space-1) 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Empty state — "no results"
+ * --------------------------------------------------------------------------- */
+.empty {
+  padding: var(--space-3);
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--auto-item-fs, var(--button-2-font-size));
+}
+
+.empty:empty {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Size variants — mirrors Input/Button sizes
+ * -------------------------------------------------------------------------
+ *  1: 24px height, 8px px
+ *  2: 32px height, 12px px  (default)
+ *  3: 40px height, 16px px
+ *  4: 48px height, 20px px
+ * --------------------------------------------------------------------------- */
+.size1 {
+  --auto-height: var(--button-1-height);
+  --auto-px:     var(--button-1-px);
+  --auto-fs:     var(--button-1-font-size);
+  --auto-clear-size: calc(var(--button-1-height) * 0.6);
+  --auto-item-height: var(--button-1-height);
+  --auto-item-fs:     var(--button-1-font-size);
+}
+
+.size2 {
+  --auto-height: var(--button-2-height);
+  --auto-px:     var(--button-2-px);
+  --auto-fs:     var(--button-2-font-size);
+  --auto-clear-size: calc(var(--button-2-height) * 0.6);
+  --auto-item-height: var(--button-2-height);
+  --auto-item-fs:     var(--button-2-font-size);
+}
+
+.size3 {
+  --auto-height: var(--button-3-height);
+  --auto-px:     var(--button-3-px);
+  --auto-fs:     var(--button-3-font-size);
+  --auto-clear-size: calc(var(--button-3-height) * 0.6);
+  --auto-item-height: var(--button-3-height);
+  --auto-item-fs:     var(--button-3-font-size);
+}
+
+.size4 {
+  --auto-height: var(--button-4-height);
+  --auto-px:     var(--button-4-px);
+  --auto-fs:     var(--button-4-font-size);
+  --auto-clear-size: calc(var(--button-4-height) * 0.6);
+  --auto-item-height: var(--button-4-height);
+  --auto-item-fs:     var(--button-4-font-size);
+}

@@ -15,7 +15,7 @@
   position: fixed;
   inset: 0;
   background: var(--dialog-backdrop-bg);
-  z-index: 100;
+  z-index: var(--z-4);
 }
 
 .backdrop[data-open] {
@@ -50,7 +50,7 @@
  * --------------------------------------------------------------------------- */
 .popup {
   position: fixed;
-  z-index: 101;
+  z-index: calc(var(--z-4) + 1);
   background: var(--dialog-bg, var(--color-surface-overlay));
   border: 1px solid var(--dialog-border);
   box-shadow: var(--dialog-shadow);

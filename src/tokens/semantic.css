@@ -343,6 +343,17 @@
   --drawer-height:            calc(400px * var(--component-scaling));
 
   /* -------------------------------------------------------------------------
+   * Semantic toast patterns
+   * -------------------------------------------------------------------------
+   * Toast reuses the --popover-* surface tokens above (bg/border/shadow/
+   * radius/padding); these two are the only toast-specific values needed —
+   * the fixed viewport's offset from the screen edge, and the stacking
+   * gap/peek distance between toasts in the collapsed and swiped states.
+   */
+  --toast-viewport-offset:    var(--space-6);
+  --toast-viewport-gap:       var(--space-3);
+
+  /* -------------------------------------------------------------------------
    * Semantic code patterns
    * -------------------------------------------------------------------------
    */

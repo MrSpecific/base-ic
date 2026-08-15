@@ -46,6 +46,8 @@ export { Dialog, DialogPrimitive } from './components/Dialog';
 export type { DialogProps } from './components/Dialog';
 export { Drawer, DrawerPrimitive } from './components/Drawer';
 export type { DrawerProps } from './components/Drawer';
+export { Toaster, toast, ToastPrimitive } from './components/Toast';
+export type { ToasterProps } from './components/Toast';
 
 // Layout components
 export { Box, Flex, Grid, Container, Section } from './components/Layout';
@@ -99,6 +101,15 @@ export { Input } from './components/Input';
 export type { InputProps } from './components/Input';
 export { Select } from './components/Select';
 export type { SelectProps, SelectItemProps, SelectGroupProps } from './components/Select';
+export { Autocomplete, AutocompletePrimitive } from './components/Autocomplete';
+export type {
+  AutocompleteProps,
+  AutocompleteItemProps,
+  AutocompleteGroupProps,
+  AutocompleteItemData,
+  AutocompleteGroupData,
+  AutocompleteItems,
+} from './components/Autocomplete';
 
 // Field
 export { Field, FieldPrimitive } from './components/Field';

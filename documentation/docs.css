@@ -22,6 +22,26 @@
   backdrop-filter: blur(8px);
 }
 
+.docs-sidebar-search {
+  margin-bottom: var(--space-2);
+}
+
+.docs-sidebar-search-kbd {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-1);
+  color: var(--color-text-tertiary);
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-2);
+  padding: 1px var(--space-1);
+  line-height: 1.4;
+}
+
+.docs-sidebar-empty {
+  padding: var(--space-2) var(--space-1);
+  color: var(--color-text-tertiary);
+}
+
 .docs-sidebar-group {
   display: grid;
   gap: 2px;

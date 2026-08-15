@@ -155,6 +155,7 @@ import './your-theme.css';
 - `Dialog` — modal dialog with backdrop (Base UI-backed)
 - `AlertDialog` — confirmation dialog with required action (Base UI-backed)
 - `Drawer` — slide-in panel anchored to a screen edge (Base UI-backed)
+- `Toast` — imperative notification system with a global `toast()` call (Base UI-backed)
 - `Menu` — dropdown menu with items, checkboxes, radio groups, and submenus (Base UI-backed)
 - `Menubar` — horizontal bar of top-level menus, e.g. File/Edit/View (Base UI-backed)
 - `Tabs` — tabbed navigation (Base UI-backed)
@@ -162,6 +163,7 @@ import './your-theme.css';
 - `Accordion` — collapsible content sections (Base UI-backed)
 - `Collapsible` — single collapsible region (Base UI-backed)
 - `Select` — dropdown select input (Base UI-backed)
+- `Autocomplete` — free-text input with filtered suggestions (Base UI-backed)
 - `Skeleton` — loading placeholder
 
 ### Form Controls

@@ -1,4 +1,5 @@
-import { Button, Container, Grid, Separator } from "../../src";
+import { useEffect, useRef, useState } from "react";
+import { Button, Container, Grid, Input, Separator, Text } from "../../src";
 import { OverviewDocsPage } from "./docs/OverviewDocsPage";
 import { PopoverDocsPage } from "./docs/PopoverDocsPage";
 import { ThemeDocsPage } from "./docs/ThemeDocsPage";
@@ -26,12 +27,14 @@ import { SwitchDocsPage } from "./docs/SwitchDocsPage";
 import { RadioGroupDocsPage } from "./docs/RadioGroupDocsPage";
 import { InputDocsPage } from "./docs/InputDocsPage";
 import { SelectDocsPage } from "./docs/SelectDocsPage";
+import { AutocompleteDocsPage } from "./docs/AutocompleteDocsPage";
 import { TextareaDocsPage } from "./docs/TextareaDocsPage";
 import { TabsDocsPage } from "./docs/TabsDocsPage";
 import { NavigationMenuDocsPage } from "./docs/NavigationMenuDocsPage";
 import { DialogDocsPage } from "./docs/DialogDocsPage";
 import { AlertDialogDocsPage } from "./docs/AlertDialogDocsPage";
 import { DrawerDocsPage } from "./docs/DrawerDocsPage";
+import { ToastDocsPage } from "./docs/ToastDocsPage";
 import { AccordionDocsPage } from "./docs/AccordionDocsPage";
 import { SliderDocsPage } from "./docs/SliderDocsPage";
 import { ProgressDocsPage } from "./docs/ProgressDocsPage";
@@ -55,6 +58,24 @@ export function DocsPage({
   section: DocsSection;
   goToDocsSection: (next: DocsSection) => void;
 }) {
+  const [query, setQuery] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        searchInputRef.current?.focus();
+        searchInputRef.current?.select();
+      } else if (event.key === "Escape" && document.activeElement === searchInputRef.current) {
+        setQuery("");
+        searchInputRef.current?.blur();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   const docsNavGroups: Array<{
     title: string;
     items: Array<{ id: DocsSection; label: string }>;
@@ -107,6 +128,7 @@ export function DocsPage({
         { id: "number-field", label: "NumberField" },
         { id: "otp-field", label: "OTPField" },
         { id: "select", label: "Select" },
+        { id: "autocomplete", label: "Autocomplete" },
         { id: "checkbox", label: "Checkbox" },
         { id: "switch", label: "Switch" },
         { id: "radio-group", label: "RadioGroup" },
@@ -121,6 +143,7 @@ export function DocsPage({
         { id: "dialog", label: "Dialog" },
         { id: "alert-dialog", label: "AlertDialog" },
         { id: "drawer", label: "Drawer" },
+        { id: "toast", label: "Toast" },
       ],
     },
     {
@@ -165,12 +188,14 @@ export function DocsPage({
     if (section === "radio-group") return <RadioGroupDocsPage />;
     if (section === "input") return <InputDocsPage />;
     if (section === "select") return <SelectDocsPage />;
+    if (section === "autocomplete") return <AutocompleteDocsPage />;
     if (section === "textarea") return <TextareaDocsPage />;
     if (section === "tabs") return <TabsDocsPage />;
     if (section === "navigation-menu") return <NavigationMenuDocsPage />;
     if (section === "dialog") return <DialogDocsPage />;
     if (section === "alert-dialog") return <AlertDialogDocsPage />;
     if (section === "drawer") return <DrawerDocsPage />;
+    if (section === "toast") return <ToastDocsPage />;
     if (section === "accordion") return <AccordionDocsPage />;
     if (section === "slider") return <SliderDocsPage />;
     if (section === "progress") return <ProgressDocsPage />;
@@ -196,32 +221,60 @@ export function DocsPage({
     return <OverviewDocsPage />;
   })();
 
+  const normalizedQuery = query.trim().toLowerCase();
+  const filteredNavGroups = normalizedQuery
+    ? docsNavGroups
+        .map((group) => ({
+          ...group,
+          items: group.items.filter((item) =>
+            item.label.toLowerCase().includes(normalizedQuery),
+          ),
+        }))
+        .filter((group) => group.items.length > 0)
+    : docsNavGroups;
+
   return (
     <Container as="main" className="site-page">
       <Grid className="docs-layout" columns="240px minmax(0, 1fr)" gap={4}>
         <aside className="docs-sidebar" aria-label="Docs sections">
-          {docsNavGroups.map((group, index) => (
-            <div key={group.title}>
-              <div className="docs-sidebar-group">
-                <div className="docs-sidebar-group-title">{group.title}</div>
-                {group.items.map((item) => (
-                  <Button
-                    key={item.id}
-                    className="docs-sidebar-link"
-                    data-active={section === item.id}
-                    variant="ghost"
-                    size="1"
-                    onClick={() => goToDocsSection(item.id)}
-                  >
-                    {item.label}
-                  </Button>
-                ))}
+          <Input
+            ref={searchInputRef}
+            className="docs-sidebar-search"
+            size="1"
+            placeholder="Search components…"
+            aria-label="Search docs sections"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            suffix={!query ? <kbd className="docs-sidebar-search-kbd">⌘K</kbd> : undefined}
+          />
+          {filteredNavGroups.length === 0 ? (
+            <Text as="p" size="1" className="docs-sidebar-empty">
+              No matches for “{query}”.
+            </Text>
+          ) : (
+            filteredNavGroups.map((group, index) => (
+              <div key={group.title}>
+                <div className="docs-sidebar-group">
+                  <div className="docs-sidebar-group-title">{group.title}</div>
+                  {group.items.map((item) => (
+                    <Button
+                      key={item.id}
+                      className="docs-sidebar-link"
+                      data-active={section === item.id}
+                      variant="ghost"
+                      size="1"
+                      onClick={() => goToDocsSection(item.id)}
+                    >
+                      {item.label}
+                    </Button>
+                  ))}
+                </div>
+                {index < filteredNavGroups.length - 1 ? (
+                  <Separator className="docs-sidebar-separator" />
+                ) : null}
               </div>
-              {index < docsNavGroups.length - 1 ? (
-                <Separator className="docs-sidebar-separator" />
-              ) : null}
-            </div>
-          ))}
+            ))
+          )}
         </aside>
         <div className="docs-page">{docsBody}</div>
       </Grid>
