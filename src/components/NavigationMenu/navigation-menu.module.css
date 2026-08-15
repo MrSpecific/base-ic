@@ -115,12 +115,23 @@
 }
 
 /* ---------------------------------------------------------------------------
- * Backdrop — transparent hit-area behind the popup (click-outside dismissal)
+ * Backdrop — purely a visual/state hook, must NOT intercept pointer events.
  * --------------------------------------------------------------------------- */
+/*
+ * NavigationMenu is hover-driven, unlike Dialog's modal backdrop. A backdrop
+ * with the default `pointer-events: auto` becomes the topmost element under
+ * the cursor the instant the popup opens (even with the mouse stationary over
+ * the trigger), which reads to Base UI as "pointer left the trigger" and
+ * closes the menu ~90ms later — hover opens it, then it immediately closes.
+ * `pointer-events: none` lets hover/click pass through to whatever's beneath
+ * (the trigger row, or the page, for click-outside dismissal via Base UI's
+ * own document-level listeners rather than this element catching clicks).
+ */
 .backdrop {
   position: fixed;
   inset: 0;
   z-index: var(--z-5);
+  pointer-events: none;
 }
 
 /* ---------------------------------------------------------------------------

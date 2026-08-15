@@ -112,6 +112,15 @@ export type { FieldsetProps, FieldsetLegendProps } from './components/Fieldset';
 export { NumberField, NumberFieldPrimitive } from './components/NumberField';
 export type { NumberFieldProps } from './components/NumberField';
 
+// OTPField
+export { OTPField, OTPFieldPrimitive } from './components/OTPField';
+export type {
+  OTPFieldProps,
+  OTPFieldRootProps,
+  OTPFieldInputProps,
+  OTPFieldSeparatorProps,
+} from './components/OTPField';
+
 // Toggle / ToggleGroup
 export { Toggle, ToggleGroup, TogglePrimitive, ToggleGroupPrimitive } from './components/Toggle';
 export type { ToggleProps, ToggleGroupProps } from './components/Toggle';

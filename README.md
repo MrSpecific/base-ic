@@ -173,6 +173,7 @@ import './your-theme.css';
 - `RadioGroup` — radio button group (Base UI-backed)
 - `Slider` — range slider (Base UI-backed)
 - `NumberField` — numeric input with increment/decrement (Base UI-backed)
+- `OTPField` — one-time-code / verification-code input with individual character slots (Base UI-backed)
 - `Toggle` / `ToggleGroup` — pressable toggle buttons (Base UI-backed)
 - `Field` — form field wrapper with label, description, and error states (Base UI-backed)
 - `Fieldset` — groups related form controls under a shared legend (Base UI-backed)

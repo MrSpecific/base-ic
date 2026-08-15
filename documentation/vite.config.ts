@@ -78,6 +78,7 @@ export default defineConfig({
         docsField: resolve(__dirname, 'docs/field/index.html'),
         docsFieldset: resolve(__dirname, 'docs/fieldset/index.html'),
         docsNumberField: resolve(__dirname, 'docs/number-field/index.html'),
+        docsOtpField: resolve(__dirname, 'docs/otp-field/index.html'),
         docsToggle: resolve(__dirname, 'docs/toggle/index.html'),
         docsMenu: resolve(__dirname, 'docs/menu/index.html'),
         docsMenubar: resolve(__dirname, 'docs/menubar/index.html'),

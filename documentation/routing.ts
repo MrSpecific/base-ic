@@ -43,6 +43,7 @@ export function getRouteFromPath(pathname: string): RouteState {
       slug === 'avatar' ||
       slug === 'field' ||
       slug === 'number-field' ||
+      slug === 'otp-field' ||
       slug === 'toggle' ||
       slug === 'menu' ||
       slug === 'menubar' ||

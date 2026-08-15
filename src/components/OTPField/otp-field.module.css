@@ -1,0 +1,122 @@
+/* ==========================================================================
+ * OTPField
+ * ==========================================================================
+ * A one-time-code / verification-code input made of individual character
+ * slots. Each slot is styled like a compact, square-ish version of the
+ * Input component.
+ *
+ * Root data attrs:  data-complete, data-disabled, data-readonly,
+ *                    data-required, data-valid, data-invalid, data-touched,
+ *                    data-dirty, data-filled, data-focused
+ * Input data attrs: data-complete, data-filled, data-disabled, data-readonly,
+ *                    data-required, data-valid, data-invalid, data-touched,
+ *                    data-dirty, data-focused
+ */
+
+/* ---------------------------------------------------------------------------
+ * Root
+ * --------------------------------------------------------------------------- */
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Disabled state propagated from Root */
+.root[data-disabled] .input {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+}
+
+/* ---------------------------------------------------------------------------
+ * Input (individual character slot)
+ * --------------------------------------------------------------------------- */
+.input {
+  width: var(--otp-size);
+  height: var(--otp-size);
+  padding: 0;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--component-radius);
+  background-color: var(--color-surface-sunken);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-primary);
+  font-size: var(--otp-fs);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  text-align: center;
+  outline: none;
+  transition: var(--transition-colors);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.input::placeholder {
+  color: var(--color-text-disabled);
+}
+
+.input:hover:not(:disabled):not([data-focused]) {
+  border-color: var(--color-border);
+}
+
+/* Filled: subtle highlight to show the slot has a character */
+.input[data-filled] {
+  border-color: var(--color-border);
+  background-color: var(--color-surface-subtle);
+}
+
+/* Focused: use the same focus ring as Input */
+.input[data-focused] {
+  border-color: var(--color-border-focus);
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: 0;
+}
+
+.input:disabled {
+  cursor: var(--disabled-cursor);
+  background-color: var(--color-surface-subtle);
+}
+
+/* Invalid state (when wrapped in Field.Root with invalid) */
+.input[data-invalid] {
+  border-color: var(--color-danger-border);
+}
+
+.input[data-invalid][data-focused] {
+  outline-color: color-mix(in oklch, var(--color-danger-border) 72%, transparent);
+}
+
+/* ---------------------------------------------------------------------------
+ * Separator
+ * --------------------------------------------------------------------------- */
+.separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-3);
+  height: 1px;
+  background-color: var(--color-border-subtle);
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Sizes — mirrors Input's size scale (square slots)
+ * --------------------------------------------------------------------------- */
+.size1 {
+  --otp-size: var(--button-1-height);
+  --otp-fs:   var(--button-1-font-size);
+}
+
+.size2 {
+  --otp-size: var(--button-2-height);
+  --otp-fs:   var(--button-2-font-size);
+}
+
+.size3 {
+  --otp-size: var(--button-3-height);
+  --otp-fs:   var(--button-3-font-size);
+}
+
+.size4 {
+  --otp-size: var(--button-4-height);
+  --otp-fs:   var(--button-4-font-size);
+}

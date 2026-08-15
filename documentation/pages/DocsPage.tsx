@@ -39,6 +39,7 @@ import { AvatarDocsPage } from "./docs/AvatarDocsPage";
 import { FieldDocsPage } from "./docs/FieldDocsPage";
 import { FieldsetDocsPage } from "./docs/FieldsetDocsPage";
 import { NumberFieldDocsPage } from "./docs/NumberFieldDocsPage";
+import { OTPFieldDocsPage } from "./docs/OTPFieldDocsPage";
 import { ToggleDocsPage } from "./docs/ToggleDocsPage";
 import { MenuDocsPage } from "./docs/MenuDocsPage";
 import { MenubarDocsPage } from "./docs/MenubarDocsPage";
@@ -104,6 +105,7 @@ export function DocsPage({
         { id: "input", label: "Input" },
         { id: "textarea", label: "Textarea" },
         { id: "number-field", label: "NumberField" },
+        { id: "otp-field", label: "OTPField" },
         { id: "select", label: "Select" },
         { id: "checkbox", label: "Checkbox" },
         { id: "switch", label: "Switch" },
@@ -176,6 +178,7 @@ export function DocsPage({
     if (section === "field") return <FieldDocsPage />;
     if (section === "fieldset") return <FieldsetDocsPage />;
     if (section === "number-field") return <NumberFieldDocsPage />;
+    if (section === "otp-field") return <OTPFieldDocsPage />;
     if (section === "toggle") return <ToggleDocsPage />;
     if (section === "menu") return <MenuDocsPage />;
     if (section === "menubar") return <MenubarDocsPage />;

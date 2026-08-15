@@ -46,6 +46,7 @@ export type DocsSection =
   | 'field'
   | 'fieldset'
   | 'number-field'
+  | 'otp-field'
   | 'toggle'
   | 'menu'
   | 'menubar'
