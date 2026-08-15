@@ -17,6 +17,16 @@
   border-radius: var(--card-radius, var(--surface-radius));
   font-family: var(--font-family-primary);
   color: var(--color-text-primary);
+  /* Neutral resets so Card still looks like a div when `render`/`asButton`
+     swaps in a <button> or other element with its own UA chrome. */
+  display: block;
+  width: 100%;
+  text-align: inherit;
+  font: inherit;
+  font-family: var(--font-family-primary);
+  appearance: none;
+  border: none;
+  background: none;
 }
 
 /* --- Variant: surface --- */

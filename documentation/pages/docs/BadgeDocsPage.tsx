@@ -28,6 +28,14 @@ export function BadgeDocsPage() {
     "</div>",
   ].join("\n");
 
+  const interactiveSnippet = [
+    '<div className="docs-demo-button-row">',
+    '  <Badge render={<button type="button" />} variant="surface" color="blue">',
+    '    Framework: React ×',
+    '  </Badge>',
+    "</div>",
+  ].join("\n");
+
   return (
     <>
       <DocsSection>
@@ -63,11 +71,28 @@ export function BadgeDocsPage() {
               <Badge size="3">Size 3</Badge>
             </DocsDemoRow>
           </DemoCard>
+          <DemoCard
+            title="Interactive chip"
+            description="Pass `render` to make a Badge a real, keyboard-accessible button — for filter chips and removable tags."
+            code={interactiveSnippet}
+          >
+            <DocsDemoRow>
+              <Badge render={<button type="button" />} variant="surface" color="blue">
+                Framework: React ×
+              </Badge>
+            </DocsDemoRow>
+          </DemoCard>
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Usage</Heading>
         <CodeBlock title="Badge Usage" code={usageSnippet} />
+        <p>
+          Badge renders a plain <code>&lt;span&gt;</code> by default. For interactive chips (filters, removable
+          tags), pass <code>render=&#123;&lt;button type=&quot;button&quot; /&gt;&#125;</code> instead of reaching
+          for raw <code>onClick</code> + <code>cursor: pointer</code> on a span — a screen reader announces the
+          latter as plain text, not a control, and it's not reachable by keyboard.
+        </p>
       </DocsSection>
     </>
   );

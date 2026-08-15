@@ -14,10 +14,18 @@ export function SectionDocsPage() {
     '</Section>',
   ].join('\n');
   const presetSizesDemoSnippet = [
+    '// Section only changes its own padding, so give it a visible border',
+    '// to see the effect — otherwise there\'s nothing to see it against.',
     '<Box className="docs-layout-sample-stack">',
-    '  <Section size="1"><Box className="docs-layout-chip">Section 1</Box></Section>',
-    '  <Section size="2"><Box className="docs-layout-chip">Section 2</Box></Section>',
-    '  <Section size="3"><Box className="docs-layout-chip">Section 3</Box></Section>',
+    '  <Section size="1" className="docs-layout-section-demo">',
+    '    <Box className="docs-layout-chip">size=&quot;1&quot; · space-5 (20px)</Box>',
+    '  </Section>',
+    '  <Section size="2" className="docs-layout-section-demo">',
+    '    <Box className="docs-layout-chip">size=&quot;2&quot; · space-7 (28px)</Box>',
+    '  </Section>',
+    '  <Section size="3" className="docs-layout-section-demo">',
+    '    <Box className="docs-layout-chip">size=&quot;3&quot; · space-10 (48px)</Box>',
+    '  </Section>',
     '</Box>',
   ].join('\n');
   const customPaddingDemoSnippet = [
@@ -41,11 +49,21 @@ export function SectionDocsPage() {
       <DocsSection>
         <h2>Demo</h2>
         <DocsDemoGrid>
-          <DemoCard title="Preset Sizes" description="`size` scales spacing with semantic tokens." code={presetSizesDemoSnippet}>
+          <DemoCard
+            title="Preset Sizes"
+            description="`size` scales Section's own padding — shown here with a visible border so the growing whitespace is legible."
+            code={presetSizesDemoSnippet}
+          >
             <Box className="docs-layout-sample-stack">
-              <Section size="1"><Box className="docs-layout-chip">Section 1</Box></Section>
-              <Section size="2"><Box className="docs-layout-chip">Section 2</Box></Section>
-              <Section size="3"><Box className="docs-layout-chip">Section 3</Box></Section>
+              <Section size="1" className="docs-layout-section-demo">
+                <Box className="docs-layout-chip">size=&quot;1&quot; · space-5 (20px)</Box>
+              </Section>
+              <Section size="2" className="docs-layout-section-demo">
+                <Box className="docs-layout-chip">size=&quot;2&quot; · space-7 (28px)</Box>
+              </Section>
+              <Section size="3" className="docs-layout-section-demo">
+                <Box className="docs-layout-chip">size=&quot;3&quot; · space-10 (48px)</Box>
+              </Section>
             </Box>
           </DemoCard>
           <DemoCard title="Custom Padding" description="Use `py` when a region needs tighter cadence." code={customPaddingDemoSnippet}>

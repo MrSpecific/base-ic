@@ -25,6 +25,12 @@ export function LinkDocsPage() {
     '</Text>',
   ].join('\n');
 
+  const renderPropSnippet = [
+    "import { Link as RouterLink } from 'react-router-dom';",
+    '',
+    '<Link render={<RouterLink to="/projects/1" />}>Project overview</Link>',
+  ].join('\n');
+
   return (
     <>
       <DocsSection>
@@ -33,6 +39,11 @@ export function LinkDocsPage() {
           `Link` is an accessible anchor primitive with tokenized typography, color control,
           underline behavior, and spacing props.
         </p>
+        <p>
+          Pass <code>render</code> to keep Link's styling while swapping in another element — most commonly a
+          client-side router's own <code>Link</code>, so navigation stays client-side instead of a full page load:
+        </p>
+        <CodeBlock title="Link render prop" code={renderPropSnippet} />
       </DocsSection>
       <DocsSection>
         <h2>Demo</h2>

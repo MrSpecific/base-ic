@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useRender } from '@base-ui/react/use-render';
 import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
 import { buildTypoColorVar, buildTypoSizeVars } from './typography.utils';
 import type { AccentColor } from '../Theme';
@@ -15,6 +16,8 @@ export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>
   highContrast?: boolean;
   underline?: LinkUnderline;
   truncate?: boolean;
+  /** Render as a different element (e.g. a router `Link`) while keeping Link's styling. */
+  render?: useRender.RenderProp;
 }
 
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
@@ -29,6 +32,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
       className,
       style,
+      render,
       ...rest
     },
     ref,
@@ -42,24 +46,26 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
     }));
 
-    return (
-      <a
-        ref={ref}
-        className={cx(
+    return useRender({
+      render: render ?? <a />,
+      defaultTagName: 'a',
+      ref,
+      props: {
+        ...rest,
+        className: cx(
           styles.link,
           styles[`underline${underline[0].toUpperCase()}${underline.slice(1)}` as keyof typeof styles],
           truncate && styles.truncate,
           className,
-        )}
-        style={{
+        ),
+        style: {
           ...sizeVars,
           ...colorVars,
           ...weightVar,
           ...spaceVars,
           ...style,
-        }}
-        {...rest}
-      />
-    );
+        },
+      },
+    });
   },
 );

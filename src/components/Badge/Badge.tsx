@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useRender } from '@base-ui/react/use-render';
 import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
 import type { AccentColor } from '../Theme';
 import styles from './badge.module.css';
@@ -18,6 +19,8 @@ export interface BadgeProps extends Omit<React.HTMLAttributes<HTMLSpanElement>, 
   highContrast?: boolean;
   /** Override border-radius. */
   radius?: BadgeRadius;
+  /** Render as a different element (e.g. a real `<button>` for interactive chips) while keeping Badge's styling. */
+  render?: useRender.RenderProp;
 }
 
 const radiusMap: Record<BadgeRadius, string> = {
@@ -52,6 +55,7 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       mr,
       mb,
       ml,
+      render,
       ...rest
     },
     ref,
@@ -81,23 +85,25 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
     }));
 
-    return (
-      <span
-        ref={ref}
-        className={cx(
+    return useRender({
+      render: render ?? <span />,
+      defaultTagName: 'span',
+      ref,
+      props: {
+        ...rest,
+        className: cx(
           styles.badge,
           styles[variant],
           highContrast && styles.highContrast,
           className,
-        )}
-        style={{
+        ),
+        style: {
           ...sizeVars,
           ...colorVars,
           ...radiusVar,
           ...nextStyle,
-        } as React.CSSProperties}
-        {...rest}
-      />
-    );
+        } as React.CSSProperties,
+      },
+    });
   },
 );

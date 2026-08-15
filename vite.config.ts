@@ -32,8 +32,15 @@ export default defineConfig({
       // Use rollupOptions.input directly (instead of lib.entry) so that
       // preserveModules applies correctly — lib mode's entry conflicts with it.
       input: resolve(__dirname, 'src/index.ts'),
-      // Peer deps must never be bundled — consumers provide them
-      external: ['react', 'react/jsx-runtime', 'react-dom', '@base-ui/react'],
+      // Peer deps must never be bundled — consumers provide them.
+      // Matches subpath imports too (e.g. '@base-ui/react/use-render'),
+      // not just the bare package specifier.
+      external: [
+        'react',
+        'react/jsx-runtime',
+        'react-dom',
+        /^@base-ui\/react(\/.*)?$/,
+      ],
       // preserveEntrySignatures must be set when using preserveModules without lib mode
       preserveEntrySignatures: 'exports-only',
       output: {

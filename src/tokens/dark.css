@@ -344,6 +344,141 @@
   --color-cyan-12: color-mix(in oklch, white 70%, var(--color-cyan-9));
   --color-cyan-contrast: white;
 
+  /* Grass */
+  --color-grass-9:     oklch(51.6% 0.161 145);
+  --color-grass-1:  color-mix(in oklch, black 74%, var(--color-grass-9));
+  --color-grass-2:  color-mix(in oklch, black 68%, var(--color-grass-9));
+  --color-grass-3:  color-mix(in oklch, black 61%, var(--color-grass-9));
+  --color-grass-4:  color-mix(in oklch, black 54%, var(--color-grass-9));
+  --color-grass-5:  color-mix(in oklch, black 47%, var(--color-grass-9));
+  --color-grass-6:  color-mix(in oklch, black 37%, var(--color-grass-9));
+  --color-grass-7:  color-mix(in oklch, black 25%, var(--color-grass-9));
+  --color-grass-8:  color-mix(in oklch, black 12%, var(--color-grass-9));
+  --color-grass-10: color-mix(in oklch, white 12%, var(--color-grass-9));
+  --color-grass-11: color-mix(in oklch, white 34%, var(--color-grass-9));
+  --color-grass-12: color-mix(in oklch, white 70%, var(--color-grass-9));
+  --color-grass-contrast: white;
+
+  /* Mint */
+  --color-mint-9:      oklch(52.0% 0.102 170);
+  --color-mint-1:  color-mix(in oklch, black 74%, var(--color-mint-9));
+  --color-mint-2:  color-mix(in oklch, black 68%, var(--color-mint-9));
+  --color-mint-3:  color-mix(in oklch, black 61%, var(--color-mint-9));
+  --color-mint-4:  color-mix(in oklch, black 54%, var(--color-mint-9));
+  --color-mint-5:  color-mix(in oklch, black 47%, var(--color-mint-9));
+  --color-mint-6:  color-mix(in oklch, black 37%, var(--color-mint-9));
+  --color-mint-7:  color-mix(in oklch, black 25%, var(--color-mint-9));
+  --color-mint-8:  color-mix(in oklch, black 12%, var(--color-mint-9));
+  --color-mint-10: color-mix(in oklch, white 12%, var(--color-mint-9));
+  --color-mint-11: color-mix(in oklch, white 34%, var(--color-mint-9));
+  --color-mint-12: color-mix(in oklch, white 70%, var(--color-mint-9));
+  --color-mint-contrast: white;
+
+  /* Crimson */
+  --color-crimson-9:   oklch(54.0% 0.208 10);
+  --color-crimson-1:  color-mix(in oklch, black 74%, var(--color-crimson-9));
+  --color-crimson-2:  color-mix(in oklch, black 68%, var(--color-crimson-9));
+  --color-crimson-3:  color-mix(in oklch, black 61%, var(--color-crimson-9));
+  --color-crimson-4:  color-mix(in oklch, black 54%, var(--color-crimson-9));
+  --color-crimson-5:  color-mix(in oklch, black 47%, var(--color-crimson-9));
+  --color-crimson-6:  color-mix(in oklch, black 37%, var(--color-crimson-9));
+  --color-crimson-7:  color-mix(in oklch, black 25%, var(--color-crimson-9));
+  --color-crimson-8:  color-mix(in oklch, black 12%, var(--color-crimson-9));
+  --color-crimson-10: color-mix(in oklch, white 12%, var(--color-crimson-9));
+  --color-crimson-11: color-mix(in oklch, white 34%, var(--color-crimson-9));
+  --color-crimson-12: color-mix(in oklch, white 70%, var(--color-crimson-9));
+  --color-crimson-contrast: white;
+
+  /* Tomato */
+  --color-tomato-9:    oklch(54.0% 0.208 28);
+  --color-tomato-1:  color-mix(in oklch, black 74%, var(--color-tomato-9));
+  --color-tomato-2:  color-mix(in oklch, black 68%, var(--color-tomato-9));
+  --color-tomato-3:  color-mix(in oklch, black 61%, var(--color-tomato-9));
+  --color-tomato-4:  color-mix(in oklch, black 54%, var(--color-tomato-9));
+  --color-tomato-5:  color-mix(in oklch, black 47%, var(--color-tomato-9));
+  --color-tomato-6:  color-mix(in oklch, black 37%, var(--color-tomato-9));
+  --color-tomato-7:  color-mix(in oklch, black 25%, var(--color-tomato-9));
+  --color-tomato-8:  color-mix(in oklch, black 12%, var(--color-tomato-9));
+  --color-tomato-10: color-mix(in oklch, white 12%, var(--color-tomato-9));
+  --color-tomato-11: color-mix(in oklch, white 34%, var(--color-tomato-9));
+  --color-tomato-12: color-mix(in oklch, white 70%, var(--color-tomato-9));
+  --color-tomato-contrast: white;
+
+  /* Bronze */
+  --color-bronze-9:    oklch(53.8% 0.059 55);
+  --color-bronze-1:  color-mix(in oklch, black 74%, var(--color-bronze-9));
+  --color-bronze-2:  color-mix(in oklch, black 68%, var(--color-bronze-9));
+  --color-bronze-3:  color-mix(in oklch, black 61%, var(--color-bronze-9));
+  --color-bronze-4:  color-mix(in oklch, black 54%, var(--color-bronze-9));
+  --color-bronze-5:  color-mix(in oklch, black 47%, var(--color-bronze-9));
+  --color-bronze-6:  color-mix(in oklch, black 37%, var(--color-bronze-9));
+  --color-bronze-7:  color-mix(in oklch, black 25%, var(--color-bronze-9));
+  --color-bronze-8:  color-mix(in oklch, black 12%, var(--color-bronze-9));
+  --color-bronze-10: color-mix(in oklch, white 12%, var(--color-bronze-9));
+  --color-bronze-11: color-mix(in oklch, white 34%, var(--color-bronze-9));
+  --color-bronze-12: color-mix(in oklch, white 70%, var(--color-bronze-9));
+  --color-bronze-contrast: white;
+
+  /* Brown */
+  --color-brown-9:     oklch(53.8% 0.059 50);
+  --color-brown-1:  color-mix(in oklch, black 74%, var(--color-brown-9));
+  --color-brown-2:  color-mix(in oklch, black 68%, var(--color-brown-9));
+  --color-brown-3:  color-mix(in oklch, black 61%, var(--color-brown-9));
+  --color-brown-4:  color-mix(in oklch, black 54%, var(--color-brown-9));
+  --color-brown-5:  color-mix(in oklch, black 47%, var(--color-brown-9));
+  --color-brown-6:  color-mix(in oklch, black 37%, var(--color-brown-9));
+  --color-brown-7:  color-mix(in oklch, black 25%, var(--color-brown-9));
+  --color-brown-8:  color-mix(in oklch, black 12%, var(--color-brown-9));
+  --color-brown-10: color-mix(in oklch, white 12%, var(--color-brown-9));
+  --color-brown-11: color-mix(in oklch, white 34%, var(--color-brown-9));
+  --color-brown-12: color-mix(in oklch, white 70%, var(--color-brown-9));
+  --color-brown-contrast: white;
+
+  /* Gold */
+  --color-gold-9:      oklch(53.4% 0.084 85);
+  --color-gold-1:  color-mix(in oklch, black 74%, var(--color-gold-9));
+  --color-gold-2:  color-mix(in oklch, black 68%, var(--color-gold-9));
+  --color-gold-3:  color-mix(in oklch, black 61%, var(--color-gold-9));
+  --color-gold-4:  color-mix(in oklch, black 54%, var(--color-gold-9));
+  --color-gold-5:  color-mix(in oklch, black 47%, var(--color-gold-9));
+  --color-gold-6:  color-mix(in oklch, black 37%, var(--color-gold-9));
+  --color-gold-7:  color-mix(in oklch, black 25%, var(--color-gold-9));
+  --color-gold-8:  color-mix(in oklch, black 12%, var(--color-gold-9));
+  --color-gold-10: color-mix(in oklch, white 12%, var(--color-gold-9));
+  --color-gold-11: color-mix(in oklch, white 34%, var(--color-gold-9));
+  --color-gold-12: color-mix(in oklch, white 70%, var(--color-gold-9));
+  --color-gold-contrast: white;
+
+  /* Iris */
+  --color-iris-9:      oklch(54.0% 0.178 280);
+  --color-iris-1:  color-mix(in oklch, black 74%, var(--color-iris-9));
+  --color-iris-2:  color-mix(in oklch, black 68%, var(--color-iris-9));
+  --color-iris-3:  color-mix(in oklch, black 61%, var(--color-iris-9));
+  --color-iris-4:  color-mix(in oklch, black 54%, var(--color-iris-9));
+  --color-iris-5:  color-mix(in oklch, black 47%, var(--color-iris-9));
+  --color-iris-6:  color-mix(in oklch, black 37%, var(--color-iris-9));
+  --color-iris-7:  color-mix(in oklch, black 25%, var(--color-iris-9));
+  --color-iris-8:  color-mix(in oklch, black 12%, var(--color-iris-9));
+  --color-iris-10: color-mix(in oklch, white 12%, var(--color-iris-9));
+  --color-iris-11: color-mix(in oklch, white 34%, var(--color-iris-9));
+  --color-iris-12: color-mix(in oklch, white 70%, var(--color-iris-9));
+  --color-iris-contrast: white;
+
+  /* Plum */
+  --color-plum-9:      oklch(54.0% 0.178 320);
+  --color-plum-1:  color-mix(in oklch, black 74%, var(--color-plum-9));
+  --color-plum-2:  color-mix(in oklch, black 68%, var(--color-plum-9));
+  --color-plum-3:  color-mix(in oklch, black 61%, var(--color-plum-9));
+  --color-plum-4:  color-mix(in oklch, black 54%, var(--color-plum-9));
+  --color-plum-5:  color-mix(in oklch, black 47%, var(--color-plum-9));
+  --color-plum-6:  color-mix(in oklch, black 37%, var(--color-plum-9));
+  --color-plum-7:  color-mix(in oklch, black 25%, var(--color-plum-9));
+  --color-plum-8:  color-mix(in oklch, black 12%, var(--color-plum-9));
+  --color-plum-10: color-mix(in oklch, white 12%, var(--color-plum-9));
+  --color-plum-11: color-mix(in oklch, white 34%, var(--color-plum-9));
+  --color-plum-12: color-mix(in oklch, white 70%, var(--color-plum-9));
+  --color-plum-contrast: white;
+
   /* Black accent (inverted for dark UIs to stay legible as an accent) */
   --color-black-1:  oklch(17.0% 0.000 0);
   --color-black-2:  oklch(20.0% 0.000 0);
@@ -685,6 +820,141 @@
   --color-cyan-12: oklch(22.0% 0.080 210);
   --color-cyan-contrast: white;
 
+  /* Grass — light mode scale */
+  --color-grass-1:     oklch(98.5% 0.010 145);
+  --color-grass-2:     oklch(97.0% 0.018 145);
+  --color-grass-3:     oklch(93.5% 0.042 145);
+  --color-grass-4:     oklch(89.5% 0.067 145);
+  --color-grass-5:     oklch(85.0% 0.089 145);
+  --color-grass-6:     oklch(79.0% 0.105 145);
+  --color-grass-7:     oklch(71.0% 0.121 145);
+  --color-grass-8:     oklch(60.0% 0.147 145);
+  --color-grass-9:     oklch(51.6% 0.161 145);
+  --color-grass-10:    oklch(45.6% 0.143 145);
+  --color-grass-11:    oklch(40.0% 0.126 145);
+  --color-grass-12:    oklch(22.0% 0.072 145);
+  --color-grass-contrast: white;
+
+  /* Mint — light mode scale */
+  --color-mint-1:      oklch(98.5% 0.010 170);
+  --color-mint-2:      oklch(97.0% 0.018 170);
+  --color-mint-3:      oklch(93.5% 0.040 170);
+  --color-mint-4:      oklch(89.5% 0.063 170);
+  --color-mint-5:      oklch(85.0% 0.081 170);
+  --color-mint-6:      oklch(79.0% 0.093 170);
+  --color-mint-7:      oklch(71.0% 0.109 170);
+  --color-mint-8:      oklch(60.0% 0.118 170);
+  --color-mint-9:      oklch(52.0% 0.102 170);
+  --color-mint-10:     oklch(46.0% 0.091 170);
+  --color-mint-11:     oklch(42.0% 0.083 170);
+  --color-mint-12:     oklch(22.0% 0.045 170);
+  --color-mint-contrast: white;
+
+  /* Crimson — light mode scale */
+  --color-crimson-1:   oklch(98.5% 0.007 10);
+  --color-crimson-2:   oklch(97.0% 0.015 10);
+  --color-crimson-3:   oklch(93.5% 0.033 10);
+  --color-crimson-4:   oklch(89.5% 0.056 10);
+  --color-crimson-5:   oklch(85.0% 0.083 10);
+  --color-crimson-6:   oklch(79.0% 0.109 10);
+  --color-crimson-7:   oklch(71.0% 0.129 10);
+  --color-crimson-8:   oklch(60.0% 0.156 10);
+  --color-crimson-9:   oklch(54.0% 0.208 10);
+  --color-crimson-10:  oklch(48.0% 0.191 10);
+  --color-crimson-11:  oklch(42.0% 0.167 10);
+  --color-crimson-12:  oklch(22.0% 0.091 10);
+  --color-crimson-contrast: white;
+
+  /* Tomato — light mode scale */
+  --color-tomato-1:    oklch(98.5% 0.007 28);
+  --color-tomato-2:    oklch(97.0% 0.015 28);
+  --color-tomato-3:    oklch(93.5% 0.033 28);
+  --color-tomato-4:    oklch(89.5% 0.054 28);
+  --color-tomato-5:    oklch(85.0% 0.081 28);
+  --color-tomato-6:    oklch(79.0% 0.109 28);
+  --color-tomato-7:    oklch(71.0% 0.129 28);
+  --color-tomato-8:    oklch(60.0% 0.156 28);
+  --color-tomato-9:    oklch(54.0% 0.208 28);
+  --color-tomato-10:   oklch(48.0% 0.195 28);
+  --color-tomato-11:   oklch(42.0% 0.171 28);
+  --color-tomato-12:   oklch(22.0% 0.093 28);
+  --color-tomato-contrast: white;
+
+  /* Bronze — light mode scale */
+  --color-bronze-1:    oklch(98.5% 0.008 55);
+  --color-bronze-2:    oklch(97.0% 0.012 55);
+  --color-bronze-3:    oklch(93.5% 0.020 55);
+  --color-bronze-4:    oklch(89.5% 0.028 55);
+  --color-bronze-5:    oklch(85.0% 0.035 55);
+  --color-bronze-6:    oklch(79.0% 0.040 55);
+  --color-bronze-7:    oklch(71.0% 0.045 55);
+  --color-bronze-8:    oklch(60.0% 0.051 55);
+  --color-bronze-9:    oklch(53.8% 0.059 55);
+  --color-bronze-10:   oklch(47.8% 0.054 55);
+  --color-bronze-11:   oklch(42.0% 0.048 55);
+  --color-bronze-12:   oklch(22.0% 0.030 55);
+  --color-bronze-contrast: white;
+
+  /* Brown — light mode scale */
+  --color-brown-1:     oklch(98.5% 0.008 50);
+  --color-brown-2:     oklch(97.0% 0.012 50);
+  --color-brown-3:     oklch(93.5% 0.020 50);
+  --color-brown-4:     oklch(89.5% 0.028 50);
+  --color-brown-5:     oklch(85.0% 0.035 50);
+  --color-brown-6:     oklch(79.0% 0.040 50);
+  --color-brown-7:     oklch(71.0% 0.045 50);
+  --color-brown-8:     oklch(60.0% 0.051 50);
+  --color-brown-9:     oklch(53.8% 0.059 50);
+  --color-brown-10:    oklch(47.8% 0.054 50);
+  --color-brown-11:    oklch(42.0% 0.048 50);
+  --color-brown-12:    oklch(22.0% 0.030 50);
+  --color-brown-contrast: white;
+
+  /* Gold — light mode scale */
+  --color-gold-1:      oklch(98.5% 0.012 85);
+  --color-gold-2:      oklch(97.0% 0.018 85);
+  --color-gold-3:      oklch(93.5% 0.028 85);
+  --color-gold-4:      oklch(89.5% 0.038 85);
+  --color-gold-5:      oklch(85.0% 0.048 85);
+  --color-gold-6:      oklch(79.0% 0.054 85);
+  --color-gold-7:      oklch(71.0% 0.064 85);
+  --color-gold-8:      oklch(60.0% 0.074 85);
+  --color-gold-9:      oklch(53.4% 0.084 85);
+  --color-gold-10:     oklch(47.4% 0.079 85);
+  --color-gold-11:     oklch(42.0% 0.069 85);
+  --color-gold-12:     oklch(22.0% 0.040 85);
+  --color-gold-contrast: white;
+
+  /* Iris — light mode scale */
+  --color-iris-1:      oklch(98.5% 0.007 280);
+  --color-iris-2:      oklch(97.0% 0.014 280);
+  --color-iris-3:      oklch(93.5% 0.031 280);
+  --color-iris-4:      oklch(89.5% 0.051 280);
+  --color-iris-5:      oklch(85.0% 0.075 280);
+  --color-iris-6:      oklch(79.0% 0.089 280);
+  --color-iris-7:      oklch(71.0% 0.109 280);
+  --color-iris-8:      oklch(60.0% 0.139 280);
+  --color-iris-9:      oklch(54.0% 0.178 280);
+  --color-iris-10:     oklch(48.0% 0.168 280);
+  --color-iris-11:     oklch(42.0% 0.158 280);
+  --color-iris-12:     oklch(22.0% 0.094 280);
+  --color-iris-contrast: white;
+
+  /* Plum — light mode scale */
+  --color-plum-1:      oklch(98.5% 0.010 320);
+  --color-plum-2:      oklch(97.0% 0.018 320);
+  --color-plum-3:      oklch(93.5% 0.038 320);
+  --color-plum-4:      oklch(89.5% 0.059 320);
+  --color-plum-5:      oklch(85.0% 0.077 320);
+  --color-plum-6:      oklch(79.0% 0.089 320);
+  --color-plum-7:      oklch(71.0% 0.109 320);
+  --color-plum-8:      oklch(60.0% 0.139 320);
+  --color-plum-9:      oklch(54.0% 0.178 320);
+  --color-plum-10:     oklch(48.0% 0.168 320);
+  --color-plum-11:     oklch(42.0% 0.158 320);
+  --color-plum-12:     oklch(22.0% 0.094 320);
+  --color-plum-contrast: white;
+
   /* Black — light mode scale */
   --color-black-1:  oklch(99.0% 0.000 0);
   --color-black-2:  oklch(97.5% 0.000 0);
@@ -1004,6 +1274,141 @@
     --color-cyan-11: color-mix(in oklch, white 34%, var(--color-cyan-9));
     --color-cyan-12: color-mix(in oklch, white 70%, var(--color-cyan-9));
     --color-cyan-contrast: white;
+
+    /* Grass */
+    --color-grass-9:     oklch(51.6% 0.161 145);
+    --color-grass-1:  color-mix(in oklch, black 74%, var(--color-grass-9));
+    --color-grass-2:  color-mix(in oklch, black 68%, var(--color-grass-9));
+    --color-grass-3:  color-mix(in oklch, black 61%, var(--color-grass-9));
+    --color-grass-4:  color-mix(in oklch, black 54%, var(--color-grass-9));
+    --color-grass-5:  color-mix(in oklch, black 47%, var(--color-grass-9));
+    --color-grass-6:  color-mix(in oklch, black 37%, var(--color-grass-9));
+    --color-grass-7:  color-mix(in oklch, black 25%, var(--color-grass-9));
+    --color-grass-8:  color-mix(in oklch, black 12%, var(--color-grass-9));
+    --color-grass-10: color-mix(in oklch, white 12%, var(--color-grass-9));
+    --color-grass-11: color-mix(in oklch, white 34%, var(--color-grass-9));
+    --color-grass-12: color-mix(in oklch, white 70%, var(--color-grass-9));
+    --color-grass-contrast: white;
+
+    /* Mint */
+    --color-mint-9:      oklch(52.0% 0.102 170);
+    --color-mint-1:  color-mix(in oklch, black 74%, var(--color-mint-9));
+    --color-mint-2:  color-mix(in oklch, black 68%, var(--color-mint-9));
+    --color-mint-3:  color-mix(in oklch, black 61%, var(--color-mint-9));
+    --color-mint-4:  color-mix(in oklch, black 54%, var(--color-mint-9));
+    --color-mint-5:  color-mix(in oklch, black 47%, var(--color-mint-9));
+    --color-mint-6:  color-mix(in oklch, black 37%, var(--color-mint-9));
+    --color-mint-7:  color-mix(in oklch, black 25%, var(--color-mint-9));
+    --color-mint-8:  color-mix(in oklch, black 12%, var(--color-mint-9));
+    --color-mint-10: color-mix(in oklch, white 12%, var(--color-mint-9));
+    --color-mint-11: color-mix(in oklch, white 34%, var(--color-mint-9));
+    --color-mint-12: color-mix(in oklch, white 70%, var(--color-mint-9));
+    --color-mint-contrast: white;
+
+    /* Crimson */
+    --color-crimson-9:   oklch(54.0% 0.208 10);
+    --color-crimson-1:  color-mix(in oklch, black 74%, var(--color-crimson-9));
+    --color-crimson-2:  color-mix(in oklch, black 68%, var(--color-crimson-9));
+    --color-crimson-3:  color-mix(in oklch, black 61%, var(--color-crimson-9));
+    --color-crimson-4:  color-mix(in oklch, black 54%, var(--color-crimson-9));
+    --color-crimson-5:  color-mix(in oklch, black 47%, var(--color-crimson-9));
+    --color-crimson-6:  color-mix(in oklch, black 37%, var(--color-crimson-9));
+    --color-crimson-7:  color-mix(in oklch, black 25%, var(--color-crimson-9));
+    --color-crimson-8:  color-mix(in oklch, black 12%, var(--color-crimson-9));
+    --color-crimson-10: color-mix(in oklch, white 12%, var(--color-crimson-9));
+    --color-crimson-11: color-mix(in oklch, white 34%, var(--color-crimson-9));
+    --color-crimson-12: color-mix(in oklch, white 70%, var(--color-crimson-9));
+    --color-crimson-contrast: white;
+
+    /* Tomato */
+    --color-tomato-9:    oklch(54.0% 0.208 28);
+    --color-tomato-1:  color-mix(in oklch, black 74%, var(--color-tomato-9));
+    --color-tomato-2:  color-mix(in oklch, black 68%, var(--color-tomato-9));
+    --color-tomato-3:  color-mix(in oklch, black 61%, var(--color-tomato-9));
+    --color-tomato-4:  color-mix(in oklch, black 54%, var(--color-tomato-9));
+    --color-tomato-5:  color-mix(in oklch, black 47%, var(--color-tomato-9));
+    --color-tomato-6:  color-mix(in oklch, black 37%, var(--color-tomato-9));
+    --color-tomato-7:  color-mix(in oklch, black 25%, var(--color-tomato-9));
+    --color-tomato-8:  color-mix(in oklch, black 12%, var(--color-tomato-9));
+    --color-tomato-10: color-mix(in oklch, white 12%, var(--color-tomato-9));
+    --color-tomato-11: color-mix(in oklch, white 34%, var(--color-tomato-9));
+    --color-tomato-12: color-mix(in oklch, white 70%, var(--color-tomato-9));
+    --color-tomato-contrast: white;
+
+    /* Bronze */
+    --color-bronze-9:    oklch(53.8% 0.059 55);
+    --color-bronze-1:  color-mix(in oklch, black 74%, var(--color-bronze-9));
+    --color-bronze-2:  color-mix(in oklch, black 68%, var(--color-bronze-9));
+    --color-bronze-3:  color-mix(in oklch, black 61%, var(--color-bronze-9));
+    --color-bronze-4:  color-mix(in oklch, black 54%, var(--color-bronze-9));
+    --color-bronze-5:  color-mix(in oklch, black 47%, var(--color-bronze-9));
+    --color-bronze-6:  color-mix(in oklch, black 37%, var(--color-bronze-9));
+    --color-bronze-7:  color-mix(in oklch, black 25%, var(--color-bronze-9));
+    --color-bronze-8:  color-mix(in oklch, black 12%, var(--color-bronze-9));
+    --color-bronze-10: color-mix(in oklch, white 12%, var(--color-bronze-9));
+    --color-bronze-11: color-mix(in oklch, white 34%, var(--color-bronze-9));
+    --color-bronze-12: color-mix(in oklch, white 70%, var(--color-bronze-9));
+    --color-bronze-contrast: white;
+
+    /* Brown */
+    --color-brown-9:     oklch(53.8% 0.059 50);
+    --color-brown-1:  color-mix(in oklch, black 74%, var(--color-brown-9));
+    --color-brown-2:  color-mix(in oklch, black 68%, var(--color-brown-9));
+    --color-brown-3:  color-mix(in oklch, black 61%, var(--color-brown-9));
+    --color-brown-4:  color-mix(in oklch, black 54%, var(--color-brown-9));
+    --color-brown-5:  color-mix(in oklch, black 47%, var(--color-brown-9));
+    --color-brown-6:  color-mix(in oklch, black 37%, var(--color-brown-9));
+    --color-brown-7:  color-mix(in oklch, black 25%, var(--color-brown-9));
+    --color-brown-8:  color-mix(in oklch, black 12%, var(--color-brown-9));
+    --color-brown-10: color-mix(in oklch, white 12%, var(--color-brown-9));
+    --color-brown-11: color-mix(in oklch, white 34%, var(--color-brown-9));
+    --color-brown-12: color-mix(in oklch, white 70%, var(--color-brown-9));
+    --color-brown-contrast: white;
+
+    /* Gold */
+    --color-gold-9:      oklch(53.4% 0.084 85);
+    --color-gold-1:  color-mix(in oklch, black 74%, var(--color-gold-9));
+    --color-gold-2:  color-mix(in oklch, black 68%, var(--color-gold-9));
+    --color-gold-3:  color-mix(in oklch, black 61%, var(--color-gold-9));
+    --color-gold-4:  color-mix(in oklch, black 54%, var(--color-gold-9));
+    --color-gold-5:  color-mix(in oklch, black 47%, var(--color-gold-9));
+    --color-gold-6:  color-mix(in oklch, black 37%, var(--color-gold-9));
+    --color-gold-7:  color-mix(in oklch, black 25%, var(--color-gold-9));
+    --color-gold-8:  color-mix(in oklch, black 12%, var(--color-gold-9));
+    --color-gold-10: color-mix(in oklch, white 12%, var(--color-gold-9));
+    --color-gold-11: color-mix(in oklch, white 34%, var(--color-gold-9));
+    --color-gold-12: color-mix(in oklch, white 70%, var(--color-gold-9));
+    --color-gold-contrast: white;
+
+    /* Iris */
+    --color-iris-9:      oklch(54.0% 0.178 280);
+    --color-iris-1:  color-mix(in oklch, black 74%, var(--color-iris-9));
+    --color-iris-2:  color-mix(in oklch, black 68%, var(--color-iris-9));
+    --color-iris-3:  color-mix(in oklch, black 61%, var(--color-iris-9));
+    --color-iris-4:  color-mix(in oklch, black 54%, var(--color-iris-9));
+    --color-iris-5:  color-mix(in oklch, black 47%, var(--color-iris-9));
+    --color-iris-6:  color-mix(in oklch, black 37%, var(--color-iris-9));
+    --color-iris-7:  color-mix(in oklch, black 25%, var(--color-iris-9));
+    --color-iris-8:  color-mix(in oklch, black 12%, var(--color-iris-9));
+    --color-iris-10: color-mix(in oklch, white 12%, var(--color-iris-9));
+    --color-iris-11: color-mix(in oklch, white 34%, var(--color-iris-9));
+    --color-iris-12: color-mix(in oklch, white 70%, var(--color-iris-9));
+    --color-iris-contrast: white;
+
+    /* Plum */
+    --color-plum-9:      oklch(54.0% 0.178 320);
+    --color-plum-1:  color-mix(in oklch, black 74%, var(--color-plum-9));
+    --color-plum-2:  color-mix(in oklch, black 68%, var(--color-plum-9));
+    --color-plum-3:  color-mix(in oklch, black 61%, var(--color-plum-9));
+    --color-plum-4:  color-mix(in oklch, black 54%, var(--color-plum-9));
+    --color-plum-5:  color-mix(in oklch, black 47%, var(--color-plum-9));
+    --color-plum-6:  color-mix(in oklch, black 37%, var(--color-plum-9));
+    --color-plum-7:  color-mix(in oklch, black 25%, var(--color-plum-9));
+    --color-plum-8:  color-mix(in oklch, black 12%, var(--color-plum-9));
+    --color-plum-10: color-mix(in oklch, white 12%, var(--color-plum-9));
+    --color-plum-11: color-mix(in oklch, white 34%, var(--color-plum-9));
+    --color-plum-12: color-mix(in oklch, white 70%, var(--color-plum-9));
+    --color-plum-contrast: white;
 
     --color-black-1:  oklch(17.0% 0.000 0);
     --color-black-2:  oklch(20.0% 0.000 0);

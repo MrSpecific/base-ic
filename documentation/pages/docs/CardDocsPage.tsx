@@ -24,9 +24,18 @@ export function CardDocsPage() {
   ].join('\n');
 
   const interactiveSnippet = [
-    '<Card asButton variant="surface" size="3">',
+    '<Card render={<button type="button" />} variant="surface" size="3">',
     '  <h4>Clickable card</h4>',
     '  <p>Useful for dashboards and selection UIs.</p>',
+    '</Card>',
+  ].join('\n');
+
+  const renderPropSnippet = [
+    "import { Link as RouterLink } from 'react-router-dom';",
+    '',
+    '<Card render={<RouterLink to="/projects/1" />} variant="surface">',
+    '  <h4>Whole-card navigation</h4>',
+    '  <p>Render as any element — a router Link, an anchor, a real button.</p>',
     '</Card>',
   ].join('\n');
   const spacingSnippet = [
@@ -52,6 +61,23 @@ export function CardDocsPage() {
         </p>
       </DocsSection>
       <DocsSection>
+        <h2>Making a card interactive</h2>
+        <p>
+          Pass <code>render</code> to render Card as any element — a real <code>&lt;button&gt;</code>, an anchor,
+          or a router <code>Link</code> — while keeping Card's own styling. The rendered element owns real keyboard
+          semantics natively (Enter/Space for a button, native navigation for a link), so no ARIA patching is
+          needed.
+        </p>
+        <p>
+          The older <code>asButton</code> boolean is deprecated: it renders a real <code>&lt;button&gt;</code> under
+          the hood now (sugar for <code>render=&#123;&lt;button type=&quot;button&quot; /&gt;&#125;</code>), but it
+          previously set <code>role=&quot;button&quot;</code> on a <code>&lt;div&gt;</code> without wiring up
+          Enter/Space — a real keyboard-accessibility bug. Prefer <code>render</code> directly; <code>asButton</code>
+          will be removed in a future minor version.
+        </p>
+        <CodeBlock title="Card render prop" code={renderPropSnippet} />
+      </DocsSection>
+      <DocsSection>
         <h2>Demo</h2>
         <DocsDemoGrid>
           <DemoCard title="Variants" description="Pick the appropriate surface style." code={variantsSnippet}>
@@ -62,8 +88,8 @@ export function CardDocsPage() {
               <Card variant="ghost">Ghost card</Card>
             </DocsDemoGrid>
           </DemoCard>
-          <DemoCard title="Interactive" description="Enable hover/press/focus styles via `asButton`." code={interactiveSnippet}>
-            <Card asButton variant="surface" size="3">
+          <DemoCard title="Interactive" description="Render as a real button via `render` for hover/press/focus + native keyboard support." code={interactiveSnippet}>
+            <Card render={<button type="button" />} variant="surface" size="3">
               <h4>Clickable card</h4>
               <p>Useful for dashboards and selection UIs.</p>
             </Card>

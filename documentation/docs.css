@@ -99,7 +99,16 @@
 
 .docs-layout-sample-stack {
   display: grid;
-  gap: 0;
+  gap: var(--space-4);
+}
+
+/* Section's `size` prop only changes its own padding — with no border of its
+   own to show that padding against, the effect is invisible. This box makes
+   Section's padding box visible so the scale actually reads. */
+.docs-layout-section-demo {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-3);
+  background: var(--color-surface-subtle);
 }
 
 .designer-grid {

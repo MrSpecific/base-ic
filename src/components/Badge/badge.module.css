@@ -26,6 +26,9 @@
   line-height: 1;
   white-space: nowrap;
   user-select: none;
+  /* Neutral resets so Badge still looks right when rendered as e.g. <button> via `render` */
+  appearance: none;
+  text-align: inherit;
 }
 
 /* --- Variant: solid --- */

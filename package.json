@@ -35,7 +35,7 @@
     "documentation": "vite serve documentation --config documentation/vite.config.ts",
     "documentation:build": "vite build --config documentation/vite.config.ts",
     "publish": "npm publish --access public",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run"
   },
   "peerDependencies": {
     "@base-ui/react": "^1.2.0",
@@ -43,13 +43,21 @@
     "react-dom": "^17 || ^18 || ^19"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.4",
+    "jsdom": "^25.0.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
-    "vite-plugin-dts": "^4.5.4"
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^4.1.10"
+  },
+  "allowScripts": {
+    "fsevents@2.3.3": true,
+    "esbuild@0.28.2": true
   }
 }
