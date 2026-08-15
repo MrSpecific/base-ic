@@ -2,6 +2,7 @@ import { Flex, Heading, Link, Textarea, Text } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid, DocsList } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function TextareaDocsPage() {
@@ -116,6 +117,100 @@ export function TextareaDocsPage() {
       <DocsSection>
         <Heading as="h2">Usage</Heading>
         <CodeBlock title="Textarea Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <PropsTable
+          rows={[
+            {
+              name: "size",
+              type: "'1' | '2' | '3' | '4'",
+              default: "'2'",
+              description: "Visual size.",
+            },
+            {
+              name: "variant",
+              type: "'surface' | 'outline' | 'ghost'",
+              default: "'surface'",
+              description: "Visual variant.",
+            },
+            {
+              name: "radius",
+              type: "'none' | 'small' | 'medium' | 'large' | 'full'",
+              description: "Override the border-radius.",
+            },
+            {
+              name: "noResize",
+              type: "boolean",
+              description: "Disable the resize handle.",
+            },
+            {
+              name: "invalid",
+              type: "boolean",
+              description: "Marks the textarea as having a validation error.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              description: "Disables the textarea (native HTML attribute).",
+            },
+            {
+              name: "wrapperRef",
+              type: "React.Ref<HTMLDivElement>",
+              description: "Ref for the wrapper div (use a standard ref for the textarea element itself).",
+            },
+            {
+              name: "wrapperClassName",
+              type: "string",
+              description: "CSS class for the outer wrapper div.",
+            },
+            {
+              name: "placeholder",
+              type: "string",
+              description: "Placeholder shown in the textarea when empty.",
+            },
+            {
+              name: "rows",
+              type: "number",
+              description: "Number of visible text lines (native HTML attribute).",
+            },
+            {
+              name: "value",
+              type: "string",
+              description: "Controlled value of the textarea.",
+            },
+            {
+              name: "defaultValue",
+              type: "string",
+              description: "Uncontrolled initial value of the textarea.",
+            },
+            {
+              name: "onChange",
+              type: "React.ChangeEventHandler<HTMLTextAreaElement>",
+              description: "Called when the textarea's value changes.",
+            },
+            {
+              name: "required",
+              type: "boolean",
+              description: "Whether the user must enter a value before submitting a form.",
+            },
+            {
+              name: "readOnly",
+              type: "boolean",
+              description: "Whether the user should be unable to change the value.",
+            },
+            {
+              name: "maxLength",
+              type: "number",
+              description: "Maximum number of characters allowed (native HTML attribute).",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Identifies the field when a form is submitted.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Notes</Heading>

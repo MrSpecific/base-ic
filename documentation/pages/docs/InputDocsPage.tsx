@@ -2,6 +2,7 @@ import { Flex, Heading, Input, Link, Text } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid, DocsList } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 function SearchIcon() {
@@ -164,6 +165,85 @@ export function InputDocsPage() {
       <DocsSection>
         <Heading as="h2">Usage</Heading>
         <CodeBlock title="Input Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <PropsTable
+          rows={[
+            {
+              name: "size",
+              type: "'1' | '2' | '3' | '4'",
+              default: "'2'",
+              description: "Visual size.",
+            },
+            {
+              name: "variant",
+              type: "'surface' | 'outline' | 'ghost'",
+              default: "'surface'",
+              description: "Visual style.",
+            },
+            {
+              name: "radius",
+              type: "'none' | 'small' | 'medium' | 'large' | 'full'",
+              description: "Override the border-radius.",
+            },
+            {
+              name: "prefix",
+              type: "React.ReactNode",
+              description: "Content placed before the input (icon, label-like).",
+            },
+            {
+              name: "suffix",
+              type: "React.ReactNode",
+              description: "Content placed after the input (icon, button, unit).",
+            },
+            {
+              name: "invalid",
+              type: "boolean",
+              description: "Marks the input as having a validation error.",
+            },
+            {
+              name: "wrapperRef",
+              type: "React.Ref<HTMLDivElement>",
+              description: "Ref for the wrapper div (use standard ref for the input element).",
+            },
+            {
+              name: "wrapperClassName",
+              type: "string",
+              description: "CSS class for the outer wrapper div.",
+            },
+            {
+              name: "type",
+              type: "string",
+              description: "Native input type (e.g. 'text', 'email', 'password', 'search').",
+            },
+            {
+              name: "placeholder",
+              type: "string",
+              description: "Placeholder text shown when the input is empty.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              description: "Disables the input (native HTML attribute).",
+            },
+            {
+              name: "value",
+              type: "string",
+              description: "The controlled value of the input.",
+            },
+            {
+              name: "defaultValue",
+              type: "string",
+              description: "The uncontrolled initial value of the input.",
+            },
+            {
+              name: "onChange",
+              type: "React.ChangeEventHandler<HTMLInputElement>",
+              description: "Called when the input value changes (native HTML event).",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Notes</Heading>

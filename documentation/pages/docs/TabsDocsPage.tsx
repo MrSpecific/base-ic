@@ -2,6 +2,7 @@ import { Heading, Link, Tabs, Text } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid, DocsList } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function TabsDocsPage() {
@@ -159,6 +160,161 @@ export function TabsDocsPage() {
       <DocsSection>
         <Heading as="h2">Usage</Heading>
         <CodeBlock title="Tabs Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <Text as="p">
+          <code>Tabs</code> is a compound component: <code>Tabs</code> (root),{" "}
+          <code>Tabs.List</code>, <code>Tabs.Tab</code>, and{" "}
+          <code>Tabs.Panel</code>.
+        </Text>
+        <Text as="p" mt="4">
+          <code>Tabs</code> (root)
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "variant",
+              type: "'line' | 'soft' | 'solid'",
+              default: "'line'",
+              description: "Visual style of the tab list and active indicator.",
+            },
+            {
+              name: "size",
+              type: "'1' | '2' | '3'",
+              default: "'2'",
+              description: "Size scale for tab density.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Tabs.List and one or more Tabs.Panel elements.",
+            },
+            {
+              name: "value",
+              type: "string | number | null",
+              description: "Value of the currently active tab (controlled usage).",
+            },
+            {
+              name: "defaultValue",
+              type: "string | number | null",
+              default: "0",
+              description: "Initial active tab value (uncontrolled usage).",
+            },
+            {
+              name: "orientation",
+              type: "'horizontal' | 'vertical'",
+              default: "'horizontal'",
+              description: "Layout flow direction, also used for arrow key navigation.",
+            },
+            {
+              name: "onValueChange",
+              type: "(value, eventDetails: TabsRoot.ChangeEventDetails) => void",
+              description: "Called when the active tab value changes.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "CSS class applied to the root element.",
+            },
+            {
+              name: "style",
+              type: "React.CSSProperties",
+              description: "Inline style applied to the root element.",
+            },
+          ]}
+        />
+        <Text as="p" mt="4">
+          <code>Tabs.List</code>
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "One or more Tabs.Tab elements.",
+            },
+            {
+              name: "activateOnFocus",
+              type: "boolean",
+              default: "false",
+              description: "Whether arrow key focus alone changes the active tab (instead of requiring Enter/Space).",
+            },
+            {
+              name: "loopFocus",
+              type: "boolean",
+              default: "true",
+              description: "Whether keyboard focus loops back to the first tab at the end of the list.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "CSS class applied to the list element.",
+            },
+          ]}
+        />
+        <Text as="p" mt="4">
+          <code>Tabs.Tab</code>
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "value",
+              type: "string | number",
+              required: true,
+              description: "Identifies this tab and the Tabs.Panel it activates.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Tab label content.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Disables the tab. A disabled first tab is skipped for initial selection.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "CSS class applied to the tab element.",
+            },
+          ]}
+        />
+        <Text as="p" mt="4">
+          <code>Tabs.Panel</code>
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "value",
+              type: "string | number",
+              required: true,
+              description: "Shown when the Tabs.Tab with the matching value is active.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Panel content.",
+            },
+            {
+              name: "keepMounted",
+              type: "boolean",
+              default: "false",
+              description: "Keeps the panel's HTML element in the DOM while hidden.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "CSS class applied to the panel element.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Notes</Heading>

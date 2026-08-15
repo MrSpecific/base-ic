@@ -6,6 +6,7 @@ import {
   DocsList,
 } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function OTPFieldDocsPage() {
@@ -112,6 +113,164 @@ export function OTPFieldDocsPage() {
       <DocsSection>
         <Heading>Usage</Heading>
         <CodeBlock title="OTPField Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <h3>OTPField Props</h3>
+        <PropsTable
+          rows={[
+            {
+              name: "length",
+              type: "number",
+              required: true,
+              description:
+                "The number of OTP input slots. Required so the root can clamp values and detect completion.",
+            },
+            {
+              name: "size",
+              type: "'1' | '2' | '3' | '4'",
+              default: "'2'",
+              description: "Visual size.",
+            },
+            {
+              name: "groupSize",
+              type: "number",
+              description:
+                "Insert a separator after every Nth slot (e.g. groupSize={3} on a length={6} field renders a dash after the 3rd slot for a 3+3 split).",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional className on the root.",
+            },
+            {
+              name: "style",
+              type: "React.CSSProperties",
+              description: "Inline styles applied to the root element.",
+            },
+            {
+              name: "value",
+              type: "string",
+              description: "The controlled OTP value.",
+            },
+            {
+              name: "defaultValue",
+              type: "string",
+              description: "The uncontrolled initial OTP value.",
+            },
+            {
+              name: "onValueChange",
+              type: "(value: string, eventDetails) => void",
+              description: "Called when the OTP value changes.",
+            },
+            {
+              name: "onValueComplete",
+              type: "(value: string, eventDetails) => void",
+              description: "Called when the OTP value becomes complete.",
+            },
+            {
+              name: "mask",
+              type: "boolean",
+              default: "false",
+              description: "Whether the slot inputs should mask entered characters.",
+            },
+            {
+              name: "autoSubmit",
+              type: "boolean",
+              default: "false",
+              description: "Whether to submit the owning form when the OTP becomes complete.",
+            },
+            {
+              name: "validationType",
+              type: "'numeric' | 'alpha' | 'alphanumeric' | 'none'",
+              default: "'numeric'",
+              description: "The type of input validation to apply to typed/pasted characters.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the component should ignore user interaction.",
+            },
+            {
+              name: "required",
+              type: "boolean",
+              default: "false",
+              description: "Whether the user must enter a value before submitting a form.",
+            },
+            {
+              name: "readOnly",
+              type: "boolean",
+              default: "false",
+              description: "Whether the user should be unable to change the field value.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Identifies the field when a form is submitted.",
+            },
+          ]}
+        />
+        <h3>OTPField.Root Props</h3>
+        <Text as="p">
+          For manual composition with individual <code>OTPField.Input</code> and{" "}
+          <code>OTPField.Separator</code> parts. Accepts the same value/state
+          props as <code>OTPField</code> above (minus <code>size</code> and{" "}
+          <code>groupSize</code>).
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "length",
+              type: "number",
+              required: true,
+              description: "The number of OTP input slots.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "The OTPField.Input and OTPField.Separator parts to render.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional className on the root.",
+            },
+          ]}
+        />
+        <h3>OTPField.Input Props</h3>
+        <PropsTable
+          rows={[
+            {
+              name: "type",
+              type: "string",
+              description:
+                "Override the native input type for this slot (the root's mask prop sets this by default).",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional className on the slot input.",
+            },
+          ]}
+        />
+        <h3>OTPField.Separator Props</h3>
+        <PropsTable
+          rows={[
+            {
+              name: "orientation",
+              type: "'horizontal' | 'vertical'",
+              default: "'horizontal'",
+              description: "The orientation of the separator.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional className on the separator.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading>Compound sub-components</Heading>

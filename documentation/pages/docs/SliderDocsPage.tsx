@@ -6,6 +6,7 @@ import {
   DocsList,
 } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function SliderDocsPage() {
@@ -107,6 +108,106 @@ export function SliderDocsPage() {
       <DocsSection>
         <Heading>Usage</Heading>
         <CodeBlock title="Slider Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <PropsTable
+          rows={[
+            {
+              name: "size",
+              type: "'1' | '2' | '3'",
+              default: "'2'",
+              description: "Visual size preset.",
+            },
+            {
+              name: "color",
+              type: "AccentColor",
+              description: "Override the accent color.",
+            },
+            {
+              name: "radius",
+              type: "'none' | 'small' | 'medium' | 'large' | 'full'",
+              description: "Override the border-radius of the track.",
+            },
+            {
+              name: "showOutput",
+              type: "boolean",
+              default: "false",
+              description: "Show a value output alongside the thumb.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional className on the root.",
+            },
+            {
+              name: "style",
+              type: "React.CSSProperties",
+              description: "Inline styles applied to the root element.",
+            },
+            {
+              name: "value",
+              type: "number | readonly number[]",
+              description: "The value of the slider. Pass an array for a range slider.",
+            },
+            {
+              name: "defaultValue",
+              type: "number | readonly number[]",
+              description: "The uncontrolled initial value; use an array for a range slider.",
+            },
+            {
+              name: "min",
+              type: "number",
+              default: "0",
+              description: "The minimum allowed value of the slider.",
+            },
+            {
+              name: "max",
+              type: "number",
+              default: "100",
+              description: "The maximum allowed value of the slider.",
+            },
+            {
+              name: "step",
+              type: "number",
+              default: "1",
+              description: "The granularity with which the slider can step through values.",
+            },
+            {
+              name: "largeStep",
+              type: "number",
+              default: "10",
+              description: "The step used with Page Up/Down or Shift + Arrow keys.",
+            },
+            {
+              name: "orientation",
+              type: "'horizontal' | 'vertical'",
+              default: "'horizontal'",
+              description: "The component orientation.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the slider should ignore user interaction.",
+            },
+            {
+              name: "onValueChange",
+              type: "(value, eventDetails) => void",
+              description: "Called when the slider's value changes.",
+            },
+            {
+              name: "onValueCommitted",
+              type: "(value, eventDetails) => void",
+              description: "Called when a value change is committed (e.g. drag released).",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Identifies the field when a form is submitted.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Notes</Heading>

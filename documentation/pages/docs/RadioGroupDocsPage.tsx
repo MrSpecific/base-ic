@@ -2,6 +2,7 @@ import { Flex, Heading, Radio, RadioGroup, Text } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function RadioGroupDocsPage() {
@@ -125,6 +126,127 @@ export function RadioGroupDocsPage() {
       <DocsSection>
         <Heading as="h2">Usage</Heading>
         <CodeBlock title="RadioGroup Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <h3>RadioGroup Props</h3>
+        <PropsTable
+          rows={[
+            {
+              name: "orientation",
+              type: "'horizontal' | 'vertical'",
+              default: "'vertical'",
+              description: "Layout direction of the radio items.",
+            },
+            {
+              name: "value",
+              type: "Value",
+              description:
+                "The controlled value of the radio item that should be currently selected.",
+            },
+            {
+              name: "defaultValue",
+              type: "Value",
+              description: "The uncontrolled value of the radio button initially selected.",
+            },
+            {
+              name: "onValueChange",
+              type: "(value: Value, eventDetails) => void",
+              description: "Called when the selected value changes.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the component should ignore user interaction.",
+            },
+            {
+              name: "readOnly",
+              type: "boolean",
+              default: "false",
+              description: "Whether the user should be unable to select a different radio button.",
+            },
+            {
+              name: "required",
+              type: "boolean",
+              default: "false",
+              description: "Whether the user must choose a value before submitting a form.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Identifies the field when a form is submitted.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Custom className.",
+            },
+            {
+              name: "style",
+              type: "React.CSSProperties",
+              description: "Custom style.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "The Radio items to render.",
+            },
+          ]}
+        />
+        <h3>Radio Props</h3>
+        <PropsTable
+          rows={[
+            {
+              name: "value",
+              type: "string",
+              required: true,
+              description: "The value this radio represents.",
+            },
+            {
+              name: "size",
+              type: "'1' | '2' | '3'",
+              default: "'2'",
+              description: "Visual size.",
+            },
+            {
+              name: "color",
+              type: "AccentColor",
+              description: "Override the accent color for this radio.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              description: "Whether the component should ignore user interaction.",
+            },
+            {
+              name: "required",
+              type: "boolean",
+              description: "Whether the user must choose a value before submitting a form.",
+            },
+            {
+              name: "readOnly",
+              type: "boolean",
+              description: "Whether the user should be unable to select the radio button.",
+            },
+            {
+              name: "render",
+              type: "React.ReactElement",
+              description: "Base UI render prop for swapping the underlying element.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Custom className.",
+            },
+            {
+              name: "style",
+              type: "React.CSSProperties",
+              description: "Custom style.",
+            },
+          ]}
+        />
       </DocsSection>
     </>
   );

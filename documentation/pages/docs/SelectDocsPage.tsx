@@ -2,6 +2,7 @@ import { Flex, Heading, Link, Select, Text } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid, DocsList } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function SelectDocsPage() {
@@ -187,6 +188,165 @@ export function SelectDocsPage() {
       <DocsSection>
         <Heading as="h2">Usage</Heading>
         <CodeBlock title="Select Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <h3>Select Props</h3>
+        <PropsTable
+          rows={[
+            {
+              name: "size",
+              type: "'1' | '2' | '3' | '4'",
+              default: "'2'",
+              description: "Visual size for trigger and items.",
+            },
+            {
+              name: "radius",
+              type: "'none' | 'small' | 'medium' | 'large' | 'full'",
+              description: "Override the border-radius of the trigger and popup.",
+            },
+            {
+              name: "placeholder",
+              type: "string",
+              default: "'Select…'",
+              description: "Placeholder shown when no value is selected.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Items to render (Select.Item, Select.Group, Select.Separator).",
+            },
+            {
+              name: "triggerContent",
+              type: "React.ReactNode",
+              description: "Content to display in the trigger (overrides Value rendering).",
+            },
+            {
+              name: "triggerClassName",
+              type: "string",
+              description: "Additional className on the trigger.",
+            },
+            {
+              name: "popupClassName",
+              type: "string",
+              description: "Additional className on the popup.",
+            },
+            {
+              name: "side",
+              type: "'top' | 'right' | 'bottom' | 'left'",
+              default: "'bottom'",
+              description: "Side of the trigger the popup appears on.",
+            },
+            {
+              name: "align",
+              type: "'start' | 'center' | 'end'",
+              default: "'start'",
+              description: "Alignment of the popup relative to the trigger.",
+            },
+            {
+              name: "sideOffset",
+              type: "number",
+              default: "4",
+              description: "Offset from the trigger.",
+            },
+            {
+              name: "value",
+              type: "Value | null",
+              description: "The controlled value of the select. Use for a controlled component.",
+            },
+            {
+              name: "defaultValue",
+              type: "Value | null",
+              description: "The uncontrolled value of the select when initially rendered.",
+            },
+            {
+              name: "onValueChange",
+              type: "(value, eventDetails) => void",
+              description: "Called when the value of the select changes.",
+            },
+            {
+              name: "multiple",
+              type: "boolean",
+              default: "false",
+              description: "Whether multiple items can be selected.",
+            },
+            {
+              name: "items",
+              type: "Record<string, ReactNode> | Array<{ label, value }>",
+              description:
+                "Data structure of the items rendered in the popup, used to render the selected label in the trigger.",
+            },
+            {
+              name: "defaultOpen",
+              type: "boolean",
+              default: "false",
+              description: "Whether the select popup is initially open.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the component should ignore user interaction.",
+            },
+            {
+              name: "required",
+              type: "boolean",
+              default: "false",
+              description: "Whether the user must choose a value before submitting a form.",
+            },
+          ]}
+        />
+        <h3>Select.Item Props</h3>
+        <PropsTable
+          rows={[
+            {
+              name: "value",
+              type: "string",
+              required: true,
+              description: "A unique value that identifies this select item.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "The item's visible content.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Disable this item.",
+            },
+            {
+              name: "label",
+              type: "string",
+              description:
+                "Text label used for keyboard type-ahead and trigger display; defaults to the inferred item text.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional className on the item.",
+            },
+          ]}
+        />
+        <h3>Select.Group Props</h3>
+        <PropsTable
+          rows={[
+            {
+              name: "label",
+              type: "React.ReactNode",
+              description: "Label displayed above the group.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "The Select.Item elements in this group.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Notes</Heading>

@@ -6,6 +6,7 @@ import {
   DocsList,
 } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function TooltipDocsPage() {
@@ -194,6 +195,116 @@ export function TooltipDocsPage() {
       <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Tooltip Usage" code={tooltipSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <h2>Props</h2>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactElement",
+              required: true,
+              description: "Trigger element the tooltip is anchored to.",
+            },
+            {
+              name: "content",
+              type: "React.ReactNode",
+              required: true,
+              description: "The tooltip's body content, rendered inside the popup.",
+            },
+            {
+              name: "side",
+              type: "'top' | 'right' | 'bottom' | 'left'",
+              default: "'top'",
+              description: "Preferred side of the trigger to render the popup on.",
+            },
+            {
+              name: "align",
+              type: "'start' | 'center' | 'end'",
+              default: "'center'",
+              description: "Alignment of the popup relative to the trigger along the chosen side.",
+            },
+            {
+              name: "sideOffset",
+              type: "number",
+              default: "8",
+              description: "Distance in pixels between the trigger and the popup.",
+            },
+            {
+              name: "alignOffset",
+              type: "number",
+              description: "Offset in pixels along the alignment axis.",
+            },
+            {
+              name: "delay",
+              type: "number",
+              default: "150",
+              description: "Milliseconds to wait before opening the tooltip on hover/focus.",
+            },
+            {
+              name: "closeDelay",
+              type: "number",
+              description: "Milliseconds to wait before closing the tooltip after pointer/focus leaves.",
+            },
+            {
+              name: "disableArrow",
+              type: "boolean",
+              default: "false",
+              description: "Hides the pointer arrow connecting the popup to its trigger.",
+            },
+            {
+              name: "open",
+              type: "boolean",
+              description: "Whether the tooltip is currently open (controlled usage).",
+            },
+            {
+              name: "defaultOpen",
+              type: "boolean",
+              default: "false",
+              description: "Whether the tooltip is initially open (uncontrolled usage).",
+            },
+            {
+              name: "onOpenChange",
+              type: "(open: boolean, eventDetails: TooltipRoot.ChangeEventDetails) => void",
+              description: "Called when the tooltip's open state changes, for any reason.",
+            },
+            {
+              name: "onOpenChangeComplete",
+              type: "(open: boolean) => void",
+              description: "Called after any open/close animation finishes.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Prevents the tooltip from opening.",
+            },
+            {
+              name: "disableHoverablePopup",
+              type: "boolean",
+              default: "false",
+              description: "Prevents the tooltip contents themselves from being hovered without closing.",
+            },
+            {
+              name: "trackCursorAxis",
+              type: "'none' | 'x' | 'y' | 'both'",
+              default: "'none'",
+              description: "Which axis (if any) the tooltip should track the cursor on.",
+            },
+            {
+              name: "actionsRef",
+              type: "React.RefObject<TooltipRoot.Actions | null>",
+              description:
+                "Imperative ref exposing `close()` and `unmount()` for externally-controlled closing animations.",
+            },
+            {
+              name: "handle",
+              type: "TooltipHandle<Payload>",
+              description:
+                "Associates the tooltip with a detached trigger. Created via `TooltipPrimitive.createHandle()`.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <h2>Notes</h2>

@@ -2,6 +2,7 @@ import { Flex, Heading, Link, Separator, Text } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid, DocsList } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function SeparatorDocsPage() {
@@ -131,6 +132,36 @@ export function SeparatorDocsPage() {
       <DocsSection>
         <Heading as="h2">Usage</Heading>
         <CodeBlock title="Separator Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <PropsTable
+          rows={[
+            {
+              name: "orientation",
+              type: "'horizontal' | 'vertical'",
+              default: "'horizontal'",
+              description: "Direction of the separator line.",
+            },
+            {
+              name: "color",
+              type: "AccentColor",
+              description: "Override the accent color for the separator line.",
+            },
+            {
+              name: "size",
+              type: "'1' | '2' | '3' | '4'",
+              default: "'1'",
+              description: "Line thickness.",
+            },
+            {
+              name: "p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml",
+              type: "number | string",
+              description:
+                "Padding/margin shorthand props (e.g. m={3}). Numbers map to spacing scale tokens; strings are used as literal CSS values.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Notes</Heading>

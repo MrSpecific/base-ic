@@ -6,6 +6,7 @@ import {
   DocsList,
 } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function SkeletonDocsPage() {
@@ -123,6 +124,47 @@ export function SkeletonDocsPage() {
       <DocsSection>
         <Heading>Usage</Heading>
         <CodeBlock title="Skeleton Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <PropsTable
+          rows={[
+            {
+              name: "width",
+              type: "string | number",
+              description:
+                "Width of the skeleton. A number is treated as pixels; a string can be any CSS value.",
+            },
+            {
+              name: "height",
+              type: "string | number",
+              description:
+                "Height of the skeleton. A number is treated as pixels; a string can be any CSS value.",
+            },
+            {
+              name: "radius",
+              type: "'none' | 'small' | 'medium' | 'large' | 'full'",
+              description:
+                "Override the border-radius. Inherits the ambient component-radius when omitted.",
+            },
+            {
+              name: "animated",
+              type: "boolean",
+              default: "true",
+              description: "Enable the shimmer animation.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the element.",
+            },
+            {
+              name: "style",
+              type: "React.CSSProperties",
+              description: "Inline styles applied to the element.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading>Notes</Heading>

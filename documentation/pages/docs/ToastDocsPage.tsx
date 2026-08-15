@@ -12,6 +12,7 @@ import {
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid, DocsDemoRow, DocsList } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 const POSITIONS: ToasterPosition[] = [
@@ -234,6 +235,110 @@ export function ToastDocsPage() {
       <DocsSection>
         <Heading as="h2">Usage</Heading>
         <CodeBlock title="Toast Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <Text as="p">
+          <code>Toaster</code> is the only component you mount — its props
+          configure the whole notification stack.
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "limit",
+              type: "number",
+              default: "3",
+              description:
+                "Maximum number of toasts visible at once. Toasts beyond the limit are marked limited (hidden) rather than removed, so they animate back in once room frees up.",
+            },
+            {
+              name: "timeout",
+              type: "number",
+              default: "5000",
+              description:
+                "Default time in ms before a toast auto-dismisses. `0` prevents auto-dismissal. An individual toast(...) call's own `timeout` wins over this default.",
+            },
+            {
+              name: "swipeDirection",
+              type: "('up' | 'down' | 'left' | 'right') | Array<'up' | 'down' | 'left' | 'right'>",
+              default: "['down', 'right']",
+              description: "Direction(s) a toast can be swiped to dismiss.",
+            },
+            {
+              name: "position",
+              type: "'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'",
+              default: "'bottom-center'",
+              description:
+                "Which corner/edge of the screen the toast stack anchors to. The stack always grows away from that edge.",
+            },
+            {
+              name: "renderToast",
+              type: "(toast: ToastObject<Data>) => React.ReactNode",
+              description:
+                "Fully overrides the default title/description/action/close rendering for every toast. Typically built from Toaster.Title / Toaster.Description / Toaster.Action / Toaster.Close.",
+            },
+          ]}
+        />
+        <Text as="p" mt="4">
+          <code>toast(...)</code> options (<code>ToastOptions</code>)
+        </Text>
+        <Text as="p">
+          Every <code>toast(...)</code> / <code>toast.success(...)</code> /
+          etc. call accepts a <code>ToastOptions</code> object (or, as
+          shorthand, a plain string used as the title):
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "title",
+              type: "React.ReactNode",
+              description: "The toast's title.",
+            },
+            {
+              name: "description",
+              type: "React.ReactNode",
+              description: "The toast's description.",
+            },
+            {
+              name: "type",
+              type: "string",
+              description:
+                "Used to conditionally style the toast. Set automatically by toast.success / toast.error / toast.warning / toast.info.",
+            },
+            {
+              name: "timeout",
+              type: "number",
+              default: "5000",
+              description: "Time in ms before this toast auto-dismisses. `0` disables auto-dismissal.",
+            },
+            {
+              name: "priority",
+              type: "'low' | 'high'",
+              default: "'low'",
+              description: "Announcement priority for assistive technology.",
+            },
+            {
+              name: "actionProps",
+              type: "React.ComponentPropsWithoutRef<'button'>",
+              description: "Props for an action button (e.g. an Undo action) rendered inside the toast.",
+            },
+            {
+              name: "id",
+              type: "string",
+              description: "Adding a toast with an existing id updates it in place and refreshes its timer.",
+            },
+            {
+              name: "onClose",
+              type: "() => void",
+              description: "Called when the toast is closed.",
+            },
+            {
+              name: "onRemove",
+              type: "() => void",
+              description: "Called once the toast is removed from the list after its close animation completes.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Notes</Heading>

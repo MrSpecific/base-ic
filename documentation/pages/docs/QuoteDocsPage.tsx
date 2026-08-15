@@ -2,6 +2,7 @@ import { Quote } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
 import { DocsDemoGrid } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
+import { PropsTable } from '../../components/PropsTable';
 import { DemoCard } from './DemoCard';
 
 export function QuoteDocsPage() {
@@ -50,6 +51,28 @@ export function QuoteDocsPage() {
       <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Quote Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <h2>Props</h2>
+        <PropsTable
+          rows={[
+            {
+              name: 'color',
+              type: 'AccentColor',
+              description: 'Override the accent color for this quote.',
+            },
+            {
+              name: 'highContrast',
+              type: 'boolean',
+              description: 'Increase foreground contrast against the background.',
+            },
+            {
+              name: 'children',
+              type: 'React.ReactNode',
+              description: 'Quoted content.',
+            },
+          ]}
+        />
       </DocsSection>
     </>
   );

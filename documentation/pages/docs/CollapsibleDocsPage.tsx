@@ -6,6 +6,7 @@ import {
   DocsList,
 } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function CollapsibleDocsPage() {
@@ -139,6 +140,117 @@ export function CollapsibleDocsPage() {
       <DocsSection>
         <Heading>Usage</Heading>
         <CodeBlock title="Collapsible Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <Text as="p">Collapsible</Text>
+        <PropsTable
+          rows={[
+            {
+              name: "variant",
+              type: "'outline' | 'surface' | 'ghost'",
+              default: "'outline'",
+              description: "Visual style of the container.",
+            },
+            {
+              name: "size",
+              type: "'1' | '2' | '3'",
+              default: "'2'",
+              description: "Size preset controlling padding and font size.",
+            },
+            {
+              name: "open",
+              type: "boolean",
+              description:
+                "Controlled open state. Use with onOpenChange for a controlled collapsible.",
+            },
+            {
+              name: "defaultOpen",
+              type: "boolean",
+              default: "false",
+              description: "Initial open state for uncontrolled usage.",
+            },
+            {
+              name: "onOpenChange",
+              type: "(open: boolean, eventDetails) => void",
+              description: "Called when the panel is opened or closed.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the component should ignore user interaction.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the root element.",
+            },
+            {
+              name: "style",
+              type: "React.CSSProperties",
+              description: "Inline styles applied to the root element.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              description:
+                "Typically a Collapsible.Trigger and Collapsible.Content pair.",
+            },
+          ]}
+        />
+        <Text as="p">Collapsible.Trigger</Text>
+        <PropsTable
+          rows={[
+            {
+              name: "nativeButton",
+              type: "boolean",
+              default: "true",
+              description:
+                "Whether the rendered element is a native `<button>`. Set to false when using `render` with a non-button element.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the trigger.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              description: "Trigger label content.",
+            },
+          ]}
+        />
+        <Text as="p">Collapsible.Content</Text>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Content shown when the panel is open.",
+            },
+            {
+              name: "hiddenUntilFound",
+              type: "boolean",
+              default: "false",
+              description:
+                "Allows the browser's built-in page search to find and expand the panel contents. Overrides keepMounted.",
+            },
+            {
+              name: "keepMounted",
+              type: "boolean",
+              default: "false",
+              description:
+                "Whether to keep the element in the DOM while the panel is hidden.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the content wrapper.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading>Notes</Heading>

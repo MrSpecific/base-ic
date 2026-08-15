@@ -6,6 +6,7 @@ import {
   DocsList,
 } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function AvatarDocsPage() {
@@ -135,6 +136,56 @@ export function AvatarDocsPage() {
       <DocsSection>
         <Heading>Usage</Heading>
         <CodeBlock title="Avatar Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <PropsTable
+          rows={[
+            {
+              name: "size",
+              type: "'1' | '2' | '3' | '4' | '5'",
+              default: "'3'",
+              description: "Visual size preset.",
+            },
+            {
+              name: "src",
+              type: "string",
+              description: "Image source URL.",
+            },
+            {
+              name: "alt",
+              type: "string",
+              description: "Alt text for the image.",
+            },
+            {
+              name: "fallback",
+              type: "React.ReactNode",
+              description:
+                "Content shown when the image is missing or fails to load — typically initials.",
+            },
+            {
+              name: "color",
+              type: "AccentColor",
+              description: "Override the fallback background color using the accent color scale.",
+            },
+            {
+              name: "radius",
+              type: "'none' | 'small' | 'medium' | 'large' | 'full'",
+              default: "'full'",
+              description: "Shape override — 'full' renders a circle.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the root element.",
+            },
+            {
+              name: "style",
+              type: "React.CSSProperties",
+              description: "Inline styles applied to the root element.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Notes</Heading>

@@ -6,6 +6,7 @@ import {
   DocsList,
 } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function FieldDocsPage() {
@@ -139,6 +140,155 @@ export function FieldDocsPage() {
       <DocsSection>
         <Heading>Usage</Heading>
         <CodeBlock title="Field Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <Text as="p">
+          <code>Field</code> (root)
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "label",
+              type: "React.ReactNode",
+              description: "Convenience prop: renders a Field.Label above the control.",
+            },
+            {
+              name: "description",
+              type: "React.ReactNode",
+              description: "Helper text rendered below the control.",
+            },
+            {
+              name: "error",
+              type: "React.ReactNode",
+              description: "Error message. Also sets the field as invalid when provided.",
+            },
+            {
+              name: "required",
+              type: "boolean",
+              description:
+                "Mark the field required (adds visual asterisk when using the label prop).",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Form controls to render inside the field.",
+            },
+            {
+              name: "invalid",
+              type: "boolean",
+              description:
+                "Explicitly control the invalid state. Falls back to !!error when omitted.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description:
+                "Whether the component should ignore user interaction. Takes precedence over disabled on the control.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Identifies the field when a form is submitted.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Custom className applied to the root.",
+            },
+            {
+              name: "style",
+              type: "React.CSSProperties",
+              description: "Custom style applied to the root.",
+            },
+          ]}
+        />
+        <Text as="p">
+          <code>Field.Label</code>
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "required",
+              type: "boolean",
+              description: "Renders a visual asterisk (*) after the label text.",
+            },
+            {
+              name: "nativeLabel",
+              type: "boolean",
+              default: "true",
+              description:
+                "Whether a native <label> element is rendered when swapped via render. Set false if the rendered element isn't a label.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              description: "Label text/content.",
+            },
+            {
+              name: "render",
+              type: "React.ReactElement",
+              description: "Render as a different element (Base UI render prop).",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Custom className.",
+            },
+          ]}
+        />
+        <Text as="p">
+          <code>Field.Description</code>
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactNode",
+              description: "Helper text content.",
+            },
+            {
+              name: "render",
+              type: "React.ReactElement",
+              description: "Render as a different element (Base UI render prop).",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Custom className.",
+            },
+          ]}
+        />
+        <Text as="p">
+          <code>Field.Error</code>
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactNode",
+              description: "Error message content.",
+            },
+            {
+              name: "match",
+              type: "boolean | keyof ValidityState",
+              description:
+                "Determines whether to show the error message according to the field's ValidityState. Pass true to always show it.",
+            },
+            {
+              name: "render",
+              type: "React.ReactElement",
+              description: "Render as a different element (Base UI render prop).",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Custom className.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading>Compound sub-components</Heading>

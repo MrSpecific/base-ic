@@ -19,6 +19,13 @@
   align-items: center;
   width: 100%;
   border-radius: var(--inp-radius, var(--component-radius));
+  /* Clip prefix/suffix segments to the wrapper's own rounded corners —
+     without this, the child segments' own border-radius can render a hair
+     off from the wrapper's curve at the seam, making the focus outline
+     (drawn around the wrapper) look stepped/uneven instead of one clean
+     rounded rect. Outlines aren't affected by overflow, so the focus ring
+     itself still renders normally. */
+  overflow: hidden;
   transition: var(--transition-colors);
 }
 

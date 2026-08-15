@@ -6,6 +6,7 @@ import {
   DocsList,
 } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 function BoldIcon() {
@@ -173,6 +174,145 @@ export function ToggleDocsPage() {
       <DocsSection>
         <Heading>Usage</Heading>
         <CodeBlock title="Toggle Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <Text as="p">Toggle</Text>
+        <PropsTable
+          rows={[
+            {
+              name: "size",
+              type: "'1' | '2' | '3' | '4'",
+              default: "'2'",
+              description:
+                "Visual size. Overridden by a parent ToggleGroup's size prop.",
+            },
+            {
+              name: "variant",
+              type: "'solid' | 'soft' | 'surface' | 'outline' | 'ghost'",
+              default: "'surface'",
+              description:
+                "Visual style. Overridden by a parent ToggleGroup's variant prop.",
+            },
+            {
+              name: "color",
+              type: "AccentColor",
+              description: "Accent color override.",
+            },
+            {
+              name: "highContrast",
+              type: "boolean",
+              default: "false",
+              description: "Increase text/icon contrast.",
+            },
+            {
+              name: "pressed",
+              type: "boolean",
+              description:
+                "Controlled pressed state. Use with onPressedChange for a controlled toggle.",
+            },
+            {
+              name: "defaultPressed",
+              type: "boolean",
+              default: "false",
+              description: "Initial pressed state for uncontrolled usage.",
+            },
+            {
+              name: "onPressedChange",
+              type: "(pressed: boolean, eventDetails) => void",
+              description: "Called when the pressed state changes.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the component should ignore user interaction.",
+            },
+            {
+              name: "value",
+              type: "string",
+              description:
+                "Unique string identifying the toggle when used inside a ToggleGroup.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the toggle.",
+            },
+            {
+              name: "style",
+              type: "React.CSSProperties",
+              description: "Inline styles applied to the toggle.",
+            },
+          ]}
+        />
+        <Text as="p">ToggleGroup</Text>
+        <PropsTable
+          rows={[
+            {
+              name: "connected",
+              type: "boolean",
+              default: "false",
+              description:
+                "Display toggles as a connected segmented group with shared borders and no gap.",
+            },
+            {
+              name: "size",
+              type: "'1' | '2' | '3' | '4'",
+              description: "Visual size applied to all child Toggles.",
+            },
+            {
+              name: "variant",
+              type: "'solid' | 'soft' | 'surface' | 'outline' | 'ghost'",
+              description: "Visual variant applied to all child Toggles.",
+            },
+            {
+              name: "value",
+              type: "readonly string[]",
+              description:
+                "Controlled array of pressed toggle values. Use with onValueChange for a controlled group.",
+            },
+            {
+              name: "defaultValue",
+              type: "readonly string[]",
+              description: "Initial array of pressed toggle values for uncontrolled usage.",
+            },
+            {
+              name: "onValueChange",
+              type: "(groupValue: string[], eventDetails) => void",
+              description: "Called when the set of pressed toggles changes.",
+            },
+            {
+              name: "multiple",
+              type: "boolean",
+              default: "false",
+              description:
+                "When true, multiple items in the group can be pressed at once. When false, pressing one unpresses the others.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the whole group should ignore user interaction.",
+            },
+            {
+              name: "orientation",
+              type: "'horizontal' | 'vertical'",
+              default: "'horizontal'",
+              description: "The orientation of the toggle group.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the group.",
+            },
+            {
+              name: "style",
+              type: "React.CSSProperties",
+              description: "Inline styles applied to the group.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading>Notes</Heading>

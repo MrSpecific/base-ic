@@ -12,6 +12,7 @@ import {
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid, DocsDemoRow, DocsList } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function DialogDocsPage() {
@@ -203,6 +204,98 @@ export function DialogDocsPage() {
       <DocsSection>
         <Heading as="h2">Usage</Heading>
         <CodeBlock title="Dialog Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactElement",
+              required: true,
+              description: "Trigger element that opens the dialog.",
+            },
+            {
+              name: "content",
+              type: "React.ReactNode",
+              required: true,
+              description: "The dialog's body content, rendered inside the popup.",
+            },
+            {
+              name: "title",
+              type: "React.ReactNode",
+              description: "Short title shown at the top of the dialog.",
+            },
+            {
+              name: "description",
+              type: "React.ReactNode",
+              description: "Descriptive text beneath the title.",
+            },
+            {
+              name: "footer",
+              type: "React.ReactNode",
+              description: "Footer content, usually action buttons.",
+            },
+            {
+              name: "showClose",
+              type: "boolean",
+              default: "true",
+              description: "Whether to show an X close button in the header.",
+            },
+            {
+              name: "size",
+              type: "'small' | 'medium' | 'large' | 'full'",
+              default: "'medium'",
+              description: "Width preset for the dialog popup.",
+            },
+            {
+              name: "open",
+              type: "boolean",
+              description: "Whether the dialog is currently open (controlled usage).",
+            },
+            {
+              name: "defaultOpen",
+              type: "boolean",
+              default: "false",
+              description: "Whether the dialog is initially open (uncontrolled usage).",
+            },
+            {
+              name: "modal",
+              type: "boolean | 'trap-focus'",
+              default: "true",
+              description:
+                "How strongly the dialog isolates interaction from the rest of the page. `true` traps focus and locks scroll; `'trap-focus'` traps focus only; `false` allows outside interaction.",
+            },
+            {
+              name: "onOpenChange",
+              type: "(open: boolean, eventDetails: DialogRoot.ChangeEventDetails) => void",
+              description: "Called when the dialog's open state changes, for any reason.",
+            },
+            {
+              name: "onOpenChangeComplete",
+              type: "(open: boolean) => void",
+              description: "Called after any open/close animation finishes.",
+            },
+            {
+              name: "disablePointerDismissal",
+              type: "boolean",
+              default: "false",
+              description: "Prevents the dialog from closing on outside presses.",
+            },
+            {
+              name: "actionsRef",
+              type: "React.RefObject<DialogRoot.Actions | null>",
+              description:
+                "Imperative ref exposing `close()` and `unmount()` for externally-controlled closing animations.",
+            },
+            {
+              name: "handle",
+              type: "DialogHandle<Payload>",
+              description:
+                "Associates the dialog with a detached trigger. Created via `DialogPrimitive.createHandle()`.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Notes</Heading>

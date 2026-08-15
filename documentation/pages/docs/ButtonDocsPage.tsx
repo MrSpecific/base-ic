@@ -6,6 +6,7 @@ import {
   DocsList,
 } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function ButtonDocsPage() {
@@ -46,7 +47,7 @@ export function ButtonDocsPage() {
     '<div className="docs-demo-button-row">',
     '  <Button color="blue">Blue</Button>',
     '  <Button color="green">Green</Button>',
-    '  <Button color="orange" highContrast>Orange HC</Button>',
+    '  <Button color="orange" highContrast>Orange High Contrast</Button>',
     '  <Button variant="outline" radius="full">Pill</Button>',
     "</div>",
   ].join("\n");
@@ -144,6 +145,66 @@ export function ButtonDocsPage() {
       <DocsSection>
         <Heading>Usage</Heading>
         <CodeBlock title="Button Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <PropsTable
+          rows={[
+            {
+              name: "size",
+              type: "'1' | '2' | '3' | '4'",
+              default: "'2'",
+              description: "Visual size preset.",
+            },
+            {
+              name: "variant",
+              type: "'solid' | 'soft' | 'surface' | 'outline' | 'ghost'",
+              default: "'solid'",
+              description: "Visual style.",
+            },
+            {
+              name: "color",
+              type: "AccentColor",
+              description:
+                "Override the accent color for this button. Falls back to the current Theme's accentColor.",
+            },
+            {
+              name: "highContrast",
+              type: "boolean",
+              default: "false",
+              description: "Increase foreground contrast against the background.",
+            },
+            {
+              name: "radius",
+              type: "'none' | 'small' | 'medium' | 'large' | 'full'",
+              description: "Override the border-radius for this button. Falls back to the Theme's radius.",
+            },
+            {
+              name: "loading",
+              type: "boolean",
+              default: "false",
+              description: "Shows a loading spinner and disables interaction.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Disables the button (native HTML attribute).",
+            },
+            {
+              name: "render",
+              type: "React.ReactElement",
+              description:
+                "Render as a different element (e.g. a router Link) while keeping Button's styling.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Button label/content.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Notes</Heading>

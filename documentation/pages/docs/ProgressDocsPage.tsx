@@ -6,6 +6,7 @@ import {
   DocsList,
 } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function ProgressDocsPage() {
@@ -112,6 +113,58 @@ export function ProgressDocsPage() {
       <DocsSection>
         <Heading>Usage</Heading>
         <CodeBlock title="Progress Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <PropsTable
+          rows={[
+            {
+              name: "value",
+              type: "number | null",
+              default: "null",
+              description:
+                "Current value between min and max. Omit or pass null for the indeterminate mode.",
+            },
+            {
+              name: "size",
+              type: "'1' | '2' | '3'",
+              default: "'2'",
+              description: "Visual size (track height).",
+            },
+            {
+              name: "color",
+              type: "AccentColor",
+              description: "Override the accent color for the fill.",
+            },
+            {
+              name: "radius",
+              type: "'none' | 'small' | 'medium' | 'large' | 'full'",
+              description: "Override the border-radius of the track.",
+            },
+            {
+              name: "min",
+              type: "number",
+              default: "0",
+              description: "The minimum value.",
+            },
+            {
+              name: "max",
+              type: "number",
+              default: "100",
+              description: "The maximum value.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the root element.",
+            },
+            {
+              name: "style",
+              type: "React.CSSProperties",
+              description: "Inline styles applied to the root element.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Notes</Heading>

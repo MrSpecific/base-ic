@@ -239,7 +239,7 @@ export function DocsPage({
         <aside className="docs-sidebar" aria-label="Docs sections">
           <Input
             ref={searchInputRef}
-            className="docs-sidebar-search"
+            wrapperClassName="docs-sidebar-search"
             size="1"
             placeholder="Search components…"
             aria-label="Search docs sections"

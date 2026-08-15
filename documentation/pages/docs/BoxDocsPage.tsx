@@ -2,6 +2,7 @@ import { Box } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
 import { DocsDemoGrid } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
+import { PropsTable } from '../../components/PropsTable';
 import { DemoCard } from './DemoCard';
 
 export function BoxDocsPage() {
@@ -55,6 +56,94 @@ export function BoxDocsPage() {
       <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Box Usage" code={snippet} />
+      </DocsSection>
+      <DocsSection>
+        <h2>Props</h2>
+        <PropsTable
+          rows={[
+            {
+              name: 'as',
+              type: 'React.ElementType',
+              default: "'div'",
+              description: 'Element or component to render Box as.',
+            },
+            {
+              name: 'p',
+              type: 'SpaceValue',
+              description: 'Padding on all sides. Numbers map to spacing scale tokens.',
+            },
+            {
+              name: 'px',
+              type: 'SpaceValue',
+              description: 'Horizontal padding (left and right).',
+            },
+            {
+              name: 'py',
+              type: 'SpaceValue',
+              description: 'Vertical padding (top and bottom).',
+            },
+            {
+              name: 'pt',
+              type: 'SpaceValue',
+              description: 'Padding top.',
+            },
+            {
+              name: 'pr',
+              type: 'SpaceValue',
+              description: 'Padding right.',
+            },
+            {
+              name: 'pb',
+              type: 'SpaceValue',
+              description: 'Padding bottom.',
+            },
+            {
+              name: 'pl',
+              type: 'SpaceValue',
+              description: 'Padding left.',
+            },
+            {
+              name: 'm',
+              type: 'SpaceValue',
+              description: 'Margin on all sides. Numbers map to spacing scale tokens.',
+            },
+            {
+              name: 'mx',
+              type: 'SpaceValue',
+              description: 'Horizontal margin (left and right).',
+            },
+            {
+              name: 'my',
+              type: 'SpaceValue',
+              description: 'Vertical margin (top and bottom).',
+            },
+            {
+              name: 'mt',
+              type: 'SpaceValue',
+              description: 'Margin top.',
+            },
+            {
+              name: 'mr',
+              type: 'SpaceValue',
+              description: 'Margin right.',
+            },
+            {
+              name: 'mb',
+              type: 'SpaceValue',
+              description: 'Margin bottom.',
+            },
+            {
+              name: 'ml',
+              type: 'SpaceValue',
+              description: 'Margin left.',
+            },
+            {
+              name: 'children',
+              type: 'React.ReactNode',
+              description: 'Content rendered inside the Box.',
+            },
+          ]}
+        />
       </DocsSection>
     </>
   );

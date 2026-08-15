@@ -2,6 +2,7 @@ import { Link, Text } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
 import { DocsDemoGrid } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
+import { PropsTable } from '../../components/PropsTable';
 import { DemoCard } from './DemoCard';
 
 export function LinkDocsPage() {
@@ -71,6 +72,60 @@ export function LinkDocsPage() {
       <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Link Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <h2>Props</h2>
+        <PropsTable
+          rows={[
+            {
+              name: 'href',
+              type: 'string',
+              description: 'The destination URL (native anchor attribute).',
+            },
+            {
+              name: 'size',
+              type: "'1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'",
+              description: 'Type scale size. Falls back to the surrounding text size when omitted.',
+            },
+            {
+              name: 'weight',
+              type: "'light' | 'regular' | 'medium' | 'semibold' | 'bold'",
+              description: 'Override the font weight.',
+            },
+            {
+              name: 'color',
+              type: 'AccentColor',
+              description: 'Override the accent color for this link.',
+            },
+            {
+              name: 'highContrast',
+              type: 'boolean',
+              description: 'Increase foreground contrast against the background.',
+            },
+            {
+              name: 'underline',
+              type: "'auto' | 'always' | 'hover' | 'none'",
+              default: "'auto'",
+              description: 'Controls when the underline decoration is shown.',
+            },
+            {
+              name: 'truncate',
+              type: 'boolean',
+              description: 'Truncates overflowing text with an ellipsis on a single line.',
+            },
+            {
+              name: 'render',
+              type: 'useRender.RenderProp',
+              description:
+                "Render as a different element (e.g. a router Link) while keeping Link's styling.",
+            },
+            {
+              name: 'children',
+              type: 'React.ReactNode',
+              description: 'Link content/label.',
+            },
+          ]}
+        />
       </DocsSection>
     </>
   );

@@ -2,6 +2,7 @@ import { Kbd, Text } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
 import { DocsDemoGrid } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
+import { PropsTable } from '../../components/PropsTable';
 import { DemoCard } from './DemoCard';
 
 export function KbdDocsPage() {
@@ -56,6 +57,24 @@ export function KbdDocsPage() {
       <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Kbd Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <h2>Props</h2>
+        <PropsTable
+          rows={[
+            {
+              name: 'size',
+              type: "'1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'",
+              default: "'2'",
+              description: 'Type scale size for the keycap.',
+            },
+            {
+              name: 'children',
+              type: 'React.ReactNode',
+              description: 'Key or shortcut label content.',
+            },
+          ]}
+        />
       </DocsSection>
     </>
   );

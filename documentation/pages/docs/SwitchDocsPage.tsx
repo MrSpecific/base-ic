@@ -2,6 +2,7 @@ import { Flex, Switch, Heading, Text } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid, DocsDemoRow } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function SwitchDocsPage() {
@@ -80,6 +81,83 @@ export function SwitchDocsPage() {
       <DocsSection>
         <Heading as="h2">Usage</Heading>
         <CodeBlock title="Switch Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <PropsTable
+          rows={[
+            {
+              name: "size",
+              type: "'1' | '2' | '3'",
+              default: "'2'",
+              description: "Visual size.",
+            },
+            {
+              name: "color",
+              type: "AccentColor",
+              description: "Override the accent color.",
+            },
+            {
+              name: "render",
+              type: "React.ReactElement",
+              description: "Base UI render prop for swapping the underlying element.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Custom className.",
+            },
+            {
+              name: "style",
+              type: "React.CSSProperties",
+              description: "Custom style.",
+            },
+            {
+              name: "checked",
+              type: "boolean",
+              description: "The controlled checked state. Use defaultChecked for uncontrolled usage.",
+            },
+            {
+              name: "defaultChecked",
+              type: "boolean",
+              default: "false",
+              description: "Whether the switch is initially active.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the component should ignore user interaction.",
+            },
+            {
+              name: "onCheckedChange",
+              type: "(checked: boolean, eventDetails) => void",
+              description: "Called when the switch is activated or deactivated.",
+            },
+            {
+              name: "readOnly",
+              type: "boolean",
+              default: "false",
+              description: "Whether the user should be unable to activate or deactivate the switch.",
+            },
+            {
+              name: "required",
+              type: "boolean",
+              default: "false",
+              description: "Whether the user must activate the switch before submitting a form.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Identifies the field when a form is submitted.",
+            },
+            {
+              name: "value",
+              type: "string",
+              description: "The value submitted with the form when the switch is on.",
+            },
+          ]}
+        />
       </DocsSection>
     </>
   );

@@ -2,6 +2,7 @@ import { Autocomplete, Flex, Heading, Link, Text } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid, DocsList } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function AutocompleteDocsPage() {
@@ -223,6 +224,187 @@ export function AutocompleteDocsPage() {
       <DocsSection>
         <Heading as="h2">Usage</Heading>
         <CodeBlock title="Autocomplete Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <Text as="p">
+          <code>Autocomplete</code> (root)
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "size",
+              type: "'1' | '2' | '3' | '4'",
+              default: "'2'",
+              description: "Visual size for the input and popup items.",
+            },
+            {
+              name: "radius",
+              type: "'none' | 'small' | 'medium' | 'large' | 'full'",
+              description: "Override the border-radius of the input and popup.",
+            },
+            {
+              name: "placeholder",
+              type: "string",
+              default: "'Search…'",
+              description: "Placeholder shown in the input when empty.",
+            },
+            {
+              name: "items",
+              type: "AutocompleteItemData[] | AutocompleteGroupData[]",
+              description:
+                "Explicit value/label collection. When omitted, items are derived from Autocomplete.Item / Autocomplete.Group children instead.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              description:
+                "Items to derive from (use Autocomplete.Item, Autocomplete.Group). Ignored if items is provided.",
+            },
+            {
+              name: "clearable",
+              type: "boolean",
+              default: "false",
+              description: "Shows a clear (\"x\") button once the input has text.",
+            },
+            {
+              name: "emptyMessage",
+              type: "React.ReactNode",
+              default: "'No results found.'",
+              description: "Content shown when no items match the current input.",
+            },
+            {
+              name: "inputGroupClassName",
+              type: "string",
+              description: "Additional className on the input group wrapper.",
+            },
+            {
+              name: "inputClassName",
+              type: "string",
+              description: "Additional className on the input element.",
+            },
+            {
+              name: "popupClassName",
+              type: "string",
+              description: "Additional className on the popup.",
+            },
+            {
+              name: "side",
+              type: "'top' | 'right' | 'bottom' | 'left'",
+              default: "'bottom'",
+              description: "Side of the input the popup appears on.",
+            },
+            {
+              name: "align",
+              type: "'start' | 'center' | 'end'",
+              default: "'start'",
+              description: "Alignment of the popup relative to the input.",
+            },
+            {
+              name: "sideOffset",
+              type: "number",
+              default: "4",
+              description: "Offset from the input, in pixels.",
+            },
+            {
+              name: "openOnInputClick",
+              type: "boolean",
+              default: "true",
+              description:
+                "Whether the popup opens when clicking the input. Note: this wraps Base UI's Autocomplete, whose own default is false — this component opts into true by default.",
+            },
+            {
+              name: "value",
+              type: "string",
+              description: "The controlled input value of the autocomplete.",
+            },
+            {
+              name: "defaultValue",
+              type: "string",
+              description: "The uncontrolled input value when initially rendered.",
+            },
+            {
+              name: "onValueChange",
+              type: "(value: string, eventDetails: unknown) => void",
+              description: "Called when the input value changes.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the component should ignore user interaction.",
+            },
+            {
+              name: "required",
+              type: "boolean",
+              default: "false",
+              description: "Whether the user must choose a value before submitting a form.",
+            },
+            {
+              name: "readOnly",
+              type: "boolean",
+              default: "false",
+              description: "Whether the user should be unable to choose a different option from the popup.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Identifies the field when a form is submitted.",
+            },
+          ]}
+        />
+        <Text as="p">
+          <code>Autocomplete.Item</code>
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "value",
+              type: "string",
+              required: true,
+              description: "Item value (used for filtering/selection and form submission).",
+            },
+            {
+              name: "label",
+              type: "React.ReactNode",
+              description: "Explicit label override (defaults to inferred text content).",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              description: "Disables this item.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional className on the item.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Item content, also used to infer the label when label is omitted.",
+            },
+          ]}
+        />
+        <Text as="p">
+          <code>Autocomplete.Group</code>
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "label",
+              type: "React.ReactNode",
+              description: "Label displayed above the group.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Autocomplete.Item elements belonging to this group.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Notes</Heading>

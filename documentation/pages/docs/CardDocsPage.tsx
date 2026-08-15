@@ -2,6 +2,7 @@ import { Card } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
 import { DocsDemoGrid } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
+import { PropsTable } from '../../components/PropsTable';
 import { DemoCard } from './DemoCard';
 
 export function CardDocsPage() {
@@ -115,6 +116,54 @@ export function CardDocsPage() {
         <h2>Usage</h2>
         <CodeBlock title="Card Usage" code={usageSnippet} />
         <CodeBlock title="Card Spacing Props" code={spacingSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <h2>Props</h2>
+        <PropsTable
+          rows={[
+            {
+              name: 'size',
+              type: "'1' | '2' | '3' | '4' | '5'",
+              default: "'3'",
+              description: 'Padding size preset (also used as the default padding value).',
+            },
+            {
+              name: 'variant',
+              type: "'surface' | 'classic' | 'gradient' | 'ghost'",
+              default: "'surface'",
+              description: 'Visual style.',
+            },
+            {
+              name: 'asButton',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Deprecated: makes the card interactive by rendering it as a real <button>. Use render={<button type="button" />} instead — it gives real keyboard semantics (Enter/Space), which asButton never wired up. Will be removed in a future minor version.',
+            },
+            {
+              name: 'radius',
+              type: "'none' | 'small' | 'medium' | 'large' | 'full'",
+              description: 'Override the border radius for this card.',
+            },
+            {
+              name: 'render',
+              type: 'React.ReactElement',
+              description:
+                'Render as a different element (e.g. a real <button> or router Link) while keeping Card\'s styling.',
+            },
+            {
+              name: 'p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml',
+              type: 'number | string',
+              description:
+                'Padding/margin shorthand props (e.g. p={3}). Numbers map to spacing scale tokens; strings are used as literal CSS values. p defaults to the size value unless overridden.',
+            },
+            {
+              name: 'children',
+              type: 'React.ReactNode',
+              description: 'Card content.',
+            },
+          ]}
+        />
       </DocsSection>
     </>
   );

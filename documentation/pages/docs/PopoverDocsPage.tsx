@@ -2,6 +2,7 @@ import { Button, Heading, Popover, Text, Link } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid, DocsList } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function PopoverDocsPage() {
@@ -233,6 +234,94 @@ export function PopoverDocsPage() {
       <DocsSection>
         <Heading as="h2">Usage</Heading>
         <CodeBlock title="Popover Usage" code={popoverSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactElement",
+              required: true,
+              description: "Trigger element that opens the popover.",
+            },
+            {
+              name: "content",
+              type: "React.ReactNode",
+              required: true,
+              description: "The popover's body content, rendered inside the popup.",
+            },
+            {
+              name: "side",
+              type: "'top' | 'right' | 'bottom' | 'left'",
+              default: "'bottom'",
+              description: "Preferred side of the trigger to render the popup on.",
+            },
+            {
+              name: "align",
+              type: "'start' | 'center' | 'end'",
+              default: "'center'",
+              description: "Alignment of the popup relative to the trigger along the chosen side.",
+            },
+            {
+              name: "sideOffset",
+              type: "number",
+              default: "8",
+              description: "Distance in pixels between the trigger and the popup.",
+            },
+            {
+              name: "alignOffset",
+              type: "number",
+              description: "Offset in pixels along the alignment axis.",
+            },
+            {
+              name: "disableArrow",
+              type: "boolean",
+              default: "false",
+              description: "Hides the pointer arrow connecting the popup to its trigger.",
+            },
+            {
+              name: "open",
+              type: "boolean",
+              description: "Whether the popover is currently open (controlled usage).",
+            },
+            {
+              name: "defaultOpen",
+              type: "boolean",
+              default: "false",
+              description: "Whether the popover is initially open (uncontrolled usage).",
+            },
+            {
+              name: "onOpenChange",
+              type: "(open: boolean, eventDetails: PopoverRoot.ChangeEventDetails) => void",
+              description: "Called when the popover's open state changes, for any reason.",
+            },
+            {
+              name: "onOpenChangeComplete",
+              type: "(open: boolean) => void",
+              description: "Called after any open/close animation finishes.",
+            },
+            {
+              name: "modal",
+              type: "boolean | 'trap-focus'",
+              default: "false",
+              description:
+                "How strongly the popover isolates interaction from the rest of the page when open.",
+            },
+            {
+              name: "actionsRef",
+              type: "React.RefObject<PopoverRoot.Actions | null>",
+              description:
+                "Imperative ref exposing `close()` and `unmount()` for externally-controlled closing animations.",
+            },
+            {
+              name: "handle",
+              type: "PopoverHandle<Payload>",
+              description:
+                "Associates the popover with a detached trigger. Created via `PopoverPrimitive.createHandle()`.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Notes</Heading>

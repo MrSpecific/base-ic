@@ -6,6 +6,7 @@ import {
   DocsList,
 } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function AccordionDocsPage() {
@@ -214,6 +215,156 @@ export function AccordionDocsPage() {
       <DocsSection>
         <Heading>Usage</Heading>
         <CodeBlock title="Accordion Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <h3>Root Props</h3>
+        <PropsTable
+          rows={[
+            {
+              name: "value",
+              type: "Value[]",
+              description:
+                "Controlled value: array of the item value(s) that should be expanded. Use defaultValue for uncontrolled usage.",
+            },
+            {
+              name: "defaultValue",
+              type: "Value[]",
+              description:
+                "Uncontrolled initial value: array of item value(s) expanded on mount.",
+            },
+            {
+              name: "onValueChange",
+              type: "(value: Value[], eventDetails) => void",
+              description: "Called when an item is expanded or collapsed.",
+            },
+            {
+              name: "multiple",
+              type: "boolean",
+              default: "false",
+              description: "Allow more than one item to be open at the same time.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Disables interaction with every item in the accordion.",
+            },
+            {
+              name: "hiddenUntilFound",
+              type: "boolean",
+              default: "false",
+              description:
+                'Uses hidden="until-found" so the browser’s built-in page search can find and expand panel contents.',
+            },
+            {
+              name: "keepMounted",
+              type: "boolean",
+              default: "false",
+              description: "Keep closed panels mounted in the DOM instead of removing them.",
+            },
+            {
+              name: "variant",
+              type: "'outline' | 'surface' | 'ghost'",
+              default: "'outline'",
+              description: "Visual style of the container.",
+            },
+            {
+              name: "size",
+              type: "'1' | '2' | '3'",
+              default: "'2'",
+              description: "Size scale applied to all items.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the root element.",
+            },
+            {
+              name: "style",
+              type: "React.CSSProperties",
+              description: "Inline styles applied to the root element.",
+            },
+          ]}
+        />
+        <h3>Item Props</h3>
+        <PropsTable
+          rows={[
+            {
+              name: "value",
+              type: "unknown",
+              description:
+                "Unique value identifying this item. Auto-generated if omitted; provide one to control the accordion or set an initial open state.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              description: "Disables interaction with this specific item.",
+            },
+            {
+              name: "onOpenChange",
+              type: "(open: boolean, eventDetails) => void",
+              description: "Called when this item's panel opens or closes.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the item element.",
+            },
+          ]}
+        />
+        <h3>Trigger Props</h3>
+        <PropsTable
+          rows={[
+            {
+              name: "nativeButton",
+              type: "boolean",
+              default: "true",
+              description:
+                "Set to false when using render to swap in a non-button element, so Base UI adjusts ARIA attributes accordingly.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the trigger button.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Trigger label/content.",
+            },
+          ]}
+        />
+        <h3>Content Props</h3>
+        <PropsTable
+          rows={[
+            {
+              name: "hiddenUntilFound",
+              type: "boolean",
+              default: "false",
+              description:
+                "Inherited from the root: allows browser find-in-page to reveal this panel's contents.",
+            },
+            {
+              name: "keepMounted",
+              type: "boolean",
+              default: "false",
+              description: "Keep this panel mounted in the DOM while closed.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the panel element.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Panel content.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Notes</Heading>

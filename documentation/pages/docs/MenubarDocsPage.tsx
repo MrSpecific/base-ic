@@ -6,6 +6,7 @@ import {
   DocsList,
 } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function MenubarDocsPage() {
@@ -121,6 +122,50 @@ export function MenubarDocsPage() {
       <DocsSection>
         <Heading>Usage</Heading>
         <CodeBlock title="Menubar Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description:
+                "Top-level menus — expected to be this library's own Menu instances.",
+            },
+            {
+              name: "orientation",
+              type: "'horizontal' | 'vertical'",
+              default: "'horizontal'",
+              description: "The orientation of the menubar.",
+            },
+            {
+              name: "modal",
+              type: "boolean",
+              default: "true",
+              description: "Whether the menubar is modal.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the whole menubar is disabled.",
+            },
+            {
+              name: "loopFocus",
+              type: "boolean",
+              default: "true",
+              description:
+                "Whether to loop keyboard focus back to the first item when the end of the list is reached with the arrow keys.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the container.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading>Notes</Heading>

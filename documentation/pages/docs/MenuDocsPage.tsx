@@ -6,6 +6,7 @@ import {
   DocsList,
 } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function MenuDocsPage() {
@@ -187,6 +188,200 @@ export function MenuDocsPage() {
       <DocsSection>
         <Heading>Usage</Heading>
         <CodeBlock title="Menu Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <Text as="p">Menu (root)</Text>
+        <PropsTable
+          rows={[
+            {
+              name: "trigger",
+              type: "React.ReactElement",
+              required: true,
+              description:
+                "Element that opens the menu. Receives Base UI's trigger props via the render pattern.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description:
+                "Menu content — Menu.Item, Menu.Group, Menu.Separator, Menu.Sub, etc.",
+            },
+            {
+              name: "size",
+              type: "'1' | '2' | '3'",
+              default: "'2'",
+              description: "Size scale applied to item rows.",
+            },
+            {
+              name: "side",
+              type: "'top' | 'bottom' | 'left' | 'right' | 'inline-end' | 'inline-start'",
+              default: "'bottom'",
+              description: "Side of the trigger the popup appears on.",
+            },
+            {
+              name: "align",
+              type: "'start' | 'center' | 'end'",
+              default: "'start'",
+              description: "Alignment of the popup relative to the trigger.",
+            },
+            {
+              name: "sideOffset",
+              type: "number",
+              default: "4",
+              description: "Gap in pixels between the popup and the trigger.",
+            },
+            {
+              name: "open",
+              type: "boolean",
+              description: "Controlled open state.",
+            },
+            {
+              name: "defaultOpen",
+              type: "boolean",
+              default: "false",
+              description: "Initial open state for uncontrolled usage.",
+            },
+            {
+              name: "onOpenChange",
+              type: "(open: boolean, eventDetails) => void",
+              description: "Called when the menu is opened or closed.",
+            },
+            {
+              name: "modal",
+              type: "boolean",
+              default: "true",
+              description:
+                "Whether interaction is limited to the menu while open (locks page scroll, blocks outside pointer interaction).",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the component should ignore user interaction.",
+            },
+          ]}
+        />
+        <Text as="p">Menu.Item</Text>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Item label/content.",
+            },
+            {
+              name: "icon",
+              type: "React.ReactNode",
+              description: "Icon rendered before the label.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the item should ignore user interaction.",
+            },
+            {
+              name: "closeOnClick",
+              type: "boolean",
+              default: "true",
+              description: "Whether to close the menu when the item is clicked.",
+            },
+            {
+              name: "label",
+              type: "string",
+              description:
+                "Overrides the text used when the item is matched during keyboard text navigation.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the item.",
+            },
+          ]}
+        />
+        <Text as="p">Menu.CheckboxItem</Text>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Item label/content.",
+            },
+            {
+              name: "checked",
+              type: "boolean",
+              description:
+                "Controlled checked state. Use with onCheckedChange for a controlled checkbox item.",
+            },
+            {
+              name: "defaultChecked",
+              type: "boolean",
+              default: "false",
+              description: "Initial checked state for uncontrolled usage.",
+            },
+            {
+              name: "onCheckedChange",
+              type: "(checked: boolean, eventDetails) => void",
+              description: "Called when the checkbox item is ticked or unticked.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the item should ignore user interaction.",
+            },
+            {
+              name: "closeOnClick",
+              type: "boolean",
+              default: "false",
+              description: "Whether to close the menu when the item is clicked.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the item.",
+            },
+          ]}
+        />
+        <Text as="p">Menu.RadioItem</Text>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Item label/content.",
+            },
+            {
+              name: "value",
+              type: "any",
+              required: true,
+              description:
+                "Value set on the parent Menu.RadioGroup when this item is selected.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the item should ignore user interaction.",
+            },
+            {
+              name: "closeOnClick",
+              type: "boolean",
+              default: "false",
+              description: "Whether to close the menu when the item is clicked.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the item.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading>Notes</Heading>

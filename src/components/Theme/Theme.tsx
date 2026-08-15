@@ -224,6 +224,36 @@ function buildNeutralVars(grayColor: GrayColor): Record<string, string> {
 }
 
 /**
+ * Re-derive semantic tokens that semantic.css computes from --color-accent-N
+ * via color-mix(), but only ever declares once at :root.
+ *
+ * Why this is needed: --color-accent-N is overridden per-Theme-instance via
+ * inline style on this component's own div (correct — descendants see it).
+ * But a token like --focus-ring-color is declared ONCE, at :root, as
+ * `color-mix(in oklch, var(--color-accent-8) 72%, transparent)`. CSS resolves
+ * that var() using --color-accent-8 AS SEEN AT :root — which is never
+ * overridden (only this div is) — so every nested Theme with a non-default
+ * accentColor got a focus ring (and Card gradient) frozen at the *default*
+ * accent's hue, not its own, regardless of what color it actually rendered
+ * everything else in.
+ *
+ * The fix: redeclare the same formula here, inline, on this same element —
+ * since --color-accent-N is set on this element too, var(--color-accent-N)
+ * inside these declarations now resolves against THIS Theme's own accent.
+ * Only tokens actually consumed by library components are worth the
+ * duplication (--focus-ring-color, --card-gradient-*); purely decorative
+ * docs-site-only tokens (hero/marketing-band glows) aren't wired here.
+ */
+function buildDerivedAccentVars(): Record<string, string> {
+  return {
+    '--focus-ring-color': 'color-mix(in oklch, var(--color-accent-8) 72%, transparent)',
+    '--card-gradient-start': 'color-mix(in oklch, var(--color-accent-3) 34%, var(--color-surface-overlay))',
+    '--card-gradient-border': 'color-mix(in oklch, var(--color-border-subtle) 78%, var(--color-accent-6))',
+    '--card-gradient-border-hover': 'color-mix(in oklch, var(--color-border) 78%, var(--color-accent-7))',
+  };
+}
+
+/**
  * Build CSS custom properties for font family slot overrides.
  * Only writes properties for slots that are explicitly provided —
  * unspecified slots resolve from semantic.css defaults via the CSS cascade.
@@ -326,6 +356,10 @@ export function Theme({
         ...buildAccentVars(accentColor),
         // Neutral color wiring
         ...buildNeutralVars(grayColor),
+        // Re-derive tokens semantic.css only computes once at :root from
+        // --color-accent-N, so they track this Theme's own accent instead of
+        // staying frozen at the default (see buildDerivedAccentVars above).
+        ...buildDerivedAccentVars(),
         // Custom color definitions
         ...(customColors ? buildCustomColorVars(customColors) : {}),
         // Font family overrides (only writes vars for specified slots)
@@ -375,7 +409,11 @@ export function Theme({
   React.useEffect(() => {
     if (!isRootTheme || typeof document === 'undefined') return;
     const body = document.body;
-    const vars = { ...buildNeutralVars(grayColor), ...buildAccentVars(accentColor) };
+    const vars = {
+      ...buildNeutralVars(grayColor),
+      ...buildAccentVars(accentColor),
+      ...buildDerivedAccentVars(),
+    };
     for (const [prop, val] of Object.entries(vars)) {
       body.style.setProperty(prop, val);
     }

@@ -6,6 +6,7 @@ import {
   DocsList,
 } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function NumberFieldDocsPage() {
@@ -112,6 +113,94 @@ export function NumberFieldDocsPage() {
       <DocsSection>
         <Heading>Usage</Heading>
         <CodeBlock title="NumberField Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <PropsTable
+          rows={[
+            {
+              name: "size",
+              type: "'1' | '2' | '3' | '4'",
+              default: "'2'",
+              description: "Visual size preset.",
+            },
+            {
+              name: "radius",
+              type: "'none' | 'small' | 'medium' | 'large' | 'full'",
+              description: "Override the border-radius. Falls back to the Theme's radius.",
+            },
+            {
+              name: "placeholder",
+              type: "string",
+              description: "Placeholder shown in the input when empty.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional className on the group wrapper.",
+            },
+            {
+              name: "style",
+              type: "React.CSSProperties",
+              description: "Inline styles applied to the root element.",
+            },
+            {
+              name: "min",
+              type: "number",
+              description: "The minimum value of the input element.",
+            },
+            {
+              name: "max",
+              type: "number",
+              description: "The maximum value of the input element.",
+            },
+            {
+              name: "step",
+              type: "number | 'any'",
+              default: "1",
+              description:
+                "Amount to increment/decrement with the buttons, arrow keys, or scrub area.",
+            },
+            {
+              name: "value",
+              type: "number | null",
+              description: "The controlled numeric value of the field.",
+            },
+            {
+              name: "defaultValue",
+              type: "number",
+              description: "The uncontrolled initial value of the field.",
+            },
+            {
+              name: "onValueChange",
+              type: "(value: number | null, eventDetails) => void",
+              description: "Called when the number value changes.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the component should ignore user interaction.",
+            },
+            {
+              name: "required",
+              type: "boolean",
+              default: "false",
+              description: "Whether the user must enter a value before submitting a form.",
+            },
+            {
+              name: "readOnly",
+              type: "boolean",
+              default: "false",
+              description: "Whether the user should be unable to change the field value.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Identifies the field when a form is submitted.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading>Notes</Heading>

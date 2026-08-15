@@ -2,6 +2,7 @@ import { Field, Fieldset, Heading, Input, Link, Text } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid, DocsList } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function FieldsetDocsPage() {
@@ -134,6 +135,77 @@ export function FieldsetDocsPage() {
       <DocsSection>
         <Heading>Usage</Heading>
         <CodeBlock title="Fieldset Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <Text as="p">
+          <code>Fieldset</code> (root)
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "legend",
+              type: "React.ReactNode",
+              description: "Convenience prop: renders a Fieldset.Legend above the children.",
+            },
+            {
+              name: "variant",
+              type: "'plain' | 'bordered'",
+              default: "'plain'",
+              description:
+                "'plain' resets the native fieldset border/padding so it composes invisibly as a grouping element. 'bordered' keeps a visible panel around the group.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Form controls (typically Field components) to group together.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the component should ignore user interaction (propagates to nested controls).",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Identifies the fieldset when a form is submitted (native attribute).",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Custom className applied to the root.",
+            },
+            {
+              name: "style",
+              type: "React.CSSProperties",
+              description: "Custom style applied to the root.",
+            },
+          ]}
+        />
+        <Text as="p">
+          <code>Fieldset.Legend</code>
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactNode",
+              description: "Legend content.",
+            },
+            {
+              name: "render",
+              type: "React.ReactElement",
+              description: "Render as a different element (Base UI render prop).",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Custom className.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading>Compound sub-components</Heading>

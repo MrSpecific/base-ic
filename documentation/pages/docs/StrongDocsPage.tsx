@@ -2,6 +2,7 @@ import { Strong, Text } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
 import { DocsDemoGrid } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
+import { PropsTable } from '../../components/PropsTable';
 import { DemoCard } from './DemoCard';
 
 export function StrongDocsPage() {
@@ -48,6 +49,18 @@ export function StrongDocsPage() {
       <DocsSection>
         <h2>Usage</h2>
         <CodeBlock title="Strong Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <h2>Props</h2>
+        <PropsTable
+          rows={[
+            {
+              name: 'children',
+              type: 'React.ReactNode',
+              description: 'Content to render with strong emphasis.',
+            },
+          ]}
+        />
       </DocsSection>
     </>
   );

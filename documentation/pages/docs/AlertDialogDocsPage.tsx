@@ -6,6 +6,7 @@ import {
   DocsList,
 } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function AlertDialogDocsPage() {
@@ -131,6 +132,100 @@ export function AlertDialogDocsPage() {
       <DocsSection>
         <Heading>Usage</Heading>
         <CodeBlock title="AlertDialog Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactElement",
+              required: true,
+              description: "Trigger element that opens the dialog.",
+            },
+            {
+              name: "title",
+              type: "React.ReactNode",
+              required: true,
+              description:
+                "Title shown at the top of the dialog. Required for accessibility — it doubles as the dialog's accessible label.",
+            },
+            {
+              name: "description",
+              type: "React.ReactNode",
+              description: "Descriptive text below the title.",
+            },
+            {
+              name: "cancelLabel",
+              type: "string",
+              default: "'Cancel'",
+              description: "Label for the cancel action.",
+            },
+            {
+              name: "confirmLabel",
+              type: "string",
+              default: "'Confirm'",
+              description: "Label for the confirm action.",
+            },
+            {
+              name: "onConfirm",
+              type: "() => void",
+              description:
+                "Called when the user confirms. The dialog closes automatically afterward.",
+            },
+            {
+              name: "onCancel",
+              type: "() => void",
+              description:
+                "Called when the user cancels. The dialog closes automatically afterward.",
+            },
+            {
+              name: "danger",
+              type: "boolean",
+              default: "false",
+              description: "Style the confirm button as a destructive (red) action.",
+            },
+            {
+              name: "size",
+              type: "'small' | 'medium' | 'large'",
+              default: "'small'",
+              description: "Width preset for the dialog popup.",
+            },
+            {
+              name: "open",
+              type: "boolean",
+              description: "Whether the dialog is currently open (controlled usage).",
+            },
+            {
+              name: "defaultOpen",
+              type: "boolean",
+              default: "false",
+              description: "Whether the dialog is initially open (uncontrolled usage).",
+            },
+            {
+              name: "onOpenChange",
+              type: "(open: boolean, eventDetails: AlertDialogRoot.ChangeEventDetails) => void",
+              description: "Called when the dialog's open state changes, for any reason.",
+            },
+            {
+              name: "onOpenChangeComplete",
+              type: "(open: boolean) => void",
+              description: "Called after any open/close animation finishes.",
+            },
+            {
+              name: "actionsRef",
+              type: "React.RefObject<AlertDialogRoot.Actions | null>",
+              description:
+                "Imperative ref exposing `close()` and `unmount()` for externally-controlled closing animations.",
+            },
+            {
+              name: "handle",
+              type: "AlertDialogHandle<Payload>",
+              description:
+                "Associates the dialog with a detached trigger. Created via `AlertDialogPrimitive.createHandle()`.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Notes</Heading>

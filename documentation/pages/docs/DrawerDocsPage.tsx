@@ -11,6 +11,7 @@ import {
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid, DocsDemoRow, DocsList } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function DrawerDocsPage() {
@@ -174,6 +175,157 @@ export function DrawerDocsPage() {
       <DocsSection>
         <Heading as="h2">Usage</Heading>
         <CodeBlock title="Drawer Usage" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <Text as="p">
+          <code>Drawer</code> renders the drawer itself. Its sub-part{" "}
+          <code>Drawer.SwipeArea</code> is a separate, invisible edge-swipe
+          gesture catcher you position yourself.
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactElement",
+              required: true,
+              description: "Trigger element that opens the drawer.",
+            },
+            {
+              name: "content",
+              type: "React.ReactNode",
+              required: true,
+              description: "The drawer's body content, rendered inside the popup.",
+            },
+            {
+              name: "title",
+              type: "React.ReactNode",
+              description: "Short title shown at the top of the drawer.",
+            },
+            {
+              name: "description",
+              type: "React.ReactNode",
+              description: "Descriptive text beneath the title.",
+            },
+            {
+              name: "footer",
+              type: "React.ReactNode",
+              description: "Footer content, usually action buttons.",
+            },
+            {
+              name: "showClose",
+              type: "boolean",
+              default: "true",
+              description: "Whether to show an X close button in the header.",
+            },
+            {
+              name: "side",
+              type: "'left' | 'right' | 'top' | 'bottom'",
+              default: "'right'",
+              description:
+                "Screen edge the drawer slides in from. Also determines the default swipe-to-dismiss direction.",
+            },
+            {
+              name: "open",
+              type: "boolean",
+              description: "Whether the drawer is currently open (controlled usage).",
+            },
+            {
+              name: "defaultOpen",
+              type: "boolean",
+              default: "false",
+              description: "Whether the drawer is initially open (uncontrolled usage).",
+            },
+            {
+              name: "modal",
+              type: "boolean | 'trap-focus'",
+              default: "true",
+              description:
+                "How strongly the drawer isolates interaction from the rest of the page. `true` traps focus and locks scroll; `'trap-focus'` traps focus only; `false` allows outside interaction.",
+            },
+            {
+              name: "onOpenChange",
+              type: "(open: boolean, eventDetails: DrawerRoot.ChangeEventDetails) => void",
+              description: "Called when the drawer's open state changes, for any reason.",
+            },
+            {
+              name: "onOpenChangeComplete",
+              type: "(open: boolean) => void",
+              description: "Called after any open/close animation finishes.",
+            },
+            {
+              name: "disablePointerDismissal",
+              type: "boolean",
+              default: "false",
+              description: "Prevents the drawer from closing on outside presses.",
+            },
+            {
+              name: "swipeDirection",
+              type: "'up' | 'down' | 'left' | 'right'",
+              description:
+                "Direction used to dismiss the drawer via swipe. Derived automatically from `side`; only pass this to override that mapping.",
+            },
+            {
+              name: "snapPoints",
+              type: "Array<number | string>",
+              description:
+                "Snap points the drawer can rest at while dragging — fractions of the viewport (0–1), pixel numbers, or `px`/`rem` strings.",
+            },
+            {
+              name: "snapPoint",
+              type: "number | string | null",
+              description: "The currently active snap point (controlled usage).",
+            },
+            {
+              name: "defaultSnapPoint",
+              type: "number | string | null",
+              description: "The initial snap point (uncontrolled usage).",
+            },
+            {
+              name: "onSnapPointChange",
+              type: "(snapPoint: number | string | null, eventDetails) => void",
+              description: "Called when the active snap point changes.",
+            },
+            {
+              name: "snapToSequentialPoints",
+              type: "boolean",
+              default: "false",
+              description:
+                "Disables velocity-based snap skipping so drag distance alone determines the next snap point.",
+            },
+            {
+              name: "actionsRef",
+              type: "React.RefObject<DrawerRoot.Actions | null>",
+              description:
+                "Imperative ref exposing `close()` and `unmount()` for externally-controlled closing animations.",
+            },
+            {
+              name: "handle",
+              type: "DrawerHandle<Payload>",
+              description:
+                "Associates the drawer with a detached trigger. Created via `DrawerPrimitive.createHandle()`.",
+            },
+          ]}
+        />
+        <Text as="p" mt="4">
+          <code>Drawer.SwipeArea</code>
+        </Text>
+        <PropsTable
+          rows={[
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Disables the swipe area.",
+            },
+            {
+              name: "swipeDirection",
+              type: "'up' | 'down' | 'left' | 'right'",
+              description:
+                "The swipe direction that opens the drawer. Defaults to the opposite of the drawer's own `swipeDirection`.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <Heading as="h2">Notes</Heading>

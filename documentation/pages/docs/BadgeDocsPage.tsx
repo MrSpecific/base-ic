@@ -2,6 +2,7 @@ import { Badge, Heading } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid, DocsDemoRow } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
+import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
 export function BadgeDocsPage() {
@@ -93,6 +94,58 @@ export function BadgeDocsPage() {
           for raw <code>onClick</code> + <code>cursor: pointer</code> on a span — a screen reader announces the
           latter as plain text, not a control, and it's not reachable by keyboard.
         </p>
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Props</Heading>
+        <PropsTable
+          rows={[
+            {
+              name: "size",
+              type: "'1' | '2' | '3'",
+              default: "'1'",
+              description: "Visual size preset.",
+            },
+            {
+              name: "variant",
+              type: "'solid' | 'soft' | 'surface' | 'outline'",
+              default: "'soft'",
+              description: "Visual style.",
+            },
+            {
+              name: "color",
+              type: "AccentColor",
+              description: "Override the accent color for this badge.",
+            },
+            {
+              name: "highContrast",
+              type: "boolean",
+              default: "false",
+              description: "Increase foreground contrast against the background.",
+            },
+            {
+              name: "radius",
+              type: "'none' | 'small' | 'medium' | 'large' | 'full'",
+              description: "Override the border-radius for this badge.",
+            },
+            {
+              name: "render",
+              type: "React.ReactElement",
+              description:
+                "Render as a different element (e.g. a real <button>) while keeping Badge's styling — use for interactive chips.",
+            },
+            {
+              name: "p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml",
+              type: "number | string",
+              description:
+                "Padding/margin shorthand props (e.g. p={3}). Numbers map to spacing scale tokens; strings are used as literal CSS values.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              description: "Badge label/content.",
+            },
+          ]}
+        />
       </DocsSection>
     </>
   );
