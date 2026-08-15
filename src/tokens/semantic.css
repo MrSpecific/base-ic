@@ -313,6 +313,16 @@
   --popover-arrow-size:       calc(12px * var(--component-scaling));
 
   /* -------------------------------------------------------------------------
+   * Semantic navigation-menu patterns
+   * -------------------------------------------------------------------------
+   * Reuses --popover-* above for the floating content surface. The only
+   * genuinely NavigationMenu-specific need is the transition that animates
+   * the viewport resizing between differently-sized content panels.
+   */
+  --nav-menu-resize-duration: var(--duration-3);
+  --nav-menu-resize-ease:     var(--ease-2);
+
+  /* -------------------------------------------------------------------------
    * Semantic dialog patterns
    * -------------------------------------------------------------------------
    */
@@ -321,6 +331,16 @@
   --dialog-shadow:            var(--shadow-4);
   --dialog-radius:            var(--component-radius);
   --dialog-backdrop-bg:       oklch(0 0 0 / 0.45);
+
+  /* -------------------------------------------------------------------------
+   * Semantic drawer patterns
+   * -------------------------------------------------------------------------
+   * Drawer reuses the --dialog-* surface tokens (bg/border/shadow/radius);
+   * these two are the only drawer-specific values needed — the panel size
+   * along the axis perpendicular to the edge it slides from.
+   */
+  --drawer-width:             calc(400px * var(--component-scaling));
+  --drawer-height:            calc(400px * var(--component-scaling));
 
   /* -------------------------------------------------------------------------
    * Semantic code patterns

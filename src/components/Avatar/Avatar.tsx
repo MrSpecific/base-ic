@@ -23,6 +23,26 @@ const sizeClass: Record<AvatarSize, string> = {
   '5': styles.size5,
 };
 
+/** Default fallback icon — shown when neither `src` nor `fallback` resolve to anything. */
+function UserIcon() {
+  return (
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="8" r="4" fill="currentColor" />
+      <path
+        d="M4 20c0-4.418 3.582-8 8-8s8 3.582 8 8"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
 export interface AvatarProps {
   /** Visual size preset. Default: '3' */
   size?: AvatarSize;
@@ -79,10 +99,14 @@ export const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
           />
         )}
         <BaseAvatar.Fallback
-          className={cx(styles.fallback, color && styles.colorFallback)}
+          className={cx(
+            styles.fallback,
+            color && styles.colorFallback,
+            !fallback && styles.iconFallback,
+          )}
           delay={src ? 600 : 0}
         >
-          {fallback}
+          {fallback ?? <UserIcon />}
         </BaseAvatar.Fallback>
       </BaseAvatar.Root>
     );

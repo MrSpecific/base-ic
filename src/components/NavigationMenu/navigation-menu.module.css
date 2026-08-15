@@ -1,0 +1,289 @@
+/* ==========================================================================
+ * NavigationMenu
+ * ==========================================================================
+ * Uses Base UI NavigationMenu primitives. A horizontal (or vertical) row of
+ * top-level triggers, each revealing rich content in a shared floating
+ * Viewport/Popup that is positioned relative to whichever trigger is active
+ * and cross-fades/slides between differently-sized panels.
+ *
+ * Reuses the same --popover-* semantic tokens as Popover for the floating
+ * surface — see src/tokens/semantic.css.
+ *
+ * Trigger data attrs: data-popup-open, data-pressed, data-disabled
+ * Content data attrs: data-open, data-closed, data-starting-style,
+ *   data-ending-style, data-activation-direction
+ * Link data attrs: data-active
+ */
+
+/* ---------------------------------------------------------------------------
+ * Root
+ * --------------------------------------------------------------------------- */
+.root {
+  display: inline-flex;
+}
+
+/* ---------------------------------------------------------------------------
+ * List — top-level trigger row
+ * --------------------------------------------------------------------------- */
+.list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.listVertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* ---------------------------------------------------------------------------
+ * Item
+ * --------------------------------------------------------------------------- */
+.item {
+  position: relative;
+  list-style: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Trigger — ghost-button style row item
+ * --------------------------------------------------------------------------- */
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--nav-trigger-py) var(--nav-trigger-px);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-primary);
+  font-size: var(--nav-trigger-fs);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  border-radius: var(--radius-2);
+  outline: none;
+  user-select: none;
+  transition:
+    color var(--duration-1) var(--ease-1),
+    background-color var(--duration-1) var(--ease-1);
+}
+
+.trigger:hover {
+  color: var(--color-text-primary);
+  background-color: color-mix(
+    in oklch,
+    var(--color-accent-9) var(--interactive-soft-strength),
+    var(--interactive-soft-mix-base)
+  );
+}
+
+.trigger:focus-visible {
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
+}
+
+.trigger[data-popup-open] {
+  color: var(--color-accent-11);
+  background-color: color-mix(
+    in oklch,
+    var(--color-accent-9) var(--interactive-soft-strength),
+    var(--interactive-soft-mix-base)
+  );
+}
+
+.trigger[data-disabled] {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  pointer-events: none;
+}
+
+.triggerLabel {
+  display: inline-flex;
+}
+
+.triggerIcon {
+  flex-shrink: 0;
+  transition: transform var(--duration-2) var(--ease-2);
+}
+
+.trigger[data-popup-open] .triggerIcon {
+  transform: rotate(180deg);
+}
+
+/* ---------------------------------------------------------------------------
+ * Backdrop — transparent hit-area behind the popup (click-outside dismissal)
+ * --------------------------------------------------------------------------- */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-5);
+}
+
+/* ---------------------------------------------------------------------------
+ * Positioner
+ * --------------------------------------------------------------------------- */
+.positioner {
+  z-index: calc(var(--z-5) + 2);
+  width: var(--positioner-width);
+  height: var(--positioner-height);
+}
+
+/* ---------------------------------------------------------------------------
+ * Popup — floating surface, reuses --popover-* tokens
+ * --------------------------------------------------------------------------- */
+.popup {
+  position: relative;
+  overflow: hidden;
+  min-width: var(--popover-min-width);
+  max-width: min(var(--available-width, calc(100vw - var(--space-4))), calc(640px * var(--component-scaling)));
+  background-color: var(--popover-bg);
+  color: var(--popover-text);
+  border: 1px solid var(--popover-border);
+  border-radius: var(--popover-radius);
+  box-shadow: var(--popover-shadow);
+  transform-origin: var(--transform-origin);
+  outline: none;
+  /* Animate between differently-sized content panels using the fixed-size
+     custom properties Base UI sets on the popup element during transitions. */
+  width: var(--popup-width, auto);
+  height: var(--popup-height, auto);
+  transition:
+    width var(--nav-menu-resize-duration) var(--nav-menu-resize-ease),
+    height var(--nav-menu-resize-duration) var(--nav-menu-resize-ease);
+}
+
+.popup[data-open] {
+  animation: nav-menu-popup-in var(--duration-3) var(--ease-2);
+}
+
+.popup[data-closed] {
+  animation: nav-menu-popup-out var(--duration-2) var(--ease-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .popup,
+  .popup[data-open],
+  .popup[data-closed] {
+    transition: none;
+    animation: none;
+  }
+}
+
+@keyframes nav-menu-popup-in {
+  from {
+    opacity: 0;
+    scale: 0.97;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes nav-menu-popup-out {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 0.97;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Viewport — clips to the popup, hosts the active item's content
+ * --------------------------------------------------------------------------- */
+.viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------------------
+ * Content — cross-fades/slides in the direction the new item was activated
+ * --------------------------------------------------------------------------- */
+.content {
+  padding: var(--popover-padding);
+  min-width: var(--popover-min-width);
+  color: var(--popover-text);
+  outline: none;
+  transition:
+    opacity var(--nav-menu-resize-duration) var(--nav-menu-resize-ease),
+    transform var(--nav-menu-resize-duration) var(--nav-menu-resize-ease);
+}
+
+.content[data-starting-style],
+.content[data-ending-style] {
+  opacity: 0;
+}
+
+.content[data-activation-direction='left'][data-starting-style],
+.content[data-activation-direction='right'][data-ending-style] {
+  transform: translateX(calc(-1 * var(--space-4)));
+}
+
+.content[data-activation-direction='right'][data-starting-style],
+.content[data-activation-direction='left'][data-ending-style] {
+  transform: translateX(var(--space-4));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Link — clickable row/tile inside Content
+ * --------------------------------------------------------------------------- */
+.link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-2);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  outline: none;
+  transition: background-color var(--duration-1) var(--ease-2);
+}
+
+.link:hover,
+.link:focus-visible {
+  background-color: color-mix(
+    in oklch,
+    var(--color-accent-9) var(--interactive-soft-strength),
+    var(--interactive-soft-mix-base)
+  );
+}
+
+.link[data-active] {
+  color: var(--color-accent-11);
+}
+
+/* ---------------------------------------------------------------------------
+ * Sizes — trigger row density
+ * --------------------------------------------------------------------------- */
+.size1 {
+  --nav-trigger-py: var(--space-1);
+  --nav-trigger-px: var(--space-2);
+  --nav-trigger-fs: var(--font-size-1);
+}
+
+.size2 {
+  --nav-trigger-py: var(--space-2);
+  --nav-trigger-px: var(--space-3);
+  --nav-trigger-fs: var(--font-size-2);
+}
+
+.size3 {
+  --nav-trigger-py: var(--space-2);
+  --nav-trigger-px: var(--space-4);
+  --nav-trigger-fs: var(--font-size-3);
+}

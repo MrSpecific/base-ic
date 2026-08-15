@@ -7,13 +7,18 @@
   font-family: var(--font-family-primary);
   color: var(--color-text-primary);
   background-color: var(--color-surface-base);
-  /* Ensure the theme surface covers full viewport backgrounds */
-  min-height: 100vh;
 
   /* Text rendering — sharper on macOS, cleaner everywhere */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+/* Only the root Theme should claim full-viewport height — nested Themes
+   (scoped overrides for a section, a demo swatch, etc.) size to their
+   content, or they silently balloon to 100vh each. */
+.rootTheme {
+  min-height: 100vh;
 }
 
 /* Accent-tinted text selection */

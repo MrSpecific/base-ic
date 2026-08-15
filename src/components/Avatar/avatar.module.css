@@ -57,6 +57,22 @@
   color: var(--avt-accent-11, var(--color-accent-11));
 }
 
+/* Default "user" icon fallback — shown when neither `src` nor `fallback` are
+   provided. Sized as a fraction of the box rather than --avt-font-size,
+   since a glyph reads better a bit larger than initials text would. */
+.iconFallback {
+  color: var(--color-text-tertiary);
+}
+
+.iconFallback svg {
+  width: 58%;
+  height: 58%;
+}
+
+.iconFallback.colorFallback {
+  color: var(--avt-accent-11, var(--color-accent-11));
+}
+
 /* ---------------------------------------------------------------------------
  * Size variants
  * --------------------------------------------------------------------------- */

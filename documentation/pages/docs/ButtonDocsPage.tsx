@@ -132,7 +132,7 @@ export function ButtonDocsPage() {
               <Button color="blue">Blue</Button>
               <Button color="green">Green</Button>
               <Button color="orange" highContrast>
-                Orange HC
+                Orange Hight Contrast
               </Button>
               <Button variant="outline" radius="full">
                 Pill
@@ -148,10 +148,12 @@ export function ButtonDocsPage() {
       <DocsSection>
         <Heading as="h2">Notes</Heading>
         <DocsList>
-          <li>Use `loading` for async actions; it also disables interaction.</li>
           <li>
-            Prefer `variant=&quot;solid&quot;` for primary actions and lower-emphasis
-            variants for secondary actions.
+            Use `loading` for async actions; it also disables interaction.
+          </li>
+          <li>
+            Prefer `variant=&quot;solid&quot;` for primary actions and
+            lower-emphasis variants for secondary actions.
           </li>
           <li>`render` lets you swap the underlying trigger element.</li>
         </DocsList>

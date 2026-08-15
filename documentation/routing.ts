@@ -45,6 +45,10 @@ export function getRouteFromPath(pathname: string): RouteState {
       slug === 'number-field' ||
       slug === 'toggle' ||
       slug === 'menu' ||
+      slug === 'menubar' ||
+      slug === 'navigation-menu' ||
+      slug === 'drawer' ||
+      slug === 'fieldset' ||
       slug === 'collapsible' ||
       slug === 'skeleton'
     ) {

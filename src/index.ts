@@ -44,6 +44,8 @@ export { Popover, PopoverPrimitive } from './components/Popover';
 export type { PopoverProps } from './components/Popover';
 export { Dialog, DialogPrimitive } from './components/Dialog';
 export type { DialogProps } from './components/Dialog';
+export { Drawer, DrawerPrimitive } from './components/Drawer';
+export type { DrawerProps } from './components/Drawer';
 
 // Layout components
 export { Box, Flex, Grid, Container, Section } from './components/Layout';
@@ -78,6 +80,15 @@ export { Textarea } from './components/Textarea';
 export type { TextareaProps } from './components/Textarea';
 export { Tabs } from './components/Tabs';
 export type { TabsProps, TabsListProps, TabProps, TabsPanelProps } from './components/Tabs';
+export { NavigationMenu, NavigationMenuPrimitive } from './components/NavigationMenu';
+export type {
+  NavigationMenuProps,
+  NavigationMenuListProps,
+  NavigationMenuItemProps,
+  NavigationMenuTriggerProps,
+  NavigationMenuContentProps,
+  NavigationMenuLinkProps,
+} from './components/NavigationMenu';
 export { Checkbox } from './components/Checkbox';
 export type { CheckboxProps } from './components/Checkbox';
 export { Switch } from './components/Switch';
@@ -92,6 +103,10 @@ export type { SelectProps, SelectItemProps, SelectGroupProps } from './component
 // Field
 export { Field, FieldPrimitive } from './components/Field';
 export type { FieldProps, FieldLabelProps, FieldDescriptionProps, FieldErrorProps } from './components/Field';
+
+// Fieldset
+export { Fieldset, FieldsetPrimitive } from './components/Fieldset';
+export type { FieldsetProps, FieldsetLegendProps } from './components/Fieldset';
 
 // NumberField
 export { NumberField, NumberFieldPrimitive } from './components/NumberField';
@@ -112,6 +127,10 @@ export type {
   MenuGroupProps,
   MenuSubProps,
 } from './components/Menu';
+
+// Menubar
+export { Menubar, MenubarPrimitive } from './components/Menubar';
+export type { MenubarProps } from './components/Menubar';
 
 // Collapsible
 export { Collapsible, CollapsiblePrimitive } from './components/Collapsible';

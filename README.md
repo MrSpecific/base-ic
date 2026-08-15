@@ -154,8 +154,11 @@ import './your-theme.css';
 - `Popover` — anchored content overlay (Base UI-backed)
 - `Dialog` — modal dialog with backdrop (Base UI-backed)
 - `AlertDialog` — confirmation dialog with required action (Base UI-backed)
+- `Drawer` — slide-in panel anchored to a screen edge (Base UI-backed)
 - `Menu` — dropdown menu with items, checkboxes, radio groups, and submenus (Base UI-backed)
+- `Menubar` — horizontal bar of top-level menus, e.g. File/Edit/View (Base UI-backed)
 - `Tabs` — tabbed navigation (Base UI-backed)
+- `NavigationMenu` — top-level site navigation with floating content panels (Base UI-backed)
 - `Accordion` — collapsible content sections (Base UI-backed)
 - `Collapsible` — single collapsible region (Base UI-backed)
 - `Select` — dropdown select input (Base UI-backed)
@@ -172,6 +175,7 @@ import './your-theme.css';
 - `NumberField` — numeric input with increment/decrement (Base UI-backed)
 - `Toggle` / `ToggleGroup` — pressable toggle buttons (Base UI-backed)
 - `Field` — form field wrapper with label, description, and error states (Base UI-backed)
+- `Fieldset` — groups related form controls under a shared legend (Base UI-backed)
 - `Progress` — progress bar indicator (Base UI-backed)
 - `Avatar` — user avatar with image and fallback
 

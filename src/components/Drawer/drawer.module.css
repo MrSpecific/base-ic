@@ -1,0 +1,223 @@
+/* ==========================================================================
+ * Drawer
+ * ==========================================================================
+ * Uses Base UI Drawer primitives.
+ * Backdrop fades in; popup slides in from the edge given by `side`.
+ * Reuses the --dialog-* surface tokens (bg/border/shadow) since a drawer
+ * panel is visually the same surface as a dialog — just positioned and
+ * animated differently.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Backdrop
+ * --------------------------------------------------------------------------- */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--dialog-backdrop-bg);
+  z-index: 100;
+}
+
+.backdrop[data-open] {
+  animation: drawer-backdrop-in var(--duration-3) var(--ease-2);
+}
+
+.backdrop[data-closed] {
+  animation: drawer-backdrop-out var(--duration-2) var(--ease-2);
+}
+
+@keyframes drawer-backdrop-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes drawer-backdrop-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* ---------------------------------------------------------------------------
+ * Viewport — positioning container required by Base UI (enables swipe
+ * handling and scroll locking). It carries no layout of its own; the
+ * popup positions itself against the viewport edge via `position: fixed`.
+ * --------------------------------------------------------------------------- */
+.viewport {
+  display: contents;
+}
+
+/* ---------------------------------------------------------------------------
+ * Popup
+ * --------------------------------------------------------------------------- */
+.popup {
+  position: fixed;
+  z-index: 101;
+  background: var(--dialog-bg, var(--color-surface-overlay));
+  border: 1px solid var(--dialog-border);
+  box-shadow: var(--dialog-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  outline: none;
+  overflow-y: auto;
+}
+
+.popup[data-open] {
+  animation: drawer-in var(--duration-3) var(--ease-2);
+}
+
+.popup[data-closed] {
+  animation: drawer-out var(--duration-2) var(--ease-2);
+}
+
+@keyframes drawer-in {
+  from {
+    opacity: 0;
+    transform: var(--drawer-enter-transform, translate(0, 0));
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes drawer-out {
+  from {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  to {
+    opacity: 0;
+    transform: var(--drawer-enter-transform, translate(0, 0));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop[data-open],
+  .backdrop[data-closed],
+  .popup[data-open],
+  .popup[data-closed] {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Side variants — edge anchoring, axis sizing, and enter/exit direction.
+ * Only the edge-attached corners stay square; the opposite corners round.
+ * --------------------------------------------------------------------------- */
+.sideRight {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: var(--drawer-width);
+  max-width: calc(100vw - var(--space-6));
+  border-radius: var(--dialog-radius) 0 0 var(--dialog-radius);
+  --drawer-enter-transform: translateX(100%);
+}
+
+.sideLeft {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--drawer-width);
+  max-width: calc(100vw - var(--space-6));
+  border-radius: 0 var(--dialog-radius) var(--dialog-radius) 0;
+  --drawer-enter-transform: translateX(-100%);
+}
+
+.sideTop {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--drawer-height);
+  max-height: calc(100dvh - var(--space-6));
+  border-radius: 0 0 var(--dialog-radius) var(--dialog-radius);
+  --drawer-enter-transform: translateY(-100%);
+}
+
+.sideBottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--drawer-height);
+  max-height: calc(100dvh - var(--space-6));
+  border-radius: var(--dialog-radius) var(--dialog-radius) 0 0;
+  --drawer-enter-transform: translateY(100%);
+}
+
+/* ---------------------------------------------------------------------------
+ * Header — title + optional close button row
+ * --------------------------------------------------------------------------- */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+/* ---------------------------------------------------------------------------
+ * Title
+ * --------------------------------------------------------------------------- */
+.title {
+  margin: 0;
+  font-family: var(--font-family-display, var(--font-family-sans-stack));
+  font-size: var(--font-size-5);
+  font-weight: 600;
+  line-height: var(--line-height-2);
+  color: var(--color-text-primary);
+}
+
+/* ---------------------------------------------------------------------------
+ * Description
+ * --------------------------------------------------------------------------- */
+.description {
+  margin: 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-3);
+  color: var(--color-text-secondary);
+}
+
+/* ---------------------------------------------------------------------------
+ * Footer — action buttons row
+ * --------------------------------------------------------------------------- */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border);
+  margin-top: auto;
+}
+
+/* ---------------------------------------------------------------------------
+ * Close icon button
+ * --------------------------------------------------------------------------- */
+.closeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: calc(28px * var(--component-scaling));
+  height: calc(28px * var(--component-scaling));
+  font-size: calc(16px * var(--component-scaling));
+  line-height: 1;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-2);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background var(--duration-1) var(--ease-1), color var(--duration-1) var(--ease-1);
+  outline: none;
+}
+
+.closeButton:hover {
+  background: var(--color-neutral-3);
+  color: var(--color-text-primary);
+}
+
+.closeButton:focus-visible {
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
+}

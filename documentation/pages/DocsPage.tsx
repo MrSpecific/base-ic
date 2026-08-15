@@ -28,16 +28,20 @@ import { InputDocsPage } from "./docs/InputDocsPage";
 import { SelectDocsPage } from "./docs/SelectDocsPage";
 import { TextareaDocsPage } from "./docs/TextareaDocsPage";
 import { TabsDocsPage } from "./docs/TabsDocsPage";
+import { NavigationMenuDocsPage } from "./docs/NavigationMenuDocsPage";
 import { DialogDocsPage } from "./docs/DialogDocsPage";
 import { AlertDialogDocsPage } from "./docs/AlertDialogDocsPage";
+import { DrawerDocsPage } from "./docs/DrawerDocsPage";
 import { AccordionDocsPage } from "./docs/AccordionDocsPage";
 import { SliderDocsPage } from "./docs/SliderDocsPage";
 import { ProgressDocsPage } from "./docs/ProgressDocsPage";
 import { AvatarDocsPage } from "./docs/AvatarDocsPage";
 import { FieldDocsPage } from "./docs/FieldDocsPage";
+import { FieldsetDocsPage } from "./docs/FieldsetDocsPage";
 import { NumberFieldDocsPage } from "./docs/NumberFieldDocsPage";
 import { ToggleDocsPage } from "./docs/ToggleDocsPage";
 import { MenuDocsPage } from "./docs/MenuDocsPage";
+import { MenubarDocsPage } from "./docs/MenubarDocsPage";
 import { CollapsibleDocsPage } from "./docs/CollapsibleDocsPage";
 import { SkeletonDocsPage } from "./docs/SkeletonDocsPage";
 import { TypesDocsPage } from "./docs/TypesDocsPage";
@@ -88,6 +92,7 @@ export function DocsPage({
         { id: "progress", label: "Progress" },
         { id: "skeleton", label: "Skeleton" },
         { id: "menu", label: "Menu" },
+        { id: "menubar", label: "Menubar" },
         { id: "toggle", label: "Toggle" },
       ],
     },
@@ -95,6 +100,7 @@ export function DocsPage({
       title: "Forms",
       items: [
         { id: "field", label: "Field" },
+        { id: "fieldset", label: "Fieldset" },
         { id: "input", label: "Input" },
         { id: "textarea", label: "Textarea" },
         { id: "number-field", label: "NumberField" },
@@ -112,11 +118,15 @@ export function DocsPage({
         { id: "popover", label: "Popover" },
         { id: "dialog", label: "Dialog" },
         { id: "alert-dialog", label: "AlertDialog" },
+        { id: "drawer", label: "Drawer" },
       ],
     },
     {
       title: "Navigation",
-      items: [{ id: "tabs", label: "Tabs" }],
+      items: [
+        { id: "tabs", label: "Tabs" },
+        { id: "navigation-menu", label: "NavigationMenu" },
+      ],
     },
     {
       title: "Typography",
@@ -155,16 +165,20 @@ export function DocsPage({
     if (section === "select") return <SelectDocsPage />;
     if (section === "textarea") return <TextareaDocsPage />;
     if (section === "tabs") return <TabsDocsPage />;
+    if (section === "navigation-menu") return <NavigationMenuDocsPage />;
     if (section === "dialog") return <DialogDocsPage />;
     if (section === "alert-dialog") return <AlertDialogDocsPage />;
+    if (section === "drawer") return <DrawerDocsPage />;
     if (section === "accordion") return <AccordionDocsPage />;
     if (section === "slider") return <SliderDocsPage />;
     if (section === "progress") return <ProgressDocsPage />;
     if (section === "avatar") return <AvatarDocsPage />;
     if (section === "field") return <FieldDocsPage />;
+    if (section === "fieldset") return <FieldsetDocsPage />;
     if (section === "number-field") return <NumberFieldDocsPage />;
     if (section === "toggle") return <ToggleDocsPage />;
     if (section === "menu") return <MenuDocsPage />;
+    if (section === "menubar") return <MenubarDocsPage />;
     if (section === "collapsible") return <CollapsibleDocsPage />;
     if (section === "skeleton") return <SkeletonDocsPage />;
     if (section === "typography") return <TypographyDocsPage />;

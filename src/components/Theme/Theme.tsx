@@ -436,7 +436,7 @@ export function Theme({
     <ThemeNestingContext.Provider value={nestingLevel + 1}>
       <ThemeContext.Provider value={contextValue}>
         <div
-          className={[styles.theme, appearanceClass, className]
+          className={[styles.theme, isRootTheme && styles.rootTheme, appearanceClass, className]
             .filter(Boolean)
             .join(' ')}
           style={cssVars}
