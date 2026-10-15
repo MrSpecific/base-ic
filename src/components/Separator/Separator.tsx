@@ -58,6 +58,7 @@ export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
     return (
       <BaseSeparator
         ref={ref}
+        orientation={orientation}
         className={cx(
           styles.separator,
           styles[orientation],

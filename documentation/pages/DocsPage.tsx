@@ -1,72 +1,100 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useId, useRef, useState } from "react";
+import type { ComponentType, LazyExoticComponent } from "react";
 import { Button, Container, Grid, Input, Separator, Text } from "../../src";
-import { OverviewDocsPage } from "./docs/OverviewDocsPage";
-import { PopoverDocsPage } from "./docs/PopoverDocsPage";
-import { ThemeDocsPage } from "./docs/ThemeDocsPage";
-import { TooltipDocsPage } from "./docs/TooltipDocsPage";
-import { ButtonDocsPage } from "./docs/ButtonDocsPage";
-import { BadgeDocsPage } from "./docs/BadgeDocsPage";
-import { CardDocsPage } from "./docs/CardDocsPage";
-import { SeparatorDocsPage } from "./docs/SeparatorDocsPage";
-import { TypographyDocsPage } from "./docs/TypographyDocsPage";
-import { TextDocsPage } from "./docs/TextDocsPage";
-import { HeadingDocsPage } from "./docs/HeadingDocsPage";
-import { LinkDocsPage } from "./docs/LinkDocsPage";
-import { CodeDocsPage } from "./docs/CodeDocsPage";
-import { KbdDocsPage } from "./docs/KbdDocsPage";
-import { EmDocsPage } from "./docs/EmDocsPage";
-import { StrongDocsPage } from "./docs/StrongDocsPage";
-import { QuoteDocsPage } from "./docs/QuoteDocsPage";
-import { BoxDocsPage } from "./docs/BoxDocsPage";
-import { FlexDocsPage } from "./docs/FlexDocsPage";
-import { GridDocsPage } from "./docs/GridDocsPage";
-import { ContainerDocsPage } from "./docs/ContainerDocsPage";
-import { SectionDocsPage } from "./docs/SectionDocsPage";
-import { CheckboxDocsPage } from "./docs/CheckboxDocsPage";
-import { SwitchDocsPage } from "./docs/SwitchDocsPage";
-import { RadioGroupDocsPage } from "./docs/RadioGroupDocsPage";
-import { InputDocsPage } from "./docs/InputDocsPage";
-import { SelectDocsPage } from "./docs/SelectDocsPage";
-import { AutocompleteDocsPage } from "./docs/AutocompleteDocsPage";
-import { TextareaDocsPage } from "./docs/TextareaDocsPage";
-import { TabsDocsPage } from "./docs/TabsDocsPage";
-import { NavigationMenuDocsPage } from "./docs/NavigationMenuDocsPage";
-import { DialogDocsPage } from "./docs/DialogDocsPage";
-import { AlertDialogDocsPage } from "./docs/AlertDialogDocsPage";
-import { DrawerDocsPage } from "./docs/DrawerDocsPage";
-import { ToastDocsPage } from "./docs/ToastDocsPage";
-import { AccordionDocsPage } from "./docs/AccordionDocsPage";
-import { SliderDocsPage } from "./docs/SliderDocsPage";
-import { ProgressDocsPage } from "./docs/ProgressDocsPage";
-import { AvatarDocsPage } from "./docs/AvatarDocsPage";
-import { FieldDocsPage } from "./docs/FieldDocsPage";
-import { FieldsetDocsPage } from "./docs/FieldsetDocsPage";
-import { NumberFieldDocsPage } from "./docs/NumberFieldDocsPage";
-import { OTPFieldDocsPage } from "./docs/OTPFieldDocsPage";
-import { ToggleDocsPage } from "./docs/ToggleDocsPage";
-import { MenuDocsPage } from "./docs/MenuDocsPage";
-import { MenubarDocsPage } from "./docs/MenubarDocsPage";
-import { CollapsibleDocsPage } from "./docs/CollapsibleDocsPage";
-import { SkeletonDocsPage } from "./docs/SkeletonDocsPage";
-import { TypesDocsPage } from "./docs/TypesDocsPage";
+import { ButtonLink } from "../components/RouteLink";
+import { DOCS_GROUPS, DOCS_ROUTES, pageToPath } from "../routes";
+import type { DocsRoute } from "../routes";
 import type { DocsSection } from "../types";
 
-export function DocsPage({
-  section,
-  goToDocsSection,
-}: {
-  section: DocsSection;
-  goToDocsSection: (next: DocsSection) => void;
-}) {
+// Each docs section is its own chunk so a page only loads the demos it shows.
+const SECTION_PAGES: Record<DocsSection, LazyExoticComponent<ComponentType>> = {
+  overview: lazy(() => import("./docs/OverviewDocsPage").then((m) => ({ default: m.OverviewDocsPage }))),
+  types: lazy(() => import("./docs/TypesDocsPage").then((m) => ({ default: m.TypesDocsPage }))),
+  theme: lazy(() => import("./docs/ThemeDocsPage").then((m) => ({ default: m.ThemeDocsPage }))),
+  button: lazy(() => import("./docs/ButtonDocsPage").then((m) => ({ default: m.ButtonDocsPage }))),
+  badge: lazy(() => import("./docs/BadgeDocsPage").then((m) => ({ default: m.BadgeDocsPage }))),
+  card: lazy(() => import("./docs/CardDocsPage").then((m) => ({ default: m.CardDocsPage }))),
+  separator: lazy(() => import("./docs/SeparatorDocsPage").then((m) => ({ default: m.SeparatorDocsPage }))),
+  box: lazy(() => import("./docs/BoxDocsPage").then((m) => ({ default: m.BoxDocsPage }))),
+  flex: lazy(() => import("./docs/FlexDocsPage").then((m) => ({ default: m.FlexDocsPage }))),
+  grid: lazy(() => import("./docs/GridDocsPage").then((m) => ({ default: m.GridDocsPage }))),
+  container: lazy(() => import("./docs/ContainerDocsPage").then((m) => ({ default: m.ContainerDocsPage }))),
+  section: lazy(() => import("./docs/SectionDocsPage").then((m) => ({ default: m.SectionDocsPage }))),
+  tooltip: lazy(() => import("./docs/TooltipDocsPage").then((m) => ({ default: m.TooltipDocsPage }))),
+  popover: lazy(() => import("./docs/PopoverDocsPage").then((m) => ({ default: m.PopoverDocsPage }))),
+  checkbox: lazy(() => import("./docs/CheckboxDocsPage").then((m) => ({ default: m.CheckboxDocsPage }))),
+  switch: lazy(() => import("./docs/SwitchDocsPage").then((m) => ({ default: m.SwitchDocsPage }))),
+  "radio-group": lazy(() => import("./docs/RadioGroupDocsPage").then((m) => ({ default: m.RadioGroupDocsPage }))),
+  input: lazy(() => import("./docs/InputDocsPage").then((m) => ({ default: m.InputDocsPage }))),
+  select: lazy(() => import("./docs/SelectDocsPage").then((m) => ({ default: m.SelectDocsPage }))),
+  autocomplete: lazy(() => import("./docs/AutocompleteDocsPage").then((m) => ({ default: m.AutocompleteDocsPage }))),
+  textarea: lazy(() => import("./docs/TextareaDocsPage").then((m) => ({ default: m.TextareaDocsPage }))),
+  tabs: lazy(() => import("./docs/TabsDocsPage").then((m) => ({ default: m.TabsDocsPage }))),
+  "navigation-menu": lazy(() => import("./docs/NavigationMenuDocsPage").then((m) => ({ default: m.NavigationMenuDocsPage }))),
+  dialog: lazy(() => import("./docs/DialogDocsPage").then((m) => ({ default: m.DialogDocsPage }))),
+  "alert-dialog": lazy(() => import("./docs/AlertDialogDocsPage").then((m) => ({ default: m.AlertDialogDocsPage }))),
+  drawer: lazy(() => import("./docs/DrawerDocsPage").then((m) => ({ default: m.DrawerDocsPage }))),
+  toast: lazy(() => import("./docs/ToastDocsPage").then((m) => ({ default: m.ToastDocsPage }))),
+  accordion: lazy(() => import("./docs/AccordionDocsPage").then((m) => ({ default: m.AccordionDocsPage }))),
+  slider: lazy(() => import("./docs/SliderDocsPage").then((m) => ({ default: m.SliderDocsPage }))),
+  progress: lazy(() => import("./docs/ProgressDocsPage").then((m) => ({ default: m.ProgressDocsPage }))),
+  avatar: lazy(() => import("./docs/AvatarDocsPage").then((m) => ({ default: m.AvatarDocsPage }))),
+  field: lazy(() => import("./docs/FieldDocsPage").then((m) => ({ default: m.FieldDocsPage }))),
+  fieldset: lazy(() => import("./docs/FieldsetDocsPage").then((m) => ({ default: m.FieldsetDocsPage }))),
+  "number-field": lazy(() => import("./docs/NumberFieldDocsPage").then((m) => ({ default: m.NumberFieldDocsPage }))),
+  "otp-field": lazy(() => import("./docs/OTPFieldDocsPage").then((m) => ({ default: m.OTPFieldDocsPage }))),
+  toggle: lazy(() => import("./docs/ToggleDocsPage").then((m) => ({ default: m.ToggleDocsPage }))),
+  table: lazy(() => import("./docs/TableDocsPage").then((m) => ({ default: m.TableDocsPage }))),
+  "data-list": lazy(() => import("./docs/DataListDocsPage").then((m) => ({ default: m.DataListDocsPage }))),
+  inset: lazy(() => import("./docs/InsetDocsPage").then((m) => ({ default: m.InsetDocsPage }))),
+  menu: lazy(() => import("./docs/MenuDocsPage").then((m) => ({ default: m.MenuDocsPage }))),
+  menubar: lazy(() => import("./docs/MenubarDocsPage").then((m) => ({ default: m.MenubarDocsPage }))),
+  collapsible: lazy(() => import("./docs/CollapsibleDocsPage").then((m) => ({ default: m.CollapsibleDocsPage }))),
+  skeleton: lazy(() => import("./docs/SkeletonDocsPage").then((m) => ({ default: m.SkeletonDocsPage }))),
+  typography: lazy(() => import("./docs/TypographyDocsPage").then((m) => ({ default: m.TypographyDocsPage }))),
+  text: lazy(() => import("./docs/TextDocsPage").then((m) => ({ default: m.TextDocsPage }))),
+  heading: lazy(() => import("./docs/HeadingDocsPage").then((m) => ({ default: m.HeadingDocsPage }))),
+  link: lazy(() => import("./docs/LinkDocsPage").then((m) => ({ default: m.LinkDocsPage }))),
+  code: lazy(() => import("./docs/CodeDocsPage").then((m) => ({ default: m.CodeDocsPage }))),
+  kbd: lazy(() => import("./docs/KbdDocsPage").then((m) => ({ default: m.KbdDocsPage }))),
+  em: lazy(() => import("./docs/EmDocsPage").then((m) => ({ default: m.EmDocsPage }))),
+  strong: lazy(() => import("./docs/StrongDocsPage").then((m) => ({ default: m.StrongDocsPage }))),
+  quote: lazy(() => import("./docs/QuoteDocsPage").then((m) => ({ default: m.QuoteDocsPage }))),
+};
+
+const IS_MAC =
+  typeof navigator !== "undefined" &&
+  /Mac|iPhone|iPad|iPod/i.test(
+    (navigator as Navigator & { userAgentData?: { platform?: string } }).userAgentData?.platform ??
+      navigator.platform ??
+      navigator.userAgent,
+  );
+
+function matchesQuery(route: DocsRoute, query: string): boolean {
+  if (!query) return true;
+  const haystack = [route.label, route.slug, route.title ?? "", route.group, ...(route.keywords ?? [])]
+    .join(" ")
+    .toLowerCase();
+  return query.split(/\s+/).every((term) => haystack.includes(term));
+}
+
+export function DocsPage({ section }: { section: DocsSection }) {
   const [query, setQuery] = useState("");
+  // Below 960px the sidebar collapses behind a disclosure button.
+  const [navOpen, setNavOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const navId = useId();
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
-        searchInputRef.current?.focus();
-        searchInputRef.current?.select();
+        setNavOpen(true);
+        // Wait a frame so the (possibly collapsed) sidebar is visible.
+        window.requestAnimationFrame(() => {
+          searchInputRef.current?.focus();
+          searchInputRef.current?.select();
+        });
       } else if (event.key === "Escape" && document.activeElement === searchInputRef.current) {
         setQuery("");
         searchInputRef.current?.blur();
@@ -76,207 +104,95 @@ export function DocsPage({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const docsNavGroups: Array<{
-    title: string;
-    items: Array<{ id: DocsSection; label: string }>;
-  }> = [
-    {
-      title: "Overview",
-      items: [
-        { id: "overview", label: "Getting Started" },
-        { id: "types", label: "Types" },
-      ],
-    },
-    {
-      title: "Theming",
-      items: [{ id: "theme", label: "Theme" }],
-    },
-    {
-      title: "Layout",
-      items: [
-        { id: "box", label: "Box" },
-        { id: "container", label: "Container" },
-        { id: "flex", label: "Flex" },
-        { id: "grid", label: "Grid" },
-        { id: "section", label: "Section" },
-      ],
-    },
-    {
-      title: "Components",
-      items: [
-        { id: "accordion", label: "Accordion" },
-        { id: "avatar", label: "Avatar" },
-        { id: "badge", label: "Badge" },
-        { id: "button", label: "Button" },
-        { id: "card", label: "Card" },
-        { id: "collapsible", label: "Collapsible" },
-        { id: "menu", label: "Menu" },
-        { id: "menubar", label: "Menubar" },
-        { id: "progress", label: "Progress" },
-        { id: "separator", label: "Separator" },
-        { id: "skeleton", label: "Skeleton" },
-        { id: "toggle", label: "Toggle" },
-      ],
-    },
-    {
-      title: "Forms",
-      items: [
-        { id: "autocomplete", label: "Autocomplete" },
-        { id: "checkbox", label: "Checkbox" },
-        { id: "field", label: "Field" },
-        { id: "fieldset", label: "Fieldset" },
-        { id: "input", label: "Input" },
-        { id: "number-field", label: "NumberField" },
-        { id: "otp-field", label: "OTPField" },
-        { id: "radio-group", label: "RadioGroup" },
-        { id: "select", label: "Select" },
-        { id: "slider", label: "Slider" },
-        { id: "switch", label: "Switch" },
-        { id: "textarea", label: "Textarea" },
-      ],
-    },
-    {
-      title: "Overlays",
-      items: [
-        { id: "alert-dialog", label: "AlertDialog" },
-        { id: "dialog", label: "Dialog" },
-        { id: "drawer", label: "Drawer" },
-        { id: "popover", label: "Popover" },
-        { id: "toast", label: "Toast" },
-        { id: "tooltip", label: "Tooltip" },
-      ],
-    },
-    {
-      title: "Navigation",
-      items: [
-        { id: "navigation-menu", label: "NavigationMenu" },
-        { id: "tabs", label: "Tabs" },
-      ],
-    },
-    {
-      title: "Typography",
-      items: [
-        { id: "code", label: "Code" },
-        { id: "em", label: "Em" },
-        { id: "heading", label: "Heading" },
-        { id: "kbd", label: "Kbd" },
-        { id: "link", label: "Link" },
-        { id: "typography", label: "Overview" },
-        { id: "quote", label: "Quote" },
-        { id: "strong", label: "Strong" },
-        { id: "text", label: "Text" },
-      ],
-    },
-  ];
-
-  const docsBody = (() => {
-    if (section === "types") return <TypesDocsPage />;
-    if (section === "theme") return <ThemeDocsPage />;
-    if (section === "button") return <ButtonDocsPage />;
-    if (section === "badge") return <BadgeDocsPage />;
-    if (section === "card") return <CardDocsPage />;
-    if (section === "separator") return <SeparatorDocsPage />;
-    if (section === "box") return <BoxDocsPage />;
-    if (section === "flex") return <FlexDocsPage />;
-    if (section === "grid") return <GridDocsPage />;
-    if (section === "container") return <ContainerDocsPage />;
-    if (section === "section") return <SectionDocsPage />;
-    if (section === "tooltip") return <TooltipDocsPage />;
-    if (section === "popover") return <PopoverDocsPage />;
-    if (section === "checkbox") return <CheckboxDocsPage />;
-    if (section === "switch") return <SwitchDocsPage />;
-    if (section === "radio-group") return <RadioGroupDocsPage />;
-    if (section === "input") return <InputDocsPage />;
-    if (section === "select") return <SelectDocsPage />;
-    if (section === "autocomplete") return <AutocompleteDocsPage />;
-    if (section === "textarea") return <TextareaDocsPage />;
-    if (section === "tabs") return <TabsDocsPage />;
-    if (section === "navigation-menu") return <NavigationMenuDocsPage />;
-    if (section === "dialog") return <DialogDocsPage />;
-    if (section === "alert-dialog") return <AlertDialogDocsPage />;
-    if (section === "drawer") return <DrawerDocsPage />;
-    if (section === "toast") return <ToastDocsPage />;
-    if (section === "accordion") return <AccordionDocsPage />;
-    if (section === "slider") return <SliderDocsPage />;
-    if (section === "progress") return <ProgressDocsPage />;
-    if (section === "avatar") return <AvatarDocsPage />;
-    if (section === "field") return <FieldDocsPage />;
-    if (section === "fieldset") return <FieldsetDocsPage />;
-    if (section === "number-field") return <NumberFieldDocsPage />;
-    if (section === "otp-field") return <OTPFieldDocsPage />;
-    if (section === "toggle") return <ToggleDocsPage />;
-    if (section === "menu") return <MenuDocsPage />;
-    if (section === "menubar") return <MenubarDocsPage />;
-    if (section === "collapsible") return <CollapsibleDocsPage />;
-    if (section === "skeleton") return <SkeletonDocsPage />;
-    if (section === "typography") return <TypographyDocsPage />;
-    if (section === "text") return <TextDocsPage />;
-    if (section === "heading") return <HeadingDocsPage />;
-    if (section === "link") return <LinkDocsPage />;
-    if (section === "code") return <CodeDocsPage />;
-    if (section === "kbd") return <KbdDocsPage />;
-    if (section === "em") return <EmDocsPage />;
-    if (section === "strong") return <StrongDocsPage />;
-    if (section === "quote") return <QuoteDocsPage />;
-    return <OverviewDocsPage />;
-  })();
+  useEffect(() => {
+    setNavOpen(false);
+  }, [section]);
 
   const normalizedQuery = query.trim().toLowerCase();
-  const filteredNavGroups = normalizedQuery
-    ? docsNavGroups
-        .map((group) => ({
-          ...group,
-          items: group.items.filter((item) =>
-            item.label.toLowerCase().includes(normalizedQuery),
-          ),
-        }))
-        .filter((group) => group.items.length > 0)
-    : docsNavGroups;
+  const navGroups = DOCS_GROUPS.map((group) => ({
+    title: group,
+    items: DOCS_ROUTES.filter(
+      (route) => route.group === group && matchesQuery(route, normalizedQuery),
+    ),
+  })).filter((group) => group.items.length > 0);
+
+  const currentRoute = DOCS_ROUTES.find((route) => route.slug === section);
+  const SectionPage = SECTION_PAGES[section];
 
   return (
     <Container as="main" className="site-page">
       <Grid className="docs-layout" columns="240px minmax(0, 1fr)" gap={4}>
-        <aside className="docs-sidebar" aria-label="Docs sections">
-          <Input
-            ref={searchInputRef}
-            wrapperClassName="docs-sidebar-search"
-            size="1"
-            placeholder="Search components…"
-            aria-label="Search docs sections"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            suffix={!query ? <kbd className="docs-sidebar-search-kbd">⌘K</kbd> : undefined}
-          />
-          {filteredNavGroups.length === 0 ? (
-            <Text as="p" size="1" className="docs-sidebar-empty">
-              No matches for “{query}”.
-            </Text>
-          ) : (
-            filteredNavGroups.map((group, index) => (
-              <div key={group.title}>
-                <div className="docs-sidebar-group">
-                  <div className="docs-sidebar-group-title">{group.title}</div>
-                  {group.items.map((item) => (
-                    <Button
-                      key={item.id}
-                      className="docs-sidebar-link"
-                      data-active={section === item.id}
-                      variant="ghost"
-                      size="1"
-                      onClick={() => goToDocsSection(item.id)}
-                    >
-                      {item.label}
-                    </Button>
-                  ))}
+        <aside className="docs-sidebar" data-open={navOpen || undefined}>
+          <Button
+            className="docs-sidebar-toggle"
+            variant="surface"
+            color="gray"
+            size="2"
+            aria-expanded={navOpen}
+            aria-controls={navId}
+            onClick={() => setNavOpen((open) => !open)}
+          >
+            <span>Browse components</span>
+            <span className="docs-sidebar-toggle-current">
+              {currentRoute?.label}
+              <span aria-hidden="true">{navOpen ? " ▴" : " ▾"}</span>
+            </span>
+          </Button>
+          <nav id={navId} className="docs-sidebar-nav" aria-label="Docs sections">
+            <Input
+              ref={searchInputRef}
+              wrapperClassName="docs-sidebar-search"
+              size="1"
+              type="search"
+              placeholder="Search components…"
+              aria-label="Search docs sections"
+              aria-keyshortcuts={IS_MAC ? "Meta+K" : "Control+K"}
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              suffix={
+                !query ? (
+                  <kbd className="docs-sidebar-search-kbd" aria-hidden="true">
+                    {IS_MAC ? "⌘K" : "Ctrl K"}
+                  </kbd>
+                ) : undefined
+              }
+            />
+            {navGroups.length === 0 ? (
+              <Text as="p" size="1" className="docs-sidebar-empty" role="status">
+                No matches for “{query}”.
+              </Text>
+            ) : (
+              navGroups.map((group, index) => (
+                <div key={group.title}>
+                  <div className="docs-sidebar-group">
+                    <div className="docs-sidebar-group-title">{group.title}</div>
+                    {group.items.map((item) => (
+                      <ButtonLink
+                        key={item.slug}
+                        href={pageToPath("docs", item.slug)}
+                        current={section === item.slug}
+                        className="docs-sidebar-link"
+                        data-active={section === item.slug}
+                        variant="ghost"
+                        size="1"
+                      >
+                        {item.label}
+                      </ButtonLink>
+                    ))}
+                  </div>
+                  {index < navGroups.length - 1 ? (
+                    <Separator className="docs-sidebar-separator" />
+                  ) : null}
                 </div>
-                {index < filteredNavGroups.length - 1 ? (
-                  <Separator className="docs-sidebar-separator" />
-                ) : null}
-              </div>
-            ))
-          )}
+              ))
+            )}
+          </nav>
         </aside>
-        <div className="docs-page">{docsBody}</div>
+        <div className="docs-page">
+          <Suspense fallback={<div className="docs-page-loading" aria-busy="true" />}>
+            <SectionPage />
+          </Suspense>
+        </div>
       </Grid>
     </Container>
   );

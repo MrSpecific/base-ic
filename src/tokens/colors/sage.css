@@ -3,7 +3,8 @@
  * Good neutral companion for green/teal accents.
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-sage-1:      oklch(99.0% 0.004 160);
   --color-sage-2:      oklch(97.5% 0.006 160);
   --color-sage-3:      oklch(95.0% 0.008 160);

@@ -1,4 +1,4 @@
-import { Button, Heading, Link, Menu, Text } from "../../../src";
+import { Button, Code, Heading, Link, Menu, Text } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import {
   DocsDemoGrid,
@@ -61,6 +61,18 @@ export function MenuDocsPage() {
     "</Menu>",
   ].join("\n");
 
+  const hoverSnippet = [
+    "<Menu",
+    "  openOnHover",
+    "  delay={100}",
+    "  closeDelay={200}",
+    "  trigger={<Button variant=\"soft\">Hover me</Button>}",
+    ">",
+    "  <Menu.Item>Edit</Menu.Item>",
+    "  <Menu.Item>Duplicate</Menu.Item>",
+    "</Menu>",
+  ].join("\n");
+
   return (
     <>
       <DocsSection>
@@ -72,7 +84,7 @@ export function MenuDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Built On Base UI</Heading>
+        <Heading as="h2">Built On Base UI</Heading>
         <Text as="p">
           This component wraps the Base UI Menu primitive. Base primitive docs:{" "}
           <Link
@@ -86,7 +98,7 @@ export function MenuDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Demo</Heading>
+        <Heading as="h2">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Basic menu"
@@ -164,6 +176,23 @@ export function MenuDocsPage() {
             </DocsDemoRow>
           </DemoCard>
           <DemoCard
+            title="Open on hover"
+            description="`openOnHover` opens the menu when the trigger is hovered, as well as on click. `delay` and `closeDelay` set the hover timing in ms."
+            code={hoverSnippet}
+          >
+            <DocsDemoRow>
+              <Menu
+                openOnHover
+                delay={100}
+                closeDelay={200}
+                trigger={<Button variant="soft">Hover me</Button>}
+              >
+                <Menu.Item>Edit</Menu.Item>
+                <Menu.Item>Duplicate</Menu.Item>
+              </Menu>
+            </DocsDemoRow>
+          </DemoCard>
+          <DemoCard
             title="Sizes"
             description="Three size options for the item rows."
             code={'<Menu size="1" trigger={<Button size="1">Small</Button>}>...</Menu>'}
@@ -186,7 +215,7 @@ export function MenuDocsPage() {
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <Heading>Usage</Heading>
+        <Heading as="h2">Usage</Heading>
         <CodeBlock title="Menu Usage" code={usageSnippet} />
       </DocsSection>
       <DocsSection>
@@ -231,6 +260,24 @@ export function MenuDocsPage() {
               type: "number",
               default: "4",
               description: "Gap in pixels between the popup and the trigger.",
+            },
+            {
+              name: "openOnHover",
+              type: "boolean",
+              default: "false",
+              description: "Open the menu when the trigger is hovered, as well as on click.",
+            },
+            {
+              name: "delay",
+              type: "number",
+              default: "100",
+              description: "Hover open delay in ms. Requires `openOnHover`.",
+            },
+            {
+              name: "closeDelay",
+              type: "number",
+              default: "0",
+              description: "Hover close delay in ms. Requires `openOnHover`.",
             },
             {
               name: "open",
@@ -382,18 +429,137 @@ export function MenuDocsPage() {
             },
           ]}
         />
+        <Text as="p">Menu.RadioGroup</Text>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactNode",
+              description: "Menu.RadioItem elements.",
+            },
+            {
+              name: "value",
+              type: "any",
+              description:
+                "Controlled value of the selected radio item. Use with onValueChange.",
+            },
+            {
+              name: "defaultValue",
+              type: "any",
+              description: "Initially selected value for uncontrolled usage.",
+            },
+            {
+              name: "onValueChange",
+              type: "(value: any, eventDetails) => void",
+              description: "Called when the selected value changes.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the whole group should ignore user interaction.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the group.",
+            },
+          ]}
+        />
+        <Text as="p">Menu.Group</Text>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Items in the group.",
+            },
+            {
+              name: "label",
+              type: "React.ReactNode",
+              description:
+                "Group label rendered above the items (as Base UI's Menu.GroupLabel, which also labels the group for assistive tech).",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the group.",
+            },
+          ]}
+        />
+        <Text as="p">Menu.Separator</Text>
+        <PropsTable
+          rows={[
+            {
+              name: "className",
+              type: "string",
+              description: "Additional class name applied to the separator.",
+            },
+          ]}
+        />
+        <Text as="p">Menu.Sub</Text>
+        <PropsTable
+          rows={[
+            {
+              name: "trigger",
+              type: "React.ReactNode",
+              required: true,
+              description:
+                "Label of the submenu trigger item. A chevron is appended automatically.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "Submenu content — Menu.Item, Menu.Group, etc.",
+            },
+            {
+              name: "open",
+              type: "boolean",
+              description: "Controlled open state of the submenu.",
+            },
+            {
+              name: "defaultOpen",
+              type: "boolean",
+              default: "false",
+              description: "Initial open state for uncontrolled usage.",
+            },
+            {
+              name: "onOpenChange",
+              type: "(open: boolean, eventDetails) => void",
+              description: "Called when the submenu is opened or closed.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              default: "false",
+              description: "Whether the submenu should ignore user interaction.",
+            },
+            {
+              name: "closeParentOnEsc",
+              type: "boolean",
+              default: "false",
+              description:
+                "Whether pressing Escape closes the entire menu instead of only this submenu.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
-        <Heading>Notes</Heading>
+        <Heading as="h2">Notes</Heading>
         <DocsList>
           <li>
-            The <code>trigger</code> prop receives Base UI's trigger props via
-            the <code>render</code> pattern — pass any interactive element.
+            The <Code>trigger</Code> prop receives Base UI's trigger props via
+            the <Code>render</Code> pattern — pass any interactive element.
           </li>
           <li>
-            Menu.CheckboxItem and Menu.RadioItem use{" "}
-            <code>defaultChecked</code> / <code>checked</code> and{" "}
-            <code>onCheckedChange</code> for state control.
+            Menu.CheckboxItem uses <Code>defaultChecked</Code> /{" "}
+            <Code>checked</Code> and <Code>onCheckedChange</Code> for state
+            control. Menu.RadioItem has no checked state of its own — selection
+            lives on the parent Menu.RadioGroup via <Code>defaultValue</Code> /{" "}
+            <Code>value</Code> and <Code>onValueChange</Code>; each RadioItem
+            just declares its <Code>value</Code>.
           </li>
           <li>
             Portals into the nearest Theme root to inherit CSS custom

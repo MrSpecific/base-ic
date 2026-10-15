@@ -44,7 +44,7 @@ export function FlexDocsPage() {
         </p>
       </DocsSection>
       <DocsSection>
-        <Heading>Demo</Heading>
+        <Heading as="h2">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Toolbar Row"

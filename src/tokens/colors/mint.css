@@ -2,7 +2,8 @@
  * Mint scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-mint-1:      oklch(98.5% 0.010 170);
   --color-mint-2:      oklch(97.0% 0.018 170);
   --color-mint-3:      oklch(93.5% 0.040 170);

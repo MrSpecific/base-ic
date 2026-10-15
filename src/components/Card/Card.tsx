@@ -34,6 +34,13 @@ const radiusMap: Record<CardRadius, string> = {
   full: 'var(--surface-radius-full)',
 };
 
+// The library's tsconfig doesn't load Node types; consumers' bundlers replace
+// `process.env.NODE_ENV` at build time, so a local ambient type is enough.
+declare const process: { env: { NODE_ENV?: string } };
+
+// Module-level so the deprecation notice is logged once per page, not per render.
+let warnedAsButton = false;
+
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
   function Card(
     {
@@ -49,7 +56,11 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     },
     ref,
   ) {
-    if (import.meta.env.DEV && asButton) {
+    // `process.env.NODE_ENV` (not `import.meta.env.DEV`) so the check survives
+    // into the published build and the consumer's bundler decides — the same
+    // convention Base UI uses for its own dev warnings.
+    if (process.env.NODE_ENV !== 'production' && asButton && !warnedAsButton) {
+      warnedAsButton = true;
       // eslint-disable-next-line no-console
       console.warn(
         '[base-ic] Card `asButton` is deprecated and will be removed in a future minor version. ' +

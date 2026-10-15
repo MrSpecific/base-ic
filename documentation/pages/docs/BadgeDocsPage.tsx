@@ -129,15 +129,15 @@ export function BadgeDocsPage() {
             },
             {
               name: "render",
-              type: "React.ReactElement",
+              type: "React.ReactElement | ((props, state) => React.ReactElement)",
               description:
-                "Render as a different element (e.g. a real <button>) while keeping Badge's styling — use for interactive chips.",
+                "Render as a different element (e.g. a real `<button>`) while keeping Badge's styling — use for interactive chips.",
             },
             {
-              name: "p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml",
+              name: "px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml",
               type: "number | string",
               description:
-                "Padding/margin shorthand props (e.g. p={3}). Numbers map to spacing scale tokens; strings are used as literal CSS values.",
+                "Padding/margin shorthands. Numbers and digit-only strings map to space tokens (`3` and `\"3\"` → `var(--space-3)`; `0` → `0`); any other string is used as a raw CSS length (e.g. `\"12px\"`).",
             },
             {
               name: "children",

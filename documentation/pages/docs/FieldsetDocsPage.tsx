@@ -63,7 +63,7 @@ export function FieldsetDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Built on Base UI</Heading>
+        <Heading as="h2">Built on Base UI</Heading>
         <Text as="p">
           This component wraps the Base UI Fieldset primitive. Base primitive
           docs:{" "}
@@ -78,7 +78,7 @@ export function FieldsetDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Demo</Heading>
+        <Heading as="h2">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Basic usage"
@@ -133,7 +133,7 @@ export function FieldsetDocsPage() {
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <Heading>Usage</Heading>
+        <Heading as="h2">Usage</Heading>
         <CodeBlock title="Fieldset Usage" code={usageSnippet} />
       </DocsSection>
       <DocsSection>
@@ -208,14 +208,14 @@ export function FieldsetDocsPage() {
         />
       </DocsSection>
       <DocsSection>
-        <Heading>Compound sub-components</Heading>
+        <Heading as="h2">Compound sub-components</Heading>
         <Text as="p">
           Use Fieldset.Legend directly for full layout control.
         </Text>
         <CodeBlock title="Compound API" code={compoundSnippet} />
       </DocsSection>
       <DocsSection>
-        <Heading>Notes</Heading>
+        <Heading as="h2">Notes</Heading>
         <DocsList>
           <li>
             The <code>legend</code> prop renders a{" "}

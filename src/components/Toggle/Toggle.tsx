@@ -10,6 +10,7 @@ import styles from './toggle.module.css';
 
 type ToggleSize = '1' | '2' | '3' | '4';
 type ToggleVariant = 'solid' | 'soft' | 'surface' | 'outline' | 'ghost';
+type ToggleRadius = 'none' | 'small' | 'medium' | 'large' | 'full';
 
 /* ---------------------------------------------------------------------------
  * ToggleGroupContext — lets ToggleGroup propagate size/variant to children
@@ -22,11 +23,13 @@ interface ToggleGroupCtx {
 
 const ToggleGroupContext = React.createContext<ToggleGroupCtx>({});
 
-const sizeClass: Record<ToggleSize, string> = {
-  '1': styles.size1,
-  '2': styles.size2,
-  '3': styles.size3,
-  '4': styles.size4,
+// Mirrors Button's radius scale.
+const radiusMap: Record<ToggleRadius, string> = {
+  none: '0',
+  small: 'var(--radius-2)',
+  medium: 'var(--radius-3)',
+  large: 'var(--radius-5)',
+  full: 'var(--radius-full)',
 };
 
 const variantClass: Record<ToggleVariant, string> = {
@@ -46,6 +49,8 @@ export interface ToggleProps extends Omit<BaseToggle.Props, 'className' | 'style
   color?: AccentColor;
   /** Increase text/icon contrast. */
   highContrast?: boolean;
+  /** Override the border-radius for this toggle. */
+  radius?: ToggleRadius;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -69,10 +74,11 @@ export interface ToggleGroupProps
 export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
   function Toggle(
     {
-      size: sizeProp = '2',
-      variant: variantProp = 'surface',
+      size: sizeProp,
+      variant: variantProp,
       color,
       highContrast = false,
+      radius,
       className,
       style,
       ...rest
@@ -80,9 +86,9 @@ export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
     ref,
   ) {
     const groupCtx = React.useContext(ToggleGroupContext);
-    // Group context takes precedence over individual prop defaults
-    const size = groupCtx.size ?? sizeProp;
-    const variant = groupCtx.variant ?? variantProp;
+    // Explicit props win, then the group's value, then the default
+    const size = sizeProp ?? groupCtx.size ?? '2';
+    const variant = variantProp ?? groupCtx.variant ?? 'surface';
 
     const sizeVars: Record<string, string> = {
       '--tgl-height': `var(--button-${size}-height)`,
@@ -99,15 +105,25 @@ export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
           '--tgl-accent-9': `var(--color-${color}-9)`,
           '--tgl-accent-10': `var(--color-${color}-10)`,
           '--tgl-accent-11': `var(--color-${color}-${highContrast ? 12 : 11})`,
+          '--tgl-accent-12': `var(--color-${color}-12)`,
           '--tgl-accent-contrast': `var(--color-${color}-contrast)`,
         }
+      : {};
+
+    const radiusVar: Record<string, string> = radius
+      ? { '--tgl-radius': radiusMap[radius] }
       : {};
 
     return (
       <BaseToggle
         ref={ref}
-        className={cx(styles.toggle, variantClass[variant], className)}
-        style={{ ...sizeVars, ...colorVars, ...style } as React.CSSProperties}
+        className={cx(
+          styles.toggle,
+          variantClass[variant],
+          highContrast && styles.highContrast,
+          className,
+        )}
+        style={{ ...sizeVars, ...colorVars, ...radiusVar, ...style } as React.CSSProperties}
         {...rest}
       />
     );

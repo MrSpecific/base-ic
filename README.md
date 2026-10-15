@@ -1,9 +1,14 @@
 # Base-IC
 (Intelligent Components)
 
+[![npm version](https://img.shields.io/npm/v/@wlcr/base-ic.svg)](https://www.npmjs.com/package/@wlcr/base-ic)
+[![license: MIT](https://img.shields.io/npm/l/@wlcr/base-ic.svg)](https://www.npmjs.com/package/@wlcr/base-ic)
+
 **An opinionated React UI library with the comfort of Radix Themes, built on the modern foundation of Base UI.**
 
-> A stable, production-ready v1 release.
+> Radix Themes ergonomics, Base UI primitives, first-class theming.
+
+**Docs, live examples, and a theme playground: [base-ic.vercel.app](https://base-ic.vercel.app)**
 
 ---
 
@@ -35,7 +40,7 @@ base-ic keeps everything that's great about the Radix Themes DX while building o
 2. **Theming is a first-class feature.** Adding a brand color is 2–3 lines.
 3. **Base UI patterns win.** When Base UI and Radix diverge, we follow Base UI.
 4. **CSS custom properties all the way down.** No Tailwind. No runtime CSS-in-JS. No surprises.
-5. **Composable.** Import only what you need. No monolithic bundle.
+5. **Composable.** Tree-shakeable ESM, one module per component. Import only what you need.
 6. **Accessible.** Accessibility is handled by Base UI primitives. We don't re-implement it.
 
 ---
@@ -43,8 +48,10 @@ base-ic keeps everything that's great about the Radix Themes DX while building o
 ## Quick Start
 
 ```bash
-npm install @wlcr/base-ic
+npm install @wlcr/base-ic @base-ui/react
 ```
+
+`@base-ui/react` (^1.9.0) is a peer dependency, along with `react` and `react-dom` (17, 18, or 19). The package is ESM-only.
 
 ```tsx
 import { Theme, Button, Text } from '@wlcr/base-ic';
@@ -73,7 +80,8 @@ export default function App() {
   grayColor="slate"      // Neutral palette
   radius="medium"        // Border radius scale
   appearance="light"     // 'light' | 'dark' | 'inherit'
-  scaling="100%"         // Overall size scale
+  scaling="100%"         // Scales component sizes, spacing, and type ('80%'–'150%' in 5% steps)
+  fontFamily={{ primary: 'Inter, sans-serif' }} // Optional font slots: primary, secondary, tertiary, display, monospace
 >
   <App />
 </Theme>
@@ -108,7 +116,7 @@ Unlike Radix Themes, adding a custom color to the palette is first-class:
 </Theme>
 ```
 
-Or if you prefer to define colors in CSS (works great for SSR and static builds):
+Or if you prefer to define colors in CSS (works great for SSR and static builds). Primitive color scales like these can live on `:root`; they reach every `Theme`:
 
 ```css
 /* your-theme.css */
@@ -119,6 +127,8 @@ Or if you prefer to define colors in CSS (works great for SSR and static builds)
   --color-brand-contrast: white;
 }
 ```
+
+A starter file ships with the package at `@wlcr/base-ic/tokens/custom-color-template.css`. Import your file after the base-ic tokens:
 
 ```tsx
 import './your-theme.css';
@@ -155,7 +165,7 @@ import './your-theme.css';
 - `Dialog` — modal dialog with backdrop (Base UI-backed)
 - `AlertDialog` — confirmation dialog with required action (Base UI-backed)
 - `Drawer` — slide-in panel anchored to a screen edge (Base UI-backed)
-- `Toast` — imperative notification system with a global `toast()` call (Base UI-backed)
+- `Toaster` / `toast()` — imperative notification system: render `<Toaster />` once, then call `toast()` anywhere (Base UI-backed)
 - `Menu` — dropdown menu with items, checkboxes, radio groups, and submenus (Base UI-backed)
 - `Menubar` — horizontal bar of top-level menus, e.g. File/Edit/View (Base UI-backed)
 - `Tabs` — tabbed navigation (Base UI-backed)
@@ -168,11 +178,11 @@ import './your-theme.css';
 
 ### Form Controls
 
-- `Input` — text input field
-- `Textarea` — multi-line text input
+- `Input` — text input field (Base UI-backed)
+- `Textarea` — multi-line text input (Base UI-backed)
 - `Checkbox` — checkbox toggle (Base UI-backed)
 - `Switch` — on/off switch toggle (Base UI-backed)
-- `RadioGroup` — radio button group (Base UI-backed)
+- `RadioGroup` / `Radio` — radio button group (Base UI-backed)
 - `Slider` — range slider (Base UI-backed)
 - `NumberField` — numeric input with increment/decrement (Base UI-backed)
 - `OTPField` — one-time-code / verification-code input with individual character slots (Base UI-backed)
@@ -180,7 +190,7 @@ import './your-theme.css';
 - `Field` — form field wrapper with label, description, and error states (Base UI-backed)
 - `Fieldset` — groups related form controls under a shared legend (Base UI-backed)
 - `Progress` — progress bar indicator (Base UI-backed)
-- `Avatar` — user avatar with image and fallback
+- `Avatar` — user avatar with image and fallback (Base UI-backed)
 
 ### Typography
 
@@ -197,7 +207,7 @@ import './your-theme.css';
 
 ## Component API
 
-base-ic components are exported as ergonomic wrappers with strongly-typed props.
+base-ic components are exported as ergonomic wrappers with strongly-typed props. Many Base UI-backed components also re-export the raw, unstyled Base UI namespace as `*Primitive` (e.g. `DialogPrimitive`, `MenuPrimitive`, `SliderPrimitive`) for cases the wrapper doesn't cover.
 
 ```tsx
 <Button size="2" variant="solid">Save</Button>
@@ -216,7 +226,7 @@ Most components accept these props:
 | `size` | Component-specific scale | Size and spacing |
 | `color` | `string` | Color ramp override (e.g. `blue`, `green`) |
 | `radius` | Named radius values | Border radius override |
-| `highContrast` | `boolean` | Increase foreground contrast |
+| `highContrast` | `boolean` | Increase foreground contrast — `Button`, `Badge`, `Toggle`, and `Text`/`Heading`/`Link`/`Code`/`Quote` only. On typography it only takes effect together with `color` (switches the text from step 11 to step 12). |
 | `p` / `px` / `py` / `pt` / `pr` / `pb` / `pl` | `number \| string` | Padding controls (`number` maps to `--space-N`) |
 | `m` / `mx` / `my` / `mt` / `mr` / `mb` / `ml` | `number \| string` | Margin controls (`number` maps to `--space-N`) |
 
@@ -228,8 +238,8 @@ base-ic uses a three-layer token architecture:
 
 ```
 Layer 1: Primitives    --color-blue-9, --space-3, --radius-2
-Layer 2: Semantic      --color-accent, --color-text-primary, --color-surface-base
-Layer 3: Component     --button-height, --button-padding-x
+Layer 2: Semantic      --color-accent-9, --color-text-primary, --color-surface-base
+Layer 3: Component     --button-2-height, --button-2-px
 ```
 
 Colors are defined in the OKLCH color space for perceptually uniform lightness across hues.
@@ -248,19 +258,25 @@ Colors are defined in the OKLCH color space for perceptually uniform lightness a
 
 ### Overriding tokens
 
-Any token can be overridden at any level:
+Tokens are plain custom properties. Semantic and component tokens (like `--button-2-height`) are declared on `:root` and re-declared on every `Theme` root (the `data-base-ic-theme` element), so a plain `:root` rule doesn't reach content inside a `<Theme>`. Target both for a global override, or scope an override with a class on a `Theme` or any element inside it:
 
 ```css
-/* Global override */
-:root {
-  --color-accent: oklch(55% 0.18 280);
+/* Global override — load after the base-ic tokens */
+:root,
+[data-base-ic-theme] {
+  --button-2-height: 36px; /* size="2" controls; also used by Input, Toggle, NumberField */
+  --button-2-px: 14px;
 }
 
-/* Scoped override */
-.my-section {
-  --color-accent: oklch(55% 0.18 140); /* Green accent in this section */
+/* Scoped override — a className on a Theme or any element inside it */
+.promo {
+  --color-accent-9: oklch(55% 0.18 140);  /* solid fill */
+  --color-accent-10: oklch(50% 0.17 140); /* solid fill, hover */
+  --color-accent-11: oklch(45% 0.15 140); /* accent text */
 }
 ```
+
+The accent (`--color-accent-1`…`12`, `--color-accent-contrast`) and neutral (`--color-neutral-*`) ramps are written by `Theme` as inline styles on its own element (and on `<body>` for portaled content), so a `:root` override of them has no effect. To change the accent everywhere use `accentColor` / `customColors`; to re-theme a region, a nested `<Theme accentColor="green">` is the simplest option and also updates derived tokens like the focus ring. A nested `Theme` inherits every prop you omit (`grayColor`, `radius`, `scaling`, `appearance`, and individual `fontFamily` slots) from its parent `Theme`.
 
 ---
 
@@ -268,8 +284,8 @@ Any token can be overridden at any level:
 
 Dark mode is supported via:
 1. `prefers-color-scheme: dark` — automatic, respects OS setting
-2. `.dark` class on any ancestor element — explicit toggle
-3. `<Theme appearance="dark">` — forces dark mode within the theme
+2. `.dark` class or `data-appearance="dark"` on an ancestor such as `<body>` or a wrapper outside your `Theme` (not `<html>`, where the `:root` light defaults take precedence) — explicit toggle
+3. `<Theme appearance="dark">` — forces dark mode within the theme. To switch a region inside a `Theme`, nest another `<Theme appearance="dark">` rather than a `.dark` wrapper. `appearance="inherit"` (the default) follows the parent `Theme`, or `prefers-color-scheme` on a root `Theme`.
 
 ---
 
@@ -278,14 +294,14 @@ Dark mode is supported via:
 Targets modern browsers that support:
 - CSS custom properties (variables)
 - OKLCH color space
-- CSS cascade layers
+- `color-mix()`
 - `:has()` selector
 
 ---
 
 ## Contributing
 
-Architecture decisions are documented in [`DESIGN.md`](./DESIGN.md). If you have thoughts on the API design, open a discussion.
+Architecture decisions are documented in [`DESIGN.md`](./DESIGN.md). If you have thoughts on the API design, open an issue or discussion on [GitHub](https://github.com/MrSpecific/base-ic).
 
 ---
 

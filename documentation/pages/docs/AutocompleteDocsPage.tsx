@@ -71,19 +71,6 @@ export function AutocompleteDocsPage() {
     '/>',
   ].join("\n");
 
-  const countries = [
-    { value: "us", label: "United States" },
-    { value: "ca", label: "Canada" },
-    { value: "mx", label: "Mexico" },
-    { value: "fr", label: "France" },
-    { value: "de", label: "Germany" },
-    { value: "es", label: "Spain" },
-    { value: "it", label: "Italy" },
-    { value: "jp", label: "Japan" },
-    { value: "kr", label: "South Korea" },
-    { value: "au", label: "Australia" },
-  ];
-
   const groupedCountries = [
     {
       label: "Europe",
@@ -148,7 +135,16 @@ export function AutocompleteDocsPage() {
             description="Filters a flat list of items as you type."
             code={usageSnippet}
           >
-            <Autocomplete placeholder="Search frameworks…" items={countries} />
+            <Autocomplete
+              placeholder="Search frameworks…"
+              items={[
+                { value: "react", label: "React" },
+                { value: "vue", label: "Vue" },
+                { value: "svelte", label: "Svelte" },
+                { value: "solid", label: "Solid" },
+                { value: "angular", label: "Angular" },
+              ]}
+            />
           </DemoCard>
           <DemoCard
             title="Item Children"
@@ -188,7 +184,7 @@ export function AutocompleteDocsPage() {
           <DemoCard
             title="Sizes"
             description="Four sizes matching the Input and Button scale."
-            code={'<Autocomplete size="1" items={items} />\n<Autocomplete size="2" items={items} />\n<Autocomplete size="3" items={items} />'}
+            code={'<Autocomplete size="1" items={items} />\n<Autocomplete size="2" items={items} />\n<Autocomplete size="3" items={items} />\n<Autocomplete size="4" items={items} />'}
           >
             <Flex direction="column" gap={2} style={{ width: "100%" }}>
               {(["1", "2", "3", "4"] as const).map((size) => (
@@ -351,6 +347,41 @@ export function AutocompleteDocsPage() {
               type: "string",
               description: "Identifies the field when a form is submitted.",
             },
+            {
+              name: "mode",
+              type: "'list' | 'both' | 'inline' | 'none'",
+              default: "'list'",
+              description:
+                "Filtering / inline-completion behavior. `list` filters items as you type; `both` also fills the input with the highlighted item; `inline` and `none` keep the list static.",
+            },
+            {
+              name: "open",
+              type: "boolean",
+              description: "Controlled open state of the popup.",
+            },
+            {
+              name: "defaultOpen",
+              type: "boolean",
+              default: "false",
+              description: "Whether the popup is initially open (uncontrolled).",
+            },
+            {
+              name: "onOpenChange",
+              type: "(open: boolean, eventDetails) => void",
+              description: "Called when the popup opens or closes.",
+            },
+            {
+              name: "autoHighlight",
+              type: "boolean | 'always'",
+              default: "false",
+              description: "Whether the first matching item is highlighted automatically while filtering.",
+            },
+            {
+              name: "limit",
+              type: "number",
+              default: "-1",
+              description: "Maximum number of items shown in the list. `-1` means no limit.",
+            },
           ]}
         />
         <Text as="p">
@@ -372,12 +403,14 @@ export function AutocompleteDocsPage() {
             {
               name: "disabled",
               type: "boolean",
-              description: "Disables this item.",
+              description:
+                "Accepted by the type, but currently ignored: items derived from children only read `value` and `label` / `children`.",
             },
             {
               name: "className",
               type: "string",
-              description: "Additional className on the item.",
+              description:
+                "Accepted by the type, but currently ignored for the same reason as `disabled`.",
             },
             {
               name: "children",
@@ -418,6 +451,13 @@ export function AutocompleteDocsPage() {
           </li>
           <li>
             Filtering happens against each item's label as the user types.
+          </li>
+          <li>
+            Only <code>value</code> and <code>label</code> are read from
+            items — the <code>disabled</code> field on{" "}
+            <code>AutocompleteItemData</code> and per-item{" "}
+            <code>disabled</code> / <code>className</code> on{" "}
+            <code>Autocomplete.Item</code> children are not applied today.
           </li>
           <li>
             Use <code>clearable</code> to show a clear button once the input

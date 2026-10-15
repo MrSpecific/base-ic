@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Autocomplete as BaseAutocomplete } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
-import { useTheme } from '../Theme';
+import { useThemePortal } from '../shared/useThemePortal';
 import styles from './autocomplete.module.css';
 
 type AutocompleteSize = '1' | '2' | '3' | '4';
@@ -94,8 +94,12 @@ export interface AutocompleteGroupData {
 
 export type AutocompleteItems = AutocompleteItemData[] | AutocompleteGroupData[];
 
+/** Extra props (disabled, className, handlers…) forwarded to a rendered item. */
+type ItemExtraProps = Omit<AutocompleteItemProps, 'value' | 'label' | 'children'>;
+
 interface ResolvedItemsData {
   labels: Record<string, React.ReactNode>;
+  itemProps: Record<string, ItemExtraProps>;
   items?: string[];
   groups?: Array<{ label: React.ReactNode; items: string[] }>;
 }
@@ -106,23 +110,22 @@ function isGroupedItems(list: AutocompleteItems): list is AutocompleteGroupData[
 
 function normalizeExplicitItems(items: AutocompleteItems): ResolvedItemsData {
   const labels: Record<string, React.ReactNode> = {};
+  const itemProps: Record<string, ItemExtraProps> = {};
+  const record = (item: AutocompleteItemData) => {
+    labels[item.value] = item.label ?? item.value;
+    if (item.disabled) itemProps[item.value] = { disabled: true };
+    return item.value;
+  };
 
   if (isGroupedItems(items)) {
     const groups = items.map((group) => ({
       label: group.label,
-      items: group.items.map((item) => {
-        labels[item.value] = item.label ?? item.value;
-        return item.value;
-      }),
+      items: group.items.map(record),
     }));
-    return { labels, groups };
+    return { labels, itemProps, groups };
   }
 
-  const flatItems = items.map((item) => {
-    labels[item.value] = item.label ?? item.value;
-    return item.value;
-  });
-  return { labels, items: flatItems };
+  return { labels, itemProps, items: items.map(record) };
 }
 
 /**
@@ -135,15 +138,17 @@ function normalizeExplicitItems(items: AutocompleteItems): ResolvedItemsData {
  */
 function collectItemsFromChildren(children: React.ReactNode): ResolvedItemsData {
   const labels: Record<string, React.ReactNode> = {};
+  const itemProps: Record<string, ItemExtraProps> = {};
   const flatItems: string[] = [];
   const groups: Array<{ label: React.ReactNode; items: string[] }> = [];
   let hasTopLevelGroup = false;
 
   const recordItem = (node: React.ReactElement<AutocompleteItemProps>): string | undefined => {
-    const { value, label, children: itemChildren } = node.props;
+    const { value, label, children: itemChildren, ...extra } = node.props;
     if (value == null) return undefined;
     const key = String(value);
     labels[key] = label ?? inferItemLabel(itemChildren) ?? itemChildren;
+    itemProps[key] = extra;
     return key;
   };
 
@@ -192,6 +197,7 @@ function collectItemsFromChildren(children: React.ReactNode): ResolvedItemsData 
 
   return {
     labels,
+    itemProps,
     items: !hasTopLevelGroup && flatItems.length > 0 ? flatItems : undefined,
     groups: hasTopLevelGroup && groups.length > 0 ? groups : undefined,
   };
@@ -254,23 +260,20 @@ export function Autocomplete({
   openOnInputClick = true,
   ...rootProps
 }: AutocompleteProps) {
-  const { appearance } = useTheme();
   const inputRadiusVar = radius
     ? ({ '--auto-radius': radiusMap[radius] } as React.CSSProperties)
     : undefined;
   const popupRadiusVar = radius
     ? ({ '--auto-popup-radius': popupRadiusMap[radius] } as React.CSSProperties)
     : undefined;
-  const anchorRef = React.useRef<HTMLSpanElement | null>(null);
-  const [portalContainer, setPortalContainer] = React.useState<HTMLElement | null>(null);
-  const forcedAppearance =
-    appearance === 'dark' || appearance === 'light' ? appearance : undefined;
+  const { anchorRef, container: portalContainer, forcedAppearance } =
+    useThemePortal<HTMLSpanElement>();
 
   const resolved = React.useMemo<ResolvedItemsData>(
     () => (items ? normalizeExplicitItems(items) : collectItemsFromChildren(children)),
     [items, children],
   );
-  const { labels, items: flatItems, groups } = resolved;
+  const { labels, itemProps, items: flatItems, groups } = resolved;
   const isGrouped = !!groups && groups.length > 0;
   const rootItems = isGrouped ? groups : flatItems ?? [];
 
@@ -282,13 +285,6 @@ export function Autocomplete({
     },
     [labels],
   );
-
-  React.useEffect(() => {
-    const nearestThemeRoot =
-      anchorRef.current?.closest<HTMLElement>('[data-accent-color]') ??
-      document.querySelector<HTMLElement>('[data-accent-color]');
-    setPortalContainer(nearestThemeRoot ?? null);
-  }, []);
 
   return (
     <BaseAutocomplete.Root
@@ -314,7 +310,7 @@ export function Autocomplete({
         </BaseAutocomplete.InputGroup>
       </span>
 
-      <BaseAutocomplete.Portal container={portalContainer ?? undefined}>
+      <BaseAutocomplete.Portal container={portalContainer}>
         <div data-appearance={forcedAppearance}>
           <BaseAutocomplete.Positioner
             className={styles.positioner}
@@ -329,9 +325,10 @@ export function Autocomplete({
               <BaseAutocomplete.Empty className={styles.empty}>{emptyMessage}</BaseAutocomplete.Empty>
               <BaseAutocomplete.List>
                 {isGrouped
-                  ? (group: { label: React.ReactNode; items: string[] }) => (
+                  ? (group: { label: React.ReactNode; items: string[] }, index: number) => (
                       <BaseAutocomplete.Group
-                        key={String(group.label)}
+                        // Labels may be JSX, so key by position
+                        key={index}
                         items={group.items}
                         className={styles.group}
                       >
@@ -340,7 +337,7 @@ export function Autocomplete({
                         </BaseAutocomplete.GroupLabel>
                         <BaseAutocomplete.Collection>
                           {(value: string) => (
-                            <AutocompleteItem key={value} value={value}>
+                            <AutocompleteItem key={value} {...itemProps[value]} value={value}>
                               {labels[value] ?? value}
                             </AutocompleteItem>
                           )}
@@ -348,7 +345,7 @@ export function Autocomplete({
                       </BaseAutocomplete.Group>
                     )
                   : (value: string) => (
-                      <AutocompleteItem key={value} value={value}>
+                      <AutocompleteItem key={value} {...itemProps[value]} value={value}>
                         {labels[value] ?? value}
                       </AutocompleteItem>
                     )}
@@ -376,7 +373,14 @@ export interface AutocompleteItemProps
   children: React.ReactNode;
 }
 
-function AutocompleteItem({ value, disabled, className, children, ...rest }: AutocompleteItemProps) {
+function AutocompleteItem({
+  value,
+  label: _label,
+  disabled,
+  className,
+  children,
+  ...rest
+}: AutocompleteItemProps) {
   return (
     <BaseAutocomplete.Item
       value={value}
@@ -393,15 +397,17 @@ function AutocompleteItem({ value, disabled, className, children, ...rest }: Aut
  * Autocomplete.Group
  * --------------------------------------------------------------------------- */
 
-export interface AutocompleteGroupProps {
+export interface AutocompleteGroupProps
+  extends Omit<BaseAutocomplete.Group.Props, 'className' | 'children'> {
   /** Label displayed above the group. */
   label?: React.ReactNode;
+  className?: string;
   children: React.ReactNode;
 }
 
-function AutocompleteGroup({ label, children }: AutocompleteGroupProps) {
+function AutocompleteGroup({ label, className, children, ...rest }: AutocompleteGroupProps) {
   return (
-    <BaseAutocomplete.Group>
+    <BaseAutocomplete.Group className={cx(styles.group, className)} {...rest}>
       {label && (
         <BaseAutocomplete.GroupLabel className={styles.groupLabel}>{label}</BaseAutocomplete.GroupLabel>
       )}

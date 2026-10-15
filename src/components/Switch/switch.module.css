@@ -46,6 +46,15 @@
   pointer-events: none;
 }
 
+/* Invalid — Base UI sets data-invalid when the enclosing Field is invalid */
+.root[data-invalid] {
+  box-shadow: 0 0 0 1px var(--color-danger-border);
+}
+
+.root[data-invalid]:focus-visible {
+  outline-color: color-mix(in oklch, var(--color-danger-border) 72%, transparent);
+}
+
 /* ---------------------------------------------------------------------------
  * Thumb
  * --------------------------------------------------------------------------- */

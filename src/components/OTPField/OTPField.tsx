@@ -31,6 +31,8 @@ export interface OTPFieldProps
 }
 
 export interface OTPFieldRootProps extends Omit<BaseOTPField.Root.Props, 'className'> {
+  /** Visual size. Default: '2' */
+  size?: OTPFieldSize;
   className?: string;
 }
 
@@ -80,8 +82,8 @@ export function OTPField({
  * OTPField.Root — thin styled wrapper for manual composition
  * --------------------------------------------------------------------------- */
 
-function OTPFieldRoot({ className, ...rest }: OTPFieldRootProps) {
-  return <BaseOTPField.Root className={cx(styles.root, className)} {...rest} />;
+function OTPFieldRoot({ size = '2', className, ...rest }: OTPFieldRootProps) {
+  return <BaseOTPField.Root className={cx(styles.root, sizeClass[size], className)} {...rest} />;
 }
 
 /* ---------------------------------------------------------------------------

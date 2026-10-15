@@ -43,7 +43,8 @@ function UserIcon() {
   );
 }
 
-export interface AvatarProps {
+export interface AvatarProps
+  extends Omit<BaseAvatar.Root.Props, 'className' | 'style' | 'color' | 'children'> {
   /** Visual size preset. Default: '3' */
   size?: AvatarSize;
   /** Image source URL. */
@@ -56,6 +57,18 @@ export interface AvatarProps {
   color?: AccentColor;
   /** Shape override. Default: 'full' (circle) */
   radius?: AvatarRadius;
+  /**
+   * Milliseconds to wait before showing the fallback while `src` loads, so a
+   * fast image doesn't flash initials first. Default: 600 (0 without `src`).
+   */
+  fallbackDelay?: number;
+  /**
+   * Keep the `<img>` mounted and let it load in place instead of preloading.
+   * Needed for `loading="lazy"`. Requires `@base-ui/react` >= 1.8.
+   */
+  keepMounted?: boolean;
+  /** Called when the image loading status changes. */
+  onLoadingStatusChange?: BaseAvatar.Image.Props['onLoadingStatusChange'];
   className?: string;
   style?: React.CSSProperties;
 }
@@ -69,8 +82,12 @@ export const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
       fallback,
       color,
       radius = 'full',
+      fallbackDelay = 600,
+      keepMounted,
+      onLoadingStatusChange,
       className,
       style,
+      ...rest
     },
     ref,
   ) {
@@ -90,12 +107,15 @@ export const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
         ref={ref}
         className={cx(styles.root, sizeClass[size], className)}
         style={{ ...colorVars, ...radiusVar, ...style } as React.CSSProperties}
+        {...rest}
       >
         {src && (
           <BaseAvatar.Image
             src={src}
             alt={alt ?? ''}
             className={styles.image}
+            keepMounted={keepMounted}
+            onLoadingStatusChange={onLoadingStatusChange}
           />
         )}
         <BaseAvatar.Fallback
@@ -104,7 +124,7 @@ export const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
             color && styles.colorFallback,
             !fallback && styles.iconFallback,
           )}
-          delay={src ? 600 : 0}
+          delay={src ? fallbackDelay : 0}
         >
           {fallback ?? <UserIcon />}
         </BaseAvatar.Fallback>

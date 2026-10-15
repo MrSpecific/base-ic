@@ -27,6 +27,19 @@ export function TabsDocsPage() {
     '<Tabs size="3" defaultValue="a">...</Tabs>',
   ].join("\n");
 
+  const verticalSnippet = [
+    '<Tabs orientation="vertical" defaultValue="general">',
+    "  <Tabs.List>",
+    '    <Tabs.Tab value="general">General</Tabs.Tab>',
+    '    <Tabs.Tab value="notifications">Notifications</Tabs.Tab>',
+    '    <Tabs.Tab value="integrations">Integrations</Tabs.Tab>',
+    "  </Tabs.List>",
+    '  <Tabs.Panel value="general">…</Tabs.Panel>',
+    '  <Tabs.Panel value="notifications">…</Tabs.Panel>',
+    '  <Tabs.Panel value="integrations">…</Tabs.Panel>',
+    "</Tabs>",
+  ].join("\n");
+
   const tabContent = (label: string) => (
     <div style={{ padding: "var(--space-3) 0", color: "var(--color-text-secondary)", fontSize: "var(--font-size-2)" }}>
       {label} panel content.
@@ -155,6 +168,22 @@ export function TabsDocsPage() {
               <Tabs.Panel value="pro">{tabContent("Pro tier")}</Tabs.Panel>
             </Tabs>
           </DemoCard>
+          <DemoCard
+            title="Vertical"
+            description={"With `orientation=\"vertical\"`, the list stacks beside the panels and the `line` indicator runs along the list's side edge, following the active tab. Up/Down arrow keys move between tabs."}
+            code={verticalSnippet}
+          >
+            <Tabs orientation="vertical" defaultValue="general" style={{ width: "100%" }}>
+              <Tabs.List>
+                <Tabs.Tab value="general">General</Tabs.Tab>
+                <Tabs.Tab value="notifications">Notifications</Tabs.Tab>
+                <Tabs.Tab value="integrations">Integrations</Tabs.Tab>
+              </Tabs.List>
+              <Tabs.Panel value="general">{tabContent("General")}</Tabs.Panel>
+              <Tabs.Panel value="notifications">{tabContent("Notifications")}</Tabs.Panel>
+              <Tabs.Panel value="integrations">{tabContent("Integrations")}</Tabs.Panel>
+            </Tabs>
+          </DemoCard>
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
@@ -206,7 +235,8 @@ export function TabsDocsPage() {
               name: "orientation",
               type: "'horizontal' | 'vertical'",
               default: "'horizontal'",
-              description: "Layout flow direction, also used for arrow key navigation.",
+              description:
+                "Layout flow direction, also used for arrow key navigation. `vertical` places the list beside the panels, and the `line` variant's indicator moves to the list's side edge.",
             },
             {
               name: "onValueChange",

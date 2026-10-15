@@ -148,3 +148,5 @@ function AccordionContent({ className, children, ...rest }: AccordionContentProp
 Accordion.Item = AccordionItem;
 Accordion.Trigger = AccordionTrigger;
 Accordion.Content = AccordionContent;
+
+export { BaseAccordion as AccordionPrimitive };

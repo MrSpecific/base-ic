@@ -3,7 +3,8 @@
  * Good neutral companion for green, lime, and yellow accents.
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-olive-1:     oklch(99.0% 0.004 125);
   --color-olive-2:     oklch(97.5% 0.006 125);
   --color-olive-3:     oklch(95.0% 0.008 125);

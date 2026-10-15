@@ -6,12 +6,35 @@
  * theming works by redefining semantics here, not in component code.
  *
  * Structure:
- *   :root          — light mode defaults
- *   .dark, @media  — dark mode overrides
+ *   1. :root                      — inputs the Theme component sets inline
+ *                                   (accent/neutral wiring, radius, scaling,
+ *                                   font slots). Declared ONCE, at :root, so
+ *                                   they are never reset further down the tree.
+ *   2. THEME_SCOPE                — size/radius/scale-derived tokens.
+ *   3. THEME_SCOPE + appearance   — color tokens, light formulas (the single
+ *                                   source for default AND forced light).
+ *   4. @media dark / forced dark  — dark formulas for the color tokens.
  *
- * The --accent-* variables are set dynamically by the Theme component
- * based on the `accentColor` prop. The defaults here (blue) are the
- * fallback when no Theme is present.
+ * Why tokens are re-declared on every Theme root (THEME_SCOPE =
+ * `:root, :where([data-base-ic-theme])`):
+ * a custom property like `--color-border: var(--color-neutral-7)` is resolved
+ * where it is DECLARED and descendants inherit the resolved value. The Theme
+ * component rewires --color-neutral-N / --color-accent-N / --space-N /
+ * --component-radius inline on its own element, which carries
+ * `data-base-ic-theme` (a root Theme mirrors the vars and the attribute onto
+ * <body> for portaled content). If the aliases were only declared at :root
+ * they would stay frozen at the :root defaults (gray / blue / 100%) no matter
+ * what the Theme picked. Re-declaring them on each Theme root makes them
+ * re-resolve against that Theme's inputs.
+ *
+ * Consequence for overrides: to override one of these tokens globally, target
+ * `:root, [data-base-ic-theme]` rather than `:root` alone — a plain `:root`
+ * rule is shadowed by the re-declaration on each Theme root. (The THEME_SCOPE
+ * rules use :where(), so any class/attribute selector beats them.)
+ *
+ * Color tokens are additionally re-declared on any element that switches
+ * appearance (.light/.dark/[data-appearance]) so they re-resolve against the
+ * flipped primitives there.
  */
 
 :root {
@@ -53,87 +76,71 @@
   --color-neutral-12: var(--color-gray-12);
 
   /* -------------------------------------------------------------------------
-   * Semantic surface colors
+   * Component radius (set by Theme `radius` prop)
    * -------------------------------------------------------------------------
+   * Maps the Theme's named radius to a primitive value.
+   * The Theme component sets --component-radius-factor on its element.
+   * None:   0
+   * Small:  var(--radius-2)  = 4px
+   * Medium: var(--radius-3)  = 6px  (default)
+   * Large:  var(--radius-5)  = 12px
+   * Full:   var(--radius-full)
    */
-  --color-surface-base:     var(--color-neutral-1);   /* App background */
-  --color-surface-subtle:   var(--color-neutral-2);   /* Subtle card/panel bg */
-  --color-surface-raised:   color-mix(in oklch, white 96%, var(--color-neutral-3));  /* Cards floating above bg */
-  --color-surface-overlay:  color-mix(in oklch, white 92%, var(--color-neutral-3));  /* Popover, dialog */
-  --color-surface-sunken:   var(--color-neutral-2);   /* Inputs/code blocks */
+  --component-radius: var(--radius-3);
 
   /* -------------------------------------------------------------------------
-   * Semantic text colors
+   * Component scaling (set by Theme `scaling` prop)
    * -------------------------------------------------------------------------
+   * A multiplier applied to size-related tokens in components.
+   * 1 = 100% (default), 0.9 = 90%, etc.
    */
-  --color-text-primary:     var(--color-neutral-12);
-  --color-text-secondary:   var(--color-neutral-11);
-  --color-text-tertiary:    var(--color-neutral-10);
-  --color-text-disabled:    var(--color-neutral-8);
-  --color-text-link:        var(--color-accent-11);
+  --component-scaling: 1;
 
   /* -------------------------------------------------------------------------
-   * Semantic border colors
+   * Font family stacks (raw fallback stacks — not overridden by Theme prop)
    * -------------------------------------------------------------------------
    */
-  --color-border-subtle:    var(--color-neutral-6);
-  --color-border:           var(--color-neutral-7);
-  --color-border-strong:    var(--color-neutral-8);
-  --color-border-focus:     var(--color-accent-8);
+  --font-family-sans-stack: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-mono-stack: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
+    Consolas, 'Liberation Mono', 'Courier New', monospace;
 
   /* -------------------------------------------------------------------------
-   * Semantic visual atmosphere
+   * Font family semantic slots (set by Theme `fontFamily` prop)
    * -------------------------------------------------------------------------
+   * Override these via the Theme component's fontFamily prop, or directly
+   * in CSS by redefining these variables on any ancestor element.
+   *
+   * primary   — body text, UI labels, inputs
+   * secondary — supporting text, captions, metadata
+   * tertiary  — de-emphasized text, footnotes
+   * display   — large headings, hero text, decorative
+   * mono      — code, pre, kbd, technical content
    */
-  --color-backdrop-base:          var(--color-surface-base);
-  --color-backdrop-accent-glow:   color-mix(in oklch, var(--color-accent-4) 42%, transparent);
-  --color-backdrop-neutral-glow:  color-mix(in oklch, var(--color-neutral-4) 90%, transparent);
-  --color-backdrop-grid-line:     color-mix(in oklch, var(--color-border-subtle) 45%, transparent);
-
-  --color-panel-glass:            color-mix(in oklch, var(--color-surface-base) 84%, transparent);
-  --color-hero-start:             color-mix(in oklch, var(--color-accent-3) 35%, var(--color-surface-overlay));
-  --color-hero-end:               var(--color-surface-overlay);
-  --color-hero-kicker:            var(--color-accent-11);
-  --color-hero-copy:              var(--color-text-secondary);
-  --color-marketing-band-start:   color-mix(in oklch, var(--color-accent-2) 50%, var(--color-surface-overlay));
-  --color-marketing-band-end:     var(--color-surface-subtle);
-  --color-marketing-band-border:  var(--color-border-subtle);
-  --color-marketing-band-heading: var(--color-text-primary);
-  --color-marketing-band-body:    var(--color-text-secondary);
-
-  --shadow-surface:               var(--shadow-2);
-  --shadow-floating:              var(--shadow-4);
-  --shadow-panel:                 var(--shadow-5);
+  --font-family-primary:   var(--font-family-sans-stack);
+  --font-family-secondary: var(--font-family-sans-stack);
+  --font-family-tertiary:  var(--font-family-secondary);
+  --font-family-display:   var(--font-family-sans-stack);
+  --font-family-mono:      var(--font-family-mono-stack);
 
   /* -------------------------------------------------------------------------
-   * Semantic status colors (danger, warning, success, info)
-   * These reference specific primitive hues regardless of accent.
+   * Surface radius (mapped from Theme `radius`, see [data-radius] rules below)
    * -------------------------------------------------------------------------
+   * Declared at :root only — a Theme root always carries data-radius, and the
+   * mapping rules at the bottom of this file set these on it.
    */
-  --color-danger-bg:        var(--color-red-3);
-  --color-danger-border:    var(--color-red-7);
-  --color-danger-text:      var(--color-red-11);
-  --color-danger-solid:     var(--color-red-9);
-  --color-danger-contrast:  var(--color-red-contrast);
+  --surface-radius:           var(--surface-radius-medium);
+  --card-radius:              var(--surface-radius);
+}
 
-  --color-success-bg:       var(--color-green-3);
-  --color-success-border:   var(--color-green-7);
-  --color-success-text:     var(--color-green-11);
-  --color-success-solid:    var(--color-green-9);
-  --color-success-contrast: var(--color-green-contrast);
-
-  --color-warning-bg:       var(--color-orange-3);
-  --color-warning-border:   var(--color-orange-7);
-  --color-warning-text:     var(--color-orange-11);
-  --color-warning-solid:    var(--color-orange-9);
-  --color-warning-contrast: var(--color-orange-contrast);
-
-  --color-info-bg:          var(--color-blue-3);
-  --color-info-border:      var(--color-blue-7);
-  --color-info-text:        var(--color-blue-11);
-  --color-info-solid:       var(--color-blue-9);
-  --color-info-contrast:    var(--color-blue-contrast);
-
+/* ---------------------------------------------------------------------------
+ * Theme-scoped tokens (size / radius / scale derived)
+ * ---------------------------------------------------------------------------
+ * Re-declared on every Theme root so they re-resolve against that Theme's
+ * --space-N / --size-N / --font-size-N / --component-radius / --component-scaling.
+ */
+:root,
+:where([data-base-ic-theme]) {
   /* -------------------------------------------------------------------------
    * Semantic layout patterns
    * -------------------------------------------------------------------------
@@ -159,12 +166,6 @@
   --surface-radius-medium:    calc(var(--radius-4) * var(--component-scaling));
   --surface-radius-large:     calc(var(--radius-6) * var(--component-scaling));
   --surface-radius-full:      calc(var(--space-4) + calc(2px * var(--component-scaling)));
-  --surface-radius:           var(--surface-radius-medium);
-  --card-radius:              var(--surface-radius);
-  --card-gradient-start:      color-mix(in oklch, var(--color-accent-3) 34%, var(--color-surface-overlay));
-  --card-gradient-end:        var(--color-surface-overlay);
-  --card-gradient-border:     color-mix(in oklch, var(--color-border-subtle) 78%, var(--color-accent-6));
-  --card-gradient-border-hover: color-mix(in oklch, var(--color-border) 78%, var(--color-accent-7));
 
   /* -------------------------------------------------------------------------
    * Semantic interactive patterns — Button sizing (4 sizes)
@@ -193,23 +194,6 @@
   --button-4-font-size:  var(--font-size-4);  /* 16px */
   --button-4-gap:        var(--space-2);
   --button-4-icon-size:  calc(20px * var(--component-scaling));
-
-  /* -------------------------------------------------------------------------
-   * Semantic interactive patterns — soft/surface variant tuning
-   * -------------------------------------------------------------------------
-   * Shared across Button/Badge/inline accent surfaces.
-   * Uses a single accent anchor and appearance-aware mix constants so
-   * variants stay hue-correct and readable in both light and dark modes.
-   */
-  --interactive-soft-mix-base:            white;
-  --interactive-soft-strength:            18%;
-  --interactive-soft-hover-strength:      24%;
-
-  --interactive-surface-mix-base:         white;
-  --interactive-surface-strength:         12%;
-  --interactive-surface-hover-strength:   18%;
-  --interactive-surface-border-strength:  42%;
-  --interactive-surface-border-hover-strength: 56%;
 
   /* -------------------------------------------------------------------------
    * Semantic interactive patterns — Badge sizing (3 sizes)
@@ -277,18 +261,8 @@
   /* -------------------------------------------------------------------------
    * Semantic tooltip patterns
    * -------------------------------------------------------------------------
-   * Inverse style: --color-gray-12 is near-black (16% L) in light mode and
-   * near-white (95% L) in dark mode (primitive flips via dark.css).
-   * NOTE: Dark re-declarations ARE required in both dark blocks below.
-   * CSS var() substitution resolves at the declaring element (:root), so
-   * body-level primitive overrides don't re-resolve tokens inherited from
-   * :root. Re-declaring in the dark context forces correct re-evaluation.
-   * Using pure gray keeps tooltips achromatic regardless of grayColor.
+   * Colors live in the appearance block below.
    */
-  --tooltip-bg:               var(--color-gray-12);
-  --tooltip-text:             var(--color-gray-1);
-  --tooltip-border:           transparent;
-  --tooltip-shadow:           var(--shadow-floating);
   --tooltip-radius:           min(var(--component-radius), var(--radius-4));
   --tooltip-padding-y:        var(--space-1);
   --tooltip-padding-x:        var(--space-2);
@@ -299,11 +273,8 @@
   /* -------------------------------------------------------------------------
    * Semantic popover patterns
    * -------------------------------------------------------------------------
+   * Colors live in the appearance block below.
    */
-  --popover-bg:               var(--color-surface-overlay);
-  --popover-text:             var(--color-text-primary);
-  --popover-border:           var(--color-border);
-  --popover-shadow:           var(--shadow-panel);
   --popover-radius:           min(var(--component-radius), var(--radius-5));
   --popover-padding:          var(--space-3);
   --popover-min-width:        calc(240px * var(--component-scaling));
@@ -325,12 +296,9 @@
   /* -------------------------------------------------------------------------
    * Semantic dialog patterns
    * -------------------------------------------------------------------------
+   * Colors live in the appearance block below.
    */
-  --dialog-bg:                var(--color-surface-overlay);
-  --dialog-border:            var(--color-border);
-  --dialog-shadow:            var(--shadow-4);
   --dialog-radius:            var(--component-radius);
-  --dialog-backdrop-bg:       oklch(0 0 0 / 0.45);
 
   /* -------------------------------------------------------------------------
    * Semantic drawer patterns
@@ -414,7 +382,6 @@
    */
   --focus-ring-width:  calc(2px * var(--component-scaling));
   --focus-ring-offset: calc(2px * var(--component-scaling));
-  --focus-ring-color:  color-mix(in oklch, var(--color-accent-8) 72%, transparent);
 
   /* -------------------------------------------------------------------------
    * Disabled state
@@ -434,102 +401,175 @@
                        outline-color var(--duration-3) var(--ease-2);
   --transition-all:    all var(--duration-3) var(--ease-2);
   --transition-transform: transform var(--duration-2) var(--ease-spring);
-
-  /* -------------------------------------------------------------------------
-   * Component radius (set by Theme `radius` prop)
-   * -------------------------------------------------------------------------
-   * Maps the Theme's named radius to a primitive value.
-   * The Theme component sets --component-radius-factor on its element.
-   * None:   0
-   * Small:  var(--radius-2)  = 4px
-   * Medium: var(--radius-3)  = 6px  (default)
-   * Large:  var(--radius-5)  = 12px
-   * Full:   var(--radius-full)
-   */
-  --component-radius: var(--radius-3);
-
-  /* -------------------------------------------------------------------------
-   * Component scaling (set by Theme `scaling` prop)
-   * -------------------------------------------------------------------------
-   * A multiplier applied to size-related tokens in components.
-   * 1 = 100% (default), 0.9 = 90%, etc.
-   */
-  --component-scaling: 1;
-
-  /* -------------------------------------------------------------------------
-   * Font family stacks (raw fallback stacks — not overridden by Theme prop)
-   * -------------------------------------------------------------------------
-   */
-  --font-family-sans-stack: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-family-mono-stack: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
-    Consolas, 'Liberation Mono', 'Courier New', monospace;
-
-  /* -------------------------------------------------------------------------
-   * Font family semantic slots (set by Theme `fontFamily` prop)
-   * -------------------------------------------------------------------------
-   * Override these via the Theme component's fontFamily prop, or directly
-   * in CSS by redefining these variables on any ancestor element.
-   *
-   * primary   — body text, UI labels, inputs
-   * secondary — supporting text, captions, metadata
-   * tertiary  — de-emphasized text, footnotes
-   * display   — large headings, hero text, decorative
-   * mono      — code, pre, kbd, technical content
-   */
-  --font-family-primary:   var(--font-family-sans-stack);
-  --font-family-secondary: var(--font-family-sans-stack);
-  --font-family-tertiary:  var(--font-family-secondary);
-  --font-family-display:   var(--font-family-sans-stack);
-  --font-family-mono:      var(--font-family-mono-stack);
 }
 
 /* ---------------------------------------------------------------------------
- * Theme radius mapping for surfaces
+ * Color tokens — light formulas
  * ---------------------------------------------------------------------------
- * Theme sets `data-radius` on its root. Surface primitives (Card, docs panels,
- * status surfaces, etc.) map that named radius into tuned surface radii.
- * We intentionally clamp "full" to a large rounded corner instead of pills.
+ * The ONE definition of light mode: applies at :root (default light), on every
+ * Theme root, and on any forced-light element. Also re-declared on forced-dark
+ * elements so tokens that keep the same formula in both modes (status colors,
+ * tooltip colors, ...) re-resolve against the dark primitives; the dark blocks
+ * below then override the tokens whose formulas actually differ.
  */
+:root,
+:where([data-base-ic-theme], .light, .dark, [data-appearance='light'], [data-appearance='dark']) {
+  /* -------------------------------------------------------------------------
+   * Semantic surface colors
+   * -------------------------------------------------------------------------
+   */
+  --color-surface-base:     var(--color-neutral-1);   /* App background */
+  --color-surface-subtle:   var(--color-neutral-2);   /* Subtle card/panel bg */
+  --color-surface-raised:   color-mix(in oklch, white 96%, var(--color-neutral-3));  /* Cards floating above bg */
+  --color-surface-overlay:  color-mix(in oklch, white 92%, var(--color-neutral-3));  /* Popover, dialog */
+  --color-surface-sunken:   var(--color-neutral-2);   /* Inputs/code blocks */
 
-:where([data-radius='none']) {
-  --surface-radius: var(--surface-radius-none);
-  --card-radius: var(--surface-radius-none);
-}
+  /* -------------------------------------------------------------------------
+   * Semantic text colors
+   * -------------------------------------------------------------------------
+   */
+  --color-text-primary:     var(--color-neutral-12);
+  --color-text-secondary:   var(--color-neutral-11);
+  --color-text-tertiary:    var(--color-neutral-10);
+  --color-text-disabled:    var(--color-neutral-8);
+  --color-text-link:        var(--color-accent-11);
 
-:where([data-radius='small']) {
-  --surface-radius: var(--surface-radius-small);
-  --card-radius: var(--surface-radius-small);
-}
+  /* -------------------------------------------------------------------------
+   * Semantic border colors
+   * -------------------------------------------------------------------------
+   */
+  --color-border-subtle:    var(--color-neutral-6);
+  --color-border:           var(--color-neutral-7);
+  --color-border-strong:    var(--color-neutral-8);
+  --color-border-focus:     var(--color-accent-8);
 
-:where([data-radius='medium']) {
-  --surface-radius: var(--surface-radius-medium);
-  --card-radius: var(--surface-radius-medium);
-}
+  /* -------------------------------------------------------------------------
+   * Semantic visual atmosphere
+   * -------------------------------------------------------------------------
+   */
+  --color-backdrop-base:          var(--color-surface-base);
+  --color-backdrop-accent-glow:   color-mix(in oklch, var(--color-accent-4) 42%, transparent);
+  --color-backdrop-neutral-glow:  color-mix(in oklch, var(--color-neutral-4) 90%, transparent);
+  --color-backdrop-grid-line:     color-mix(in oklch, var(--color-border-subtle) 45%, transparent);
 
-:where([data-radius='large']) {
-  --surface-radius: var(--surface-radius-large);
-  --card-radius: var(--surface-radius-large);
-}
+  --color-panel-glass:            color-mix(in oklch, var(--color-surface-base) 84%, transparent);
+  --color-hero-start:             color-mix(in oklch, var(--color-accent-3) 35%, var(--color-surface-overlay));
+  --color-hero-end:               var(--color-surface-overlay);
+  --color-hero-kicker:            var(--color-accent-11);
+  --color-hero-copy:              var(--color-text-secondary);
+  --color-marketing-band-start:   color-mix(in oklch, var(--color-accent-2) 50%, var(--color-surface-overlay));
+  --color-marketing-band-end:     var(--color-surface-subtle);
+  --color-marketing-band-border:  var(--color-border-subtle);
+  --color-marketing-band-heading: var(--color-text-primary);
+  --color-marketing-band-body:    var(--color-text-secondary);
 
-:where([data-radius='full']) {
-  --surface-radius: var(--surface-radius-full);
-  --card-radius: var(--surface-radius-full);
+  --shadow-surface:               var(--shadow-2);
+  --shadow-floating:              var(--shadow-4);
+  --shadow-panel:                 var(--shadow-5);
+
+  /* -------------------------------------------------------------------------
+   * Semantic status colors (danger, warning, success, info)
+   * These reference specific primitive hues regardless of accent.
+   * -------------------------------------------------------------------------
+   */
+  --color-danger-bg:        var(--color-red-3);
+  --color-danger-border:    var(--color-red-7);
+  --color-danger-text:      var(--color-red-11);
+  --color-danger-solid:     var(--color-red-9);
+  --color-danger-contrast:  var(--color-red-contrast);
+
+  --color-success-bg:       var(--color-green-3);
+  --color-success-border:   var(--color-green-7);
+  --color-success-text:     var(--color-green-11);
+  --color-success-solid:    var(--color-green-9);
+  --color-success-contrast: var(--color-green-contrast);
+
+  --color-warning-bg:       var(--color-orange-3);
+  --color-warning-border:   var(--color-orange-7);
+  --color-warning-text:     var(--color-orange-11);
+  --color-warning-solid:    var(--color-orange-9);
+  --color-warning-contrast: var(--color-orange-contrast);
+
+  --color-info-bg:          var(--color-blue-3);
+  --color-info-border:      var(--color-blue-7);
+  --color-info-text:        var(--color-blue-11);
+  --color-info-solid:       var(--color-blue-9);
+  --color-info-contrast:    var(--color-blue-contrast);
+
+  /* -------------------------------------------------------------------------
+   * Card gradient
+   * -------------------------------------------------------------------------
+   */
+  --card-gradient-start:      color-mix(in oklch, var(--color-accent-3) 34%, var(--color-surface-overlay));
+  --card-gradient-end:        var(--color-surface-overlay);
+  --card-gradient-border:     color-mix(in oklch, var(--color-border-subtle) 78%, var(--color-accent-6));
+  --card-gradient-border-hover: color-mix(in oklch, var(--color-border) 78%, var(--color-accent-7));
+
+  /* -------------------------------------------------------------------------
+   * Semantic interactive patterns — soft/surface variant tuning
+   * -------------------------------------------------------------------------
+   * Shared across Button/Badge/inline accent surfaces.
+   * Uses a single accent anchor and appearance-aware mix constants so
+   * variants stay hue-correct and readable in both light and dark modes.
+   */
+  --interactive-soft-mix-base:            white;
+  --interactive-soft-strength:            18%;
+  --interactive-soft-hover-strength:      24%;
+
+  --interactive-surface-mix-base:         white;
+  --interactive-surface-strength:         12%;
+  --interactive-surface-hover-strength:   18%;
+  --interactive-surface-border-strength:  42%;
+  --interactive-surface-border-hover-strength: 56%;
+
+  /* -------------------------------------------------------------------------
+   * Tooltip colors
+   * -------------------------------------------------------------------------
+   * Inverse style: --color-gray-12 is near-black (16% L) in light mode and
+   * near-white (95% L) in dark mode (primitive flips via dark.css).
+   * Using pure gray keeps tooltips achromatic regardless of grayColor.
+   */
+  --tooltip-bg:               var(--color-gray-12);
+  --tooltip-text:             var(--color-gray-1);
+  --tooltip-border:           transparent;
+  --tooltip-shadow:           var(--shadow-floating);
+
+  /* -------------------------------------------------------------------------
+   * Popover / dialog colors
+   * -------------------------------------------------------------------------
+   */
+  --popover-bg:               var(--color-surface-overlay);
+  --popover-text:             var(--color-text-primary);
+  --popover-border:           var(--color-border);
+  --popover-shadow:           var(--shadow-panel);
+  --dialog-bg:                var(--color-surface-overlay);
+  --dialog-border:            var(--color-border);
+  --dialog-shadow:            var(--shadow-4);
+  --dialog-backdrop-bg:       oklch(0 0 0 / 0.45);
+
+  /* -------------------------------------------------------------------------
+   * Focus ring color
+   * -------------------------------------------------------------------------
+   */
+  --focus-ring-color:  color-mix(in oklch, var(--color-accent-8) 72%, transparent);
 }
 
 /* ---------------------------------------------------------------------------
- * Dark mode overrides
+ * Color tokens — dark formulas
  * ---------------------------------------------------------------------------
  * Applied when:
- *   1. OS preference: @media (prefers-color-scheme: dark)
- *   2. Explicit class: .dark applied to any ancestor
+ *   1. OS preference: @media (prefers-color-scheme: dark), for :root and every
+ *      Theme root that isn't forced light (or inside a forced-light element).
+ *   2. Forced: .dark / [data-appearance='dark'] on the element itself, or on an
+ *      ancestor of a Theme root that isn't itself forced light.
  *
- * The color primitives (e.g. --color-blue-9) don't change.
- * Only the semantic token mappings change for dark mode.
+ * Only tokens whose formula differs from light are listed. The two blocks
+ * must stay identical.
  */
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light):not([data-appearance='light']),
+  :where([data-base-ic-theme]:not(.light, [data-appearance='light'], :is(.light, [data-appearance='light']) *)) {
     --color-surface-base:    var(--color-neutral-1);
     --color-surface-subtle:  var(--color-neutral-2);
     --color-surface-raised:  color-mix(in oklch, var(--color-neutral-3) 88%, black);
@@ -583,29 +623,20 @@
     --interactive-surface-hover-strength:   18%;
     --interactive-surface-border-strength:  68%;
     --interactive-surface-border-hover-strength: 82%;
-
-    /* Overlay component tokens — re-declare so var() resolves in dark context.
-       Each references an anchor that is ALSO re-declared in this block, so
-       var() substitution here uses the correct dark-mode values. */
-    --tooltip-bg:     var(--color-gray-12);
-    --tooltip-text:   var(--color-gray-1);
-    --popover-bg:     var(--color-surface-overlay);
-    --popover-text:   var(--color-text-primary);
-    --popover-border: var(--color-border);
-    --dialog-bg:      var(--color-surface-overlay);
-    --dialog-border:  var(--color-border);
-
   }
 }
 
-:where(.dark, [data-appearance='dark']) {
+:where(
+  .dark,
+  [data-appearance='dark'],
+  :is(.dark, [data-appearance='dark']) [data-base-ic-theme]:not(.light, [data-appearance='light'])
+) {
   --color-surface-base:    var(--color-neutral-1);
   --color-surface-subtle:  var(--color-neutral-2);
   --color-surface-raised:  color-mix(in oklch, var(--color-neutral-3) 88%, black);
   --color-surface-overlay: color-mix(in oklch, var(--color-neutral-3) 96%, black);
   --color-surface-sunken:  color-mix(in oklch, var(--color-neutral-2) 82%, black);
 
-  /* Explicit dark text ramps for stable contrast */
   --color-text-primary:   oklch(95% 0 none);
   --color-text-secondary: oklch(83% 0 none);
   --color-text-tertiary:  oklch(68% 0 none);
@@ -653,73 +684,37 @@
   --interactive-surface-hover-strength:   18%;
   --interactive-surface-border-strength:  68%;
   --interactive-surface-border-hover-strength: 82%;
-
-  /* Overlay component tokens — re-declare so var() resolves in dark context.
-     Each references an anchor that is ALSO re-declared in this block, so
-     var() substitution here uses the correct dark-mode values. */
-  --tooltip-bg:     var(--color-gray-12);
-  --tooltip-text:   var(--color-gray-1);
-  --popover-bg:     var(--color-surface-overlay);
-  --popover-text:   var(--color-text-primary);
-  --popover-border: var(--color-border);
-  --dialog-bg:      var(--color-surface-overlay);
-  --dialog-border:  var(--color-border);
 }
 
-:where(.light, [data-appearance='light']) {
-  --color-surface-base:    var(--color-neutral-1);
-  --color-surface-subtle:  var(--color-neutral-2);
-  --color-surface-raised:  color-mix(in oklch, white 96%, var(--color-neutral-3));
-  --color-surface-overlay: color-mix(in oklch, white 92%, var(--color-neutral-3));
-  --color-surface-sunken:  var(--color-neutral-2);
-
-  --color-text-primary:   var(--color-neutral-12);
-  --color-text-secondary: var(--color-neutral-11);
-  --color-text-tertiary:  var(--color-neutral-10);
-  --color-text-disabled:  var(--color-neutral-8);
-  --color-text-link: var(--color-accent-11);
-
-  --color-border-subtle: var(--color-neutral-5);
-  --color-border:        var(--color-neutral-6);
-  --color-border-strong: var(--color-neutral-7);
-
-  --color-backdrop-base:         var(--color-surface-base);
-  --color-backdrop-accent-glow:  color-mix(in oklch, var(--color-accent-4) 36%, transparent);
-  --color-backdrop-neutral-glow: color-mix(in oklch, var(--color-neutral-4) 92%, transparent);
-  --color-backdrop-grid-line:    color-mix(in oklch, var(--color-border-subtle) 48%, transparent);
-
-  --color-panel-glass: color-mix(in oklch, var(--color-surface-base) 84%, transparent);
-  --color-hero-start:  color-mix(in oklch, var(--color-accent-3) 35%, var(--color-surface-overlay));
-  --color-hero-end:    var(--color-surface-overlay);
-  --color-hero-kicker: var(--color-accent-11);
-  --color-hero-copy:   var(--color-text-secondary);
-  --color-marketing-band-start: color-mix(in oklch, var(--color-accent-2) 50%, var(--color-surface-overlay));
-  --color-marketing-band-end:   var(--color-surface-subtle);
-  --color-marketing-band-border: var(--color-border-subtle);
-  --color-marketing-band-heading: var(--color-text-primary);
-  --color-marketing-band-body:    var(--color-text-secondary);
-  --card-gradient-start: color-mix(in oklch, var(--color-accent-3) 34%, var(--color-surface-overlay));
-  --card-gradient-end:   var(--color-surface-overlay);
-  --card-gradient-border: color-mix(in oklch, var(--color-border-subtle) 78%, var(--color-accent-6));
-  --card-gradient-border-hover: color-mix(in oklch, var(--color-border) 78%, var(--color-accent-7));
-
-  --shadow-surface: var(--shadow-2);
-  --shadow-floating: var(--shadow-4);
-  --shadow-panel: var(--shadow-5);
-
-  --interactive-soft-mix-base:            white;
-  --interactive-soft-strength:            18%;
-  --interactive-soft-hover-strength:      24%;
-  --interactive-surface-mix-base:         white;
-  --interactive-surface-strength:         12%;
-  --interactive-surface-hover-strength:   18%;
-  --interactive-surface-border-strength:  42%;
-  --interactive-surface-border-hover-strength: 56%;
-}
-
-/**
- * NOTE: Full dark mode support requires dark-mode-specific primitive overrides.
- * This is a starter scaffold. A dark theme companion file will override the
- * color primitives themselves (e.g. --color-gray-1 becomes very dark in dark mode).
- * That lives in tokens/dark.css and is applied via .dark class or @media.
+/* ---------------------------------------------------------------------------
+ * Theme radius mapping for surfaces
+ * ---------------------------------------------------------------------------
+ * Theme sets `data-radius` on its root. Surface primitives (Card, docs panels,
+ * status surfaces, etc.) map that named radius into tuned surface radii.
+ * We intentionally clamp "full" to a large rounded corner instead of pills.
  */
+
+:where([data-radius='none']) {
+  --surface-radius: var(--surface-radius-none);
+  --card-radius: var(--surface-radius-none);
+}
+
+:where([data-radius='small']) {
+  --surface-radius: var(--surface-radius-small);
+  --card-radius: var(--surface-radius-small);
+}
+
+:where([data-radius='medium']) {
+  --surface-radius: var(--surface-radius-medium);
+  --card-radius: var(--surface-radius-medium);
+}
+
+:where([data-radius='large']) {
+  --surface-radius: var(--surface-radius-large);
+  --card-radius: var(--surface-radius-large);
+}
+
+:where([data-radius='full']) {
+  --surface-radius: var(--surface-radius-full);
+  --card-radius: var(--surface-radius-full);
+}

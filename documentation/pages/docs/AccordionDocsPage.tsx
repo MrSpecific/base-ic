@@ -53,6 +53,12 @@ export function AccordionDocsPage() {
     "    <Accordion.Content>Tight padding for dense UIs.</Accordion.Content>",
     "  </Accordion.Item>",
     "</Accordion>",
+    '<Accordion size="2">',
+    '  <Accordion.Item value="a">',
+    '    <Accordion.Trigger>Size 2 — default</Accordion.Trigger>',
+    "    <Accordion.Content>Balanced for most content use-cases.</Accordion.Content>",
+    "  </Accordion.Item>",
+    "</Accordion>",
     '<Accordion size="3">',
     '  <Accordion.Item value="a">',
     '    <Accordion.Trigger>Size 3 — spacious</Accordion.Trigger>',
@@ -89,7 +95,7 @@ export function AccordionDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Built On Base UI</Heading>
+        <Heading as="h2">Built On Base UI</Heading>
         <Text as="p">
           This component wraps the Base UI Accordion primitive. Base primitive
           docs:{" "}
@@ -104,7 +110,7 @@ export function AccordionDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Demo</Heading>
+        <Heading as="h2">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Variants"
@@ -213,7 +219,7 @@ export function AccordionDocsPage() {
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <Heading>Usage</Heading>
+        <Heading as="h2">Usage</Heading>
         <CodeBlock title="Accordion Usage" code={usageSnippet} />
       </DocsSection>
       <DocsSection>
@@ -285,6 +291,12 @@ export function AccordionDocsPage() {
               type: "React.CSSProperties",
               description: "Inline styles applied to the root element.",
             },
+            {
+              name: "render",
+              type: "React.ReactElement | ((props, state) => React.ReactElement)",
+              description:
+                "Replace the root `<div>` with a different element (Base UI render prop). Only the root accepts `render`; Item, Trigger, and Content do not.",
+            },
           ]}
         />
         <h3>Item Props</h3>
@@ -317,11 +329,9 @@ export function AccordionDocsPage() {
         <PropsTable
           rows={[
             {
-              name: "nativeButton",
+              name: "disabled",
               type: "boolean",
-              default: "true",
-              description:
-                "Set to false when using render to swap in a non-button element, so Base UI adjusts ARIA attributes accordingly.",
+              description: "Disables this trigger. Usually set on `Accordion.Item` or the root instead.",
             },
             {
               name: "className",
@@ -344,13 +354,14 @@ export function AccordionDocsPage() {
               type: "boolean",
               default: "false",
               description:
-                "Inherited from the root: allows browser find-in-page to reveal this panel's contents.",
+                "Per-panel override of the root prop: allows browser find-in-page to reveal this panel's contents.",
             },
             {
               name: "keepMounted",
               type: "boolean",
               default: "false",
-              description: "Keep this panel mounted in the DOM while closed.",
+              description:
+                "Per-panel override of the root prop: keep this panel mounted in the DOM while closed.",
             },
             {
               name: "className",
@@ -377,8 +388,12 @@ export function AccordionDocsPage() {
             state.
           </li>
           <li>
-            Pass `defaultValue` (string or array) to set the initially open
-            item(s).
+            Pass `defaultValue` (always an array, e.g.{" "}
+            {'`defaultValue={["one"]}`'}) to set the initially open item(s).
+          </li>
+          <li>
+            `Accordion.Trigger` always renders a native `&lt;button&gt;` wrapped
+            in a heading; it does not accept a `render` prop.
           </li>
           <li>Height animation uses `--accordion-panel-height` set by Base UI.</li>
         </DocsList>

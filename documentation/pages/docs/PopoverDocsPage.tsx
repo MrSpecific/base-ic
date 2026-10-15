@@ -78,6 +78,33 @@ export function PopoverDocsPage() {
     "</Popover>",
   ].join("\n");
 
+  const titleDemoSnippet = [
+    "<Popover",
+    '  title="Share link"',
+    '  description="Anyone with the link can view this board."',
+    "  content={",
+    '    <div className="popover-demo-actions">',
+    '      <Button variant="solid" size="1">Copy link</Button>',
+    "    </div>",
+    "  }",
+    ">",
+    '  <Button className="tooltip-demo-trigger" variant="surface">Share</Button>',
+    "</Popover>",
+  ].join("\n");
+
+  const hoverDemoSnippet = [
+    "<Popover",
+    "  openOnHover",
+    "  delay={200}",
+    "  closeDelay={150}",
+    '  title="Ada Lovelace"',
+    '  description="Mathematician and writer. Opens on hover or click."',
+    "  content={null}",
+    ">",
+    '  <Button className="tooltip-demo-trigger" variant="surface">Hover me</Button>',
+    "</Popover>",
+  ].join("\n");
+
   return (
     <>
       <DocsSection>
@@ -145,6 +172,57 @@ export function PopoverDocsPage() {
                   size="2"
                 >
                   Open actions
+                </Button>
+              </Popover>
+            </div>
+          </DemoCard>
+          <DemoCard
+            title="Title and Description"
+            description="`title` and `description` render a styled heading and supporting text above `content`. They also give the popup its accessible name and description."
+            code={titleDemoSnippet}
+          >
+            <div className="popover-demo-row">
+              <Popover
+                title="Share link"
+                description="Anyone with the link can view this board."
+                content={
+                  <div className="popover-demo-actions">
+                    <Button variant="solid" size="1">
+                      Copy link
+                    </Button>
+                  </div>
+                }
+              >
+                <Button
+                  className="tooltip-demo-trigger"
+                  variant="surface"
+                  size="2"
+                >
+                  Share
+                </Button>
+              </Popover>
+            </div>
+          </DemoCard>
+          <DemoCard
+            title="Open on Hover"
+            description="`openOnHover` opens the popover on hover as well as click. Tune timing with `delay` (default 300ms) and `closeDelay` (default 0ms)."
+            code={hoverDemoSnippet}
+          >
+            <div className="popover-demo-row">
+              <Popover
+                openOnHover
+                delay={200}
+                closeDelay={150}
+                title="Ada Lovelace"
+                description="Mathematician and writer. Opens on hover or click."
+                content={null}
+              >
+                <Button
+                  className="tooltip-demo-trigger"
+                  variant="surface"
+                  size="2"
+                >
+                  Hover me
                 </Button>
               </Popover>
             </div>
@@ -253,9 +331,10 @@ export function PopoverDocsPage() {
             },
             {
               name: "side",
-              type: "'top' | 'right' | 'bottom' | 'left'",
+              type: "'top' | 'right' | 'bottom' | 'left' | 'inline-start' | 'inline-end'",
               default: "'bottom'",
-              description: "Preferred side of the trigger to render the popup on.",
+              description:
+                "Preferred side of the trigger to render the popup on. `inline-start` / `inline-end` follow the writing direction (left/right in LTR, flipped in RTL).",
             },
             {
               name: "align",
@@ -265,13 +344,13 @@ export function PopoverDocsPage() {
             },
             {
               name: "sideOffset",
-              type: "number",
+              type: "number | OffsetFunction",
               default: "8",
               description: "Distance in pixels between the trigger and the popup.",
             },
             {
               name: "alignOffset",
-              type: "number",
+              type: "number | OffsetFunction",
               description: "Offset in pixels along the alignment axis.",
             },
             {
@@ -279,6 +358,36 @@ export function PopoverDocsPage() {
               type: "boolean",
               default: "false",
               description: "Hides the pointer arrow connecting the popup to its trigger.",
+            },
+            {
+              name: "title",
+              type: "React.ReactNode",
+              description:
+                "Heading shown above the content. It also gives the popup its accessible name, so set it whenever the popup has no other label.",
+            },
+            {
+              name: "description",
+              type: "React.ReactNode",
+              description:
+                "Supporting text shown under the title; announced as the popup's description.",
+            },
+            {
+              name: "openOnHover",
+              type: "boolean",
+              default: "false",
+              description: "Open the popover on hover as well as click.",
+            },
+            {
+              name: "delay",
+              type: "number",
+              default: "300",
+              description: "Hover open delay in ms. Requires `openOnHover`.",
+            },
+            {
+              name: "closeDelay",
+              type: "number",
+              default: "0",
+              description: "Hover close delay in ms. Requires `openOnHover`.",
             },
             {
               name: "open",

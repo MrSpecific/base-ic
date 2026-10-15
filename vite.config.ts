@@ -9,6 +9,7 @@ export default defineConfig({
     react(),
     dts({
       include: ['src'],
+      exclude: ['src/**/__tests__/**'],
       outDir: 'dist',
       rollupTypes: false,
     }),
@@ -19,19 +20,24 @@ export default defineConfig({
       // so we copy them manually to make `import 'base-ic/tokens'` work.
       closeBundle() {
         cpSync(
-          resolve(__dirname, 'src/tokens'),
-          resolve(__dirname, 'dist/tokens'),
+          resolve(import.meta.dirname, 'src/tokens'),
+          resolve(import.meta.dirname, 'dist/tokens'),
           { recursive: true }
         );
       },
     },
   ],
+  // Leave `process.env.NODE_ENV` for the consumer's bundler to replace, so
+  // dev-only warnings ship in the library (the same convention Base UI uses).
+  define: {
+    'process.env.NODE_ENV': 'process.env.NODE_ENV',
+  },
   build: {
     outDir: 'dist',
     rollupOptions: {
       // Use rollupOptions.input directly (instead of lib.entry) so that
       // preserveModules applies correctly — lib mode's entry conflicts with it.
-      input: resolve(__dirname, 'src/index.ts'),
+      input: resolve(import.meta.dirname, 'src/index.ts'),
       // Peer deps must never be bundled — consumers provide them.
       // Matches subpath imports too (e.g. '@base-ui/react/use-render'),
       // not just the bare package specifier.

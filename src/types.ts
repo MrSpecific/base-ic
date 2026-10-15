@@ -21,6 +21,9 @@ import type { SwitchProps } from './components/Switch';
 import type { TabsProps } from './components/Tabs';
 import type { TextareaProps } from './components/Textarea';
 import type { ToggleProps } from './components/Toggle';
+import type { TableRootProps, TableRowProps, TableCellProps } from './components/Table';
+import type { DataListRootProps, DataListItemProps } from './components/DataList';
+import type { InsetProps } from './components/Inset';
 import type {
   CodeProps,
   HeadingProps,
@@ -79,6 +82,18 @@ export type TextareaSize = PropValue<TextareaProps, 'size'>;
 export type TextareaVariant = PropValue<TextareaProps, 'variant'>;
 export type TextareaRadius = PropValue<TextareaProps, 'radius'>;
 export type ToggleSize = PropValue<ToggleProps, 'size'>;
+export type ToggleRadius = PropValue<ToggleProps, 'radius'>;
+export type TableSize = PropValue<TableRootProps, 'size'>;
+export type TableVariant = PropValue<TableRootProps, 'variant'>;
+export type TableLayout = PropValue<TableRootProps, 'layout'>;
+export type TableRowAlign = PropValue<TableRowProps, 'align'>;
+export type TableCellJustify = PropValue<TableCellProps, 'justify'>;
+export type DataListSize = PropValue<DataListRootProps, 'size'>;
+export type DataListOrientation = PropValue<DataListRootProps, 'orientation'>;
+export type DataListTrim = PropValue<DataListRootProps, 'trim'>;
+export type DataListItemAlign = PropValue<DataListItemProps, 'align'>;
+export type InsetSide = PropValue<InsetProps, 'side'>;
+export type InsetClip = PropValue<InsetProps, 'clip'>;
 export type ToggleVariant = PropValue<ToggleProps, 'variant'>;
 
 export type TextElement = PropValue<TextProps, 'as'>;

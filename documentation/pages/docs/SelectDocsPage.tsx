@@ -5,6 +5,13 @@ import { DocsSection } from "../../components/DocsSection";
 import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
+// Defined once at module level so each object keeps its identity across renders.
+const PLANS = [
+  { id: "free", name: "Free", seats: 1 },
+  { id: "team", name: "Team", seats: 10 },
+  { id: "business", name: "Business", seats: 50 },
+];
+
 export function SelectDocsPage() {
   const usageSnippet = [
     "import { Select } from '@wlcr/base-ic';",
@@ -39,6 +46,22 @@ export function SelectDocsPage() {
     '<Select placeholder="Top / End" side="top" align="end" sideOffset={10}>',
     '  <Select.Item value="a">Option A</Select.Item>',
     '  <Select.Item value="b">Option B</Select.Item>',
+    "</Select>",
+  ].join("\n");
+
+  const objectValuesSnippet = [
+    "// Keep the objects stable (module scope, state, or useMemo):",
+    "// values are matched by identity.",
+    "const plans = [",
+    "  { id: 'free', name: 'Free', seats: 1 },",
+    "  { id: 'team', name: 'Team', seats: 10 },",
+    "  { id: 'business', name: 'Business', seats: 50 },",
+    "];",
+    "",
+    "<Select defaultValue={plans[1]} onValueChange={(plan) => console.log(plan.seats)}>",
+    "  {plans.map((plan) => (",
+    "    <Select.Item key={plan.id} value={plan}>{plan.name}</Select.Item>",
+    "  ))}",
     "</Select>",
   ].join("\n");
 
@@ -110,7 +133,7 @@ export function SelectDocsPage() {
           <DemoCard
             title="Sizes"
             description="Four sizes matching the Button and Input scale."
-            code={'<Select size="1" placeholder="Size 1">...</Select>\n<Select size="2" placeholder="Size 2">...</Select>\n<Select size="3" placeholder="Size 3">...</Select>'}
+            code={'<Select size="1" placeholder="Size 1">...</Select>\n<Select size="2" placeholder="Size 2">...</Select>\n<Select size="3" placeholder="Size 3">...</Select>\n<Select size="4" placeholder="Size 4">...</Select>'}
           >
             <Flex direction="column" gap={2} style={{ width: "100%" }}>
               {(["1", "2", "3", "4"] as const).map((size) => (
@@ -170,6 +193,19 @@ export function SelectDocsPage() {
                 <Select.Item value="b">Option B</Select.Item>
               </Select>
             </Flex>
+          </DemoCard>
+          <DemoCard
+            title="Object values"
+            description="`Select.Item` accepts any value, not just strings. Objects are matched by identity, and the trigger shows the matching item's label."
+            code={objectValuesSnippet}
+          >
+            <Select defaultValue={PLANS[1]}>
+              {PLANS.map((plan) => (
+                <Select.Item key={plan.id} value={plan}>
+                  {plan.name}
+                </Select.Item>
+              ))}
+            </Select>
           </DemoCard>
           <DemoCard
             title="Disabled Items"
@@ -273,9 +309,15 @@ export function SelectDocsPage() {
             },
             {
               name: "items",
-              type: "Record<string, ReactNode> | Array<{ label, value }>",
+              type: "Record<string, ReactNode> | Array<{ label, value }> | Array<{ items: Array<{ label, value }> }>",
               description:
-                "Data structure of the items rendered in the popup, used to render the selected label in the trigger.",
+                "Value-to-label data for the items in the popup. The trigger resolves the selected label from it. When omitted, it is built from the `Select.Item` children.",
+            },
+            {
+              name: "isItemEqualToValue",
+              type: "(itemValue, value) => boolean",
+              description:
+                "Custom equality for matching items to the selected value. By default, object values are compared by identity.",
             },
             {
               name: "defaultOpen",
@@ -302,9 +344,10 @@ export function SelectDocsPage() {
           rows={[
             {
               name: "value",
-              type: "string",
+              type: "any",
               required: true,
-              description: "A unique value that identifies this select item.",
+              description:
+                "A unique value that identifies this select item. Any value works, including numbers and objects. Objects are matched by identity, so keep them stable across renders.",
             },
             {
               name: "children",
@@ -345,6 +388,12 @@ export function SelectDocsPage() {
               required: true,
               description: "The Select.Item elements in this group.",
             },
+            {
+              name: "className",
+              type: "string",
+              description:
+                "Additional className on the group element. Other Base UI Group props (`style`, `render`, HTML and ARIA attributes) pass through as well.",
+            },
           ]}
         />
       </DocsSection>
@@ -356,6 +405,11 @@ export function SelectDocsPage() {
             Prefer concise trigger labels; long labels can reduce scan speed.
           </li>
           <li>`Select.Item` supports `disabled` for unavailable choices.</li>
+          <li>
+            The trigger label comes from the `items` prop when you pass one,
+            otherwise from each `Select.Item`'s `label` or text. Values with no
+            matching item fall back to `String(value)`.
+          </li>
         </DocsList>
       </DocsSection>
     </>

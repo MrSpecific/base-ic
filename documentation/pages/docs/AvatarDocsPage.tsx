@@ -54,7 +54,7 @@ export function AvatarDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Built On Base UI</Heading>
+        <Heading as="h2">Built On Base UI</Heading>
         <Text as="p">
           This component wraps the Base UI Avatar primitive. Base primitive
           docs:{" "}
@@ -69,7 +69,7 @@ export function AvatarDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Demo</Heading>
+        <Heading as="h2">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Sizes"
@@ -113,7 +113,7 @@ export function AvatarDocsPage() {
           <DemoCard
             title="Image with fallback"
             description="Gracefully falls back to initials when the image fails."
-            code={'<Avatar\n  src="https://i.pravatar.cc/80?u=1"\n  alt="Alex"\n  fallback="AX"\n  color="blue"\n/>'}
+            code={'<Avatar\n  src="https://i.pravatar.cc/80?u=1"\n  alt="Alex"\n  fallback="AX"\n  size="4"\n/>\n<Avatar\n  src="https://broken-url.invalid/image.jpg"\n  alt="Broken"\n  fallback="BR"\n  color="orange"\n  size="4"\n/>'}
           >
             <DocsDemoRow>
               <Avatar
@@ -134,7 +134,7 @@ export function AvatarDocsPage() {
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <Heading>Usage</Heading>
+        <Heading as="h2">Usage</Heading>
         <CodeBlock title="Avatar Usage" code={usageSnippet} />
       </DocsSection>
       <DocsSection>
@@ -175,6 +175,29 @@ export function AvatarDocsPage() {
               description: "Shape override — 'full' renders a circle.",
             },
             {
+              name: "fallbackDelay",
+              type: "number",
+              default: "600",
+              description:
+                "Milliseconds to wait before showing the fallback while `src` loads, so a fast image doesn't flash initials first. Always `0` when there is no `src`.",
+            },
+            {
+              name: "keepMounted",
+              type: "boolean",
+              description:
+                "Keep the `<img>` mounted and let it load in place instead of preloading (Base UI `Avatar.Image`). Needed for `loading=\"lazy\"` and optimized image components.",
+            },
+            {
+              name: "onLoadingStatusChange",
+              type: "(status: 'idle' | 'loading' | 'loaded' | 'error') => void",
+              description: "Called when the image loading status changes. Only fires when `src` is set.",
+            },
+            {
+              name: "render",
+              type: "React.ReactElement | ((props, state) => React.ReactElement)",
+              description: "Replace the root `<span>` with a different element (Base UI render prop).",
+            },
+            {
               name: "className",
               type: "string",
               description: "Additional class name applied to the root element.",
@@ -184,6 +207,12 @@ export function AvatarDocsPage() {
               type: "React.CSSProperties",
               description: "Inline styles applied to the root element.",
             },
+            {
+              name: "...rest",
+              type: "Avatar.Root props / HTML span attributes",
+              description:
+                "Everything else (`id`, `title`, `aria-*`, `data-*`, `onClick`, …) is forwarded to the root `<span>`. `ref` points at the root as well.",
+            },
           ]}
         />
       </DocsSection>
@@ -191,8 +220,9 @@ export function AvatarDocsPage() {
         <Heading as="h2">Notes</Heading>
         <DocsList>
           <li>
-            Always provide `fallback` — it shows when the image is missing or
-            fails to load.
+            Provide `fallback` (usually initials) — it shows while the image
+            loads, when it fails, or when there is no `src`. Without it, a
+            generic user icon is shown instead.
           </li>
           <li>
             For initials, limit to 1–2 characters for best fit across all sizes.
@@ -202,6 +232,15 @@ export function AvatarDocsPage() {
             Without it, the fallback uses a neutral background.
           </li>
           <li>Default `radius` is `full` (circle). Use `radius="large"` for rounded squares.</li>
+          <li>
+            The fallback waits `fallbackDelay` (600ms) while an image loads so
+            fast images don't flash initials; set{" "}
+            {"`fallbackDelay={0}`"} to show it immediately.
+          </li>
+          <li>
+            Root HTML and ARIA props are forwarded, so you can add e.g.
+            `aria-label`, `title`, or `onClick` directly on `Avatar`.
+          </li>
         </DocsList>
       </DocsSection>
     </>

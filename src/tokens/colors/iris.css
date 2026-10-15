@@ -2,7 +2,8 @@
  * Iris scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-iris-1:      oklch(98.5% 0.007 280);
   --color-iris-2:      oklch(97.0% 0.014 280);
   --color-iris-3:      oklch(93.5% 0.031 280);

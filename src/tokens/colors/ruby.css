@@ -2,7 +2,8 @@
  * Ruby scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-ruby-1:      oklch(98.5% 0.008 5);
   --color-ruby-2:      oklch(97.0% 0.015 5);
   --color-ruby-3:      oklch(93.5% 0.034 5);

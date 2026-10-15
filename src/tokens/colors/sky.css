@@ -2,7 +2,8 @@
  * Sky scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-sky-1:       oklch(98.5% 0.009 230);
   --color-sky-2:       oklch(97.0% 0.018 230);
   --color-sky-3:       oklch(93.5% 0.039 230);

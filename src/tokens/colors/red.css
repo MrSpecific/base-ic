@@ -2,7 +2,8 @@
  * Red scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-red-1:       oklch(98.5% 0.007 22);
   --color-red-2:       oklch(97.0% 0.015 22);
   --color-red-3:       oklch(93.5% 0.032 22);

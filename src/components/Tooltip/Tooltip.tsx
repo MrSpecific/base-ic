@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Tooltip as BaseTooltip } from '@base-ui/react';
+import { useThemePortal } from '../shared/useThemePortal';
 import styles from './tooltip.module.css';
 
 export interface TooltipProps extends Omit<BaseTooltip.Root.Props<unknown>, 'children'> {
@@ -9,6 +10,7 @@ export interface TooltipProps extends Omit<BaseTooltip.Root.Props<unknown>, 'chi
   align?: BaseTooltip.Positioner.Props['align'];
   sideOffset?: BaseTooltip.Positioner.Props['sideOffset'];
   alignOffset?: BaseTooltip.Positioner.Props['alignOffset'];
+  /** Open delay in ms. Defaults to the enclosing `Tooltip.Provider`'s delay, or 150. */
   delay?: BaseTooltip.Trigger.Props['delay'];
   closeDelay?: BaseTooltip.Trigger.Props['closeDelay'];
   disableArrow?: boolean;
@@ -33,6 +35,25 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
   );
 }
 
+const DEFAULT_DELAY = 150;
+
+/** True when rendered inside a `Tooltip.Provider`, whose delay should win. */
+const TooltipProviderContext = React.createContext(false);
+
+export interface TooltipProviderProps extends BaseTooltip.Provider.Props {}
+
+/**
+ * Shares open/close delays across a group of tooltips, so moving between
+ * triggers opens the next tooltip instantly. Default delay: 150ms.
+ */
+function TooltipProvider({ delay = DEFAULT_DELAY, ...rest }: TooltipProviderProps) {
+  return (
+    <TooltipProviderContext.Provider value>
+      <BaseTooltip.Provider delay={delay} {...rest} />
+    </TooltipProviderContext.Provider>
+  );
+}
+
 /**
  * Tooltip convenience wrapper built on Base UI primitives.
  * For advanced control, use TooltipPrimitive parts directly.
@@ -44,28 +65,41 @@ export function Tooltip({
   align = 'center',
   sideOffset = 8,
   alignOffset,
-  delay = 150,
+  delay,
   closeDelay,
   disableArrow = false,
   ...rootProps
 }: TooltipProps) {
+  const inProvider = React.useContext(TooltipProviderContext);
+  const { anchorRef, container, forcedAppearance } = useThemePortal();
   return (
     <BaseTooltip.Root {...rootProps}>
-      <BaseTooltip.Trigger delay={delay} closeDelay={closeDelay} render={children} />
-      <BaseTooltip.Portal>
-        <BaseTooltip.Positioner className={styles.positioner} side={side} align={align} sideOffset={sideOffset} alignOffset={alignOffset}>
-          <BaseTooltip.Popup className={styles.popup}>
-            {content}
-            {!disableArrow && (
-              <BaseTooltip.Arrow className={styles.arrow}>
-                <ArrowSvg />
-              </BaseTooltip.Arrow>
-            )}
-          </BaseTooltip.Popup>
-        </BaseTooltip.Positioner>
+      <span ref={anchorRef} style={{ display: 'contents' }}>
+        <BaseTooltip.Trigger
+          // Leave undefined inside a provider so Base UI falls back to its delay
+          delay={delay ?? (inProvider ? undefined : DEFAULT_DELAY)}
+          closeDelay={closeDelay}
+          render={children}
+        />
+      </span>
+      <BaseTooltip.Portal container={container}>
+        <div data-appearance={forcedAppearance}>
+          <BaseTooltip.Positioner className={styles.positioner} side={side} align={align} sideOffset={sideOffset} alignOffset={alignOffset}>
+            <BaseTooltip.Popup className={styles.popup}>
+              {content}
+              {!disableArrow && (
+                <BaseTooltip.Arrow className={styles.arrow}>
+                  <ArrowSvg />
+                </BaseTooltip.Arrow>
+              )}
+            </BaseTooltip.Popup>
+          </BaseTooltip.Positioner>
+        </div>
       </BaseTooltip.Portal>
     </BaseTooltip.Root>
   );
 }
+
+Tooltip.Provider = TooltipProvider;
 
 export { BaseTooltip as TooltipPrimitive };

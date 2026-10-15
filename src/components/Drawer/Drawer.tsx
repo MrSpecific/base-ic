@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Drawer as BaseDrawer } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
-import { useTheme } from '../Theme';
+import { useThemePortal } from '../shared/useThemePortal';
 import styles from './drawer.module.css';
 
 export type DrawerSide = 'left' | 'right' | 'top' | 'bottom';
@@ -11,6 +11,13 @@ const sideClass: Record<DrawerSide, string> = {
   right: styles.sideRight,
   top: styles.sideTop,
   bottom: styles.sideBottom,
+};
+
+const swipeAreaSideClass: Record<DrawerSide, string> = {
+  left: styles.swipeAreaLeft,
+  right: styles.swipeAreaRight,
+  top: styles.swipeAreaTop,
+  bottom: styles.swipeAreaBottom,
 };
 
 /**
@@ -55,6 +62,12 @@ export interface DrawerProps extends BaseDrawer.Root.Props {
   showClose?: boolean;
   /** Screen edge the drawer slides in from. Default: 'right' */
   side?: DrawerSide;
+  /**
+   * Render an invisible swipe area along the `side` edge so users can swipe
+   * the drawer open. Pass props (e.g. `className`, `style`) to size or style
+   * it. Default: false
+   */
+  swipeArea?: boolean | BaseDrawer.SwipeArea.Props;
 }
 
 /* ---------------------------------------------------------------------------
@@ -68,51 +81,55 @@ export function Drawer({
   footer,
   showClose = true,
   side = 'right',
+  swipeArea = false,
   ...rootProps
 }: DrawerProps) {
-  const { appearance } = useTheme();
+  const swipeAreaProps = typeof swipeArea === 'object' ? swipeArea : undefined;
   const hasHeader = title || showClose;
-  const triggerAnchorRef = React.useRef<HTMLSpanElement | null>(null);
-  const [portalContainer, setPortalContainer] = React.useState<HTMLElement | null>(null);
-  const forcedAppearance =
-    appearance === 'dark' || appearance === 'light' ? appearance : undefined;
-
-  React.useEffect(() => {
-    const nearestThemeRoot =
-      triggerAnchorRef.current?.closest<HTMLElement>('[data-accent-color]') ??
-      document.querySelector<HTMLElement>('[data-accent-color]');
-    setPortalContainer(nearestThemeRoot ?? null);
-  }, []);
+  const { anchorRef: triggerAnchorRef, container: portalContainer, forcedAppearance } =
+    useThemePortal<HTMLSpanElement>();
 
   return (
     <BaseDrawer.Root swipeDirection={swipeDirectionForSide[side]} {...rootProps}>
       <span ref={triggerAnchorRef} style={{ display: 'contents' }}>
         <BaseDrawer.Trigger render={children} />
       </span>
-      <BaseDrawer.Portal container={portalContainer ?? undefined}>
+      {swipeArea && (
+        <BaseDrawer.SwipeArea
+          {...swipeAreaProps}
+          className={cx(
+            styles.swipeArea,
+            swipeAreaSideClass[side],
+            typeof swipeAreaProps?.className === 'string' ? swipeAreaProps.className : undefined,
+          )}
+        />
+      )}
+      <BaseDrawer.Portal container={portalContainer}>
         <div data-appearance={forcedAppearance}>
           <BaseDrawer.Backdrop className={styles.backdrop} />
           <BaseDrawer.Viewport className={styles.viewport}>
             <BaseDrawer.Popup className={cx(styles.popup, sideClass[side])}>
-              {hasHeader && (
-                <div className={styles.header}>
-                  {title && (
-                    <BaseDrawer.Title className={styles.title}>{title}</BaseDrawer.Title>
-                  )}
-                  {showClose && (
-                    <BaseDrawer.Close className={styles.closeButton} aria-label="Close drawer">
-                      <CloseIcon />
-                    </BaseDrawer.Close>
-                  )}
-                </div>
-              )}
-              {description && (
-                <BaseDrawer.Description className={styles.description}>
-                  {description}
-                </BaseDrawer.Description>
-              )}
-              {content}
-              {footer && <div className={styles.footer}>{footer}</div>}
+              <BaseDrawer.Content className={styles.content}>
+                {hasHeader && (
+                  <div className={styles.header}>
+                    {title && (
+                      <BaseDrawer.Title className={styles.title}>{title}</BaseDrawer.Title>
+                    )}
+                    {showClose && (
+                      <BaseDrawer.Close className={styles.closeButton} aria-label="Close drawer">
+                        <CloseIcon />
+                      </BaseDrawer.Close>
+                    )}
+                  </div>
+                )}
+                {description && (
+                  <BaseDrawer.Description className={styles.description}>
+                    {description}
+                  </BaseDrawer.Description>
+                )}
+                {content}
+                {footer && <div className={styles.footer}>{footer}</div>}
+              </BaseDrawer.Content>
             </BaseDrawer.Popup>
           </BaseDrawer.Viewport>
         </div>
@@ -120,13 +137,5 @@ export function Drawer({
     </BaseDrawer.Root>
   );
 }
-
-/* ---------------------------------------------------------------------------
- * Drawer.SwipeArea — invisible edge-swipe-to-open gesture catcher.
- * Headless by design (no default visuals); power users position and size it
- * themselves. For anything more advanced (imperative handles, snap points),
- * reach for `DrawerPrimitive` directly.
- * --------------------------------------------------------------------------- */
-Drawer.SwipeArea = BaseDrawer.SwipeArea;
 
 export { BaseDrawer as DrawerPrimitive };

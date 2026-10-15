@@ -1,0 +1,35 @@
+/* ==========================================================================
+ * ControlLabel — inline label text next to a Checkbox / Switch / Radio
+ * ========================================================================== */
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-family-primary);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-3);
+  cursor: pointer;
+}
+
+.root:has([data-disabled]) {
+  color: var(--color-text-disabled);
+  cursor: var(--disabled-cursor);
+}
+
+.text {
+  user-select: none;
+}
+
+.size1 {
+  font-size: var(--font-size-1);
+}
+
+.size2 {
+  font-size: var(--font-size-2);
+}
+
+.size3 {
+  font-size: var(--font-size-3);
+  gap: var(--space-3);
+}

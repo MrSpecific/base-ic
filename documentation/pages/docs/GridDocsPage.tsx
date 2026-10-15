@@ -7,18 +7,26 @@ import { DemoCard } from './DemoCard';
 
 export function GridDocsPage() {
   const snippet = [
-    "import { Grid } from '@wlcr/base-ic';",
+    "import { Card, Grid } from '@wlcr/base-ic';",
     '',
-    '<Grid columns="repeat(3, minmax(0, 1fr))" gap={3}>',
+    '<Grid columns={3} gap={3}>',
     '  <Card />',
     '  <Card />',
     '  <Card />',
     '</Grid>',
   ].join('\n');
   const threeColDemoSnippet = [
-    '<Grid columns="repeat(3, minmax(0, 1fr))" gap={2}>',
+    '// columns={3} (or "3") expands to repeat(3, minmax(0, 1fr))',
+    '<Grid columns={3} gap={2}>',
     '  {[1, 2, 3].map((n) => (',
     '    <Box key={n} className="docs-layout-chip">Item {n}</Box>',
+    '  ))}',
+    '</Grid>',
+  ].join('\n');
+  const rowsDemoSnippet = [
+    '<Grid columns="2fr 1fr" rows={2} autoFlow="column" gap={2}>',
+    "  {['A', 'B', 'C', 'D'].map((n) => (",
+    '    <Box key={n} className="docs-layout-chip">{n}</Box>',
     '  ))}',
     '</Grid>',
   ].join('\n');
@@ -36,16 +44,32 @@ export function GridDocsPage() {
         <h1>Grid</h1>
         <p>
           `Grid` is the responsive grid primitive for equal columns, dashboard tiles, and dense content layouts.
-          Use token gaps and explicit template controls for predictable spacing.
+          Pass a count ({'`columns={3}`'}) for equal tracks, or any CSS track list for full control, and use
+          token gaps for predictable spacing.
         </p>
       </DocsSection>
       <DocsSection>
         <h2>Demo</h2>
         <DocsDemoGrid>
-          <DemoCard title="Three Column Grid" description="Simple card layout with equal tracks." code={threeColDemoSnippet}>
-            <Grid columns="repeat(3, minmax(0, 1fr))" gap={2}>
+          <DemoCard
+            title="Three Column Grid"
+            description="A number (or digit string) creates that many equal tracks: `columns={3}` → `repeat(3, minmax(0, 1fr))`."
+            code={threeColDemoSnippet}
+          >
+            <Grid columns={3} gap={2}>
               {[1, 2, 3].map((n) => (
                 <Box key={n} className="docs-layout-chip">Item {n}</Box>
+              ))}
+            </Grid>
+          </DemoCard>
+          <DemoCard
+            title="Track Lists and Rows"
+            description={'Mix a CSS track list for columns with a row count; `autoFlow="column"` fills each column first.'}
+            code={rowsDemoSnippet}
+          >
+            <Grid columns="2fr 1fr" rows={2} autoFlow="column" gap={2}>
+              {['A', 'B', 'C', 'D'].map((n) => (
+                <Box key={n} className="docs-layout-chip">{n}</Box>
               ))}
             </Grid>
           </DemoCard>
@@ -74,13 +98,15 @@ export function GridDocsPage() {
             },
             {
               name: 'columns',
-              type: "React.CSSProperties['gridTemplateColumns']",
-              description: "Sets `grid-template-columns` (e.g. `'repeat(3, minmax(0, 1fr))'`).",
+              type: "React.CSSProperties['gridTemplateColumns'] | number",
+              description:
+                "Sets `grid-template-columns`. A number or digit-only string is a track count: `3` / `\"3\"` → `repeat(3, minmax(0, 1fr))`. Any other string is used as-is (e.g. `'200px 1fr'`).",
             },
             {
               name: 'rows',
-              type: "React.CSSProperties['gridTemplateRows']",
-              description: 'Sets `grid-template-rows`.',
+              type: "React.CSSProperties['gridTemplateRows'] | number",
+              description:
+                'Sets `grid-template-rows`. Like `columns`, a number or digit-only string expands to `repeat(N, minmax(0, 1fr))`; other strings are used as-is.',
             },
             {
               name: 'autoFlow',
@@ -100,7 +126,8 @@ export function GridDocsPage() {
             {
               name: 'gap',
               type: 'number | string',
-              description: 'Gap between grid cells. Numbers map to spacing scale tokens.',
+              description:
+                'Gap between grid cells. Numbers and digit-only strings map to space tokens (`2` → `var(--space-2)`); other strings are raw CSS lengths.',
             },
             {
               name: 'p',

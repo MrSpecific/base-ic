@@ -1,5 +1,6 @@
 import React, { type PropsWithChildren } from 'react';
 import { Card, Code, Heading, Text } from '../../src';
+import { renderInlineCode } from './InlineCode';
 
 const headingSizeByElement: Record<'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6', '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'> = {
   h1: '8',
@@ -12,7 +13,8 @@ const headingSizeByElement: Record<'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6', '1' 
 
 function mapDocsTypography(node: React.ReactNode, inPre = false): React.ReactNode {
   if (node == null || typeof node === 'boolean') return node;
-  if (typeof node === 'string' || typeof node === 'number') return node;
+  if (typeof node === 'string') return inPre ? node : renderInlineCode(node);
+  if (typeof node === 'number') return node;
   if (Array.isArray(node)) return node.map((child, index) => <React.Fragment key={index}>{mapDocsTypography(child, inPre)}</React.Fragment>);
   if (!React.isValidElement(node)) return node;
 

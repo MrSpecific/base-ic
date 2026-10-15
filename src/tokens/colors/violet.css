@@ -2,7 +2,8 @@
  * Violet scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-violet-1:    oklch(98.5% 0.008 295);
   --color-violet-2:    oklch(97.0% 0.016 295);
   --color-violet-3:    oklch(93.5% 0.034 295);

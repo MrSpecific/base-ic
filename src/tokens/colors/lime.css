@@ -2,7 +2,8 @@
  * Lime scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-lime-1:      oklch(98.8% 0.010 125);
   --color-lime-2:      oklch(97.5% 0.020 125);
   --color-lime-3:      oklch(94.0% 0.046 125);

@@ -102,20 +102,27 @@ export interface CustomColorScale {
   contrast: string;
 }
 
+/**
+ * Props left unset on a nested `Theme` are inherited from the nearest ancestor
+ * `Theme`; on a root `Theme` they fall back to the documented defaults.
+ */
 export interface ThemeProps {
-  /** The primary brand/accent color */
+  /** The primary brand/accent color. Root default `'blue'`. */
   accentColor?: AccentColor;
-  /** The neutral/gray palette hue */
+  /** The neutral/gray palette hue. Root default `'gray'`. */
   grayColor?: GrayColor;
-  /** Border radius scale */
+  /** Border radius scale. Root default `'medium'`. */
   radius?: Radius;
-  /** Overall size scaling multiplier */
+  /** Overall size scaling multiplier. Root default `'100%'`. */
   scaling?: Scaling;
-  /** Light/dark appearance */
+  /**
+   * Light/dark appearance. `'inherit'` (the default) follows the parent
+   * `Theme`, or `prefers-color-scheme` on a root `Theme`.
+   */
   appearance?: Appearance;
   /**
    * Font family overrides. Each slot maps to a CSS custom property.
-   * Unspecified slots inherit from semantic.css defaults.
+   * Unspecified slots inherit from the parent Theme / semantic.css defaults.
    */
   fontFamily?: FontFamilies;
   /** Custom color definitions — enables extending the color palette */
@@ -224,36 +231,6 @@ function buildNeutralVars(grayColor: GrayColor): Record<string, string> {
 }
 
 /**
- * Re-derive semantic tokens that semantic.css computes from --color-accent-N
- * via color-mix(), but only ever declares once at :root.
- *
- * Why this is needed: --color-accent-N is overridden per-Theme-instance via
- * inline style on this component's own div (correct — descendants see it).
- * But a token like --focus-ring-color is declared ONCE, at :root, as
- * `color-mix(in oklch, var(--color-accent-8) 72%, transparent)`. CSS resolves
- * that var() using --color-accent-8 AS SEEN AT :root — which is never
- * overridden (only this div is) — so every nested Theme with a non-default
- * accentColor got a focus ring (and Card gradient) frozen at the *default*
- * accent's hue, not its own, regardless of what color it actually rendered
- * everything else in.
- *
- * The fix: redeclare the same formula here, inline, on this same element —
- * since --color-accent-N is set on this element too, var(--color-accent-N)
- * inside these declarations now resolves against THIS Theme's own accent.
- * Only tokens actually consumed by library components are worth the
- * duplication (--focus-ring-color, --card-gradient-*); purely decorative
- * docs-site-only tokens (hero/marketing-band glows) aren't wired here.
- */
-function buildDerivedAccentVars(): Record<string, string> {
-  return {
-    '--focus-ring-color': 'color-mix(in oklch, var(--color-accent-8) 72%, transparent)',
-    '--card-gradient-start': 'color-mix(in oklch, var(--color-accent-3) 34%, var(--color-surface-overlay))',
-    '--card-gradient-border': 'color-mix(in oklch, var(--color-border-subtle) 78%, var(--color-accent-6))',
-    '--card-gradient-border-hover': 'color-mix(in oklch, var(--color-border) 78%, var(--color-accent-7))',
-  };
-}
-
-/**
  * Build CSS custom properties for font family slot overrides.
  * Only writes properties for slots that are explicitly provided —
  * unspecified slots resolve from semantic.css defaults via the CSS cascade.
@@ -312,30 +289,51 @@ export interface ThemeContextValue {
   fontFamily: FontFamilies;
 }
 
-const ThemeContext = React.createContext<ThemeContextValue>({
+const defaultThemeContext: ThemeContextValue = {
   accentColor: 'blue',
   grayColor: 'gray',
   radius: 'medium',
   scaling: '100%',
   appearance: 'inherit',
   fontFamily: {},
-});
+};
+
+const ThemeContext = React.createContext<ThemeContextValue>(defaultThemeContext);
 const ThemeNestingContext = React.createContext(0);
 
+/**
+ * Returns the resolved theme of the nearest ancestor `Theme` (after nested
+ * inheritance), or base-ic's defaults when there is no `Theme`.
+ */
 export function useTheme(): ThemeContextValue {
   return React.useContext(ThemeContext);
 }
+
+/**
+ * Theme-scope marker. Every Theme root carries it, and a root Theme also puts
+ * it on <body> while mounted. semantic.css re-declares its aliases on
+ * `[data-base-ic-theme]` so they re-resolve against that element's own
+ * accent / neutral / radius / scaling instead of staying frozen at the :root
+ * defaults — including for content portaled straight into <body>.
+ */
+const THEME_SCOPE_ATTR = 'data-base-ic-theme';
 
 // ============================================================================
 // Theme component
 // ============================================================================
 
+/**
+ * A nested `Theme` inherits every prop it doesn't specify from the nearest
+ * ancestor `Theme` (`appearance="inherit"` also means "same as the parent");
+ * a root `Theme` falls back to the defaults (blue / gray / medium / 100% /
+ * inherit). `fontFamily` slots merge with the parent's.
+ */
 export function Theme({
-  accentColor = 'blue',
-  grayColor = 'gray',
-  radius = 'medium',
-  scaling = '100%',
-  appearance = 'inherit',
+  accentColor: accentColorProp,
+  grayColor: grayColorProp,
+  radius: radiusProp,
+  scaling: scalingProp,
+  appearance: appearanceProp,
   fontFamily,
   customColors,
   children,
@@ -344,6 +342,22 @@ export function Theme({
 }: ThemeProps) {
   const nestingLevel = React.useContext(ThemeNestingContext);
   const isRootTheme = nestingLevel === 0;
+  // At the root this is defaultThemeContext, so root Themes get the defaults.
+  const parent = React.useContext(ThemeContext);
+
+  const accentColor = accentColorProp ?? parent.accentColor;
+  const grayColor = grayColorProp ?? parent.grayColor;
+  const radius = radiusProp ?? parent.radius;
+  const scaling = scalingProp ?? parent.scaling;
+  const appearance: Appearance =
+    appearanceProp === 'light' || appearanceProp === 'dark'
+      ? appearanceProp
+      : parent.appearance;
+
+  const resolvedFontFamily = React.useMemo<FontFamilies>(
+    () => (fontFamily ? { ...parent.fontFamily, ...fontFamily } : parent.fontFamily),
+    [fontFamily, parent.fontFamily]
+  );
 
   const themeVars = React.useMemo(
     () =>
@@ -356,13 +370,10 @@ export function Theme({
         ...buildAccentVars(accentColor),
         // Neutral color wiring
         ...buildNeutralVars(grayColor),
-        // Re-derive tokens semantic.css only computes once at :root from
-        // --color-accent-N, so they track this Theme's own accent instead of
-        // staying frozen at the default (see buildDerivedAccentVars above).
-        ...buildDerivedAccentVars(),
         // Custom color definitions
         ...(customColors ? buildCustomColorVars(customColors) : {}),
-        // Font family overrides (only writes vars for specified slots)
+        // Font family overrides (only this Theme's own slots — the parent's
+        // already inherit through the CSS cascade)
         ...(fontFamily ? buildFontFamilyVars(fontFamily) : {}),
         // Component-level radius
         '--component-radius': radiusMap[radius],
@@ -370,87 +381,74 @@ export function Theme({
     [accentColor, customColors, fontFamily, grayColor, radius, scaling]
   );
 
-  // Sync appearance to <body> so portaled elements (tooltips, popovers, etc.)
-  // that render outside this Theme div still inherit dark/light mode CSS vars.
+  // Root Theme only: mirror appearance + theme vars onto <body> so portaled
+  // elements (tooltips, popovers, dialogs) that render outside this Theme's
+  // div still get the right mode, hue, radius and scaling.
   //
-  // Why <body> and not <html>?
-  // dark.css uses `:where(.dark, [data-appearance='dark'])` which has zero
-  // specificity (0,0,0). The `:root {}` rules in gray.css have (0,1,0), so
-  // they beat the dark overrides when both match <html>. <body> is not targeted
-  // by :root, so the zero-specificity dark vars apply without conflict.
-  React.useEffect(() => {
-    if (!isRootTheme) return;
-    if (typeof document === 'undefined') return;
-    const body = document.body;
-    if (appearance === 'dark') {
-      body.classList.add('dark');
-      body.classList.remove('light');
-      body.setAttribute('data-appearance', 'dark');
-    } else if (appearance === 'light') {
-      body.classList.add('light');
-      body.classList.remove('dark');
-      body.setAttribute('data-appearance', 'light');
-    } else {
-      // 'inherit' — rely on @media (prefers-color-scheme)
-      body.classList.remove('dark', 'light');
-      body.removeAttribute('data-appearance');
-    }
-    return () => {
-      body.classList.remove('dark', 'light');
-      body.removeAttribute('data-appearance');
-    };
-  }, [appearance, isRootTheme]);
-
-  // Hoist --color-neutral-N and --color-accent-N as body inline styles so that
-  // portaled elements (Tooltip, Popover, Dialog) rendered outside the Theme div
-  // still resolve the correct themed hue for surface / accent colors.
-  // Inline styles beat selector-based rules for the same element; children
-  // inherit unless a closer ancestor (nested Theme div) overrides them.
+  // Why <body> and not <html>? colors/*.css declare the light palette on
+  // `:root` (0,1,0), which beats the zero-specificity
+  // `:where(.dark, [data-appearance='dark'])` dark overrides on <html>.
+  // <body> is not :root, so the dark vars apply there without conflict.
+  //
+  // Everything written is snapshotted first and restored on cleanup, so
+  // unmounting (or changing props) leaves <body> exactly as it found it —
+  // including attributes/classes it had beforehand, and any unrelated inline
+  // styles (e.g. a scroll lock) set in the meantime.
   React.useEffect(() => {
     if (!isRootTheme || typeof document === 'undefined') return;
     const body = document.body;
-    const vars = {
-      ...buildNeutralVars(grayColor),
-      ...buildAccentVars(accentColor),
-      ...buildDerivedAccentVars(),
+
+    const prevClassAttr = body.getAttribute('class');
+    const hadStyleAttr = body.hasAttribute('style');
+    const prevClasses = {
+      dark: body.classList.contains('dark'),
+      light: body.classList.contains('light'),
     };
-    for (const [prop, val] of Object.entries(vars)) {
-      body.style.setProperty(prop, val);
+    const prevAttrs = new Map<string, string | null>(
+      ['data-appearance', THEME_SCOPE_ATTR].map((name) => [name, body.getAttribute(name)])
+    );
+    const prevProps = new Map<string, [string, string]>();
+
+    body.setAttribute(THEME_SCOPE_ATTR, '');
+    // 'inherit' leaves the class/attribute alone and follows prefers-color-scheme.
+    if (appearance === 'dark' || appearance === 'light') {
+      const other = appearance === 'dark' ? 'light' : 'dark';
+      body.classList.add(appearance);
+      body.classList.remove(other);
+      body.setAttribute('data-appearance', appearance);
     }
-    return () => {
-      for (const prop of Object.keys(vars)) {
-        body.style.removeProperty(prop);
-      }
-    };
-  }, [accentColor, grayColor, isRootTheme]);
-
-  // Sync theme CSS variables to <body> for portaled components so scaling,
-  // accent, neutral, radius, and font overrides remain consistent everywhere.
-  React.useEffect(() => {
-    if (!isRootTheme) return;
-    if (typeof document === 'undefined') return;
-
-    const body = document.body;
-    const entries = Object.entries(themeVars).filter(
-      ([key]) => key.startsWith('--')
-    ) as Array<[string, string | number]>;
-    const previous = new Map<string, string>();
-
-    for (const [key, value] of entries) {
-      previous.set(key, body.style.getPropertyValue(key));
+    const appliedClassAttr = body.getAttribute('class');
+    for (const [key, value] of Object.entries(themeVars)) {
+      if (!key.startsWith('--')) continue;
+      prevProps.set(key, [
+        body.style.getPropertyValue(key),
+        body.style.getPropertyPriority(key),
+      ]);
       body.style.setProperty(key, String(value));
     }
 
     return () => {
-      for (const [key, prev] of previous.entries()) {
-        if (prev.trim().length > 0) {
-          body.style.setProperty(key, prev);
-        } else {
-          body.style.removeProperty(key);
-        }
+      for (const [key, [value, priority]] of prevProps) {
+        if (value) body.style.setProperty(key, value, priority);
+        else body.style.removeProperty(key);
+      }
+      if (!hadStyleAttr && body.style.length === 0) body.removeAttribute('style');
+
+      if (body.getAttribute('class') === appliedClassAttr) {
+        // Nobody else touched it — restore the exact original string.
+        if (prevClassAttr === null) body.removeAttribute('class');
+        else body.setAttribute('class', prevClassAttr);
+      } else {
+        body.classList.toggle('dark', prevClasses.dark);
+        body.classList.toggle('light', prevClasses.light);
+      }
+
+      for (const [name, value] of prevAttrs) {
+        if (value === null) body.removeAttribute(name);
+        else body.setAttribute(name, value);
       }
     };
-  }, [isRootTheme, themeVars]);
+  }, [appearance, isRootTheme, themeVars]);
 
   const cssVars: React.CSSProperties = {
     ...themeVars,
@@ -459,25 +457,19 @@ export function Theme({
   };
 
   const contextValue = React.useMemo<ThemeContextValue>(
-    () => ({ accentColor, grayColor, radius, scaling, appearance, fontFamily: fontFamily ?? {} }),
-    [accentColor, grayColor, radius, scaling, appearance, fontFamily]
+    () => ({ accentColor, grayColor, radius, scaling, appearance, fontFamily: resolvedFontFamily }),
+    [accentColor, grayColor, radius, scaling, appearance, resolvedFontFamily]
   );
-
-  const appearanceClass =
-    appearance === 'dark'
-      ? styles.dark
-      : appearance === 'light'
-      ? styles.light
-      : undefined;
 
   return (
     <ThemeNestingContext.Provider value={nestingLevel + 1}>
       <ThemeContext.Provider value={contextValue}>
         <div
-          className={[styles.theme, isRootTheme && styles.rootTheme, appearanceClass, className]
+          className={[styles.theme, isRootTheme && styles.rootTheme, className]
             .filter(Boolean)
             .join(' ')}
           style={cssVars}
+          data-base-ic-theme=""
           data-accent-color={accentColor}
           data-gray-color={grayColor}
           data-radius={radius}

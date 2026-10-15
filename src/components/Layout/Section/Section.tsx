@@ -1,13 +1,13 @@
 import * as React from 'react';
 import styles from './section.module.css';
-import { buildSpaceVars, cx, type SpaceProps, toSpaceVar, withVar } from '../layout.utils';
+import { buildSpaceVars, cx, type SpaceProps, withVar } from '../layout.utils';
 
 type SectionSize = '1' | '2' | '3';
 
 export interface SectionProps extends React.HTMLAttributes<HTMLElement>, SpaceProps {
   as?: React.ElementType;
+  /** Vertical padding preset. `p`/`py`/`pt`/`pb` override it. Default: '2' */
   size?: SectionSize;
-  py?: number | string;
 }
 
 export const Section = React.forwardRef<HTMLElement, SectionProps>(function Section(
@@ -23,7 +23,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(function Sect
   ref
 ) {
   const nextStyle = withVar(style, {
-    '--section-padding': py ? toSpaceVar(py) : `var(--layout-section-${size})`,
+    '--section-size-padding': `var(--layout-section-${size})`,
     ...buildSpaceVars('section', { p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml }),
   });
 

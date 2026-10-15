@@ -34,9 +34,9 @@
 
 Base UI provides unstyled, accessible component primitives. We wrap these with styling and an opinionated API.
 
-- Compound component pattern: `Button.Root`, `Dialog.Trigger`, etc. (Base UI namespace style)
-- Use `mergeProps` from Base UI for prop merging in internal composition
-- Use Base UI's `useRender` hook pattern for render prop support
+- Styled convenience wrappers (`Button`, `Dialog`, `Menu`, …), with sub-parts attached where needed (`Menu.Item`, `Tabs.Tab`, `Field.Label`)
+- Raw Base UI namespaces re-exported as `*Primitive` (`DialogPrimitive`, `MenuPrimitive`, …) as an escape hatch
+- Components without a Base UI primitive (`Badge`, `Card`, `Link`) use Base UI's `useRender` for `render` prop support; it merges `className`, `style`, event handlers, and refs
 - Accessibility is handled by Base UI — we do not re-implement it
 
 ### Design Tokens: CSS Custom Properties (with Open Props influence)
@@ -46,7 +46,7 @@ We define our own token layer as CSS custom properties. We draw inspiration from
 Token philosophy inspired by Open Props:
 - Predictable naming: `--category-scale` (e.g., `--space-3`, `--radius-2`, `--color-accent-9`)
 - Low numbers = lighter/smaller, high numbers = darker/larger
-- Semantic aliases layer on top of raw tokens (e.g., `--color-text-primary` → `--color-gray-12`)
+- Semantic aliases layer on top of raw tokens (e.g., `--color-text-primary` → `--color-neutral-12` → the selected gray hue)
 
 ### Styling: CSS Modules
 
@@ -65,13 +65,13 @@ Rationale:
 
 ### Layer 1: Primitive Tokens
 
-Raw scale values. These live in `tokens/primitives.css`. Users rarely reference these directly.
+Raw scale values. Color scales live in `tokens/colors/<hue>.css` (dark-mode values in `tokens/dark.css`); spacing, size, radius, type, shadow, and motion live in `tokens/primitives.css`. Users rarely reference these directly.
 
 ```css
-/* Color primitives — one scale per hue */
---color-blue-1: oklch(98% 0.01 250);
---color-blue-2: oklch(96% 0.02 250);
-/* ... through --color-blue-12 */
+/* Color primitives — one scale per hue (tokens/colors/blue.css) */
+--color-blue-1: oklch(98.5% 0.007 250);
+--color-blue-2: oklch(97.0% 0.015 250);
+/* ... through --color-blue-12, plus --color-blue-contrast */
 
 /* Spacing primitives */
 --space-1: 0.25rem;
@@ -86,40 +86,52 @@ Raw scale values. These live in `tokens/primitives.css`. Users rarely reference 
 
 ### Layer 2: Semantic Tokens
 
-Purpose-based aliases. These live in `tokens/semantic.css` and reference primitives. Light/dark variants are defined here via `prefers-color-scheme` or a `.dark` class.
+Purpose-based aliases. These live in `tokens/semantic.css` and reference primitives. Light/dark variants are defined here via `prefers-color-scheme` or `.dark` / `[data-appearance='dark']`.
+
+The accent is a full 12-step ramp (`--color-accent-1`…`12` + `--color-accent-contrast`), defaulting to blue at `:root`. `Theme` rewires it to the chosen hue with inline styles on its element; `--color-neutral-*` works the same way for `grayColor`.
 
 ```css
 :root {
-  --color-text-primary: var(--color-gray-12);
-  --color-text-secondary: var(--color-gray-11);
-  --color-surface-base: var(--color-gray-1);
-  --color-surface-raised: var(--color-gray-2);
-  --color-border: var(--color-gray-6);
-  --color-accent: var(--color-blue-9);       /* Current accent hue */
-  --color-accent-hover: var(--color-blue-10);
-  --color-accent-subtle: var(--color-blue-3);
-  --color-accent-contrast: white;            /* Text on accent background */
+  --color-accent-3:        var(--color-blue-3);        /* Subtle accent background */
+  --color-accent-9:        var(--color-blue-9);        /* Solid accent fill */
+  --color-accent-10:       var(--color-blue-10);       /* Solid accent fill, hover */
+  --color-accent-contrast: var(--color-blue-contrast); /* Text on accent fill */
+
+  --color-text-primary:    var(--color-neutral-12);
+  --color-text-secondary:  var(--color-neutral-11);
+  --color-surface-base:    var(--color-neutral-1);
+  --color-border:          var(--color-neutral-7);
 }
 
 @media (prefers-color-scheme: dark) {
   :root { /* ... dark overrides ... */ }
 }
 
-.dark { /* ... dark overrides (class-based toggle) ... */ }
+:where(.dark, [data-appearance='dark']) { /* ... dark overrides (explicit toggle) ... */ }
 ```
 
 ### Layer 3: Component Tokens
 
-Per-component custom properties scoped to the component. These compose semantic tokens.
+Per-size presets are declared in `semantic.css` (`--button-{1-4}-height`, `-px`, `-font-size`, `-gap`, `-icon-size`). The component maps its props to private `--btn-*` variables inline, and the CSS module reads them with the accent ramp as fallback.
 
 ```css
-/* button.module.css */
+/* semantic.css — re-declared on every Theme root so it re-resolves against
+   that Theme's scaling; override globally with `:root, [data-base-ic-theme]` */
+:root,
+:where([data-base-ic-theme]) {
+  --button-2-height: var(--size-3);  /* 32px */
+  --button-2-px:     var(--space-3); /* 12px */
+}
+
+/* button.module.css — Button.tsx sets --btn-height: var(--button-2-height) for size="2",
+   and --btn-accent-N only when a `color` prop is passed */
 .button {
-  --button-height: var(--size-8);
-  --button-padding-x: var(--space-3);
-  --button-radius: var(--component-radius);
-  background: var(--color-accent);
-  color: var(--color-accent-contrast);
+  min-height: var(--btn-height);
+  border-radius: var(--btn-radius, var(--component-radius));
+}
+.solid {
+  background-color: var(--btn-accent-9, var(--color-accent-9));
+  color: var(--btn-accent-contrast, var(--color-accent-contrast));
 }
 ```
 
@@ -142,8 +154,11 @@ The `Theme` component is the primary way to apply a theme. It sets CSS custom pr
 | `accentColor` | `ColorName` | Primary brand color. Built-in + custom. |
 | `grayColor` | `GrayName` | Neutral palette (gray, slate, mauve, sand, olive, sage) |
 | `radius` | `'none' \| 'small' \| 'medium' \| 'large' \| 'full'` | Border radius scale |
-| `scaling` | `'90%' \| '95%' \| '100%' \| '105%' \| '110%'` | Overall size scaling |
+| `scaling` | `'80%'` – `'150%'` in 5% steps | Overall size scaling |
 | `appearance` | `'light' \| 'dark' \| 'inherit'` | Color scheme |
+| `fontFamily` | `{ primary?, secondary?, tertiary?, display?, monospace? }` | Font slot overrides (`--font-family-*`); unspecified slots inherit |
+| `customColors` | `Record<string, CustomColorScale>` | Define extra 12-step ramps (see below) |
+| `style` / `className` | — | Passed to the Theme element; `style` is applied after Theme's vars, so it can override tokens ad hoc |
 
 ### Custom Color Extension
 
@@ -184,28 +199,34 @@ Mirroring Radix Themes for familiarity:
 
 | Prop | Values | Notes |
 |------|--------|-------|
-| `color` | `ColorName \| 'inherit'` | Override accent color for this component |
-| `variant` | `'solid' \| 'soft' \| 'outline' \| 'ghost' \| 'surface'` | Visual style |
-| `size` | `'1' \| '2' \| '3' \| '4'` | Numeric scale (string) like Radix |
+| `color` | `AccentColor` | Override accent color for this component |
+| `variant` | Component-specific (e.g. Button: `'solid' \| 'soft' \| 'surface' \| 'outline' \| 'ghost'`) | Visual style |
+| `size` | Numeric strings, usually `'1'`–`'4'` | Numeric scale (string) like Radix |
 | `radius` | `'none' \| 'small' \| 'medium' \| 'large' \| 'full'` | Override radius for this component |
-| `highContrast` | `boolean` | Increase foreground contrast |
+| `highContrast` | `boolean` | Button, Badge, Toggle, and Text/Heading/Link/Code/Quote only. On typography it requires `color` (step 11 → 12) |
 
 ### Component Structure
 
-Components follow the Base UI compound pattern. The top-level named export is a namespace:
+Each component is a styled convenience wrapper with Radix-Themes-style props. Where a component has parts, they hang off the wrapper; Base UI-backed components also re-export the raw Base UI namespace as `*Primitive`:
 
 ```tsx
-// Usage
-<Button.Root size="2" variant="solid" color="accent">
-  <Button.Icon><PlusIcon /></Button.Icon>
-  Click me
-</Button.Root>
+// Simple wrapper
+<Button size="2" variant="solid" color="violet">Click me</Button>
 
-// For simple cases, a convenience wrapper may be provided:
-<Button size="2" variant="solid">Click me</Button>
+// Wrapper with attached parts
+<Tabs defaultValue="a">
+  <Tabs.List>
+    <Tabs.Tab value="a">A</Tabs.Tab>
+  </Tabs.List>
+  <Tabs.Panel value="a">…</Tabs.Panel>
+</Tabs>
+
+// Escape hatch: unstyled Base UI namespace
+import { DialogPrimitive } from '@wlcr/base-ic';
+<DialogPrimitive.Root>…</DialogPrimitive.Root>
 ```
 
-The convenience wrapper is sugar over the compound components.
+`*Primitive` exports currently exist for Accordion, AlertDialog, Autocomplete, Avatar, Collapsible, Dialog, Drawer, Field, Fieldset, Menu, Menubar, NavigationMenu, NumberField, OTPField, Popover, Progress, Select, Slider, Tabs, Toast, Toggle/ToggleGroup, and Tooltip.
 
 ### The `render` Prop (Base UI pattern)
 
@@ -213,7 +234,8 @@ When users need to change the rendered element, Base UI's `render` prop is used 
 
 ```tsx
 // Base UI pattern (we follow this)
-<Button.Root render={<a href="/page" />}>Go to page</Button.Root>
+<Link render={<RouterLink to="/page" />}>Go to page</Link>
+<Card render={<a href="/page" />}>…</Card>
 
 // Radix pattern (we do NOT use this)
 <Button asChild><a href="/page">Go to page</a></Button>
@@ -221,36 +243,41 @@ When users need to change the rendered element, Base UI's `render` prop is used 
 
 ---
 
-## File Structure (target)
+## File Structure
 
 ```
 base-ic/
 ├── src/
 │   ├── tokens/
-│   │   ├── primitives.css        # Raw scale tokens
-│   │   ├── semantic.css          # Semantic aliases (light + dark)
+│   │   ├── primitives.css        # Spacing, size, radius, type, shadow, motion
+│   │   ├── semantic.css          # Semantic aliases + component size presets (light + dark)
+│   │   ├── dark.css              # Dark-mode color primitive overrides
+│   │   ├── custom-color-template.css # Starter file for a custom brand ramp
 │   │   ├── colors/
-│   │   │   ├── gray.css          # Gray scale primitives
-│   │   │   ├── blue.css          # Blue scale primitives
-│   │   │   └── ...              # One file per hue
-│   │   └── index.css             # Barrel import
+│   │   │   ├── blue.css          # One file per hue (32 total)
+│   │   │   ├── ...
+│   │   │   └── index.css         # Barrel import
+│   │   └── index.css             # Barrel import (exported as @wlcr/base-ic/tokens)
 │   ├── components/
 │   │   ├── Theme/
-│   │   │   ├── Theme.tsx
+│   │   │   ├── Theme.tsx         # Theme + useTheme (context hook lives here)
 │   │   │   ├── theme.module.css
 │   │   │   └── index.ts
 │   │   ├── Button/
 │   │   │   ├── Button.tsx
 │   │   │   ├── button.module.css
 │   │   │   └── index.ts
-│   │   └── ...
-│   ├── hooks/
-│   │   └── useTheme.ts           # Access current theme context
-│   ├── utils/
-│   │   └── mergeProps.ts         # Re-export from Base UI or wrap
+│   │   ├── Layout/               # Box, Flex, Grid, Container, Section + layout.utils.ts
+│   │   ├── Typography/           # Text, Heading, Link, Code, Kbd, Em, Strong, Quote
+│   │   ├── shared/               # Internal helpers (useThemePortal)
+│   │   ├── __tests__/
+│   │   └── ...                   # One folder per component
+│   ├── types.ts                  # Reusable prop value types
 │   └── index.ts                  # Main library entry
+├── documentation/                # Docs site (base-ic.vercel.app)
 ├── DESIGN.md                     # This file
 ├── README.md
+├── vite.config.ts                # Library build (ESM, preserveModules, single style.css)
 └── package.json
 ```
 
@@ -260,8 +287,11 @@ base-ic/
 
 ### Built-in Hues
 
-12 hues to start (matching Radix Themes baseline):
-`gray`, `mauve`, `slate`, `sage`, `olive`, `sand`, `tomato`, `red`, `ruby`, `crimson`, `pink`, `plum`, `purple`, `violet`, `iris`, `indigo`, `blue`, `cyan`, `teal`, `jade`, `green`, `grass`, `bronze`, `gold`, `brown`, `orange`, `amber`, `yellow`, `lime`, `mint`, `sky`
+The full Radix Themes palette — 31 scales (6 grays + 25 colors) — plus a monochrome `black` accent, one file each in `src/tokens/colors/`:
+
+- Grays (usable as `grayColor` or `accentColor`): `gray`, `mauve`, `slate`, `sage`, `olive`, `sand`
+- Colors: `tomato`, `red`, `ruby`, `crimson`, `pink`, `plum`, `purple`, `violet`, `iris`, `indigo`, `blue`, `cyan`, `teal`, `jade`, `green`, `grass`, `bronze`, `gold`, `brown`, `orange`, `amber`, `yellow`, `lime`, `mint`, `sky`
+- Extra: `black`
 
 Each hue has 12 lightness steps + a `contrast` value (for text on colored backgrounds).
 
@@ -298,15 +328,21 @@ We generate colors in OKLCH for perceptually uniform lightness across hues. This
 | 2026-02-27 | OKLCH color space for all color tokens | Perceptually uniform, better dark mode |
 | 2026-02-27 | Numeric size scale as strings ('1', '2', ...) | Familiar to Radix Themes users |
 | 2026-02-27 | No Tailwind | Explicit project decision |
+| 2026-02-27 | Font customization via `Theme` `fontFamily` prop (primary/secondary/tertiary/display/monospace slots → `--font-family-*`) | Resolves open question; slots map to plain CSS vars |
+| 2026-02-27 | `Theme` accepts `style` (applied after its own vars) for ad-hoc token overrides | Resolves open question |
+| 2026-02-27 | ThemePanel lives in the docs site (`documentation/components/ThemePanel.tsx`), not the package | Resolves open question; dev/docs tool, not shipped API |
+| 2026-02-27 | ESM-only build output (`format: 'es'`, `preserveModules`), single `style.css` | Resolves open question; tree-shakeable, bundler-friendly |
+| 2026-10-15 | Nested `Theme` inherits every unset prop (`accentColor`, `grayColor`, `radius`, `scaling`, `appearance`; `fontFamily` slots merge) from the nearest ancestor `Theme`; `appearance="inherit"` means "same as parent" (root: `prefers-color-scheme`) | Resolves open question; a nested Theme should only change what it names |
+| 2026-10-15 | Semantic/size tokens are re-declared on every Theme root (`:root, :where([data-base-ic-theme])`); global overrides target `:root, [data-base-ic-theme]` | Aliases must re-resolve against each Theme's inline inputs (accent, neutral, radius, scaling) instead of freezing at `:root` defaults |
 
 ---
 
 ## Open Questions
 
 - [ ] Should we ship a PostCSS plugin for JIT token loading (like Open Props JIT)?
-- [ ] How do we handle font customization? (Radix Themes uses a font-family token)
-- [ ] Should `Theme` accept a `style` prop for ad-hoc token overrides?
-- [ ] Do we want a visual ThemeEditor component (like Radix ThemePanel) for development?
-- [ ] How do nested `Theme` components behave? Full override or inheritance?
-- [ ] What's our build output format — ESM only? CJS too?
+- [x] ~~How do we handle font customization?~~ — `fontFamily` prop on `Theme` (see Decisions Log)
+- [x] ~~Should `Theme` accept a `style` prop for ad-hoc token overrides?~~ — yes (see Decisions Log)
+- [x] ~~Do we want a visual ThemeEditor component for development?~~ — ThemePanel in the docs site (see Decisions Log)
+- [x] ~~How do nested `Theme` components behave? Full override or inheritance?~~ — inheritance (see Decisions Log)
+- [x] ~~What's our build output format — ESM only? CJS too?~~ — ESM only (see Decisions Log)
 - [ ] Do we want a CLI to scaffold custom color palettes from a hex/oklch input?

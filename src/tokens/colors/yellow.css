@@ -2,7 +2,8 @@
  * Yellow scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-yellow-1:    oklch(99.0% 0.010 100);
   --color-yellow-2:    oklch(97.5% 0.022 100);
   --color-yellow-3:    oklch(95.0% 0.054 100);

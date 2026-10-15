@@ -2,7 +2,8 @@
  * Tomato scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-tomato-1:    oklch(98.5% 0.007 28);
   --color-tomato-2:    oklch(97.0% 0.015 28);
   --color-tomato-3:    oklch(93.5% 0.033 28);

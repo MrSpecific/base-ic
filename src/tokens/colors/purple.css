@@ -2,7 +2,8 @@
  * Purple scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-purple-1:    oklch(98.5% 0.007 285);
   --color-purple-2:    oklch(97.0% 0.015 285);
   --color-purple-3:    oklch(93.5% 0.032 285);

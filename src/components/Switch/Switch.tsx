@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Switch as BaseSwitch } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
 import type { AccentColor } from '../Theme';
+import { useFieldRequired } from '../Field/FieldRequiredContext';
+import { ControlLabel } from '../shared/ControlLabel';
 import styles from './switch.module.css';
 
 type SwitchSize = '1' | '2' | '3';
@@ -18,6 +20,11 @@ export interface SwitchProps
   style?: React.CSSProperties;
   /** Base UI render prop. */
   render?: React.ReactElement;
+  /**
+   * Label text rendered next to the control. Wraps both in a native <label>,
+   * so clicking the text toggles the control.
+   */
+  children?: React.ReactNode;
 }
 
 const sizeClass: Record<SwitchSize, string> = {
@@ -27,7 +34,11 @@ const sizeClass: Record<SwitchSize, string> = {
 };
 
 export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
-  function Switch({ size = '2', color, className, style, render, ...rest }, ref) {
+  function Switch(
+    { size = '2', color, className, style, render, required: requiredProp, children, ...rest },
+    ref,
+  ) {
+    const required = useFieldRequired(requiredProp);
     const colorVars = color
       ? ({
           '--sw-accent-9': `var(--color-${color}-9)`,
@@ -36,15 +47,18 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
       : undefined;
 
     return (
-      <BaseSwitch.Root
-        ref={ref}
-        render={render}
-        className={cx(styles.root, sizeClass[size], className)}
-        style={{ ...colorVars, ...style }}
-        {...rest}
-      >
-        <BaseSwitch.Thumb className={styles.thumb} />
-      </BaseSwitch.Root>
+      <ControlLabel label={children} size={size}>
+        <BaseSwitch.Root
+          ref={ref}
+          render={render}
+          className={cx(styles.root, sizeClass[size], className)}
+          style={{ ...colorVars, ...style }}
+          required={required}
+          {...rest}
+        >
+          <BaseSwitch.Thumb className={styles.thumb} />
+        </BaseSwitch.Root>
+      </ControlLabel>
     );
   },
 );

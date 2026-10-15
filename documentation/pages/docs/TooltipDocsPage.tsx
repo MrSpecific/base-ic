@@ -46,6 +46,17 @@ export function TooltipDocsPage() {
     "</div>",
   ].join("\n");
 
+  const providerDemoSnippet = [
+    "import { Button, Tooltip } from '@wlcr/base-ic';",
+    "",
+    "// Once one tooltip is open, moving to a neighbor opens it instantly.",
+    "<Tooltip.Provider delay={300}>",
+    '  <Tooltip content="Bold"><Button variant="surface">B</Button></Tooltip>',
+    '  <Tooltip content="Italic"><Button variant="surface">I</Button></Tooltip>',
+    '  <Tooltip content="Underline"><Button variant="surface">U</Button></Tooltip>',
+    "</Tooltip.Provider>",
+  ].join("\n");
+
   return (
     <>
       <DocsSection>
@@ -190,6 +201,31 @@ export function TooltipDocsPage() {
               </Tooltip>
             </DocsDemoRow>
           </DemoCard>
+          <DemoCard
+            title="Shared Delay (Provider)"
+            description="Wrap a group of tooltips in `Tooltip.Provider` to share one delay. After the first tooltip opens, hovering a neighbor opens it instantly."
+            code={providerDemoSnippet}
+          >
+            <DocsDemoRow>
+              <Tooltip.Provider delay={300}>
+                {[
+                  ["B", "Bold"],
+                  ["I", "Italic"],
+                  ["U", "Underline"],
+                ].map(([label, hint]) => (
+                  <Tooltip key={label} content={hint}>
+                    <Button
+                      className="tooltip-demo-trigger"
+                      variant="surface"
+                      size="2"
+                    >
+                      {label}
+                    </Button>
+                  </Tooltip>
+                ))}
+              </Tooltip.Provider>
+            </DocsDemoRow>
+          </DemoCard>
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
@@ -239,7 +275,8 @@ export function TooltipDocsPage() {
               name: "delay",
               type: "number",
               default: "150",
-              description: "Milliseconds to wait before opening the tooltip on hover/focus.",
+              description:
+                "Milliseconds to wait before opening the tooltip on hover/focus. Inside a `Tooltip.Provider`, an unset `delay` uses the provider's delay; an explicit value still wins.",
             },
             {
               name: "closeDelay",
@@ -305,6 +342,40 @@ export function TooltipDocsPage() {
             },
           ]}
         />
+        <h3>Tooltip.Provider</h3>
+        <p>
+          Shares open/close delays across a group of tooltips, so moving the
+          pointer between triggers opens the next tooltip without waiting.
+          Props are typed as `TooltipProviderProps`.
+        </p>
+        <PropsTable
+          rows={[
+            {
+              name: "children",
+              type: "React.ReactNode",
+              description: "The tooltips that share this provider's timing.",
+            },
+            {
+              name: "delay",
+              type: "number",
+              default: "150",
+              description:
+                "Milliseconds to wait before opening a tooltip on hover. Applies to every nested Tooltip that doesn't set its own `delay`.",
+            },
+            {
+              name: "closeDelay",
+              type: "number",
+              description: "Milliseconds to wait before closing a tooltip.",
+            },
+            {
+              name: "timeout",
+              type: "number",
+              default: "400",
+              description:
+                "If the previous tooltip closed within this many milliseconds, the next one opens instantly.",
+            },
+          ]}
+        />
       </DocsSection>
       <DocsSection>
         <h2>Notes</h2>
@@ -312,6 +383,11 @@ export function TooltipDocsPage() {
           <li>
             Use concise helper content; tooltips are for hints, not long-form
             UI.
+          </li>
+          <li>
+            Toolbars and icon rows read better wrapped in one
+            `Tooltip.Provider`: the first hint waits for the delay, and the
+            rest open instantly as the pointer moves along.
           </li>
           <li>`TooltipPrimitive` is exported for advanced composition.</li>
           <li>Styling comes from semantic tooltip tokens (`--tooltip-*`).</li>

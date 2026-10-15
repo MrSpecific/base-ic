@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Menu as BaseMenu } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
-import { useTheme } from '../Theme';
+import { useThemePortal } from '../shared/useThemePortal';
 import styles from './menu.module.css';
 
 /* ---------------------------------------------------------------------------
@@ -29,6 +29,12 @@ export interface MenuProps extends Omit<BaseMenu.Root.Props, 'children'> {
   align?: BaseMenu.Positioner.Props['align'];
   /** Gap between popup and trigger. Default: 4 */
   sideOffset?: number;
+  /** Open the menu on hover as well as click. */
+  openOnHover?: BaseMenu.Trigger.Props['openOnHover'];
+  /** Hover open delay in ms. Requires `openOnHover`. */
+  delay?: BaseMenu.Trigger.Props['delay'];
+  /** Hover close delay in ms. Requires `openOnHover`. */
+  closeDelay?: BaseMenu.Trigger.Props['closeDelay'];
 }
 
 export interface MenuItemProps
@@ -128,7 +134,14 @@ function ChevronRightIcon() {
  * MenuContext — carries size down to items
  * --------------------------------------------------------------------------- */
 
-const MenuContext = React.createContext<{ size: MenuSize }>({ size: '2' });
+interface MenuContextValue {
+  size: MenuSize;
+  /** Theme root the root menu portals into — submenus reuse it. */
+  portalContainer?: HTMLElement;
+  forcedAppearance?: 'light' | 'dark';
+}
+
+const MenuContext = React.createContext<MenuContextValue>({ size: '2' });
 
 /* ---------------------------------------------------------------------------
  * Menu root
@@ -141,28 +154,26 @@ export function Menu({
   side = 'bottom',
   align = 'start',
   sideOffset = 4,
+  openOnHover,
+  delay,
+  closeDelay,
   ...rootProps
 }: MenuProps) {
-  const { appearance } = useTheme();
-  const triggerAnchorRef = React.useRef<HTMLSpanElement | null>(null);
-  const [portalContainer, setPortalContainer] = React.useState<HTMLElement | null>(null);
-  const forcedAppearance =
-    appearance === 'dark' || appearance === 'light' ? appearance : undefined;
-
-  React.useEffect(() => {
-    const nearestThemeRoot =
-      triggerAnchorRef.current?.closest<HTMLElement>('[data-accent-color]') ??
-      document.querySelector<HTMLElement>('[data-accent-color]');
-    setPortalContainer(nearestThemeRoot ?? null);
-  }, []);
+  const { anchorRef: triggerAnchorRef, container: portalContainer, forcedAppearance } =
+    useThemePortal<HTMLSpanElement>();
 
   return (
-    <MenuContext.Provider value={{ size }}>
+    <MenuContext.Provider value={{ size, portalContainer, forcedAppearance }}>
       <BaseMenu.Root {...rootProps}>
         <span ref={triggerAnchorRef} style={{ display: 'contents' }}>
-          <BaseMenu.Trigger render={trigger} />
+          <BaseMenu.Trigger
+            openOnHover={openOnHover}
+            delay={delay}
+            closeDelay={closeDelay}
+            render={trigger}
+          />
         </span>
-        <BaseMenu.Portal container={portalContainer ?? undefined}>
+        <BaseMenu.Portal container={portalContainer}>
           <div data-appearance={forcedAppearance}>
             <BaseMenu.Positioner
               className={styles.positioner}
@@ -264,8 +275,8 @@ function MenuGroup({ label, className, children }: MenuGroupProps) {
  * Menu.Separator
  * --------------------------------------------------------------------------- */
 
-function MenuSeparator() {
-  return <div className={styles.separator} role="separator" />;
+function MenuSeparator({ className }: { className?: string }) {
+  return <BaseMenu.Separator className={cx(styles.separator, className)} />;
 }
 
 /* ---------------------------------------------------------------------------
@@ -279,19 +290,21 @@ export interface MenuSubProps extends Omit<BaseMenu.SubmenuRoot.Props, 'children
 }
 
 function MenuSub({ trigger, children, ...rest }: MenuSubProps) {
-  const { size } = React.useContext(MenuContext);
+  const { size, portalContainer, forcedAppearance } = React.useContext(MenuContext);
   return (
     <BaseMenu.SubmenuRoot {...rest}>
       <BaseMenu.SubmenuTrigger className={cx(styles.item, styles.submenuTrigger, sizeClass[size])}>
         <span className={styles.itemLabel}>{trigger}</span>
         <ChevronRightIcon />
       </BaseMenu.SubmenuTrigger>
-      <BaseMenu.Portal>
-        <BaseMenu.Positioner className={styles.positioner} sideOffset={4}>
-          <BaseMenu.Popup className={cx(styles.popup, sizeClass[size])}>
-            {children}
-          </BaseMenu.Popup>
-        </BaseMenu.Positioner>
+      <BaseMenu.Portal container={portalContainer}>
+        <div data-appearance={forcedAppearance}>
+          <BaseMenu.Positioner className={styles.positioner} sideOffset={4}>
+            <BaseMenu.Popup className={cx(styles.popup, sizeClass[size])}>
+              {children}
+            </BaseMenu.Popup>
+          </BaseMenu.Positioner>
+        </div>
       </BaseMenu.Portal>
     </BaseMenu.SubmenuRoot>
   );

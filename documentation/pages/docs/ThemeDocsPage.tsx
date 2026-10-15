@@ -1,7 +1,8 @@
 import { Badge, Box, Button, Card, Text, Theme } from '../../../src';
 import { CodeBlock } from '../../components/CodeBlock';
-import { DocsDemoGrid, DocsDemoRow, DocsEyebrow, DocsList } from '../../components/DocsPrimitives';
+import { DocsDemoGrid, DocsDemoRow, DocsEyebrow } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
+import { PropsTable } from '../../components/PropsTable';
 import { DemoCard } from './DemoCard';
 
 export function ThemeDocsPage() {
@@ -83,11 +84,11 @@ export function ThemeDocsPage() {
   ].join('\n');
 
   const nestedThemeSnippet = [
-    '<Theme accentColor="blue">',
+    '<Theme accentColor="blue" radius="large">',
     '  <Button color="blue">Inherits blue</Button>',
     '',
     '  <Theme accentColor="crimson">',
-    '    {/* Only this subtree sees the override */}',
+    '    {/* Only this subtree sees the override; radius="large" is inherited */}',
     '    <Button color="crimson">Scoped to crimson</Button>',
     '  </Theme>',
     '',
@@ -111,14 +112,14 @@ export function ThemeDocsPage() {
         <p>
           `Theme` is the foundation of Base-IC. It controls accent/neutral palettes, radius, scale,
           appearance, and typography slots for every component below it — by rewiring a small set of
-          semantic CSS custom properties (`--color-accent-*`, `--color-neutral-*`, `--component-radius`,
+          semantic CSS custom properties (<code>--color-accent-*</code>, <code>--color-neutral-*</code>, <code>--component-radius</code>,
           `--component-scaling`, `--font-family-*`), not by re-styling components one at a time.
         </p>
       </DocsSection>
       <DocsSection>
         <h2>Live Examples</h2>
         <DocsDemoGrid>
-          <Theme accentColor="blue" grayColor="slate" radius="medium" scaling="100%" appearance="inherit">
+          <Theme accentColor="blue" grayColor="slate" radius="medium" scaling="100%">
             <DemoCard
               title="Product Theme"
               description="Balanced neutral palette for most product surfaces."
@@ -131,7 +132,7 @@ export function ThemeDocsPage() {
               </DocsDemoRow>
             </DemoCard>
           </Theme>
-          <Theme accentColor="orange" grayColor="gray" radius="large" scaling="100%" appearance="inherit">
+          <Theme accentColor="orange" grayColor="gray" radius="large" scaling="100%">
             <DemoCard
               title="Marketing Theme"
               description="Higher energy accent and softer card shape for campaigns."
@@ -157,7 +158,7 @@ export function ThemeDocsPage() {
           <DemoCard title="Radius scale" description="none · small · medium · large · full" code={radiusSnippet}>
             <DocsDemoRow>
               {(['none', 'small', 'medium', 'large', 'full'] as const).map((radius) => (
-                <Theme key={radius} radius={radius} appearance="inherit">
+                <Theme key={radius} radius={radius}>
                   <Card variant="surface" size="2" style={{ minWidth: '6.5rem', textAlign: 'center' }}>
                     <Text size="1" style={{ color: 'var(--color-text-secondary)' }}>{radius}</Text>
                   </Card>
@@ -179,7 +180,7 @@ export function ThemeDocsPage() {
           <DemoCard title="Scaling multiplier" description="Same Button, three scaling factors." code={scalingSnippet}>
             <DocsDemoRow>
               {(['90%', '100%', '120%'] as const).map((scaling) => (
-                <Theme key={scaling} scaling={scaling} appearance="inherit">
+                <Theme key={scaling} scaling={scaling}>
                   <Button size="3">{scaling}</Button>
                 </Theme>
               ))}
@@ -190,8 +191,8 @@ export function ThemeDocsPage() {
       <DocsSection>
         <h2>Appearance</h2>
         <p>
-          `appearance` forces `light` or `dark` regardless of OS preference, or `inherit` (the default) to
-          follow `prefers-color-scheme`. A root `Theme` also syncs its appearance onto `&lt;body&gt;`, so
+          `appearance` forces `light` or `dark` regardless of OS preference, or `inherit` (the default):
+          the same mode as the parent <code>Theme</code>, or <code>prefers-color-scheme</code> on a root <code>Theme</code>. A root <code>Theme</code> also syncs its appearance onto <code>&lt;body&gt;</code>, so
           portaled content (Tooltip, Popover, Dialog, Menu) that renders outside the Theme's own DOM subtree
           still picks up the right mode.
         </p>
@@ -217,12 +218,11 @@ export function ThemeDocsPage() {
         <p>
           Unlike a fixed palette, adding a brand hue is first-class: pass a full 12-step
           `CustomColorScale` (plus a `contrast` value for text on solid fills) via `customColors`, then
-          reference it by name anywhere a built-in hue would go — including `Theme`'s own `accentColor`.
+          reference it by name anywhere a built-in hue would go — including <code>Theme</code>'s own <code>accentColor</code>.
         </p>
         <DocsDemoGrid>
           <Theme
             accentColor="brand"
-            appearance="inherit"
             customColors={{
               brand: {
                 1: 'oklch(98% 0.01 340)', 2: 'oklch(96% 0.02 340)',
@@ -251,23 +251,25 @@ export function ThemeDocsPage() {
       <DocsSection>
         <h2>Nested themes</h2>
         <p>
-          A `Theme` inside another `Theme` overrides tokens only for its own subtree — everything outside
-          it keeps inheriting from the nearest ancestor `Theme`. Only the outermost (root) `Theme` syncs its
-          appearance/color/scaling onto `&lt;body&gt;` for portaled content; nested themes stay scoped to
+          A <code>Theme</code> inside another <code>Theme</code> inherits every prop it doesn't set from its nearest
+          ancestor — <code>accentColor</code>, <code>grayColor</code>, <code>radius</code>, <code>scaling</code> and <code>appearance</code> — and its
+          <code>fontFamily</code> slots merge with the parent's. Set only what should change for that subtree;
+          everything outside it is unaffected. Only the outermost (root) <code>Theme</code> syncs its
+          appearance/color/scaling onto <code>&lt;body&gt;</code> for portaled content; nested themes stay scoped to
           their own DOM.
         </p>
         <DocsDemoGrid>
-          <Theme accentColor="blue" appearance="inherit">
+          <Theme accentColor="blue" radius="large">
             <DemoCard
               title="Scoped override"
-              description="An inner Theme changes color for one region only."
+              description="An inner Theme changes the accent for one region and inherits everything else (here, `radius='large'`)."
               code={nestedThemeSnippet}
             >
               <Box>
                 <DocsDemoRow>
                   <Button color="blue">Inherits blue</Button>
                 </DocsDemoRow>
-                <Theme accentColor="crimson" appearance="inherit">
+                <Theme accentColor="crimson">
                   <Box mt="3" p="3" style={{ border: '1px dashed var(--color-border)', borderRadius: 'var(--radius-3)' }}>
                     <DocsEyebrow>Scoped to this box</DocsEyebrow>
                     <DocsDemoRow>
@@ -284,12 +286,12 @@ export function ThemeDocsPage() {
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <h2>Reading theme state — `useTheme()`</h2>
+        <h2>Reading theme state — <code>useTheme()</code></h2>
         <p>
           Custom components that need to branch on the active theme (rather than just inherit CSS
-          variables) can read the current `accentColor`, `grayColor`, `radius`, `scaling`, `appearance`,
-          and `fontFamily` via the `useTheme` hook. It returns whatever the nearest ancestor `Theme`
-          resolved — or base-ic's defaults if no `Theme` is present.
+          variables) can read the current <code>accentColor</code>, <code>grayColor</code>, <code>radius</code>, <code>scaling</code>, <code>appearance</code>,
+          and <code>fontFamily</code> via the <code>useTheme</code> hook. It returns whatever the nearest ancestor <code>Theme</code>
+          resolved — or base-ic's defaults if no <code>Theme</code> is present.
         </p>
         <CodeBlock title="useTheme" code={useThemeSnippet} />
       </DocsSection>
@@ -299,15 +301,76 @@ export function ThemeDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Props</h2>
-        <DocsList>
-          <li>`accentColor` — primary brand hue. Maps to `--color-accent-1..12` and `--color-accent-contrast`. Default `"blue"`.</li>
-          <li>`grayColor` — neutral hue (`gray`, `mauve`, `slate`, `sage`, `olive`, `sand`). Maps to `--color-neutral-1..12`. Default `"gray"`.</li>
-          <li>`radius` — `"none" | "small" | "medium" | "large" | "full"`. Sets `--component-radius`; surfaces clamp it into their own scale. Default `"medium"`.</li>
-          <li>`scaling` — `"80%"` through `"150%"` in 5% steps. Multiplies every space/size/font-size primitive via `--component-scaling`. Default `"100%"`.</li>
-          <li>`appearance` — `"light" | "dark" | "inherit"`. `"inherit"` follows `prefers-color-scheme`; the other two force a mode and sync it to `&lt;body&gt;` when this is the root Theme. Default `"inherit"`.</li>
-          <li>`fontFamily` — per-slot overrides (`primary`, `secondary`, `tertiary`, `display`, `monospace`). Unspecified slots inherit from `semantic.css` defaults rather than being clobbered.</li>
-          <li>`customColors` — `Record&lt;name, CustomColorScale&gt;`, each a full 12-step scale plus `contrast`. Makes brand hues usable anywhere a built-in `AccentColor` is accepted, including as `accentColor` itself.</li>
-        </DocsList>
+        <p>
+          Defaults below apply to a root <code>Theme</code>. On a nested <code>Theme</code>, every unset prop is
+          inherited from the nearest ancestor <code>Theme</code> instead.
+        </p>
+        <PropsTable
+          rows={[
+            {
+              name: 'accentColor',
+              type: 'AccentColor',
+              default: "'blue'",
+              description:
+                'Primary brand hue. Maps `--color-accent-1..12` and `--color-accent-contrast` to the chosen scale. Accepts any built-in hue or a name defined in `customColors`.',
+            },
+            {
+              name: 'grayColor',
+              type: "'gray' | 'mauve' | 'slate' | 'sage' | 'olive' | 'sand'",
+              default: "'gray'",
+              description: 'Neutral hue. Maps `--color-neutral-1..12` to the chosen gray scale.',
+            },
+            {
+              name: 'radius',
+              type: "'none' | 'small' | 'medium' | 'large' | 'full'",
+              default: "'medium'",
+              description:
+                'Sets `--component-radius`, which every component radius derives from. Surfaces (Card, panels) clamp it into their own scale.',
+            },
+            {
+              name: 'scaling',
+              type: "'80%' | '85%' | … | '145%' | '150%'",
+              default: "'100%'",
+              description:
+                'Multiplier (5% steps) applied to every space, size, and font-size primitive via `--component-scaling`.',
+            },
+            {
+              name: 'appearance',
+              type: "'light' | 'dark' | 'inherit'",
+              default: "'inherit'",
+              description:
+                "`light` / `dark` force a mode. `inherit` uses the parent Theme's mode, or follows `prefers-color-scheme` on a root Theme. A root Theme also syncs the mode onto `<body>` so portaled content matches.",
+            },
+            {
+              name: 'fontFamily',
+              type: '{ primary?: string; secondary?: string; tertiary?: string; display?: string; monospace?: string }',
+              description:
+                'Per-slot font overrides, written to `--font-family-primary`, `-secondary`, `-tertiary`, `-display`, and `--font-family-mono`. Only the slots you pass are set; the rest keep their `semantic.css` defaults.',
+            },
+            {
+              name: 'customColors',
+              type: 'Record<string, CustomColorScale>',
+              description:
+                'Extra named color scales, each 12 steps plus `contrast`. Writes `--color-{name}-1..12` and `--color-{name}-contrast`, making the name usable anywhere an `AccentColor` is accepted — including `accentColor` itself.',
+            },
+            {
+              name: 'children',
+              type: 'React.ReactNode',
+              description: 'Content that receives the theme.',
+            },
+            {
+              name: 'className',
+              type: 'string',
+              description: "Additional class name on the Theme's wrapper `<div>`.",
+            },
+            {
+              name: 'style',
+              type: 'React.CSSProperties',
+              description:
+                "Inline styles on the wrapper `<div>`, applied after the theme's CSS variables — so they can override individual tokens.",
+            },
+          ]}
+        />
       </DocsSection>
     </>
   );

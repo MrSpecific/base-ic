@@ -2,7 +2,8 @@
  * Brown scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-brown-1:     oklch(98.5% 0.008 50);
   --color-brown-2:     oklch(97.0% 0.012 50);
   --color-brown-3:     oklch(93.5% 0.020 50);

@@ -19,10 +19,20 @@ export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
   highContrast?: boolean;
   /** Override the border-radius for this button. */
   radius?: ButtonRadius;
-  /** Show a loading spinner and disable interaction. */
+  /**
+   * Show a loading spinner and disable interaction. The button stays focusable
+   * (so focus isn't dropped mid-action) and is marked `aria-busy`.
+   */
   loading?: boolean;
-  /** The base element to render. Accepts a React element via Base UI render prop. */
-  render?: React.ReactElement;
+  /** Keep the button in the tab order while `disabled`. Default: false */
+  focusableWhenDisabled?: BaseButton.Props['focusableWhenDisabled'];
+  /**
+   * Whether the `render` element is a native `<button>`. Set to `false` when
+   * rendering a `<div>`/`<a>` etc. so Base UI adds button semantics. Default: true
+   */
+  nativeButton?: BaseButton.Props['nativeButton'];
+  /** Replace the rendered element — a React element or a render function (Base UI render prop). */
+  render?: BaseButton.Props['render'];
 }
 
 const radiusMap: Record<ButtonRadius, string> = {
@@ -43,6 +53,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       radius,
       loading = false,
       disabled,
+      focusableWhenDisabled,
       className,
       style,
       p,
@@ -97,6 +108,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <BaseButton
         ref={ref}
         disabled={disabled || loading}
+        focusableWhenDisabled={focusableWhenDisabled || loading}
+        aria-busy={loading || undefined}
         render={render}
         className={cx(
           styles.button,

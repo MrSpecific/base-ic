@@ -87,7 +87,7 @@ export function ToastDocsPage() {
         <DocsDemoGrid>
           <DemoCard
             title="Position"
-            description="Anchor the stack to any corner or edge with the `position` prop. Toasts always stack away from that edge."
+            description="Anchor the stack to any corner or edge with the `position` prop. Toasts always stack away from that edge, and the default swipe-to-dismiss direction follows it."
             code={positionSnippet}
           >
             <DocsDemoRow>
@@ -261,8 +261,9 @@ export function ToastDocsPage() {
             {
               name: "swipeDirection",
               type: "('up' | 'down' | 'left' | 'right') | Array<'up' | 'down' | 'left' | 'right'>",
-              default: "['down', 'right']",
-              description: "Direction(s) a toast can be swiped to dismiss.",
+              default: "derived from position",
+              description:
+                "Direction(s) a toast can be swiped to dismiss. When omitted, it derives from `position`: toward the anchored edge (`'up'` for `top-*`, `'down'` for `bottom-*`) plus sideways (`'left'` for `*-left`, otherwise `'right'`). For example, `['up', 'left']` for `top-left` and `['down', 'right']` for `bottom-center`. Pass a value to override.",
             },
             {
               name: "position",
@@ -284,8 +285,11 @@ export function ToastDocsPage() {
         </Text>
         <Text as="p">
           Every <code>toast(...)</code> / <code>toast.success(...)</code> /
-          etc. call accepts a <code>ToastOptions</code> object (or, as
-          shorthand, a plain string used as the title):
+          etc. call accepts a <code>ToastOptions</code> object. The variant
+          helpers (<code>toast.success</code>, <code>toast.error</code>,{" "}
+          <code>toast.warning</code>, <code>toast.info</code>) also accept a
+          plain string as shorthand for <code>&#123; title &#125;</code>; the
+          base <code>toast(...)</code> call requires an object:
         </Text>
         <PropsTable
           rows={[
@@ -308,8 +312,8 @@ export function ToastDocsPage() {
             {
               name: "timeout",
               type: "number",
-              default: "5000",
-              description: "Time in ms before this toast auto-dismisses. `0` disables auto-dismissal.",
+              description:
+                "Time in ms before this toast auto-dismisses, overriding the Toaster's `timeout` (which defaults to 5000). `0` disables auto-dismissal.",
             },
             {
               name: "priority",
@@ -336,6 +340,11 @@ export function ToastDocsPage() {
               name: "onRemove",
               type: "() => void",
               description: "Called once the toast is removed from the list after its close animation completes.",
+            },
+            {
+              name: "data",
+              type: "Record<string, unknown>",
+              description: "Arbitrary custom data stored on the toast object — read it back in a custom `renderToast`.",
             },
           ]}
         />
@@ -375,6 +384,20 @@ export function ToastDocsPage() {
             have). The stack always grows away from the anchored edge — a{" "}
             <code>top-*</code> position stacks new toasts downward instead of
             upward.
+          </li>
+          <li>
+            Swipe-to-dismiss follows <code>position</code> unless you set{" "}
+            <code>swipeDirection</code>: <code>top-*</code> toasts swipe up,{" "}
+            <code>bottom-*</code> toasts swipe down, and <code>*-left</code>{" "}
+            toasts swipe left (all others swipe right), so a toast is never
+            flung toward the middle of the screen.
+          </li>
+          <li>
+            Types are exported for typed wrappers: <code>ToasterProps</code>,{" "}
+            <code>ToasterPosition</code>, <code>ToastOptions</code>,{" "}
+            <code>ToastVariant</code>, and the part props{" "}
+            <code>ToastTitleProps</code>, <code>ToastDescriptionProps</code>,{" "}
+            <code>ToastActionProps</code>, <code>ToastCloseProps</code>.
           </li>
         </DocsList>
       </DocsSection>

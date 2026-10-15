@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Toast as BaseToast } from '@base-ui/react';
 import type { ToastManagerAddOptions, ToastObject } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
-import { useTheme } from '../Theme';
+import { useThemePortal } from '../shared/useThemePortal';
 import styles from './toast.module.css';
 
 /**
@@ -168,7 +168,11 @@ export interface ToasterProps {
    * wins over this default. Default: 5000
    */
   timeout?: number;
-  /** Direction(s) a toast can be swiped to dismiss. Default: ['down', 'right'] */
+  /**
+   * Direction(s) a toast can be swiped to dismiss. Defaults to toward the
+   * anchored edge plus sideways — e.g. `['down', 'right']` for `bottom-*`,
+   * `['up', 'left']` for `top-left`.
+   */
   swipeDirection?: BaseToast.Root.Props['swipeDirection'];
   /**
    * Which corner/edge of the screen the toast stack anchors to.
@@ -185,6 +189,15 @@ export interface ToasterProps {
   renderToast?: (toast: ToastObject<ToastData>) => React.ReactNode;
 }
 
+type SwipeDirection = 'up' | 'down' | 'left' | 'right';
+
+/** Swipe toward the edge the stack is anchored to, never toward screen center. */
+function defaultSwipeDirection(position: ToasterPosition): SwipeDirection[] {
+  const vertical: SwipeDirection = position.startsWith('top') ? 'up' : 'down';
+  const horizontal: SwipeDirection = position.endsWith('left') ? 'left' : 'right';
+  return [vertical, horizontal];
+}
+
 /* ---------------------------------------------------------------------------
  * Toaster — mount once, typically inside `Theme`, near the app root.
  * --------------------------------------------------------------------------- */
@@ -195,26 +208,19 @@ export function Toaster({
   position = 'bottom-center',
   renderToast,
 }: ToasterProps) {
-  const { appearance } = useTheme();
-  const anchorRef = React.useRef<HTMLSpanElement | null>(null);
-  const [portalContainer, setPortalContainer] = React.useState<HTMLElement | null>(null);
-  const forcedAppearance =
-    appearance === 'dark' || appearance === 'light' ? appearance : undefined;
-
-  React.useEffect(() => {
-    const nearestThemeRoot =
-      anchorRef.current?.closest<HTMLElement>('[data-accent-color]') ??
-      document.querySelector<HTMLElement>('[data-accent-color]');
-    setPortalContainer(nearestThemeRoot ?? null);
-  }, []);
+  const { anchorRef, container: portalContainer, forcedAppearance } =
+    useThemePortal<HTMLSpanElement>();
 
   return (
     <span ref={anchorRef} style={{ display: 'contents' }}>
       <BaseToast.Provider toastManager={manager} limit={limit} timeout={timeout}>
-        <BaseToast.Portal container={portalContainer ?? undefined}>
+        <BaseToast.Portal container={portalContainer}>
           <div data-appearance={forcedAppearance}>
             <BaseToast.Viewport className={styles.viewport} data-position={position}>
-              <ToastList swipeDirection={swipeDirection} renderToast={renderToast} />
+              <ToastList
+                swipeDirection={swipeDirection ?? defaultSwipeDirection(position)}
+                renderToast={renderToast}
+              />
             </BaseToast.Viewport>
           </div>
         </BaseToast.Portal>

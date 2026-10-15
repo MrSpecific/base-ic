@@ -27,6 +27,7 @@ export function LinkDocsPage() {
   ].join('\n');
 
   const renderPropSnippet = [
+    "import { Link } from '@wlcr/base-ic';",
     "import { Link as RouterLink } from 'react-router-dom';",
     '',
     '<Link render={<RouterLink to="/projects/1" />}>Project overview</Link>',
@@ -49,7 +50,11 @@ export function LinkDocsPage() {
       <DocsSection>
         <h2>Demo</h2>
         <DocsDemoGrid>
-          <DemoCard title="Underline Modes" description="Control link decoration behavior by context." code={underlineSnippet}>
+          <DemoCard
+            title="Underline Modes"
+            description="Control link decoration. `auto` (the default) and `hover` currently behave identically: the underline appears only on hover."
+            code={underlineSnippet}
+          >
             <div>
               <Link href="https://base-ui.com/react" target="_blank" rel="noreferrer" underline="auto">Underline auto</Link>
               <br />
@@ -100,13 +105,15 @@ export function LinkDocsPage() {
             {
               name: 'highContrast',
               type: 'boolean',
-              description: 'Increase foreground contrast against the background.',
+              description:
+                'Uses the higher-contrast step (12 instead of 11) of the `color` scale. Only has an effect when `color` is set.',
             },
             {
               name: 'underline',
               type: "'auto' | 'always' | 'hover' | 'none'",
               default: "'auto'",
-              description: 'Controls when the underline decoration is shown.',
+              description:
+                'Controls when the underline decoration is shown. `always` and `none` are fixed; `auto` and `hover` both underline on hover only (they are currently identical).',
             },
             {
               name: 'truncate',
@@ -120,9 +127,25 @@ export function LinkDocsPage() {
                 "Render as a different element (e.g. a router Link) while keeping Link's styling.",
             },
             {
+              name: 'p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml',
+              type: 'number | string',
+              description:
+                'Padding/margin shorthand props (e.g. `mt={2}`). Numbers map to spacing scale tokens; strings are used as literal CSS values.',
+            },
+            {
               name: 'children',
               type: 'React.ReactNode',
               description: 'Link content/label.',
+            },
+            {
+              name: 'className',
+              type: 'string',
+              description: 'Additional class name. All other native anchor attributes (`target`, `rel`, …) are forwarded.',
+            },
+            {
+              name: 'style',
+              type: 'React.CSSProperties',
+              description: 'Inline styles merged after the computed typography and spacing variables.',
             },
           ]}
         />

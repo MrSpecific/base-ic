@@ -56,7 +56,7 @@ export function MenubarDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Built On Base UI</Heading>
+        <Heading as="h2">Built On Base UI</Heading>
         <Text as="p">
           This component wraps the Base UI Menubar primitive. Base primitive
           docs:{" "}
@@ -71,7 +71,7 @@ export function MenubarDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Demo</Heading>
+        <Heading as="h2">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="File / Edit / View"
@@ -120,7 +120,7 @@ export function MenubarDocsPage() {
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <Heading>Usage</Heading>
+        <Heading as="h2">Usage</Heading>
         <CodeBlock title="Menubar Usage" code={usageSnippet} />
       </DocsSection>
       <DocsSection>
@@ -168,7 +168,7 @@ export function MenubarDocsPage() {
         />
       </DocsSection>
       <DocsSection>
-        <Heading>Notes</Heading>
+        <Heading as="h2">Notes</Heading>
         <DocsList>
           <li>
             Menubar is a thin container — children are expected to be this

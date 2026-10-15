@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NumberField as BaseNumberField } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
+import { useFieldRequired } from '../Field/FieldRequiredContext';
 import styles from './number-field.module.css';
 
 /* ---------------------------------------------------------------------------
@@ -33,8 +34,13 @@ export interface NumberFieldProps
   radius?: NumberFieldRadius;
   /** Placeholder shown in the input when empty. */
   placeholder?: string;
-  /** Additional className on the group wrapper. */
+  /** Accessible label for the decrement button. Default: 'Decrease' */
+  decrementLabel?: string;
+  /** Accessible label for the increment button. Default: 'Increase' */
+  incrementLabel?: string;
+  /** Additional className on the root element. */
   className?: string;
+  /** Inline style on the root element. */
   style?: React.CSSProperties;
 }
 
@@ -83,27 +89,41 @@ function PlusIcon() {
 
 export const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>(
   function NumberField(
-    { size = '2', radius, placeholder, className, style, ...rest },
+    {
+      size = '2',
+      radius,
+      placeholder,
+      decrementLabel = 'Decrease',
+      incrementLabel = 'Increase',
+      className,
+      style,
+      required: requiredProp,
+      ...rest
+    },
     ref,
   ) {
+    const required = useFieldRequired(requiredProp);
     const radiusVar = radius
       ? ({ '--nf-radius': radiusMap[radius] } as React.CSSProperties)
       : undefined;
 
     return (
-      <BaseNumberField.Root ref={ref} className={styles.root} style={style} {...rest}>
-        <BaseNumberField.Group
-          className={cx(styles.group, sizeClass[size], className)}
-          style={radiusVar}
-        >
-          <BaseNumberField.Decrement className={styles.button} aria-label="Decrease">
+      <BaseNumberField.Root
+        ref={ref}
+        className={cx(styles.root, sizeClass[size], className)}
+        style={{ ...radiusVar, ...style }}
+        required={required}
+        {...rest}
+      >
+        <BaseNumberField.Group className={styles.group}>
+          <BaseNumberField.Decrement className={styles.button} aria-label={decrementLabel}>
             <MinusIcon />
           </BaseNumberField.Decrement>
           <BaseNumberField.Input
             className={styles.input}
             placeholder={placeholder}
           />
-          <BaseNumberField.Increment className={styles.button} aria-label="Increase">
+          <BaseNumberField.Increment className={styles.button} aria-label={incrementLabel}>
             <PlusIcon />
           </BaseNumberField.Increment>
         </BaseNumberField.Group>

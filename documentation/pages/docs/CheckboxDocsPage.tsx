@@ -63,7 +63,7 @@ export function CheckboxDocsPage() {
           <DemoCard
             title="Colors"
             description="Override the accent color per instance."
-            code={'<Checkbox defaultChecked color="green" />\n<Checkbox defaultChecked color="red" />\n<Checkbox defaultChecked color="orange" />'}
+            code={'<Checkbox defaultChecked color="green" aria-label="Green" />\n<Checkbox defaultChecked color="red" aria-label="Red" />\n<Checkbox defaultChecked color="orange" aria-label="Orange" />'}
           >
             <DocsDemoRow>
               <Checkbox defaultChecked color="green" aria-label="Green" />
@@ -73,15 +73,10 @@ export function CheckboxDocsPage() {
           </DemoCard>
           <DemoCard
             title="With Label"
-            description="Pair with a label using a flex layout."
-            code={'<Flex gap={2} align="center">\n  <Checkbox id="terms" defaultChecked />\n  <label htmlFor="terms">Accept terms</label>\n</Flex>'}
+            description="Pass label text as children — the checkbox and text are wrapped in a native `<label>`, so clicking the text toggles it."
+            code={'<Checkbox defaultChecked>Accept terms and conditions</Checkbox>'}
           >
-            <Flex gap={2} align="center">
-              <Checkbox id="terms-demo" defaultChecked />
-              <label htmlFor="terms-demo" style={{ cursor: "pointer" }}>
-                Accept terms and conditions
-              </label>
-            </Flex>
+            <Checkbox defaultChecked>Accept terms and conditions</Checkbox>
           </DemoCard>
         </DocsDemoGrid>
       </DocsSection>
@@ -93,6 +88,11 @@ export function CheckboxDocsPage() {
         <Heading as="h2">Props</Heading>
         <PropsTable
           rows={[
+            {
+              name: "children",
+              type: "ReactNode",
+              description: "Label text shown next to the checkbox. Wraps both in a native `<label>`, so clicking the text toggles it and names it for assistive tech.",
+            },
             {
               name: "size",
               type: "'1' | '2' | '3'",
@@ -155,6 +155,23 @@ export function CheckboxDocsPage() {
               type: "string",
               description:
                 "The checkbox's value. Identifies it within a Checkbox Group, falling back to name when omitted.",
+            },
+            {
+              name: "id",
+              type: "string",
+              description:
+                "Id of the underlying hidden `<input>`, so a `<label htmlFor>` elsewhere can label the checkbox.",
+            },
+            {
+              name: "uncheckedValue",
+              type: "string",
+              description:
+                "Value submitted with the form when unchecked. By default unchecked checkboxes submit nothing.",
+            },
+            {
+              name: "inputRef",
+              type: "React.Ref<HTMLInputElement>",
+              description: "Ref to the hidden `<input>` element.",
             },
             {
               name: "render",

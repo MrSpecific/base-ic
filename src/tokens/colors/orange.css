@@ -2,7 +2,8 @@
  * Orange scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-orange-1:    oklch(98.5% 0.009 60);
   --color-orange-2:    oklch(97.0% 0.018 60);
   --color-orange-3:    oklch(93.5% 0.041 60);

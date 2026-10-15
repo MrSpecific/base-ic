@@ -4,7 +4,8 @@
  * Low numbers = lighter, high numbers = darker (light mode semantics).
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-gray-1:      oklch(99.0% 0.000 0);
   --color-gray-2:      oklch(97.5% 0.000 0);
   --color-gray-3:      oklch(95.0% 0.000 0);

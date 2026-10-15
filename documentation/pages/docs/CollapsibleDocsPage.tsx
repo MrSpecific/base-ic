@@ -45,6 +45,21 @@ export function CollapsibleDocsPage() {
     "</Collapsible>",
   ].join("\n");
 
+  const sizesSnippet = [
+    '<Collapsible size="1">',
+    "  <Collapsible.Trigger>Size 1</Collapsible.Trigger>",
+    "  <Collapsible.Content>Content at size 1.</Collapsible.Content>",
+    "</Collapsible>",
+    '<Collapsible size="2">',
+    "  <Collapsible.Trigger>Size 2</Collapsible.Trigger>",
+    "  <Collapsible.Content>Content at size 2.</Collapsible.Content>",
+    "</Collapsible>",
+    '<Collapsible size="3">',
+    "  <Collapsible.Trigger>Size 3</Collapsible.Trigger>",
+    "  <Collapsible.Content>Content at size 3.</Collapsible.Content>",
+    "</Collapsible>",
+  ].join("\n");
+
   return (
     <>
       <DocsSection>
@@ -57,7 +72,7 @@ export function CollapsibleDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Built On Base UI</Heading>
+        <Heading as="h2">Built On Base UI</Heading>
         <Text as="p">
           This component wraps the Base UI Collapsible primitive. Base primitive
           docs:{" "}
@@ -72,7 +87,7 @@ export function CollapsibleDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Demo</Heading>
+        <Heading as="h2">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Basic usage"
@@ -110,7 +125,7 @@ export function CollapsibleDocsPage() {
           <DemoCard
             title="Sizes"
             description="Three sizes control padding and font size."
-            code={'<Collapsible size="1">…</Collapsible>'}
+            code={sizesSnippet}
           >
             <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)", width: "100%", maxWidth: 480 }}>
               {(["1", "2", "3"] as const).map((size) => (
@@ -138,7 +153,7 @@ export function CollapsibleDocsPage() {
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <Heading>Usage</Heading>
+        <Heading as="h2">Usage</Heading>
         <CodeBlock title="Collapsible Usage" code={usageSnippet} />
       </DocsSection>
       <DocsSection>
@@ -210,6 +225,12 @@ export function CollapsibleDocsPage() {
                 "Whether the rendered element is a native `<button>`. Set to false when using `render` with a non-button element.",
             },
             {
+              name: "render",
+              type: "React.ReactElement | ((props, state) => React.ReactElement)",
+              description:
+                "Replace the trigger `<button>` with a different element (Base UI render prop). The label and chevron are still rendered inside it.",
+            },
+            {
               name: "className",
               type: "string",
               description: "Additional class name applied to the trigger.",
@@ -247,13 +268,13 @@ export function CollapsibleDocsPage() {
             {
               name: "className",
               type: "string",
-              description: "Additional class name applied to the content wrapper.",
+              description: "Additional class name applied to the panel element.",
             },
           ]}
         />
       </DocsSection>
       <DocsSection>
-        <Heading>Notes</Heading>
+        <Heading as="h2">Notes</Heading>
         <DocsList>
           <li>
             Height animation uses <code>--collapsible-panel-height</code> set

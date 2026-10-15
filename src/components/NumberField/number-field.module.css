@@ -4,7 +4,8 @@
  * A numeric input with decrement (−) and increment (+) stepper buttons.
  * The Group wrapper looks like our Input component.
  *
- * Root data attrs: data-scrubbing, data-disabled, data-readonly, data-required
+ * Root data attrs: data-scrubbing, data-disabled, data-readonly, data-required,
+ *                  data-invalid (inside an invalid <Field>)
  */
 
 /* ---------------------------------------------------------------------------
@@ -39,6 +40,16 @@
   border-color: var(--color-border);
 }
 
+/* Invalid — Base UI sets data-invalid on Root when the enclosing Field is invalid */
+.root[data-invalid] .group {
+  border-color: var(--color-danger-border);
+}
+
+.root[data-invalid] .group:focus-within {
+  border-color: var(--color-danger-border);
+  box-shadow: 0 0 0 var(--focus-ring-width) color-mix(in oklch, var(--color-danger-border) 72%, transparent);
+}
+
 /* Disabled state propagated from Root */
 .root[data-disabled] .group {
   opacity: var(--disabled-opacity);
@@ -57,7 +68,7 @@
   padding: 0 var(--space-2);
   font-family: var(--font-family-primary);
   font-size: var(--nf-fs);
-  font-weight: var(--font-weight-normal);
+  font-weight: var(--font-weight-regular);
   color: var(--color-text-primary);
   text-align: center;
   outline: none;

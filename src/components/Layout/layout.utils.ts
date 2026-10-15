@@ -17,6 +17,9 @@ export function withVar<T extends React.CSSProperties>(
 
 export function toSpaceVar(value?: string | number): string | undefined {
   if (value == null) return undefined;
+  // There is no `--space-0` token; zero is just zero.
+  // '0px' rather than '0' so the value stays valid inside calc()
+  if (value === 0 || value === '0') return '0px';
   if (typeof value === 'number') return `var(--space-${value})`;
   if (/^\d+$/.test(value)) return `var(--space-${value})`;
   return value;

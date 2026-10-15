@@ -75,8 +75,22 @@
   pointer-events: none;
 }
 
+/* Invalid — Base UI sets data-invalid when the enclosing Field is invalid */
+.radio[data-invalid]:not([data-checked]) {
+  border-color: var(--color-danger-border);
+}
+
+.radio[data-invalid]:focus-visible {
+  outline-color: color-mix(in oklch, var(--color-danger-border) 72%, transparent);
+}
+
+.radio[data-invalid][data-checked] {
+  box-shadow: 0 0 0 1px var(--color-danger-border);
+}
+
 /* ---------------------------------------------------------------------------
- * Indicator — inner dot, scales in when checked
+ * Indicator — inner dot, scales in when checked (keepMounted so the
+ * transition plays in both directions)
  * --------------------------------------------------------------------------- */
 .indicator {
   display: block;

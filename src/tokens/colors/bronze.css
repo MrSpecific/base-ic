@@ -2,7 +2,8 @@
  * Bronze scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-bronze-1:    oklch(98.5% 0.008 55);
   --color-bronze-2:    oklch(97.0% 0.012 55);
   --color-bronze-3:    oklch(93.5% 0.020 55);

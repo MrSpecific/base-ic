@@ -2,7 +2,8 @@
  * Amber scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-amber-1:     oklch(98.5% 0.010 75);
   --color-amber-2:     oklch(97.0% 0.018 75);
   --color-amber-3:     oklch(93.5% 0.042 75);

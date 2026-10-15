@@ -1,7 +1,11 @@
 .section {
-  --section-padding: var(--layout-section-2);
-  --section-padding-x: var(--section-padding);
-  --section-padding-y: var(--section-padding);
+  /* `--section-padding` is only set when `p` is passed. `initial` stops a
+     nested Section from inheriting its ancestor's value. */
+  --section-padding: initial;
+  /* Vertical rhythm from the `size` prop. Horizontal padding defaults to 0. */
+  --section-size-padding: var(--layout-section-2);
+  --section-padding-x: var(--section-padding, 0);
+  --section-padding-y: var(--section-padding, var(--section-size-padding));
   --section-padding-top: var(--section-padding-y);
   --section-padding-right: var(--section-padding-x);
   --section-padding-bottom: var(--section-padding-y);

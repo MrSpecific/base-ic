@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import {
   ACCENT_COLORS,
   ACCENT_SWATCH_COLORS,
@@ -27,10 +27,26 @@ type ThemePanelProps = {
   defaultOpen: boolean;
 };
 
-function FieldLabel({ label, description }: { label: string; description: string }) {
+function FieldLabel({
+  label,
+  description,
+  htmlFor,
+  id,
+}: {
+  label: string;
+  description: string;
+  /** Associates the label with a form control. */
+  htmlFor?: string;
+  /** For groups that aren't a single control (e.g. swatches). */
+  id?: string;
+}) {
   return (
     <div className={styles.labelRow}>
-      <span className={styles.label}>{label}</span>
+      {htmlFor ? (
+        <label className={styles.label} htmlFor={htmlFor}>{label}</label>
+      ) : (
+        <span className={styles.label} id={id}>{label}</span>
+      )}
       <Tooltip content={description} side="left" align="center">
         <Button
           className={styles.infoButton}
@@ -61,6 +77,13 @@ export function ThemePanel({
   defaultOpen,
 }: ThemePanelProps) {
   const [open, setOpen] = useState(defaultOpen);
+  const idPrefix = useId();
+  const panelId = `${idPrefix}-panel`;
+  const accentLabelId = `${idPrefix}-accent`;
+  const grayId = `${idPrefix}-gray`;
+  const radiusId = `${idPrefix}-radius`;
+  const scalingId = `${idPrefix}-scaling`;
+  const appearanceId = `${idPrefix}-appearance`;
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'error'>('idle');
   const copyButtonColor = copyStatus === 'copied' ? 'green' : copyStatus === 'error' ? 'red' : 'accent';
 
@@ -89,24 +112,31 @@ export function ThemePanel({
 
   return (
     <div className={styles.wrapper}>
-      <div className={open ? styles.panel : styles.hidden}>
+      <div
+        id={panelId}
+        className={open ? styles.panel : styles.hidden}
+        role="region"
+        aria-label="Theme settings"
+      >
         <div className={styles.title}>Theme</div>
 
         <div className={styles.field}>
           <FieldLabel
             label="Accent Color"
             description="Primary brand color for interactive elements."
+            id={accentLabelId}
           />
-          <div className={styles.colors}>
+          <div className={styles.colors} role="group" aria-labelledby={accentLabelId}>
             {ACCENT_COLORS.map((c) => (
               <button
                 key={c}
                 type="button"
                 className={styles.colorSwatch}
                 data-active={c === accent}
+                aria-pressed={c === accent}
                 style={{ background: ACCENT_SWATCH_COLORS[c] }}
-                title={`Set accent color to ${toDisplayName(c)}`}
-                aria-label={`Set accent color to ${toDisplayName(c)}`}
+                title={toDisplayName(c)}
+                aria-label={toDisplayName(c)}
                 onClick={() => setAccent(c)}
               />
             ))}
@@ -117,8 +147,10 @@ export function ThemePanel({
           <FieldLabel
             label="Neutral Palette"
             description="Sets the base gray family for borders and surfaces."
+            htmlFor={grayId}
           />
           <Select
+            id={grayId}
             value={gray}
             onValueChange={(value) => {
               if (typeof value === 'string') setGray(value as GrayColor);
@@ -136,8 +168,10 @@ export function ThemePanel({
           <FieldLabel
             label="Corner Radius"
             description="Controls rounded corners across components."
+            htmlFor={radiusId}
           />
           <Select
+            id={radiusId}
             value={radius}
             onValueChange={(value) => {
               if (typeof value === 'string') setRadius(value as Radius);
@@ -155,8 +189,10 @@ export function ThemePanel({
           <FieldLabel
             label="Scale"
             description="Global size multiplier for spacing and typography."
+            htmlFor={scalingId}
           />
           <Select
+            id={scalingId}
             value={scaling}
             onValueChange={(value) => {
               if (typeof value === 'string') setScaling(value as Scaling);
@@ -173,9 +209,11 @@ export function ThemePanel({
         <div className={styles.field}>
           <FieldLabel
             label="Appearance"
-            description="Light or dark rendering mode."
+            description="Light, dark, or follow the operating system setting."
+            htmlFor={appearanceId}
           />
           <Select
+            id={appearanceId}
             value={appearance}
             onValueChange={(value) => {
               if (typeof value === 'string') setAppearance(value as Appearance);
@@ -184,11 +222,14 @@ export function ThemePanel({
             triggerClassName={styles.selectControl}
           >
             {APPEARANCES.map((a) => (
-              <Select.Item key={a} value={a}>{toDisplayName(a)}</Select.Item>
+              <Select.Item key={a} value={a}>{a === 'inherit' ? 'System' : toDisplayName(a)}</Select.Item>
             ))}
           </Select>
         </div>
 
+        <span className={styles.srOnly} role="status" aria-live="polite">
+          {copyStatus === 'copied' ? 'Theme snippet copied' : copyStatus === 'error' ? 'Copy failed' : ''}
+        </span>
         <Button
           className={styles.copyButton}
           variant="solid"
@@ -212,7 +253,9 @@ export function ThemePanel({
         p="0"
         onClick={() => setOpen(!open)}
         title={open ? 'Close theme panel' : 'Open theme panel'}
-        aria-label={open ? 'Close theme panel' : 'Open theme panel'}
+        aria-label="Theme settings"
+        aria-expanded={open}
+        aria-controls={panelId}
       >
         {open ? '\u2715' : '\u2699'}
       </Button>

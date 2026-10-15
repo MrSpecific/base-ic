@@ -62,7 +62,7 @@
   color: var(--color-text-disabled);
 }
 
-.input:hover:not(:disabled):not(:focus) {
+.input:hover:not(:disabled):not(:focus):not([data-invalid]):not([aria-invalid='true']) {
   border-color: var(--color-border);
 }
 
@@ -154,7 +154,7 @@
   border-color: transparent;
 }
 
-.ghost .input:hover:not(:disabled):not(:focus) {
+.ghost .input:hover:not(:disabled):not(:focus):not([data-invalid]):not([aria-invalid='true']) {
   border-color: transparent;
   background-color: var(--color-surface-subtle);
 }
@@ -166,18 +166,32 @@
 
 /* ---------------------------------------------------------------------------
  * Invalid / error state
+ * -------------------------------------------------------------------------
+ *  - `invalid` prop      → .invalid on wrapper + aria-invalid on the input
+ *  - inside <Field>      → Base UI sets data-invalid (and aria-invalid) on
+ *                          the input when the field is invalid
  * --------------------------------------------------------------------------- */
 .invalid .input,
-.input[aria-invalid='true'] {
+.input[aria-invalid='true'],
+.input[data-invalid] {
   border-color: var(--color-danger-border);
 }
 
 .invalid .input:focus,
-.input[aria-invalid='true']:focus {
+.input[aria-invalid='true']:focus,
+.input[data-invalid]:focus {
   border-color: var(--color-danger-border);
 }
 
-.wrapper.invalid:focus-within {
+.wrapper:has(.input[data-invalid], .input[aria-invalid='true']) .prefix,
+.wrapper:has(.input[data-invalid], .input[aria-invalid='true']) .suffix,
+.wrapper.invalid .prefix,
+.wrapper.invalid .suffix {
+  border-color: var(--color-danger-border);
+}
+
+.wrapper.invalid:focus-within,
+.wrapper:has(.input[data-invalid], .input[aria-invalid='true']):focus-within {
   outline-color: color-mix(in oklch, var(--color-danger-border) 72%, transparent);
 }
 

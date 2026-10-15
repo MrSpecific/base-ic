@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { ReactNode } from "react";
 import { Button, Card, Flex, Heading, Text, Box } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
+import { renderInlineCode } from "../../components/InlineCode";
 
 export function DemoCard({
   title,
@@ -36,7 +37,7 @@ export function DemoCard({
           </Button>
         </Flex>
 
-        <Text as="p">{description}</Text>
+        <Text as="p">{renderInlineCode(description)}</Text>
       </Box>
       {!showCode && (
         <Card className="docs-demo-surface" variant="classic" size="3">

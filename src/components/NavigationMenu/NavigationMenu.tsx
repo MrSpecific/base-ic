@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavigationMenu as BaseNavigationMenu } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
-import { useTheme } from '../Theme';
+import { useThemePortal } from '../shared/useThemePortal';
 import styles from './navigation-menu.module.css';
 
 /* ---------------------------------------------------------------------------
@@ -23,6 +23,12 @@ export interface NavigationMenuProps
   orientation?: NavigationMenuOrientation;
   /** Size scale for triggers. Default: '2' */
   size?: NavigationMenuSize;
+  /** Side the content panel opens on. Default: 'bottom', or 'inline-end' when vertical */
+  side?: BaseNavigationMenu.Positioner.Props['side'];
+  /** Alignment of the content panel. Default: 'center', or 'start' when vertical */
+  align?: BaseNavigationMenu.Positioner.Props['align'];
+  /** Gap between the list and the content panel. Default: 8 */
+  sideOffset?: BaseNavigationMenu.Positioner.Props['sideOffset'];
   className?: string;
   style?: React.CSSProperties;
   children: React.ReactNode;
@@ -53,7 +59,7 @@ export interface NavigationMenuContentProps
 }
 
 export interface NavigationMenuLinkProps
-  extends Omit<BaseNavigationMenu.Link.Props, 'className' | 'render'> {
+  extends Omit<BaseNavigationMenu.Link.Props, 'className'> {
   className?: string;
   children: React.ReactNode;
 }
@@ -105,23 +111,16 @@ const NavigationMenuContext = React.createContext<NavigationMenuContextValue>({
 export function NavigationMenu({
   orientation = 'horizontal',
   size = '2',
+  side = orientation === 'vertical' ? 'inline-end' : 'bottom',
+  align = orientation === 'vertical' ? 'start' : 'center',
+  sideOffset = 8,
   className,
   style,
   children,
   ...rootProps
 }: NavigationMenuProps) {
-  const { appearance } = useTheme();
-  const rootRef = React.useRef<HTMLElement | null>(null);
-  const [portalContainer, setPortalContainer] = React.useState<HTMLElement | null>(null);
-  const forcedAppearance =
-    appearance === 'dark' || appearance === 'light' ? appearance : undefined;
-
-  React.useEffect(() => {
-    const nearestThemeRoot =
-      rootRef.current?.closest<HTMLElement>('[data-accent-color]') ??
-      document.querySelector<HTMLElement>('[data-accent-color]');
-    setPortalContainer(nearestThemeRoot ?? null);
-  }, []);
+  const { anchorRef: rootRef, container: portalContainer, forcedAppearance } =
+    useThemePortal<HTMLElement>();
 
   return (
     <NavigationMenuContext.Provider value={{ size, orientation }}>
@@ -133,10 +132,15 @@ export function NavigationMenu({
         {...rootProps}
       >
         {children}
-        <BaseNavigationMenu.Portal container={portalContainer ?? undefined}>
+        <BaseNavigationMenu.Portal container={portalContainer}>
           <div data-appearance={forcedAppearance}>
             <BaseNavigationMenu.Backdrop className={styles.backdrop} />
-            <BaseNavigationMenu.Positioner className={styles.positioner} sideOffset={8}>
+            <BaseNavigationMenu.Positioner
+              className={styles.positioner}
+              side={side}
+              align={align}
+              sideOffset={sideOffset}
+            >
               <BaseNavigationMenu.Popup className={styles.popup}>
                 <BaseNavigationMenu.Viewport className={styles.viewport} />
               </BaseNavigationMenu.Popup>
@@ -202,10 +206,13 @@ function NavigationMenuTrigger({ className, children, ...rest }: NavigationMenuT
  * NavigationMenu.Content
  * --------------------------------------------------------------------------- */
 
+/** True inside NavigationMenu.Content, so links there get panel styling. */
+const NavigationMenuContentContext = React.createContext(false);
+
 function NavigationMenuContent({ className, children, ...rest }: NavigationMenuContentProps) {
   return (
     <BaseNavigationMenu.Content className={cx(styles.content, className)} {...rest}>
-      {children}
+      <NavigationMenuContentContext.Provider value>{children}</NavigationMenuContentContext.Provider>
     </BaseNavigationMenu.Content>
   );
 }
@@ -214,9 +221,19 @@ function NavigationMenuContent({ className, children, ...rest }: NavigationMenuC
  * NavigationMenu.Link
  * --------------------------------------------------------------------------- */
 
+/**
+ * A link inside `NavigationMenu.Content` renders as a panel row; a top-level
+ * link (directly in an Item) is styled like a Trigger. Pass `render` to use a
+ * router link, e.g. `render={<RouterLink to="/about" />}`.
+ */
 function NavigationMenuLink({ className, children, ...rest }: NavigationMenuLinkProps) {
+  const inContent = React.useContext(NavigationMenuContentContext);
+  const { size } = React.useContext(NavigationMenuContext);
   return (
-    <BaseNavigationMenu.Link className={cx(styles.link, className)} {...rest}>
+    <BaseNavigationMenu.Link
+      className={cx(inContent ? styles.link : cx(styles.trigger, sizeClass[size]), className)}
+      {...rest}
+    >
       {children}
     </BaseNavigationMenu.Link>
   );

@@ -9,13 +9,13 @@ export function TextDocsPage() {
   const usageSnippet = [
     "import { Text } from '@wlcr/base-ic';",
     '',
-    '<Text as="p" size="4" color="gray">Readable body content.</Text>',
+    '<Text as="p" size="3" color="gray">Readable body content.</Text>',
   ].join('\n');
 
   const sizesSnippet = [
     '<div>',
     '  <Text size="2">Small supporting text</Text>',
-    '  <Text size="4">Default body text</Text>',
+    '  <Text size="3">Default body text</Text>',
     '  <Text size="6">Large lead paragraph</Text>',
     '</div>',
   ].join('\n');
@@ -41,11 +41,15 @@ export function TextDocsPage() {
           <DemoCard title="Size Scale" description="Use tokenized sizes for hierarchy in body copy." code={sizesSnippet}>
             <div>
               <Text as="p" size="2">Small supporting text</Text>
-              <Text as="p" size="4">Default body text</Text>
+              <Text as="p" size="3">Default body text</Text>
               <Text as="p" size="6">Large lead paragraph</Text>
             </div>
           </DemoCard>
-          <DemoCard title="Color + Contrast" description="Adjust text prominence without custom CSS." code={emphasisSnippet}>
+          <DemoCard
+            title="Color + Contrast"
+            description="Adjust text prominence without custom CSS. `highContrast` needs a `color` to act on."
+            code={emphasisSnippet}
+          >
             <Text as="p" color="gray" highContrast>
               Semantic body copy can tune weight, color, and wrapping behavior.
             </Text>
@@ -85,7 +89,8 @@ export function TextDocsPage() {
             {
               name: 'highContrast',
               type: 'boolean',
-              description: 'Increase foreground contrast against the background.',
+              description:
+                'Uses the higher-contrast step (12 instead of 11) of the `color` scale. Only has an effect when `color` is set.',
             },
             {
               name: 'align',
@@ -111,6 +116,12 @@ export function TextDocsPage() {
               name: 'children',
               type: 'React.ReactNode',
               description: 'Text content.',
+            },
+            {
+              name: 'p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml',
+              type: 'number | string',
+              description:
+                'Padding/margin shorthand props (e.g. `mb={2}`). Numbers map to spacing scale tokens; strings are used as literal CSS values.',
             },
           ]}
         />

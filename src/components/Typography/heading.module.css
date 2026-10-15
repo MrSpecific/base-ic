@@ -22,16 +22,18 @@
 }
 
 .trimStart {
-  text-box-trim: start;
-  text-box-edge: cap;
+  text-box-trim: trim-start;
+  /* Two values: Chrome rejects single-keyword `cap`/`alphabetic`. Only the
+     edge being trimmed matters, so both trims share the same pair. */
+  text-box-edge: cap alphabetic;
 }
 
 .trimEnd {
-  text-box-trim: end;
-  text-box-edge: alphabetic;
+  text-box-trim: trim-end;
+  text-box-edge: cap alphabetic;
 }
 
 .trimBoth {
-  text-box-trim: both;
+  text-box-trim: trim-both;
   text-box-edge: cap alphabetic;
 }

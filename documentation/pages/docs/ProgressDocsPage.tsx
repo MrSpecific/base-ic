@@ -40,7 +40,7 @@ export function ProgressDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Built On Base UI</Heading>
+        <Heading as="h2">Built On Base UI</Heading>
         <Text as="p">
           This component wraps the Base UI Progress primitive. Base primitive
           docs:{" "}
@@ -55,7 +55,7 @@ export function ProgressDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Demo</Heading>
+        <Heading as="h2">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Sizes"
@@ -90,7 +90,7 @@ export function ProgressDocsPage() {
             title="Radius"
             description="Override corner rounding per instance."
             code={
-              '<Progress value={0.6} radius="none" />\n<Progress value={0.6} radius="small" />'
+              '<Progress value={60} radius="none" size="3" aria-label="No radius" />\n<Progress value={60} radius="small" size="3" aria-label="Small radius" />'
             }
           >
             <Flex direction="column" gap={4} style={{ width: "100%" }}>
@@ -111,7 +111,7 @@ export function ProgressDocsPage() {
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <Heading>Usage</Heading>
+        <Heading as="h2">Usage</Heading>
         <CodeBlock title="Progress Usage" code={usageSnippet} />
       </DocsSection>
       <DocsSection>
@@ -154,6 +154,24 @@ export function ProgressDocsPage() {
               description: "The maximum value.",
             },
             {
+              name: "format",
+              type: "Intl.NumberFormatOptions",
+              description:
+                "Options used to format the value for assistive tech (e.g. `{ style: 'percent' }`). The bar renders no visible value text, so this only affects the announced value.",
+            },
+            {
+              name: "locale",
+              type: "Intl.LocalesArgument",
+              description:
+                "Locale passed to `Intl.NumberFormat` when formatting the value. Defaults to the user's runtime locale.",
+            },
+            {
+              name: "getAriaValueText",
+              type: "(formattedValue: string, value: number | null) => string",
+              description:
+                "Returns a human-readable `aria-valuetext` for the current value (e.g. \"3 of 10 files\").",
+            },
+            {
               name: "className",
               type: "string",
               description: "Additional class name applied to the root element.",
@@ -170,15 +188,16 @@ export function ProgressDocsPage() {
         <Heading as="h2">Notes</Heading>
         <DocsList>
           <li>
-            `value` is a number between `0` and `100`. Omitting `value` triggers
-            the indeterminate animated state.
+            `value` is a number between `min` and `max` (`0`–`100` by default).
+            Omitting `value` (or passing `null`) triggers the indeterminate
+            animated state.
           </li>
           <li>
-            Always provide `aria-label` or `aria-labelledby` so screen readers
+            Always provide <code>aria-label</code> or <code>aria-labelledby</code> so screen readers
             can announce progress.
           </li>
           <li>
-            Use `color` to match status semantics — e.g. `green` for success,
+            Use <code>color</code> to match status semantics — e.g. <code>green</code> for success,
             `red` for error.
           </li>
         </DocsList>

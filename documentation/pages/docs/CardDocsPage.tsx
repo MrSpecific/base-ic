@@ -125,7 +125,7 @@ export function CardDocsPage() {
               name: 'size',
               type: "'1' | '2' | '3' | '4' | '5'",
               default: "'3'",
-              description: 'Padding size preset (also used as the default padding value).',
+              description: 'Padding preset: used as the default `p`, so `size="3"` pads with `var(--space-3)`. An explicit `p` overrides it.',
             },
             {
               name: 'variant',
@@ -138,7 +138,7 @@ export function CardDocsPage() {
               type: 'boolean',
               default: 'false',
               description:
-                'Deprecated: makes the card interactive by rendering it as a real <button>. Use render={<button type="button" />} instead — it gives real keyboard semantics (Enter/Space), which asButton never wired up. Will be removed in a future minor version.',
+                'Deprecated: sugar for `render={<button type="button" />}` and logs a one-time dev warning. Use `render` instead. Will be removed in a future minor version.',
             },
             {
               name: 'radius',
@@ -147,15 +147,15 @@ export function CardDocsPage() {
             },
             {
               name: 'render',
-              type: 'React.ReactElement',
+              type: 'React.ReactElement | ((props, state) => React.ReactElement)',
               description:
-                'Render as a different element (e.g. a real <button> or router Link) while keeping Card\'s styling.',
+                'Render as a different element (e.g. a real `<button>` or router `Link`) while keeping Card\'s styling. Also applies the interactive hover/focus styles.',
             },
             {
               name: 'p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml',
               type: 'number | string',
               description:
-                'Padding/margin shorthand props (e.g. p={3}). Numbers map to spacing scale tokens; strings are used as literal CSS values. p defaults to the size value unless overridden.',
+                'Padding/margin shorthands. Numbers and digit-only strings map to space tokens (`3` and `"3"` → `var(--space-3)`; `0` → `0`); any other string is used as a raw CSS length (e.g. `"12px"`). `p` defaults to the `size` value.',
             },
             {
               name: 'children',

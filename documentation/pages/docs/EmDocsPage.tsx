@@ -7,7 +7,7 @@ import { DemoCard } from './DemoCard';
 
 export function EmDocsPage() {
   const usageSnippet = [
-    "import { Em } from '@wlcr/base-ic';",
+    "import { Em, Text } from '@wlcr/base-ic';",
     '',
     '<Text>Use <Em>emphasis</Em> for nuanced stress.</Text>',
   ].join('\n');
@@ -59,6 +59,12 @@ export function EmDocsPage() {
               name: 'children',
               type: 'React.ReactNode',
               description: 'Content to render with emphasis.',
+            },
+            {
+              name: 'className / style / ...',
+              type: 'React.HTMLAttributes<HTMLElement>',
+              description:
+                'All other HTML attributes are forwarded to the `<em>` element (`ref` too). Renders italic by default; `style` can override `fontStyle`.',
             },
           ]}
         />

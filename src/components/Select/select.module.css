@@ -4,7 +4,7 @@
  * Built on Base UI Select primitives.
  * Trigger looks like an Input. Popup is a styled dropdown with items.
  *
- * Trigger data attrs: data-open, data-closed, data-placeholder
+ * Trigger data attrs: data-popup-open, data-placeholder
  * Popup data attrs:   data-open, data-closed (for animations)
  * Item data attrs:    data-highlighted, data-selected, data-disabled
  */
@@ -40,7 +40,7 @@
   border-color: var(--color-border);
 }
 
-.trigger[data-open] {
+.trigger[data-popup-open] {
   border-color: var(--color-accent-8);
   box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
 }
@@ -80,7 +80,7 @@
   transition: transform var(--duration-2) var(--ease-2);
 }
 
-.trigger[data-open] .icon {
+.trigger[data-popup-open] .icon {
   transform: rotate(180deg);
 }
 
@@ -279,4 +279,18 @@
   --sel-item-icon-size: var(--button-4-icon-size);
   --sel-item-height: var(--button-4-height);
   --sel-item-fs:     var(--button-4-font-size);
+}
+
+/* ---------------------------------------------------------------------------
+ * Invalid — Base UI sets data-invalid on the trigger when the enclosing
+ * Field is invalid. Matches Input's danger border / ring.
+ * --------------------------------------------------------------------------- */
+.trigger[data-invalid] {
+  border-color: var(--color-danger-border);
+}
+
+.trigger[data-invalid]:focus-visible,
+.trigger[data-invalid][data-popup-open] {
+  border-color: var(--color-danger-border);
+  box-shadow: 0 0 0 var(--focus-ring-width) color-mix(in oklch, var(--color-danger-border) 72%, transparent);
 }

@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { Input as BaseInput } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
+import { useFieldRequired } from '../Field/FieldRequiredContext';
 import styles from './input.module.css';
 
 type InputSize = '1' | '2' | '3' | '4';
@@ -18,8 +20,14 @@ export interface InputProps
   prefix?: React.ReactNode;
   /** Content placed after the input (icon, button, unit). */
   suffix?: React.ReactNode;
-  /** Marks the input as having a validation error. */
+  /**
+   * Marks the input as having a validation error (sets `aria-invalid`).
+   * Inside a `<Field>`, the field's validity is reflected automatically via
+   * `data-invalid`, so this is mainly for standalone use.
+   */
   invalid?: boolean;
+  /** Callback fired when the value changes (Base UI). */
+  onValueChange?: BaseInput.Props['onValueChange'];
   /** Ref for the wrapper div (use standard ref for the input element). */
   wrapperRef?: React.Ref<HTMLDivElement>;
   /** CSS class for the outer wrapper div. */
@@ -60,10 +68,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       wrapperClassName,
       className,
       style,
+      required: requiredProp,
       ...rest
     },
     ref,
   ) {
+    const required = useFieldRequired(requiredProp);
     const radiusVar = radius
       ? ({ '--inp-radius': radiusMap[radius] } as React.CSSProperties)
       : undefined;
@@ -88,12 +98,15 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         style={{ ...radiusVar, ...adornmentVars }}
       >
         {prefix && <div className={styles.prefix}>{prefix}</div>}
-        <input
-          ref={ref}
+        {/* Base UI Input is Field-aware: it picks up the label/description/error
+            ids, validation, and data-invalid/data-touched/etc. from <Field>. */}
+        <BaseInput
+          ref={ref as React.Ref<HTMLElement>}
           className={cx(styles.input, className)}
           aria-invalid={invalid ? 'true' : undefined}
+          required={required}
           style={style}
-          {...rest}
+          {...(rest as BaseInput.Props)}
         />
         {suffix && <div className={styles.suffix}>{suffix}</div>}
       </div>

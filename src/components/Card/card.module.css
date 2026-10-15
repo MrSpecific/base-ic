@@ -6,10 +6,31 @@
  */
 
 .card {
-  padding: var(--card-padding-top, var(--card-padding-y, var(--card-padding, var(--space-3))))
-           var(--card-padding-right, var(--card-padding-x, var(--card-padding, var(--space-3))))
-           var(--card-padding-bottom, var(--card-padding-y, var(--card-padding, var(--space-3))))
-           var(--card-padding-left, var(--card-padding-x, var(--card-padding, var(--space-3))));
+  /* Per-side spacing vars arrive inline from props. Reset them here so a
+     nested Card doesn't inherit its parent's values (inline still wins). */
+  --card-padding-x: initial;
+  --card-padding-y: initial;
+  --card-padding-top: initial;
+  --card-padding-right: initial;
+  --card-padding-bottom: initial;
+  --card-padding-left: initial;
+  --card-margin: initial;
+  --card-margin-x: initial;
+  --card-margin-y: initial;
+  --card-margin-top: initial;
+  --card-margin-right: initial;
+  --card-margin-bottom: initial;
+  --card-margin-left: initial;
+
+  /* Container contract read by <Inset> to bleed content to the card edge */
+  --inset-bleed-top:    var(--card-padding-top, var(--card-padding-y, var(--card-padding, var(--space-3))));
+  --inset-bleed-right:  var(--card-padding-right, var(--card-padding-x, var(--card-padding, var(--space-3))));
+  --inset-bleed-bottom: var(--card-padding-bottom, var(--card-padding-y, var(--card-padding, var(--space-3))));
+  --inset-bleed-left:   var(--card-padding-left, var(--card-padding-x, var(--card-padding, var(--space-3))));
+  --inset-bleed-border: 1px; /* matches every variant's border width */
+  --inset-bleed-radius: var(--card-radius, var(--surface-radius));
+
+  padding: var(--inset-bleed-top) var(--inset-bleed-right) var(--inset-bleed-bottom) var(--inset-bleed-left);
   margin: var(--card-margin-top, var(--card-margin-y, var(--card-margin, 0)))
           var(--card-margin-right, var(--card-margin-x, var(--card-margin, 0)))
           var(--card-margin-bottom, var(--card-margin-y, var(--card-margin, 0)))

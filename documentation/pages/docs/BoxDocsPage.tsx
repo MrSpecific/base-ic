@@ -70,7 +70,8 @@ export function BoxDocsPage() {
             {
               name: 'p',
               type: 'SpaceValue',
-              description: 'Padding on all sides. Numbers map to spacing scale tokens.',
+              description:
+                'Padding on all sides. `SpaceValue` is `number | string`: numbers and digit-only strings map to space tokens (`3` and `"3"` → `var(--space-3)`; `0` → `0`); any other string is used as a raw CSS length (e.g. `"12px"`, `"auto"`).',
             },
             {
               name: 'px',
@@ -105,7 +106,7 @@ export function BoxDocsPage() {
             {
               name: 'm',
               type: 'SpaceValue',
-              description: 'Margin on all sides. Numbers map to spacing scale tokens.',
+              description: 'Margin on all sides. Same value mapping as `p`.',
             },
             {
               name: 'mx',
@@ -141,6 +142,11 @@ export function BoxDocsPage() {
               name: 'children',
               type: 'React.ReactNode',
               description: 'Content rendered inside the Box.',
+            },
+            {
+              name: 'className / style / ...',
+              type: 'React.HTMLAttributes<HTMLElement>',
+              description: 'All other HTML attributes are forwarded to the rendered element. `ref` is forwarded too.',
             },
           ]}
         />

@@ -1,10 +1,11 @@
-import { Button, Container, Heading } from "../../src";
+import { Container, Heading } from "../../src";
 import { DocsSection } from "../components/DocsSection";
 import { DocsList } from "../components/DocsPrimitives";
-import type { Page } from "../types";
 import { CodeBlock } from "../components/CodeBlock";
+import { ButtonLink } from "../components/RouteLink";
+import { pageToPath } from "../routes";
 
-export function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
+export function CustomizationPage() {
   const customColorSnippet = [
     "<Theme",
     '  accentColor="brand"',
@@ -43,11 +44,25 @@ export function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
   ].join("\n");
 
   const semanticSnippet = [
-    ":root {",
-    "  --button-min-height: 2.75rem;",
-    "  --button-padding-x: 1rem;",
-    "  --surface-radius: 10px;",
-    "  --status-badge-min-height: 1.75rem;",
+    "/* Scoped: <Theme className=\"app-theme\"> (or any element inside a Theme). */",
+    ".app-theme {",
+    "  /* Default (size=\"2\") buttons: taller, roomier */",
+    "  --button-2-height: 2.75rem;",
+    "  --button-2-px: var(--space-4);",
+    "  --button-2-font-size: var(--font-size-3);",
+    "",
+    "  /* Card corners */",
+    "  --card-radius: 10px;",
+    "",
+    "  /* Size 2 badges */",
+    "  --badge-2-height: 1.75rem;",
+    "}",
+    "",
+    "/* Global: semantic tokens are re-declared on every Theme root, so a",
+    "   plain :root rule is shadowed inside <Theme>. Target both. */",
+    ":root,",
+    "[data-base-ic-theme] {",
+    "  --button-2-height: 2.75rem;",
     "}",
   ].join("\n");
 
@@ -56,7 +71,7 @@ export function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
       <DocsSection>
         <Heading>Customization</Heading>
         <p>
-          Base-ic is designed to be customized through `Theme` props and
+          Base-ic is designed to be customized through <code>Theme</code> props and
           semantic CSS tokens. Start with runtime props, then promote stable
           patterns into tokens.
         </p>
@@ -65,7 +80,7 @@ export function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
       <DocsSection>
         <Heading as="h2">1. Extend Color Palettes</Heading>
         <p>
-          Add brand palettes with `customColors`, then point `accentColor` at
+          Add brand palettes with <code>customColors</code>, then point <code>accentColor</code> at
           your custom name. Provide all 12 steps plus a contrast color for solid
           fills.
         </p>
@@ -75,7 +90,7 @@ export function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
       <DocsSection>
         <Heading as="h2">2. Override Font Families</Heading>
         <p>
-          Set `fontFamily` slots for primary UI text, display typography, and
+          Set <code>fontFamily</code> slots for primary UI text, display typography, and
           monospace surfaces. Unspecified slots continue to inherit defaults.
         </p>
         <CodeBlock title="Font Family Overrides" code={fontSnippet} />
@@ -84,9 +99,14 @@ export function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
       <DocsSection>
         <Heading as="h2">3. Tune Semantic Tokens</Heading>
         <p>
-          Use semantic tokens for reusable patterns like buttons, surfaces,
-          badges, and status components. These tokens automatically participate
-          in theme scaling.
+          Components read semantic tokens such as <code>--button-2-height</code>,
+          <code>--badge-2-height</code> and <code>--card-radius</code>. Redefine them on
+          the Theme element (pass it a <code>className</code>) or any element inside it and every
+          component below picks them up — no component overrides needed. For a global override,
+          target <code>:root, [data-base-ic-theme]</code>: these tokens are re-declared on every Theme
+          root so they follow that Theme's accent, gray, radius and scaling, which shadows a plain
+          <code>:root</code> rule. The full list lives in{" "}
+          <code>@wlcr/base-ic/tokens</code> (<code>semantic.css</code>).
         </p>
         <CodeBlock title="Semantic Token Overrides" code={semanticSnippet} />
       </DocsSection>
@@ -96,16 +116,16 @@ export function CustomizationPage({ goTo }: { goTo: (page: Page) => void }) {
         <DocsList>
           <li>1. Pick accent/gray/radius/scaling/appearance in Theme props.</li>
           <li>
-            2. Define brand color ramps with `customColors` when defaults are
+            2. Define brand color ramps with <code>customColors</code> when defaults are
             not enough.
           </li>
-          <li>3. Set typography with `fontFamily` slots.</li>
+          <li>3. Set typography with <code>fontFamily</code> slots.</li>
           <li>4. Move shared UI decisions into semantic tokens.</li>
           <li>5. Validate combinations in the playground.</li>
         </DocsList>
-        <Button size="3" onClick={() => goTo("playground")}>
+        <ButtonLink size="3" href={pageToPath("playground")}>
           Open Playground
-        </Button>
+        </ButtonLink>
       </DocsSection>
     </Container>
   );

@@ -31,6 +31,23 @@ export function NavigationMenuDocsPage() {
     '<NavigationMenu size="3">...</NavigationMenu>',
   ].join("\n");
 
+  const verticalSnippet = [
+    "// Vertical menus open their panel beside the list (side 'inline-end',",
+    "// align 'start') unless you pass side/align yourself.",
+    '<NavigationMenu orientation="vertical">',
+    "  <NavigationMenu.List>",
+    "    <NavigationMenu.Item>",
+    "      <NavigationMenu.Trigger>Workspace</NavigationMenu.Trigger>",
+    "      <NavigationMenu.Content>…</NavigationMenu.Content>",
+    "    </NavigationMenu.Item>",
+    "    <NavigationMenu.Item>",
+    "      <NavigationMenu.Trigger>Account</NavigationMenu.Trigger>",
+    "      <NavigationMenu.Content>…</NavigationMenu.Content>",
+    "    </NavigationMenu.Item>",
+    "  </NavigationMenu.List>",
+    "</NavigationMenu>",
+  ].join("\n");
+
   const linkGroup = (
     title: string,
     links: Array<{ label: string; description: string }>,
@@ -166,6 +183,37 @@ export function NavigationMenuDocsPage() {
               </NavigationMenu>
             </div>
           </DemoCard>
+          <DemoCard
+            title="Vertical"
+            description={'With `orientation="vertical"`, the panel opens beside the list (`side="inline-end"`, `align="start"`) by default. Pass `side`, `align`, or `sideOffset` to place it yourself.'}
+            code={verticalSnippet}
+          >
+            <NavigationMenu orientation="vertical">
+              <NavigationMenu.List>
+                <NavigationMenu.Item>
+                  <NavigationMenu.Trigger>Workspace</NavigationMenu.Trigger>
+                  <NavigationMenu.Content>
+                    {linkGroup("Workspace", [
+                      { label: "Projects", description: "Everything your team is building." },
+                      { label: "Members", description: "Invite and manage people." },
+                    ])}
+                  </NavigationMenu.Content>
+                </NavigationMenu.Item>
+                <NavigationMenu.Item>
+                  <NavigationMenu.Trigger>Account</NavigationMenu.Trigger>
+                  <NavigationMenu.Content>
+                    {linkGroup("Account", [
+                      { label: "Profile", description: "Name, avatar, and email." },
+                      { label: "Security", description: "Passwords and sessions." },
+                    ])}
+                  </NavigationMenu.Content>
+                </NavigationMenu.Item>
+                <NavigationMenu.Item>
+                  <NavigationMenu.Link href="#help">Help</NavigationMenu.Link>
+                </NavigationMenu.Item>
+              </NavigationMenu.List>
+            </NavigationMenu>
+          </DemoCard>
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
@@ -204,6 +252,24 @@ export function NavigationMenuDocsPage() {
               type: "'1' | '2' | '3'",
               default: "'2'",
               description: "Size scale for triggers.",
+            },
+            {
+              name: "side",
+              type: "'top' | 'bottom' | 'left' | 'right' | 'inline-start' | 'inline-end'",
+              default: "'bottom' (horizontal) / 'inline-end' (vertical)",
+              description: "Side of the active trigger the content panel opens on.",
+            },
+            {
+              name: "align",
+              type: "'start' | 'center' | 'end'",
+              default: "'center' (horizontal) / 'start' (vertical)",
+              description: "Alignment of the content panel relative to the active trigger.",
+            },
+            {
+              name: "sideOffset",
+              type: "number | OffsetFunction",
+              default: "8",
+              description: "Gap in pixels between the active trigger and the content panel.",
             },
             {
               name: "value",
@@ -369,6 +435,11 @@ export function NavigationMenuDocsPage() {
               type: "string",
               description: "CSS class applied to the link element.",
             },
+            {
+              name: "render",
+              type: "ReactElement | ((props, state) => ReactElement)",
+              description: "Render a different element, e.g. a router link: `render={<RouterLink to=\"/about\" />}`.",
+            },
           ]}
         />
       </DocsSection>
@@ -379,7 +450,13 @@ export function NavigationMenuDocsPage() {
             Use <code>NavigationMenu.Content</code> only for items that need a
             rich panel; plain destinations should use{" "}
             <code>NavigationMenu.Link</code> directly inside{" "}
-            <code>NavigationMenu.Item</code> instead of a trigger.
+            <code>NavigationMenu.Item</code> instead of a trigger. A top-level
+            link is styled like a trigger; links inside{" "}
+            <code>NavigationMenu.Content</code> get the panel row style.
+          </li>
+          <li>
+            For client-side routing, pass your router's link component via{" "}
+            <code>render</code> on <code>NavigationMenu.Link</code>.
           </li>
           <li>
             The floating panel is positioned and sized by Base UI — it

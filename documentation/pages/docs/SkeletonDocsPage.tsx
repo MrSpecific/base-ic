@@ -56,7 +56,7 @@ export function SkeletonDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Demo</Heading>
+        <Heading as="h2">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Common shapes"
@@ -122,7 +122,7 @@ export function SkeletonDocsPage() {
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <Heading>Usage</Heading>
+        <Heading as="h2">Usage</Heading>
         <CodeBlock title="Skeleton Usage" code={usageSnippet} />
       </DocsSection>
       <DocsSection>
@@ -167,7 +167,7 @@ export function SkeletonDocsPage() {
         />
       </DocsSection>
       <DocsSection>
-        <Heading>Notes</Heading>
+        <Heading as="h2">Notes</Heading>
         <DocsList>
           <li>
             Renders <code>aria-hidden="true"</code> — screen readers skip it.

@@ -17,7 +17,7 @@ import { DemoCard } from "./DemoCard";
 
 export function DialogDocsPage() {
   const usageSnippet = [
-    "import { Dialog, DialogPrimitive, Button } from '@wlcr/base-ic';",
+    "import { Button, Dialog, DialogPrimitive, Input } from '@wlcr/base-ic';",
     "",
     "<Dialog",
     '  title="Edit Profile"',
@@ -35,6 +35,50 @@ export function DialogDocsPage() {
     "  }",
     ">",
     '  <Button>Open</Button>',
+    "</Dialog>",
+  ].join("\n");
+
+  const sizesSnippet = [
+    "<Dialog",
+    '  size="small"',
+    '  title="Confirm action"',
+    '  description="This will permanently delete the item and cannot be undone."',
+    "  content={null}",
+    '  footer={<DialogPrimitive.Close render={<Button variant="ghost">Cancel</Button>} />}',
+    ">",
+    '  <Button variant="outline">Small</Button>',
+    "</Dialog>",
+    "",
+    "<Dialog",
+    '  size="large"',
+    '  title="Compose Message"',
+    '  content={<Textarea placeholder="Body…" rows={5} />}',
+    ">",
+    '  <Button variant="outline">Large</Button>',
+    "</Dialog>",
+  ].join("\n");
+
+  const noCloseSnippet = [
+    "<Dialog",
+    "  showClose={false}",
+    '  title="Session expiring"',
+    '  description="Your session will expire in 5 minutes."',
+    "  content={null}",
+    "  footer={",
+    '    <DialogPrimitive.Close render={<Button variant="solid">Stay signed in</Button>} />',
+    "  }",
+    ">",
+    '  <Button variant="outline">Alert Dialog</Button>',
+    "</Dialog>",
+  ].join("\n");
+
+  const fullSnippet = [
+    "<Dialog",
+    '  size="full"',
+    '  title="Asset Browser"',
+    '  content={<Textarea rows={6} defaultValue="Selected asset notes..." />}',
+    ">",
+    '  <Button variant="outline">Full Screen</Button>',
     "</Dialog>",
   ].join("\n");
 
@@ -95,8 +139,8 @@ export function DialogDocsPage() {
           </DemoCard>
           <DemoCard
             title="Sizes"
-            description="small, medium (default), large."
-            code={'<Dialog size="small" title="Confirm" ...>\n<Dialog size="large" title="Compose" ...>'}
+            description={'small, medium (default), and large. See Full Screen for `size="full"`.'}
+            code={sizesSnippet}
           >
             <DocsDemoRow>
               <Dialog
@@ -141,7 +185,7 @@ export function DialogDocsPage() {
           <DemoCard
             title="No close button"
             description="Set showClose={false} for alert-style dialogs."
-            code={'<Dialog showClose={false} title="Session expiring" ...>'}
+            code={noCloseSnippet}
           >
             <DocsDemoRow>
               <Dialog
@@ -167,7 +211,7 @@ export function DialogDocsPage() {
           <DemoCard
             title="Full Screen"
             description={'Use `size="full"` for immersive workflows like editors and previews.'}
-            code={'<Dialog size="full" title="Asset Browser" ...>'}
+            code={fullSnippet}
           >
             <DocsDemoRow>
               <Dialog
@@ -219,12 +263,13 @@ export function DialogDocsPage() {
               name: "content",
               type: "React.ReactNode",
               required: true,
-              description: "The dialog's body content, rendered inside the popup.",
+              description: "The dialog's body content, rendered inside the popup. Pass `null` for title/description-only dialogs.",
             },
             {
               name: "title",
               type: "React.ReactNode",
-              description: "Short title shown at the top of the dialog.",
+              description:
+                "Short title shown at the top of the dialog. Optional in the type, but it is what gives the dialog its accessible name, so provide one whenever possible.",
             },
             {
               name: "description",

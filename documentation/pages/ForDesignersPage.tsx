@@ -1,10 +1,11 @@
-import { Button, Card, Container, Flex, Grid } from '../../src';
+import { Card, Container, Flex, Grid } from '../../src';
 import { DocsSection } from '../components/DocsSection';
 import { DocsList } from '../components/DocsPrimitives';
-import type { Page } from '../types';
 import { CodeBlock } from '../components/CodeBlock';
+import { ButtonLink } from '../components/RouteLink';
+import { pageToPath } from '../routes';
 
-export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
+export function ForDesignersPage() {
   const primitiveTokensJson = JSON.stringify({
     color: {
       blue: {
@@ -52,6 +53,18 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
       11: '64px',
       12: '80px',
     },
+    size: {
+      1: '16px',
+      2: '24px',
+      3: '32px',
+      4: '40px',
+      5: '48px',
+      6: '56px',
+      7: '64px',
+      8: '80px',
+      9: '96px',
+      10: '120px',
+    },
     radius: {
       1: '2px',
       2: '4px',
@@ -72,9 +85,15 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
         7: '24px',
         8: '30px',
         9: '36px',
+        10: '48px',
+        11: '60px',
+        12: '72px',
       },
+      // Slot names match the --font-family-* tokens; values are examples.
       'font-family': {
         primary: 'Inter, ui-sans-serif, system-ui, sans-serif',
+        secondary: 'Inter, ui-sans-serif, system-ui, sans-serif',
+        tertiary: 'Inter, ui-sans-serif, system-ui, sans-serif',
         display: 'Sora, Inter, ui-sans-serif, system-ui, sans-serif',
         mono: 'JetBrains Mono, ui-monospace, monospace',
       },
@@ -162,28 +181,29 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
     },
   }, null, 2);
 
+  // Mirrors the real component tokens in src/tokens/semantic.css
+  // (--component-radius, --button-2-height, --badge-2-px, --surface-padding-x…).
   const componentPatternTokensJson = JSON.stringify({
     component: {
       radius: '{radius.3}',
-      scale: '1',
+      scaling: '1',
       button: {
-        'padding-y': '{space.2}',
-        'padding-x': '{space.4}',
-        'min-height': '40px',
-        'font-size': '{typography.font-size.3}',
-        radius: '{component.radius}',
+        1: { height: '{size.2}', px: '{space.2}', 'font-size': '{typography.font-size.1}', gap: '{space.1}' },
+        2: { height: '{size.3}', px: '{space.3}', 'font-size': '{typography.font-size.2}', gap: '{space.1}' },
+        3: { height: '{size.4}', px: '{space.4}', 'font-size': '{typography.font-size.3}', gap: '{space.2}' },
+        4: { height: '{size.5}', px: '{space.5}', 'font-size': '{typography.font-size.4}', gap: '{space.2}' },
       },
       badge: {
-        'padding-y': '{space.1}',
-        'padding-x': '{space.3}',
-        'min-height': '32px',
-        'font-size': '{typography.font-size.2}',
-        radius: '{radius.full}',
+        1: { height: '{size.2}', px: '{space.2}', 'font-size': '{typography.font-size.1}' },
+        2: { height: '{size.2}', px: '{space.3}', 'font-size': '{typography.font-size.2}' },
+        3: { height: '{size.3}', px: '{space.3}', 'font-size': '{typography.font-size.3}' },
       },
       surface: {
         'padding-y': '{space.4}',
         'padding-x': '{space.4}',
-        radius: 'min({component.radius}, {radius.4})',
+        'radius-small': '{radius.3}',
+        'radius-medium': '{radius.4}',
+        'radius-large': '{radius.6}',
       },
     },
   }, null, 2);
@@ -208,17 +228,17 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
           </Card>
           <Card>
             <h3>Spacing</h3>
-            <p>`space-1` to `space-12` (4px to 80px)</p>
+            <p><code>space-1</code> to <code>space-12</code> (4px to 80px)</p>
             <p className="designer-note">Use these for padding, gap, section rhythm, and component internals.</p>
           </Card>
           <Card>
             <h3>Radius</h3>
-            <p>`radius-1` to `radius-6` plus `radius-full`</p>
-            <p className="designer-note">Component rounding is controlled globally through `component-radius`.</p>
+            <p><code>radius-1</code> to <code>radius-6</code> plus <code>radius-full</code></p>
+            <p className="designer-note">Component rounding is controlled globally through <code>component-radius</code>.</p>
           </Card>
           <Card>
             <h3>Type Scale</h3>
-            <p>`font-size-1` to `font-size-9` (12px to 36px)</p>
+            <p><code>font-size-1</code> to <code>font-size-12</code> (12px to 72px)</p>
             <p className="designer-note">Map to text styles in Figma so docs and UI match in both tools.</p>
           </Card>
         </Grid>
@@ -232,14 +252,14 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
         </p>
         <CodeBlock title="Primitives (colors, spacing, type, radius)" code={primitiveTokensJson} />
         <CodeBlock title="Semantics (accent, neutral, text, surfaces, status)" code={semanticTokensJson} />
-        <CodeBlock title="Component Patterns (button, badge, surface)" code={componentPatternTokensJson} />
+        <CodeBlock title="Component Patterns (button, badge, surface sizes)" code={componentPatternTokensJson} />
       </DocsSection>
 
       <DocsSection>
         <h2>Figma Variable Naming</h2>
         <p>
           Mirror code token names in Figma variables to reduce translation overhead during handoff.
-          Keep aliases (`accent`, `neutral`, `status`) separate from raw hue scales.
+          Keep aliases (<code>accent</code>, <code>neutral</code>, <code>status</code>) separate from raw hue scales.
         </p>
         <CodeBlock title="Figma Variable Naming" code={[
           'color/blue/1',
@@ -273,8 +293,8 @@ export function ForDesignersPage({ goTo }: { goTo: (page: Page) => void }) {
           <li>5. Validate themes in Playground and sync any token changes back to Figma.</li>
         </DocsList>
         <Flex className="hero-actions" gap={2}>
-          <Button size="3" onClick={() => goTo('playground')}>Open Playground</Button>
-          <Button size="3" variant="surface" onClick={() => goTo('customization')}>View Customization</Button>
+          <ButtonLink size="3" href={pageToPath('playground')}>Open Playground</ButtonLink>
+          <ButtonLink size="3" variant="surface" href={pageToPath('customization')}>View Customization</ButtonLink>
         </Flex>
       </DocsSection>
     </Container>

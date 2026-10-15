@@ -34,13 +34,7 @@ export function CodeBlock({ title, code }: { title?: string; code: string }) {
                 ? "Copy failed"
                 : "Copy code"
           }
-          aria-label={
-            copyStatus === "copied"
-              ? "Copied"
-              : copyStatus === "error"
-                ? "Copy failed"
-                : "Copy code"
-          }
+          aria-label={title ? `Copy ${title} code` : "Copy code"}
         >
           {copyStatus === "copied" ? (
             <IconCheck className={styles.icon} />
@@ -50,8 +44,15 @@ export function CodeBlock({ title, code }: { title?: string; code: string }) {
             <IconCopy className={styles.icon} />
           )}
         </Button>
+        <span className={styles.srOnly} role="status" aria-live="polite">
+          {copyStatus === "copied"
+            ? "Copied to clipboard"
+            : copyStatus === "error"
+              ? "Copy failed"
+              : ""}
+        </span>
       </div>
-      <pre>
+      <pre tabIndex={0}>
         <code>{code}</code>
       </pre>
     </div>

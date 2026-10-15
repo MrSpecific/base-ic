@@ -1,4 +1,4 @@
-import { Heading, Link, NumberField, Text } from "../../../src";
+import { Field, Heading, Link, NumberField, Text } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import {
   DocsDemoGrid,
@@ -33,18 +33,32 @@ export function NumberFieldDocsPage() {
 
   const disabledSnippet = "<NumberField defaultValue={42} disabled />";
 
+  const fieldSnippet = [
+    "import { Field, NumberField } from '@wlcr/base-ic';",
+    "",
+    "<Field label=\"Quantity\" required validationMode=\"onBlur\">",
+    "  <NumberField",
+    "    min={1}",
+    "    max={10}",
+    "    decrementLabel=\"Remove one\"",
+    "    incrementLabel=\"Add one\"",
+    "  />",
+    "</Field>",
+  ].join("\n");
+
   return (
     <>
       <DocsSection>
         <Heading as="h1">NumberField</Heading>
         <Text as="p">
           A numeric input with decrement (−) and increment (+) step buttons.
-          Supports keyboard scrubbing (drag on the input to change values)
-          via the Base UI NumberField primitive.
+          Arrow keys step by <code>step</code> (hold Shift for{" "}
+          <code>largeStep</code>, Alt for <code>smallStep</code>) via the Base
+          UI NumberField primitive.
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Built On Base UI</Heading>
+        <Heading as="h2">Built On Base UI</Heading>
         <Text as="p">
           This component wraps the Base UI NumberField primitive. Base primitive
           docs:{" "}
@@ -59,7 +73,7 @@ export function NumberFieldDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Demo</Heading>
+        <Heading as="h2">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Basic usage"
@@ -108,10 +122,29 @@ export function NumberFieldDocsPage() {
           >
             <NumberField defaultValue={42} disabled style={{ maxWidth: 200 }} />
           </DemoCard>
+          <DemoCard
+            title="Inside a Field"
+            description="The Field label names the input and `<Field required>` makes it natively required. `decrementLabel` / `incrementLabel` name the step buttons."
+            code={fieldSnippet}
+          >
+            <Field
+              label="Quantity"
+              required
+              validationMode="onBlur"
+              style={{ maxWidth: 200 }}
+            >
+              <NumberField
+                min={1}
+                max={10}
+                decrementLabel="Remove one"
+                incrementLabel="Add one"
+              />
+            </Field>
+          </DemoCard>
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <Heading>Usage</Heading>
+        <Heading as="h2">Usage</Heading>
         <CodeBlock title="NumberField Usage" code={usageSnippet} />
       </DocsSection>
       <DocsSection>
@@ -135,14 +168,26 @@ export function NumberFieldDocsPage() {
               description: "Placeholder shown in the input when empty.",
             },
             {
+              name: "decrementLabel",
+              type: "string",
+              default: "'Decrease'",
+              description: "Accessible label for the decrement (−) button.",
+            },
+            {
+              name: "incrementLabel",
+              type: "string",
+              default: "'Increase'",
+              description: "Accessible label for the increment (+) button.",
+            },
+            {
               name: "className",
               type: "string",
-              description: "Additional className on the group wrapper.",
+              description: "Additional className on the root element (alongside the size class).",
             },
             {
               name: "style",
               type: "React.CSSProperties",
-              description: "Inline styles applied to the root element.",
+              description: "Inline styles applied to the root element (merged over the `radius` variable).",
             },
             {
               name: "min",
@@ -159,7 +204,19 @@ export function NumberFieldDocsPage() {
               type: "number | 'any'",
               default: "1",
               description:
-                "Amount to increment/decrement with the buttons, arrow keys, or scrub area.",
+                "Amount to increment/decrement with the buttons and arrow keys.",
+            },
+            {
+              name: "smallStep",
+              type: "number",
+              default: "0.1",
+              description: "Step used when the Alt key is held while incrementing/decrementing.",
+            },
+            {
+              name: "largeStep",
+              type: "number",
+              default: "10",
+              description: "Step used when the Shift key is held while incrementing/decrementing.",
             },
             {
               name: "value",
@@ -177,6 +234,31 @@ export function NumberFieldDocsPage() {
               description: "Called when the number value changes.",
             },
             {
+              name: "onValueCommitted",
+              type: "(value: number | null, eventDetails) => void",
+              description:
+                "Called when the value is committed — on blur after typing, or on pointer release after pressing the step buttons. Fires together with `onValueChange` for keyboard input.",
+            },
+            {
+              name: "format",
+              type: "Intl.NumberFormatOptions",
+              description:
+                "Options used to format the displayed value (e.g. `{ style: 'currency', currency: 'USD' }`).",
+            },
+            {
+              name: "locale",
+              type: "Intl.LocalesArgument",
+              description:
+                "Locale used for formatting and parsing. Defaults to the user's runtime locale.",
+            },
+            {
+              name: "allowWheelScrub",
+              type: "boolean",
+              default: "false",
+              description:
+                "Whether the mouse wheel changes the value while the input is focused and hovered.",
+            },
+            {
               name: "disabled",
               type: "boolean",
               default: "false",
@@ -186,7 +268,8 @@ export function NumberFieldDocsPage() {
               name: "required",
               type: "boolean",
               default: "false",
-              description: "Whether the user must enter a value before submitting a form.",
+              description:
+                "Whether the user must enter a value before submitting a form. Inherited from an enclosing `<Field required>` unless set here.",
             },
             {
               name: "readOnly",
@@ -203,15 +286,26 @@ export function NumberFieldDocsPage() {
         />
       </DocsSection>
       <DocsSection>
-        <Heading>Notes</Heading>
+        <Heading as="h2">Notes</Heading>
         <DocsList>
-          <li>Drag on the input to scrub values (Base UI's scrubbing feature).</li>
+          <li>
+            No drag-to-scrub area is rendered. For pointer scrubbing, compose{" "}
+            <code>NumberFieldPrimitive.ScrubArea</code> yourself; for wheel
+            input, set <code>allowWheelScrub</code>.
+          </li>
           <li>
             <code>min</code> / <code>max</code> clamp keyboard and button
             input; <code>step</code> controls the increment size.
           </li>
           <li>
             Use <code>size</code> to match the surrounding form element sizes.
+          </li>
+          <li>
+            The step buttons are labelled “Decrease” / “Increase” by default;
+            override with <code>decrementLabel</code> /{" "}
+            <code>incrementLabel</code> (e.g. for localization). Wrap the field
+            in a <code>Field</code> with a <code>label</code> to name the input
+            itself.
           </li>
         </DocsList>
       </DocsSection>

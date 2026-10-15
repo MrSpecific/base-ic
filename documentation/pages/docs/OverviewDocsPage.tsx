@@ -1,7 +1,7 @@
 import { CodeBlock } from '../../components/CodeBlock';
 import { DocsSection } from '../../components/DocsSection';
 export function OverviewDocsPage() {
-  const installSnippet = 'npm install @wlcr/base-ic';
+  const installSnippet = 'npm install @wlcr/base-ic @base-ui/react';
   const usageSnippet = [
     "import { Theme } from '@wlcr/base-ic';",
     "import '@wlcr/base-ic/tokens';",
@@ -36,6 +36,10 @@ export function OverviewDocsPage() {
       </DocsSection>
       <DocsSection>
         <h2>Install</h2>
+        <p>
+          `@base-ui/react` (^1.9) is a peer dependency, alongside `react` and `react-dom` (17, 18 or 19).
+          The package ships ESM only.
+        </p>
         <CodeBlock title="Install" code={installSnippet} />
       </DocsSection>
       <DocsSection>
@@ -46,21 +50,21 @@ export function OverviewDocsPage() {
         <h2>Theme API</h2>
         <p>
           `Theme` sets accent, neutral palette, radius, scale, and appearance while keeping token semantics stable.
-          Scaling supports `80%` through `150%`.
+          Scaling supports <code>80%</code> through <code>150%</code>.
         </p>
         <CodeBlock title="Theme API Example" code={themingSnippet} />
       </DocsSection>
       <DocsSection>
         <h2>Status Patterns</h2>
         <p>
-          Use semantic tokens like `--status-surface-*`, `--status-badge-*`, `--button-*`, and `--badge-*`
+          Use semantic tokens like <code>--color-danger-*</code>, <code>--status-surface-*</code>, <code>--button-*</code>, and <code>--badge-*</code>
           to keep visual behavior consistent across the product.
         </p>
       </DocsSection>
       <DocsSection>
         <h2>Layout Primitives</h2>
         <p>
-          Build structure with `Box`, `Flex`, `Grid`, `Container`, and `Section` before adding visual components.
+          Build structure with <code>Box</code>, <code>Flex</code>, <code>Grid</code>, <code>Container</code>, and <code>Section</code> before adding visual components.
           This keeps spacing, width constraints, and rhythm aligned with system tokens.
         </p>
       </DocsSection>

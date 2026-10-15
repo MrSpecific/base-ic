@@ -2,7 +2,8 @@
  * Green scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-green-1:     oklch(98.5% 0.010 155);
   --color-green-2:     oklch(97.0% 0.018 155);
   --color-green-3:     oklch(93.5% 0.042 155);

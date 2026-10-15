@@ -18,7 +18,7 @@ export type {
 } from './components/Theme';
 
 // Accordion
-export { Accordion } from './components/Accordion';
+export { Accordion, AccordionPrimitive } from './components/Accordion';
 export type { AccordionProps, AccordionItemProps, AccordionTriggerProps, AccordionContentProps } from './components/Accordion';
 
 // Slider
@@ -39,15 +39,24 @@ export type { AlertDialogProps } from './components/AlertDialog';
 
 // Overlay components
 export { Tooltip, TooltipPrimitive } from './components/Tooltip';
-export type { TooltipProps } from './components/Tooltip';
+export type { TooltipProps, TooltipProviderProps } from './components/Tooltip';
 export { Popover, PopoverPrimitive } from './components/Popover';
 export type { PopoverProps } from './components/Popover';
 export { Dialog, DialogPrimitive } from './components/Dialog';
 export type { DialogProps } from './components/Dialog';
 export { Drawer, DrawerPrimitive } from './components/Drawer';
-export type { DrawerProps } from './components/Drawer';
+export type { DrawerProps, DrawerSide } from './components/Drawer';
 export { Toaster, toast, ToastPrimitive } from './components/Toast';
-export type { ToasterProps } from './components/Toast';
+export type {
+  ToasterProps,
+  ToasterPosition,
+  ToastOptions,
+  ToastVariant,
+  ToastTitleProps,
+  ToastDescriptionProps,
+  ToastActionProps,
+  ToastCloseProps,
+} from './components/Toast';
 
 // Layout components
 export { Box, Flex, Grid, Container, Section } from './components/Layout';
@@ -80,7 +89,7 @@ export type { SeparatorProps } from './components/Separator';
 // Form components
 export { Textarea } from './components/Textarea';
 export type { TextareaProps } from './components/Textarea';
-export { Tabs } from './components/Tabs';
+export { Tabs, TabsPrimitive } from './components/Tabs';
 export type { TabsProps, TabsListProps, TabProps, TabsPanelProps } from './components/Tabs';
 export { NavigationMenu, NavigationMenuPrimitive } from './components/NavigationMenu';
 export type {
@@ -99,7 +108,7 @@ export { RadioGroup, Radio } from './components/RadioGroup';
 export type { RadioGroupProps, RadioProps } from './components/RadioGroup';
 export { Input } from './components/Input';
 export type { InputProps } from './components/Input';
-export { Select } from './components/Select';
+export { Select, SelectPrimitive } from './components/Select';
 export type { SelectProps, SelectItemProps, SelectGroupProps } from './components/Select';
 export { Autocomplete, AutocompletePrimitive } from './components/Autocomplete';
 export type {
@@ -113,7 +122,13 @@ export type {
 
 // Field
 export { Field, FieldPrimitive } from './components/Field';
-export type { FieldProps, FieldLabelProps, FieldDescriptionProps, FieldErrorProps } from './components/Field';
+export type {
+  FieldProps,
+  FieldLabelProps,
+  FieldDescriptionProps,
+  FieldErrorProps,
+  FieldControlProps,
+} from './components/Field';
 
 // Fieldset
 export { Fieldset, FieldsetPrimitive } from './components/Fieldset';
@@ -155,6 +170,31 @@ export type { MenubarProps } from './components/Menubar';
 // Collapsible
 export { Collapsible, CollapsiblePrimitive } from './components/Collapsible';
 export type { CollapsibleProps, CollapsibleTriggerProps, CollapsibleContentProps } from './components/Collapsible';
+
+// Table
+export { Table } from './components/Table';
+export type {
+  TableRootProps,
+  TableHeaderProps,
+  TableBodyProps,
+  TableRowProps,
+  TableCellProps,
+  TableColumnHeaderCellProps,
+  TableRowHeaderCellProps,
+} from './components/Table';
+
+// DataList
+export { DataList } from './components/DataList';
+export type {
+  DataListRootProps,
+  DataListItemProps,
+  DataListLabelProps,
+  DataListValueProps,
+} from './components/DataList';
+
+// Inset
+export { Inset } from './components/Inset';
+export type { InsetProps } from './components/Inset';
 
 // Skeleton
 export { Skeleton } from './components/Skeleton';
@@ -229,6 +269,18 @@ export type {
   TextareaVariant,
   TextareaRadius,
   ToggleSize,
+  ToggleRadius,
+  TableSize,
+  TableVariant,
+  TableLayout,
+  TableRowAlign,
+  TableCellJustify,
+  DataListSize,
+  DataListOrientation,
+  DataListTrim,
+  DataListItemAlign,
+  InsetSide,
+  InsetClip,
   ToggleVariant,
   TextElement,
   TextSize,

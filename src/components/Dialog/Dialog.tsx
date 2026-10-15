@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Dialog as BaseDialog } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
-import { useTheme } from '../Theme';
+import { useThemePortal } from '../shared/useThemePortal';
 import styles from './dialog.module.css';
 
 type DialogSize = 'small' | 'medium' | 'large' | 'full';
@@ -57,26 +57,16 @@ export function Dialog({
   size = 'medium',
   ...rootProps
 }: DialogProps) {
-  const { appearance } = useTheme();
   const hasHeader = title || showClose;
-  const triggerAnchorRef = React.useRef<HTMLSpanElement | null>(null);
-  const [portalContainer, setPortalContainer] = React.useState<HTMLElement | null>(null);
-  const forcedAppearance =
-    appearance === 'dark' || appearance === 'light' ? appearance : undefined;
-
-  React.useEffect(() => {
-    const nearestThemeRoot =
-      triggerAnchorRef.current?.closest<HTMLElement>('[data-accent-color]') ??
-      document.querySelector<HTMLElement>('[data-accent-color]');
-    setPortalContainer(nearestThemeRoot ?? null);
-  }, []);
+  const { anchorRef: triggerAnchorRef, container: portalContainer, forcedAppearance } =
+    useThemePortal<HTMLSpanElement>();
 
   return (
     <BaseDialog.Root {...rootProps}>
       <span ref={triggerAnchorRef} style={{ display: 'contents' }}>
         <BaseDialog.Trigger render={children} />
       </span>
-      <BaseDialog.Portal container={portalContainer ?? undefined}>
+      <BaseDialog.Portal container={portalContainer}>
         <div data-appearance={forcedAppearance}>
           <BaseDialog.Backdrop className={styles.backdrop} />
           <BaseDialog.Popup className={cx(styles.popup, sizeClass[size])}>

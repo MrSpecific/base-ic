@@ -1,59 +1,8 @@
 import type { AccentColor, Appearance, GrayColor, Radius, Scaling } from '../src';
+import type { DocsSection, Page } from './routes';
 
 export type { AccentColor, Appearance, GrayColor, Radius, Scaling };
-
-export type Page = 'home' | 'docs' | 'customization' | 'for-designers' | 'playground';
-
-export type DocsSection =
-  | 'overview'
-  | 'types'
-  | 'theme'
-  | 'button'
-  | 'badge'
-  | 'card'
-  | 'separator'
-  | 'typography'
-  | 'text'
-  | 'heading'
-  | 'link'
-  | 'code'
-  | 'kbd'
-  | 'em'
-  | 'strong'
-  | 'quote'
-  | 'tooltip'
-  | 'popover'
-  | 'box'
-  | 'flex'
-  | 'grid'
-  | 'container'
-  | 'section'
-  | 'checkbox'
-  | 'switch'
-  | 'radio-group'
-  | 'input'
-  | 'select'
-  | 'autocomplete'
-  | 'textarea'
-  | 'tabs'
-  | 'navigation-menu'
-  | 'dialog'
-  | 'alert-dialog'
-  | 'drawer'
-  | 'toast'
-  | 'accordion'
-  | 'slider'
-  | 'progress'
-  | 'avatar'
-  | 'field'
-  | 'fieldset'
-  | 'number-field'
-  | 'otp-field'
-  | 'toggle'
-  | 'menu'
-  | 'menubar'
-  | 'collapsible'
-  | 'skeleton';
+export type { DocsSection, Page };
 
 export type RouteState = {
   page: Page;

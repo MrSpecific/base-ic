@@ -1,4 +1,4 @@
-import { Flex, Heading, Link, Textarea, Text } from "../../../src";
+import { Field, Flex, Heading, Link, Textarea, Text } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid, DocsList } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
@@ -38,27 +38,44 @@ export function TextareaDocsPage() {
     '<Textarea noResize placeholder="No resize" />',
   ].join("\n");
 
+  const fieldSnippet = [
+    "import { Field, Textarea } from '@wlcr/base-ic';",
+    "",
+    "<Field",
+    "  label=\"Message\"",
+    "  description=\"Up to 200 characters\"",
+    "  required",
+    "  validationMode=\"onBlur\"",
+    ">",
+    "  <Textarea rows={3} maxLength={200} />",
+    "</Field>",
+  ].join("\n");
+
   return (
     <>
       <DocsSection>
         <Heading as="h1">Textarea</Heading>
         <Text as="p">
           A multiline text input with the same size, variant, and radius API as{" "}
-          <code>Input</code>. Wraps a native <code>&lt;textarea&gt;</code> for
-          full browser compatibility.
+          <code>Input</code>. Renders a native <code>&lt;textarea&gt;</code>{" "}
+          that wires itself into an enclosing <code>Field</code>.
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading as="h3">Built on Native Textarea</Heading>
+        <Heading as="h3">Built On Base UI</Heading>
         <Text as="p">
-          `Textarea` keeps native multiline editing behavior and form submission
-          semantics. Native reference:{" "}
+          `Textarea` renders the Base UI `Field.Control` primitive as a native{" "}
+          {"`<textarea>`"}, so it keeps native multiline editing and form
+          submission while being Field-aware: inside a `Field` it picks up the
+          label, description, and error ids, takes part in validation, and
+          exposes state attributes such as `data-invalid`, `data-touched`, and
+          `data-dirty`. Base primitive docs:{" "}
           <Link
-            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea"
+            href="https://base-ui.com/react/components/field"
             target="_blank"
             rel="noreferrer"
           >
-            developer.mozilla.org/.../Element/textarea
+            base-ui.com/react/components/field
           </Link>
           .
         </Text>
@@ -112,6 +129,21 @@ export function TextareaDocsPage() {
               <Textarea noResize placeholder="Resize is disabled" rows={2} />
             </Flex>
           </DemoCard>
+          <DemoCard
+            title="Inside a Field"
+            description="`<Field required>` makes the Textarea natively required; the native message shows once the field is invalid (here, on blur)."
+            code={fieldSnippet}
+          >
+            <Field
+              label="Message"
+              description="Up to 200 characters"
+              required
+              validationMode="onBlur"
+              style={{ width: "100%" }}
+            >
+              <Textarea rows={3} maxLength={200} />
+            </Field>
+          </DemoCard>
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
@@ -147,7 +179,8 @@ export function TextareaDocsPage() {
             {
               name: "invalid",
               type: "boolean",
-              description: "Marks the textarea as having a validation error.",
+              description:
+                "Marks the textarea as having a validation error (sets `aria-invalid`). Inside a `Field`, the field's validity is reflected automatically via `data-invalid`, so this is mainly for standalone use.",
             },
             {
               name: "disabled",
@@ -187,12 +220,19 @@ export function TextareaDocsPage() {
             {
               name: "onChange",
               type: "React.ChangeEventHandler<HTMLTextAreaElement>",
-              description: "Called when the textarea's value changes.",
+              description: "Called when the textarea's value changes (native HTML event).",
+            },
+            {
+              name: "onValueChange",
+              type: "(value: string, eventDetails) => void",
+              description:
+                "Called with the new string value when it changes (Base UI). Convenient for controlled textareas.",
             },
             {
               name: "required",
               type: "boolean",
-              description: "Whether the user must enter a value before submitting a form.",
+              description:
+                "Whether the user must enter a value before submitting a form. Inherited from an enclosing `<Field required>` unless set here.",
             },
             {
               name: "readOnly",
@@ -220,8 +260,9 @@ export function TextareaDocsPage() {
             Set `noResize` when fixed layouts would break from user resize.
           </li>
           <li>
-            Keep long helper copy outside the field so the textarea stays
-            focused on content entry.
+            Put helper copy in a wrapping `Field`'s `description` so it is
+            announced with the textarea and the textarea stays focused on
+            content entry.
           </li>
         </DocsList>
       </DocsSection>

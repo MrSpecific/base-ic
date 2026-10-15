@@ -13,28 +13,35 @@
   background: var(--color-surface-sunken);
   border: 1px solid var(--color-border);
   border-radius: var(--inp-radius, var(--component-radius));
-  transition:
-    border-color var(--duration-1) var(--ease-1),
-    box-shadow var(--duration-1) var(--ease-1);
+  transition: var(--transition-colors);
 }
 
+/* Focus — matches Input: accent border + outline ring around the wrapper */
 .wrapper:focus-within {
   border-color: var(--color-accent-8);
-  box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
-  outline: none;
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: 0;
 }
 
-.wrapper.invalid {
-  border-color: var(--color-danger-8);
+/* Invalid — `invalid` prop (.invalid / aria-invalid) or Field validity
+   (Base UI sets data-invalid on the textarea) */
+.wrapper.invalid,
+.wrapper:has(.textarea[data-invalid], .textarea[aria-invalid='true']) {
+  border-color: var(--color-danger-border);
 }
 
-.wrapper.invalid:focus-within {
-  box-shadow: 0 0 0 var(--focus-ring-width) color-mix(in oklch, var(--color-danger-border) 72%, transparent);
+.wrapper.invalid:focus-within,
+.wrapper:has(.textarea[data-invalid], .textarea[aria-invalid='true']):focus-within {
+  border-color: var(--color-danger-border);
+  outline-color: color-mix(in oklch, var(--color-danger-border) 72%, transparent);
 }
 
-.wrapper.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+/* Disabled — matches Input; also covers <Field disabled> via :has */
+.wrapper.disabled,
+.wrapper:has(.textarea:disabled) {
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  background: var(--color-surface-subtle);
 }
 
 /* Variants */
@@ -71,11 +78,11 @@
 }
 
 .textarea::placeholder {
-  color: var(--color-text-placeholder);
+  color: var(--color-text-disabled);
 }
 
 .textarea:disabled {
-  cursor: not-allowed;
+  cursor: var(--disabled-cursor);
 }
 
 /* Remove resize handle when noResize */

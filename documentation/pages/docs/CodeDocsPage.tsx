@@ -66,7 +66,7 @@ export function CodeDocsPage() {
               name: 'size',
               type: "'1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'",
               default: "'3'",
-              description: 'Type scale size for the inline code text.',
+              description: 'Text type-scale step; the monospace font renders at 0.9× that size.',
             },
             {
               name: 'variant',
@@ -77,17 +77,26 @@ export function CodeDocsPage() {
             {
               name: 'weight',
               type: "'regular' | 'medium' | 'bold'",
-              description: 'Override the font weight. Falls back to the variant’s default weight.',
+              description: 'Override the font weight. Defaults to regular for every variant.',
             },
             {
               name: 'color',
               type: 'AccentColor',
-              description: 'Override the accent color for this code span.',
+              description:
+                'Override the text color (step 11 of the chosen scale). The `soft` background tint still uses the theme accent.',
             },
             {
               name: 'highContrast',
               type: 'boolean',
-              description: 'Increase foreground contrast against the background.',
+              default: 'false',
+              description:
+                'Use step 12 instead of 11 for the text color. Only has an effect when `color` is set.',
+            },
+            {
+              name: 'p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml',
+              type: 'number | string',
+              description:
+                'Padding/margin shorthands. Numbers and digit-only strings map to space tokens (`3` and `"3"` → `var(--space-3)`; `0` → `0`); any other string is used as a raw CSS length (e.g. `"0.2em"`). Padding overrides the `soft` / `outline` default of `0.15em 0.4em`.',
             },
             {
               name: 'children',

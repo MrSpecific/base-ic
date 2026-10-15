@@ -2,7 +2,8 @@
  * Pink scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-pink-1:      oklch(98.5% 0.008 355);
   --color-pink-2:      oklch(97.0% 0.016 355);
   --color-pink-3:      oklch(93.5% 0.037 355);

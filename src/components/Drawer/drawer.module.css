@@ -9,44 +9,51 @@
  */
 
 /* ---------------------------------------------------------------------------
- * Backdrop
+ * Backdrop — fades with swipe progress so dragging the panel away also
+ * lifts the scrim.
  * --------------------------------------------------------------------------- */
 .backdrop {
   position: fixed;
   inset: 0;
   background: var(--dialog-backdrop-bg);
   z-index: var(--z-4);
+  opacity: calc(1 - var(--drawer-swipe-progress, 0));
+  transition: opacity var(--duration-4) var(--ease-3);
 }
 
-.backdrop[data-open] {
-  animation: drawer-backdrop-in var(--duration-3) var(--ease-2);
+.backdrop[data-starting-style],
+.backdrop[data-ending-style] {
+  opacity: 0;
 }
 
-.backdrop[data-closed] {
-  animation: drawer-backdrop-out var(--duration-2) var(--ease-2);
+.backdrop[data-swiping] {
+  transition-duration: 0ms;
 }
 
-@keyframes drawer-backdrop-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@keyframes drawer-backdrop-out {
-  from { opacity: 1; }
-  to   { opacity: 0; }
+/* A fast flick closes faster */
+.backdrop[data-ending-style] {
+  transition-duration: calc(var(--drawer-swipe-strength, 1) * 400ms);
 }
 
 /* ---------------------------------------------------------------------------
  * Viewport — positioning container required by Base UI (enables swipe
  * handling and scroll locking). It carries no layout of its own; the
  * popup positions itself against the viewport edge via `position: fixed`.
+ *
+ * Base UI writes its own measured `--drawer-height` onto the popup, so the
+ * theme's sizing tokens are captured here, above the popup, under private
+ * names.
  * --------------------------------------------------------------------------- */
 .viewport {
   display: contents;
+  --drawer-panel-width: var(--drawer-width);
+  --drawer-panel-height: var(--drawer-height);
 }
 
 /* ---------------------------------------------------------------------------
- * Popup
+ * Popup — slides in from its edge, follows the pointer while swiping
+ * (--drawer-swipe-movement-*), and rests at the current snap point
+ * (--drawer-snap-point-offset) when `snapPoints` is used.
  * --------------------------------------------------------------------------- */
 .popup {
   position: fixed;
@@ -60,44 +67,29 @@
   padding: var(--space-6);
   outline: none;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  transform: var(--drawer-transform);
+  transition: transform var(--duration-4) var(--ease-3);
 }
 
-.popup[data-open] {
-  animation: drawer-in var(--duration-3) var(--ease-2);
+.popup[data-starting-style],
+.popup[data-ending-style] {
+  transform: var(--drawer-hidden-transform);
 }
 
-.popup[data-closed] {
-  animation: drawer-out var(--duration-2) var(--ease-2);
+.popup[data-swiping] {
+  transition-duration: 0ms;
+  user-select: none;
 }
 
-@keyframes drawer-in {
-  from {
-    opacity: 0;
-    transform: var(--drawer-enter-transform, translate(0, 0));
-  }
-  to {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-}
-
-@keyframes drawer-out {
-  from {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-  to {
-    opacity: 0;
-    transform: var(--drawer-enter-transform, translate(0, 0));
-  }
+.popup[data-ending-style] {
+  transition-duration: calc(var(--drawer-swipe-strength, 1) * 400ms);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .backdrop[data-open],
-  .backdrop[data-closed],
-  .popup[data-open],
-  .popup[data-closed] {
-    animation: none;
+  .backdrop,
+  .popup {
+    transition: none;
   }
 }
 
@@ -109,41 +101,72 @@
   top: 0;
   right: 0;
   bottom: 0;
-  width: var(--drawer-width);
+  width: var(--drawer-panel-width);
   max-width: calc(100vw - var(--space-6));
   border-radius: var(--dialog-radius) 0 0 var(--dialog-radius);
-  --drawer-enter-transform: translateX(100%);
+  --drawer-transform: translateX(var(--drawer-swipe-movement-x, 0px));
+  --drawer-hidden-transform: translateX(calc(100% + 2px));
 }
 
 .sideLeft {
   top: 0;
   left: 0;
   bottom: 0;
-  width: var(--drawer-width);
+  width: var(--drawer-panel-width);
   max-width: calc(100vw - var(--space-6));
   border-radius: 0 var(--dialog-radius) var(--dialog-radius) 0;
-  --drawer-enter-transform: translateX(-100%);
+  --drawer-transform: translateX(var(--drawer-swipe-movement-x, 0px));
+  --drawer-hidden-transform: translateX(calc(-100% - 2px));
 }
 
 .sideTop {
   top: 0;
   left: 0;
   right: 0;
-  height: var(--drawer-height);
+  height: var(--drawer-panel-height);
   max-height: calc(100dvh - var(--space-6));
   border-radius: 0 0 var(--dialog-radius) var(--dialog-radius);
-  --drawer-enter-transform: translateY(-100%);
+  --drawer-transform: translateY(var(--drawer-swipe-movement-y, 0px));
+  --drawer-hidden-transform: translateY(calc(-100% - 2px));
 }
 
 .sideBottom {
   bottom: 0;
   left: 0;
   right: 0;
-  height: var(--drawer-height);
+  height: var(--drawer-panel-height);
   max-height: calc(100dvh - var(--space-6));
   border-radius: var(--dialog-radius) var(--dialog-radius) 0 0;
-  --drawer-enter-transform: translateY(100%);
+  --drawer-transform: translateY(
+    calc(var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px))
+  );
+  --drawer-hidden-transform: translateY(calc(100% + 2px));
 }
+
+/* ---------------------------------------------------------------------------
+ * Content — lets mouse users select text without starting a swipe
+ * --------------------------------------------------------------------------- */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  flex: 1;
+  min-height: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Swipe area — invisible strip along the drawer's edge for swipe-to-open
+ * --------------------------------------------------------------------------- */
+.swipeArea {
+  position: fixed;
+  z-index: var(--z-3);
+  --drawer-swipe-area-size: calc(24px * var(--component-scaling));
+}
+
+.swipeAreaRight { top: 0; right: 0; bottom: 0; width: var(--drawer-swipe-area-size); }
+.swipeAreaLeft { top: 0; left: 0; bottom: 0; width: var(--drawer-swipe-area-size); }
+.swipeAreaTop { top: 0; left: 0; right: 0; height: var(--drawer-swipe-area-size); }
+.swipeAreaBottom { bottom: 0; left: 0; right: 0; height: var(--drawer-swipe-area-size); }
 
 /* ---------------------------------------------------------------------------
  * Header — title + optional close button row

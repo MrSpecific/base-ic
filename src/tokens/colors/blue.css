@@ -2,7 +2,8 @@
  * Blue scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-blue-1:      oklch(98.5% 0.007 250);
   --color-blue-2:      oklch(97.0% 0.015 250);
   --color-blue-3:      oklch(93.5% 0.032 250);

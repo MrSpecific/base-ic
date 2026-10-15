@@ -214,6 +214,25 @@
 }
 
 /* ---------------------------------------------------------------------------
+ * highContrast modifier — mirrors Button: accent-12 text, and a step-12 fill
+ * when a solid toggle is pressed. Works with or without `color`.
+ * --------------------------------------------------------------------------- */
+.toggle.highContrast {
+  color: var(--tgl-accent-12, var(--color-accent-12));
+}
+
+.solid.highContrast[data-pressed] {
+  background-color: var(--tgl-accent-12, var(--color-accent-12));
+  border-color: var(--tgl-accent-12, var(--color-accent-12));
+  color: var(--color-surface-base);
+}
+
+.solid.highContrast[data-pressed]:hover:not([data-disabled]) {
+  background-color: color-mix(in oklch, var(--tgl-accent-12, var(--color-accent-12)) 88%, black);
+  border-color: color-mix(in oklch, var(--tgl-accent-12, var(--color-accent-12)) 88%, black);
+}
+
+/* ---------------------------------------------------------------------------
  * Group — a loose collection of toggles
  * --------------------------------------------------------------------------- */
 .group {

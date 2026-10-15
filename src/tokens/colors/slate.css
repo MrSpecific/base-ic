@@ -3,7 +3,8 @@
  * Pairs well with blue, indigo, iris, and violet accent colors.
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-slate-1:     oklch(99.0% 0.004 250);
   --color-slate-2:     oklch(97.5% 0.006 250);
   --color-slate-3:     oklch(95.0% 0.008 250);

@@ -53,6 +53,7 @@
  * --------------------------------------------------------------------------- */
 .trigger {
   display: inline-flex;
+  text-decoration: none;
   align-items: center;
   gap: var(--space-1);
   padding: var(--nav-trigger-py) var(--nav-trigger-px);
@@ -86,6 +87,8 @@
   box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
 }
 
+/* Top-level NavigationMenu.Link pointing at the current page */
+.trigger[data-active],
 .trigger[data-popup-open] {
   color: var(--color-accent-11);
   background-color: color-mix(
@@ -242,6 +245,17 @@
 .content[data-activation-direction='right'][data-starting-style],
 .content[data-activation-direction='left'][data-ending-style] {
   transform: translateX(var(--space-4));
+}
+
+/* Vertical menus switch content along the block axis */
+.content[data-activation-direction='up'][data-starting-style],
+.content[data-activation-direction='down'][data-ending-style] {
+  transform: translateY(calc(-1 * var(--space-4)));
+}
+
+.content[data-activation-direction='down'][data-starting-style],
+.content[data-activation-direction='up'][data-ending-style] {
+  transform: translateY(var(--space-4));
 }
 
 @media (prefers-reduced-motion: reduce) {

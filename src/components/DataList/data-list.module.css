@@ -1,0 +1,135 @@
+/* ==========================================================================
+ * DataList
+ * ==========================================================================
+ * <dl> of label/value pairs. Horizontal lays every item on a shared two-column
+ * grid (items are `subgrid` rows) so all labels line up in one column no matter
+ * which item has the longest label. Vertical stacks label above value.
+ */
+
+.root {
+  box-sizing: border-box;
+  min-width: 0;
+  margin: var(--dl-margin-top, var(--dl-margin-y, var(--dl-margin, 0)))
+          var(--dl-margin-right, var(--dl-margin-x, var(--dl-margin, 0)))
+          var(--dl-margin-bottom, var(--dl-margin-y, var(--dl-margin, 0)))
+          var(--dl-margin-left, var(--dl-margin-x, var(--dl-margin, 0)));
+  padding: 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--dl-font-size);
+  line-height: var(--dl-line-height);
+  letter-spacing: var(--dl-letter-spacing);
+  color: var(--color-text-primary);
+  /* Long unbroken values (IDs, URLs, emails) wrap instead of overflowing. */
+  overflow-wrap: anywhere;
+}
+
+/* --- Sizes --- */
+.size1 {
+  --dl-font-size: var(--text-1-size);
+  --dl-line-height: var(--text-1-lh);
+  --dl-letter-spacing: var(--text-1-ls);
+  --dl-row-gap: var(--space-3);
+  --dl-column-gap: var(--space-4);
+  --dl-stack-gap: var(--space-1);
+}
+
+.size2 {
+  --dl-font-size: var(--text-3-size);
+  --dl-line-height: var(--text-3-lh);
+  --dl-letter-spacing: var(--text-3-ls);
+  --dl-row-gap: var(--space-4);
+  --dl-column-gap: var(--space-5);
+  --dl-stack-gap: var(--space-1);
+}
+
+.size3 {
+  --dl-font-size: var(--text-4-size);
+  --dl-line-height: var(--text-4-lh);
+  --dl-letter-spacing: var(--text-4-ls);
+  --dl-row-gap: var(--space-5);
+  --dl-column-gap: var(--space-6);
+  --dl-stack-gap: var(--space-2);
+}
+
+/* --- Orientation: horizontal --- */
+.horizontal {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  row-gap: var(--dl-row-gap);
+  column-gap: var(--dl-column-gap);
+}
+
+.horizontal > .item {
+  display: grid;
+  grid-column: span 2;
+  /* Fallback for browsers without subgrid: per-item columns. */
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: subgrid;
+  column-gap: inherit;
+  /* Item `align` — horizontal only; in a vertical stack it would shift the
+     label/value sideways instead. */
+  align-items: var(--dl-item-align);
+}
+
+.horizontal > .item > .label {
+  min-width: calc(88px * var(--component-scaling));
+}
+
+/* --- Orientation: vertical --- */
+.vertical {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dl-row-gap);
+}
+
+.vertical > .item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dl-stack-gap);
+}
+
+/* --- Parts --- */
+.item {
+  /* Default here (not just as a var() fallback) so a nested list's items
+     don't inherit an ancestor item's inline `align`. */
+  --dl-item-align: baseline;
+  min-width: 0;
+}
+
+.label {
+  display: block;
+  min-width: 0;
+  margin: 0;
+  font-weight: var(--font-weight-regular);
+  color: var(--dl-label-color, var(--color-text-secondary));
+}
+
+.value {
+  display: block;
+  min-width: 0;
+  margin: 0;
+}
+
+/* --- Trim: remove the leading above the first / below the last item --- */
+.trimStart > .item:first-child > .label,
+.trimStart > .item:first-child > .value,
+.trimBoth > .item:first-child > .label,
+.trimBoth > .item:first-child > .value {
+  text-box-trim: trim-start;
+  /* Two values: Chrome rejects single-keyword `cap`/`alphabetic`. */
+  text-box-edge: cap alphabetic;
+}
+
+.trimEnd > .item:last-child > .label,
+.trimEnd > .item:last-child > .value,
+.trimBoth > .item:last-child > .label,
+.trimBoth > .item:last-child > .value {
+  text-box-trim: trim-end;
+  text-box-edge: cap alphabetic;
+}
+
+/* Single-item list with trim="both" needs both edges on the same element. */
+.trimBoth > .item:only-child > .label,
+.trimBoth > .item:only-child > .value {
+  text-box-trim: trim-both;
+}

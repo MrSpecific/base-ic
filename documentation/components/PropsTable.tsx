@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Code } from '../../src';
+import { renderInlineCode } from './InlineCode';
 
 export interface PropRow {
   /** Prop name, e.g. `size`. */
@@ -55,7 +56,11 @@ export function PropsTable({ rows }: { rows: PropRow[] }) {
                   <span className="props-table-none">—</span>
                 )}
               </td>
-              <td>{row.description}</td>
+              <td>
+                {typeof row.description === 'string'
+                  ? renderInlineCode(row.description)
+                  : row.description}
+              </td>
             </tr>
           ))}
         </tbody>

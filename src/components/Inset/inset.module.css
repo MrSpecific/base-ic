@@ -1,0 +1,115 @@
+/* ==========================================================================
+ * Inset
+ * ==========================================================================
+ * Negative margins cancel the enclosing Card's padding so content bleeds to
+ * the card edge.
+ *
+ * Container contract (inherited custom properties a container declares):
+ *   --inset-bleed-top / -right / -bottom / -left   the container's padding
+ *   --inset-bleed-border                            its border width
+ *   --inset-bleed-radius                            its outer border radius
+ *
+ * Outside such a container every value resolves to 0, so a stray Inset is
+ * inert.
+ */
+
+.inset {
+  --ins-bleed-top:    var(--inset-bleed-top, 0px);
+  --ins-bleed-right:  var(--inset-bleed-right, 0px);
+  --ins-bleed-bottom: var(--inset-bleed-bottom, 0px);
+  --ins-bleed-left:   var(--inset-bleed-left, 0px);
+  --ins-border:       var(--inset-bleed-border, 0px);
+  --ins-radius:       var(--inset-bleed-radius, 0px);
+
+  /* Own padding — reset here so nested Insets don't inherit an ancestor's
+     inline values; Inset.tsx overrides them inline. */
+  --ins-padding-top: 0;
+  --ins-padding-right: 0;
+  --ins-padding-bottom: 0;
+  --ins-padding-left: 0;
+
+  /* Margin per side: 0 unless the side class turns it on. */
+  --ins-mt: 0px;
+  --ins-mr: 0px;
+  --ins-mb: 0px;
+  --ins-ml: 0px;
+
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: var(--ins-padding-top) var(--ins-padding-right) var(--ins-padding-bottom) var(--ins-padding-left);
+  /* Longhands, not the shorthand: Card's `pt={0}` yields a unitless `0` that
+     makes that side's calc() invalid — which must only reset that one side. */
+  margin-top: var(--ins-mt);
+  margin-right: var(--ins-mr);
+  margin-bottom: var(--ins-mb);
+  margin-left: var(--ins-ml);
+}
+
+/* --- Clip: how far past the padding to go, and the matching corner radius --- */
+.clipBorderBox {
+  --ins-extra: var(--ins-border);
+  --ins-corner: var(--ins-radius);
+}
+
+.clipPaddingBox {
+  --ins-extra: 0px;
+  --ins-corner: max(0px, calc(var(--ins-radius) - var(--ins-border)));
+}
+
+/* --- Sides --- */
+.sideAll,
+.sideX,
+.sideTop,
+.sideBottom,
+.sideLeft {
+  --ins-ml: calc(-1 * var(--ins-bleed-left) - var(--ins-extra));
+}
+
+.sideAll,
+.sideX,
+.sideTop,
+.sideBottom,
+.sideRight {
+  --ins-mr: calc(-1 * var(--ins-bleed-right) - var(--ins-extra));
+}
+
+.sideAll,
+.sideY,
+.sideTop,
+.sideLeft,
+.sideRight {
+  --ins-mt: calc(-1 * var(--ins-bleed-top) - var(--ins-extra));
+}
+
+.sideAll,
+.sideY,
+.sideBottom,
+.sideLeft,
+.sideRight {
+  --ins-mb: calc(-1 * var(--ins-bleed-bottom) - var(--ins-extra));
+}
+
+/* Round only the corners where two bled edges meet the card's corner. */
+.sideAll,
+.sideTop,
+.sideLeft {
+  border-top-left-radius: var(--ins-corner);
+}
+
+.sideAll,
+.sideTop,
+.sideRight {
+  border-top-right-radius: var(--ins-corner);
+}
+
+.sideAll,
+.sideBottom,
+.sideLeft {
+  border-bottom-left-radius: var(--ins-corner);
+}
+
+.sideAll,
+.sideBottom,
+.sideRight {
+  border-bottom-right-radius: var(--ins-corner);
+}

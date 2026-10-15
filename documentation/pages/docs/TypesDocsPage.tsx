@@ -27,7 +27,8 @@ export function TypesDocsPage() {
   ].join('\n');
 
   const componentPropsSnippet = [
-    "import type { ButtonProps, InputProps, ThemeProps } from '@wlcr/base-ic';",
+    "import { Button } from '@wlcr/base-ic';",
+    "import type { ButtonProps } from '@wlcr/base-ic';",
     '',
     'interface SaveButtonProps extends Omit<ButtonProps, \'children\'> {',
     '  label: string;',
@@ -68,16 +69,63 @@ export function TypesDocsPage() {
     '// Theme and layout',
     'ThemeProps, ThemeContextValue, BoxProps, FlexProps, GridProps, ContainerProps, SectionProps',
     '',
-    '// Components and forms',
-    'AccordionProps, AlertDialogProps, AvatarProps, BadgeProps, ButtonProps,',
-    'CardProps, CheckboxProps, CollapsibleProps, DialogProps, FieldProps,',
-    'InputProps, MenuProps, NumberFieldProps, PopoverProps, ProgressProps,',
-    'RadioGroupProps, RadioProps, SelectProps, SeparatorProps, SkeletonProps,',
-    'SliderProps, SwitchProps, TabsProps, TextareaProps, ToggleProps, TooltipProps',
+    '// Components',
+    'AccordionProps, AccordionItemProps, AccordionTriggerProps, AccordionContentProps,',
+    'AlertDialogProps, AvatarProps, BadgeProps, ButtonProps, CardProps,',
+    'CollapsibleProps, CollapsibleTriggerProps, CollapsibleContentProps,',
+    'DialogProps, DrawerProps, PopoverProps, ProgressProps, SeparatorProps,',
+    'SkeletonProps, TooltipProps, TooltipProviderProps,',
+    'MenuProps, MenuItemProps, MenuCheckboxItemProps, MenuRadioGroupProps,',
+    'MenuRadioItemProps, MenuGroupProps, MenuSubProps, MenubarProps,',
+    'NavigationMenuProps, NavigationMenuListProps, NavigationMenuItemProps,',
+    'NavigationMenuTriggerProps, NavigationMenuContentProps, NavigationMenuLinkProps,',
+    'TabsProps, TabsListProps, TabProps, TabsPanelProps,',
+    'ToggleProps, ToggleGroupProps',
+    '',
+    '// Toast',
+    'ToasterProps, ToastTitleProps, ToastDescriptionProps, ToastActionProps, ToastCloseProps',
+    '',
+    '// Forms',
+    'AutocompleteProps, AutocompleteItemProps, AutocompleteGroupProps,',
+    'CheckboxProps, FieldProps, FieldLabelProps, FieldDescriptionProps, FieldErrorProps,',
+    'FieldControlProps, FieldsetProps, FieldsetLegendProps, InputProps, NumberFieldProps,',
+    'OTPFieldProps, OTPFieldRootProps, OTPFieldInputProps, OTPFieldSeparatorProps,',
+    'RadioGroupProps, RadioProps, SelectProps, SelectItemProps, SelectGroupProps,',
+    'SliderProps, SwitchProps, TextareaProps',
     '',
     '// Typography',
     'TextProps, HeadingProps, LinkProps, CodeProps, KbdProps, EmProps,',
     'StrongProps, QuoteProps',
+  ].join('\n');
+
+  const componentTypesSnippet = [
+    "import type {",
+    "  DrawerSide,           // 'left' | 'right' | 'top' | 'bottom'",
+    "  ToasterPosition,      // 'top-left' | 'top-center' | … | 'bottom-right'",
+    "  ToastOptions,         // options accepted by toast(...)",
+    "  ToastVariant,         // 'success' | 'error' | 'warning' | 'info'",
+    "  AutocompleteItemData, // item shapes accepted by Autocomplete's items",
+    "  AutocompleteGroupData,",
+    "  AutocompleteItems,",
+    "  CustomColorScale,     // Theme custom color definitions",
+    "  FontFamilies,         // Theme font family slots",
+    "} from '@wlcr/base-ic';",
+  ].join('\n');
+
+  const primitiveSnippet = [
+    "import { DrawerPrimitive, SelectPrimitive } from '@wlcr/base-ic';",
+    '',
+    '// Each *Primitive is the raw Base UI namespace, so its part types come along:',
+    'type SwipeAreaProps = DrawerPrimitive.SwipeArea.Props;',
+    'type SelectGroupBaseProps = SelectPrimitive.Group.Props;',
+    '',
+    '// Available: AccordionPrimitive, AlertDialogPrimitive, AutocompletePrimitive,',
+    '// AvatarPrimitive, CollapsiblePrimitive, DialogPrimitive, DrawerPrimitive,',
+    '// FieldPrimitive, FieldsetPrimitive, MenuPrimitive, MenubarPrimitive,',
+    '// NavigationMenuPrimitive, NumberFieldPrimitive, OTPFieldPrimitive,',
+    '// PopoverPrimitive, ProgressPrimitive, SelectPrimitive, SliderPrimitive,',
+    '// TabsPrimitive, ToastPrimitive, TogglePrimitive, ToggleGroupPrimitive,',
+    '// TooltipPrimitive',
   ].join('\n');
 
   const valueCatalogSnippet = [
@@ -114,8 +162,8 @@ export function TypesDocsPage() {
       <DocsSection>
         <h2>Shared Types</h2>
         <p>
-          Shared types cover values used across the system. `Color` is the component-facing alias
-          for `AccentColor`; both allow registered custom color names in addition to built-in hues.
+          Shared types cover values used across the system. <code>Color</code> is the component-facing alias
+          for <code>AccentColor</code>; both allow registered custom color names in addition to built-in hues.
         </p>
         <CodeBlock title="Shared types" code={sharedTypesSnippet} />
       </DocsSection>
@@ -128,12 +176,28 @@ export function TypesDocsPage() {
         </p>
         <CodeBlock title="Extending component props" code={componentPropsSnippet} />
         <CodeBlock title="Props interfaces" code={propsCatalogSnippet} />
+        <p>
+          Some components also export the types behind their non-props APIs, such as a Drawer's
+          {' '}<code>side</code>, the Toaster's <code>position</code>, or the options passed to{' '}
+          <code>toast(...)</code>.
+        </p>
+        <CodeBlock title="Other component types" code={componentTypesSnippet} />
+      </DocsSection>
+
+      <DocsSection>
+        <h2>Primitive Namespaces</h2>
+        <p>
+          Base UI-backed components re-export the raw Base UI namespace as <code>*Primitive</code>.
+          These are values, but they also carry the Base UI part types, which is useful when typing
+          props passed through to a part.
+        </p>
+        <CodeBlock title="Base UI part types" code={primitiveSnippet} />
       </DocsSection>
 
       <DocsSection>
         <h2>Prop Value Types</h2>
         <p>
-          Component-specific names keep APIs precise: `ButtonSize` only permits sizes supported by
+          Component-specific names keep APIs precise: <code>ButtonSize</code> only permits sizes supported by
           `Button`, while `TextSize` covers the full typography scale.
         </p>
         <CodeBlock title="Using prop value types" code={propValuesSnippet} />
@@ -143,7 +207,7 @@ export function TypesDocsPage() {
       <DocsSection>
         <h2>Deriving a Prop Type</h2>
         <p>
-          For props without a named alias, `PropValue` extracts the usable value and removes
+          For props without a named alias, <code>PropValue</code> extracts the usable value and removes
           `null` and `undefined`. Indexed access preserves the exact optional prop type.
         </p>
         <CodeBlock title="Derive from any props interface" code={deriveSnippet} />
@@ -152,10 +216,10 @@ export function TypesDocsPage() {
       <DocsSection>
         <h2>Guidelines</h2>
         <DocsList>
-          <li>Prefer `import type` for all type-only dependencies.</li>
-          <li>Use a named prop value type when one exists, such as `ButtonSize` or `Color`.</li>
+          <li>Prefer <code>import type</code> for all type-only dependencies.</li>
+          <li>Use a named prop value type when one exists, such as <code>ButtonSize</code> or <code>Color</code>.</li>
           <li>Use the component props interface when building wrappers and composed controls.</li>
-          <li>Use `PropValue` for an unnamed prop value instead of copying its union.</li>
+          <li>Use <code>PropValue</code> for an unnamed prop value instead of copying its union.</li>
         </DocsList>
       </DocsSection>
     </>

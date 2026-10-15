@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styles from './container.module.css';
-import { buildSpaceVars, cx, type SpaceProps, toCssVarValue, toSpaceVar, withVar } from '../layout.utils';
+import { buildSpaceVars, cx, type SpaceProps, toSpaceVar, withVar } from '../layout.utils';
 
 type ContainerSize = '1' | '2' | '3' | '4';
 
@@ -28,7 +28,9 @@ export const Container = React.forwardRef<HTMLElement, ContainerProps>(function 
   const resolvedMarginY = my != null ? toSpaceVar(my) : m != null ? toSpaceVar(m) : undefined;
 
   const nextStyle = withVar(style, {
-    '--container-max-width': toCssVarValue(maxWidth) ?? `var(--layout-container-${size})`,
+    // Numbers are pixels, matching React's `style={{ maxWidth: 600 }}`.
+    '--container-max-width':
+      (typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth) ?? `var(--layout-container-${size})`,
     '--container-gutter': toSpaceVar(gutter),
     ...buildSpaceVars('container', { p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml }),
     '--container-margin-x': resolvedMarginX,

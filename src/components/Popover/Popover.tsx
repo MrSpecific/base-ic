@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Popover as BasePopover } from '@base-ui/react';
+import { useThemePortal } from '../shared/useThemePortal';
 import styles from './popover.module.css';
 
 export interface PopoverProps extends Omit<BasePopover.Root.Props<unknown>, 'children'> {
@@ -10,6 +11,16 @@ export interface PopoverProps extends Omit<BasePopover.Root.Props<unknown>, 'chi
   sideOffset?: BasePopover.Positioner.Props['sideOffset'];
   alignOffset?: BasePopover.Positioner.Props['alignOffset'];
   disableArrow?: boolean;
+  /** Heading shown above the content; also names the popup for assistive tech. */
+  title?: React.ReactNode;
+  /** Supporting text shown under the title; announced as the popup's description. */
+  description?: React.ReactNode;
+  /** Open the popover on hover as well as click. */
+  openOnHover?: BasePopover.Trigger.Props['openOnHover'];
+  /** Hover open delay in ms. Requires `openOnHover`. */
+  delay?: BasePopover.Trigger.Props['delay'];
+  /** Hover close delay in ms. Requires `openOnHover`. */
+  closeDelay?: BasePopover.Trigger.Props['closeDelay'];
 }
 
 function ArrowSvg(props: React.ComponentProps<'svg'>) {
@@ -43,22 +54,43 @@ export function Popover({
   sideOffset = 8,
   alignOffset,
   disableArrow = false,
+  title,
+  description,
+  openOnHover,
+  delay,
+  closeDelay,
   ...rootProps
 }: PopoverProps) {
+  const { anchorRef, container, forcedAppearance } = useThemePortal();
   return (
     <BasePopover.Root {...rootProps}>
-      <BasePopover.Trigger render={children} />
-      <BasePopover.Portal>
-        <BasePopover.Positioner className={styles.positioner} side={side} align={align} sideOffset={sideOffset} alignOffset={alignOffset}>
-          <BasePopover.Popup className={styles.popup}>
-            {content}
-            {!disableArrow && (
-              <BasePopover.Arrow className={styles.arrow}>
-                <ArrowSvg />
-              </BasePopover.Arrow>
-            )}
-          </BasePopover.Popup>
-        </BasePopover.Positioner>
+      <span ref={anchorRef} style={{ display: 'contents' }}>
+        <BasePopover.Trigger
+          openOnHover={openOnHover}
+          delay={delay}
+          closeDelay={closeDelay}
+          render={children}
+        />
+      </span>
+      <BasePopover.Portal container={container}>
+        <div data-appearance={forcedAppearance}>
+          <BasePopover.Positioner className={styles.positioner} side={side} align={align} sideOffset={sideOffset} alignOffset={alignOffset}>
+            <BasePopover.Popup className={styles.popup}>
+              {title && <BasePopover.Title className={styles.title}>{title}</BasePopover.Title>}
+              {description && (
+                <BasePopover.Description className={styles.description}>
+                  {description}
+                </BasePopover.Description>
+              )}
+              {content}
+              {!disableArrow && (
+                <BasePopover.Arrow className={styles.arrow}>
+                  <ArrowSvg />
+                </BasePopover.Arrow>
+              )}
+            </BasePopover.Popup>
+          </BasePopover.Positioner>
+        </div>
       </BasePopover.Portal>
     </BasePopover.Root>
   );

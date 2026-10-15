@@ -141,3 +141,5 @@ function TabsPanel({ value, className, children, ...rest }: TabsPanelProps) {
 Tabs.List = TabsList;
 Tabs.Tab = Tab;
 Tabs.Panel = TabsPanel;
+
+export { BaseTabs as TabsPrimitive };

@@ -31,6 +31,7 @@ export function ButtonDocsPage() {
     "  <Button>Default</Button>",
     "  <Button loading>Loading</Button>",
     "  <Button disabled>Disabled</Button>",
+    "  <Button disabled focusableWhenDisabled>Focusable disabled</Button>",
     "  <Button highContrast>High Contrast</Button>",
     "</div>",
   ].join("\n");
@@ -52,6 +53,27 @@ export function ButtonDocsPage() {
     "</div>",
   ].join("\n");
 
+  const renderSnippet = [
+    "import { Link as RouterLink } from 'react-router-dom';",
+    "",
+    "// Rendering a non-<button> element: set nativeButton={false}",
+    "<Button render={<RouterLink to=\"/settings\" />} nativeButton={false}>",
+    "  Settings",
+    "</Button>",
+  ].join("\n");
+
+  const renderLinkSnippet = [
+    "<Button",
+    "  render={",
+    "    <a href=\"https://base-ui.com/react/components/button\" target=\"_blank\" rel=\"noreferrer\" />",
+    "  }",
+    "  nativeButton={false}",
+    "  variant=\"soft\"",
+    ">",
+    "  Base UI docs",
+    "</Button>",
+  ].join("\n");
+
   return (
     <>
       <DocsSection>
@@ -62,7 +84,7 @@ export function ButtonDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Built On Base-UI</Heading>
+        <Heading as="h2">Built On Base-UI</Heading>
         <Text as="p">
           This component wraps the Base UI Button primitive. Base primitive
           docs:{" "}
@@ -77,7 +99,7 @@ export function ButtonDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Demo</Heading>
+        <Heading as="h2">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Variants"
@@ -114,13 +136,16 @@ export function ButtonDocsPage() {
           </DemoCard>
           <DemoCard
             title="States"
-            description="Loading, disabled, and contrast behaviors."
+            description="`loading` shows a spinner, sets `aria-busy`, and blocks clicks but stays focusable. `focusableWhenDisabled` keeps a disabled button in the tab order."
             code={statesSnippet}
           >
             <DocsDemoRow>
               <Button>Default</Button>
               <Button loading>Loading</Button>
               <Button disabled>Disabled</Button>
+              <Button disabled focusableWhenDisabled>
+                Focusable disabled
+              </Button>
               <Button highContrast>High Contrast</Button>
             </DocsDemoRow>
           </DemoCard>
@@ -133,17 +158,38 @@ export function ButtonDocsPage() {
               <Button color="blue">Blue</Button>
               <Button color="green">Green</Button>
               <Button color="orange" highContrast>
-                Orange Hight Contrast
+                Orange High Contrast
               </Button>
               <Button variant="outline" radius="full">
                 Pill
               </Button>
             </DocsDemoRow>
           </DemoCard>
+          <DemoCard
+            title="Render as a link"
+            description="`render` swaps the element while keeping Button styling. Pass `nativeButton={false}` when it is not a `<button>`."
+            code={renderLinkSnippet}
+          >
+            <DocsDemoRow>
+              <Button
+                render={
+                  <a
+                    href="https://base-ui.com/react/components/button"
+                    target="_blank"
+                    rel="noreferrer"
+                  />
+                }
+                nativeButton={false}
+                variant="soft"
+              >
+                Base UI docs
+              </Button>
+            </DocsDemoRow>
+          </DemoCard>
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <Heading>Usage</Heading>
+        <Heading as="h2">Usage</Heading>
         <CodeBlock title="Button Usage" code={usageSnippet} />
       </DocsSection>
       <DocsSection>
@@ -183,24 +229,44 @@ export function ButtonDocsPage() {
               name: "loading",
               type: "boolean",
               default: "false",
-              description: "Shows a loading spinner and disables interaction.",
+              description:
+                "Shows a loading spinner and disables interaction. The button stays focusable (so focus isn't dropped mid-action) and is marked `aria-busy`.",
             },
             {
               name: "disabled",
               type: "boolean",
               default: "false",
-              description: "Disables the button (native HTML attribute).",
+              description:
+                "Disables the button. Sets the native `disabled` attribute (removed from the tab order) unless `focusableWhenDisabled` is set, in which case `aria-disabled` is used instead.",
+            },
+            {
+              name: "focusableWhenDisabled",
+              type: "boolean",
+              default: "false",
+              description: "Keep the button in the tab order while `disabled`. Always on while `loading`.",
             },
             {
               name: "render",
-              type: "React.ReactElement",
+              type: "React.ReactElement | ((props, state) => React.ReactElement)",
               description:
-                "Render as a different element (e.g. a router Link) while keeping Button's styling.",
+                "Render as a different element (e.g. a router `Link`) while keeping Button's styling. Pair with `nativeButton={false}` when the element is not a `<button>`.",
+            },
+            {
+              name: "nativeButton",
+              type: "boolean",
+              default: "true",
+              description:
+                "Set to `false` when `render` is not a `<button>` (e.g. an `<a>` or router `Link`) so Base UI adds button semantics and keyboard handling instead of native-button attributes.",
+            },
+            {
+              name: "px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml",
+              type: "number | string",
+              description:
+                "Padding/margin shorthands. Numbers and digit-only strings map to space tokens (`3` and `\"3\"` → `var(--space-3)`; `0` → `0`); any other string is used as a raw CSS length.",
             },
             {
               name: "children",
               type: "React.ReactNode",
-              required: true,
               description: "Button label/content.",
             },
           ]}
@@ -210,14 +276,21 @@ export function ButtonDocsPage() {
         <Heading as="h2">Notes</Heading>
         <DocsList>
           <li>
-            Use `loading` for async actions; it also disables interaction.
+            Use `loading` for async actions: it disables interaction but keeps
+            the button focusable and sets `aria-busy`, so keyboard focus isn't
+            lost while the action runs.
           </li>
           <li>
             Prefer `variant=&quot;solid&quot;` for primary actions and
             lower-emphasis variants for secondary actions.
           </li>
-          <li>`render` lets you swap the underlying trigger element.</li>
+          <li>
+            `render` lets you swap the underlying element. When it is not a
+            native `&lt;button&gt;` (a link, a router `Link`), also pass{" "}
+            {"`nativeButton={false}`"}.
+          </li>
         </DocsList>
+        <CodeBlock title="Render as a link" code={renderSnippet} />
       </DocsSection>
     </>
   );

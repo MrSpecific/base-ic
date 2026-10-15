@@ -116,18 +116,15 @@
  * Panel
  * --------------------------------------------------------------------------- */
 .panel {
-  height: 0;
+  height: var(--accordion-panel-height);
   overflow: hidden;
   transition: height var(--duration-4) var(--ease-3);
 }
 
-.panel[data-open] {
-  height: var(--accordion-panel-height);
-}
-
-/* Support keepMounted + hidden attribute */
-.panel[hidden] {
-  display: block;
+/* Base UI sets these on the frames before opening / while closing,
+ * giving the height transition a 0 start and end point. */
+.panel[data-starting-style],
+.panel[data-ending-style] {
   height: 0;
 }
 

@@ -45,6 +45,19 @@ export function AlertDialogDocsPage() {
     "</AlertDialog>",
   ].join("\n");
 
+  const asyncSnippet = [
+    "<AlertDialog",
+    '  title="Archive workspace"',
+    '  description="Members lose access until the workspace is restored."',
+    '  confirmLabel="Archive"',
+    "  // Returning a promise keeps the dialog open, with the confirm",
+    "  // button loading, until it settles.",
+    "  onConfirm={() => archiveWorkspace()}",
+    ">",
+    '  <Button variant="soft">Archive workspace</Button>',
+    "</AlertDialog>",
+  ].join("\n");
+
   return (
     <>
       <DocsSection>
@@ -56,7 +69,7 @@ export function AlertDialogDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Built On Base UI</Heading>
+        <Heading as="h2">Built On Base UI</Heading>
         <Text as="p">
           This component wraps the Base UI AlertDialog primitive. Base primitive
           docs:{" "}
@@ -71,7 +84,7 @@ export function AlertDialogDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Demo</Heading>
+        <Heading as="h2">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Destructive action"
@@ -109,6 +122,24 @@ export function AlertDialogDocsPage() {
             </DocsDemoRow>
           </DemoCard>
           <DemoCard
+            title="Async confirm"
+            description="Return a promise from `onConfirm` and the dialog stays open with the confirm button in a loading state until it resolves. Cancel and Escape are blocked meanwhile. This demo waits 1.5 seconds."
+            code={asyncSnippet}
+          >
+            <DocsDemoRow>
+              <AlertDialog
+                title="Archive workspace"
+                description="Members lose access until the workspace is restored."
+                confirmLabel="Archive"
+                onConfirm={() =>
+                  new Promise<void>((resolve) => setTimeout(resolve, 1500))
+                }
+              >
+                <Button variant="soft">Archive workspace</Button>
+              </AlertDialog>
+            </DocsDemoRow>
+          </DemoCard>
+          <DemoCard
             title="Custom labels"
             description="Override cancel and confirm button labels."
             code={
@@ -130,7 +161,7 @@ export function AlertDialogDocsPage() {
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <Heading>Usage</Heading>
+        <Heading as="h2">Usage</Heading>
         <CodeBlock title="AlertDialog Usage" code={usageSnippet} />
       </DocsSection>
       <DocsSection>
@@ -169,15 +200,15 @@ export function AlertDialogDocsPage() {
             },
             {
               name: "onConfirm",
-              type: "() => void",
+              type: "() => void | Promise<unknown>",
               description:
-                "Called when the user confirms. The dialog closes automatically afterward.",
+                "Called when the confirm button is clicked. If it returns nothing, the dialog closes right away. If it returns a promise, the dialog stays open with the confirm button loading (Cancel and Escape are blocked) until the promise settles: it closes on resolve and stays open on reject.",
             },
             {
               name: "onCancel",
               type: "() => void",
               description:
-                "Called when the user cancels. The dialog closes automatically afterward.",
+                "Called when the user cancels, either with the Cancel button or the Escape key. The dialog closes automatically. For every other open-state change, use `onOpenChange`.",
             },
             {
               name: "danger",
@@ -243,8 +274,15 @@ export function AlertDialogDocsPage() {
             confirmations.
           </li>
           <li>
-            Both `onConfirm` and `onCancel` fire before the dialog closes, so you
-            can run async logic before the dialog dismisses.
+            `onCancel` fires for both the Cancel button and the Escape key.
+          </li>
+          <li>
+            `onConfirm` can be async. While its promise is pending, the confirm
+            button shows a loading state and the dialog can't be dismissed. It
+            closes once the promise resolves. If the promise rejects, the
+            dialog stays open so the user can retry. AlertDialog doesn't catch
+            the rejection, so handle errors (for example, show a toast)
+            inside `onConfirm`.
           </li>
         </DocsList>
       </DocsSection>

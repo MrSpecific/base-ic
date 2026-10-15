@@ -10,7 +10,7 @@
  * Positioner — ensure z-index above page content
  * --------------------------------------------------------------------------- */
 .positioner {
-  z-index: 50;
+  z-index: calc(var(--z-5) + 1);
 }
 
 /* ---------------------------------------------------------------------------
@@ -31,6 +31,26 @@
   line-height: var(--line-height-3);
   /* Scale from the anchor side for a natural feel */
   transform-origin: var(--transform-origin, center);
+}
+
+/* ---------------------------------------------------------------------------
+ * Title / description
+ * --------------------------------------------------------------------------- */
+.title {
+  margin: 0 0 var(--space-1);
+  font-size: var(--font-size-3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-3);
+  color: var(--color-text-primary);
+}
+
+.description {
+  margin: 0 0 var(--space-2);
+  color: var(--color-text-secondary);
+}
+
+.description:last-child {
+  margin-bottom: 0;
 }
 
 /* Open / close animations */

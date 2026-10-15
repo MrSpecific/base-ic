@@ -30,13 +30,34 @@ export interface SliderProps extends Omit<BaseSlider.Root.Props, 'className' | '
   radius?: SliderRadius;
   /** Show a value output alongside the thumb. */
   showOutput?: boolean;
+  /**
+   * Accessible name for the thumb input(s). Forwarded to each thumb, since the
+   * focusable `<input>` lives there, not on the root group. For range sliders
+   * prefer `getAriaLabel` to name each thumb.
+   */
+  'aria-label'?: string;
+  /** Returns the `aria-label` for the thumb at `index` (e.g. "Minimum price"). */
+  getAriaLabel?: BaseSlider.Thumb.Props['getAriaLabel'];
+  /** Returns the `aria-valuetext` for the thumb at `index` (e.g. "$20"). */
+  getAriaValueText?: BaseSlider.Thumb.Props['getAriaValueText'];
   className?: string;
   style?: React.CSSProperties;
 }
 
 export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
   function Slider(
-    { size = '2', color, radius, showOutput = false, className, style, ...rest },
+    {
+      size = '2',
+      color,
+      radius,
+      showOutput = false,
+      'aria-label': ariaLabel,
+      getAriaLabel,
+      getAriaValueText,
+      className,
+      style,
+      ...rest
+    },
     ref,
   ) {
     const colorVars = color
@@ -65,7 +86,14 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
           <BaseSlider.Track className={styles.track}>
             <BaseSlider.Indicator className={styles.indicator} />
             {Array.from({ length: thumbCount }).map((_, i) => (
-              <BaseSlider.Thumb key={i} className={styles.thumb} />
+              <BaseSlider.Thumb
+                key={i}
+                index={i}
+                className={styles.thumb}
+                aria-label={ariaLabel}
+                getAriaLabel={getAriaLabel}
+                getAriaValueText={getAriaValueText}
+              />
             ))}
           </BaseSlider.Track>
         </BaseSlider.Control>

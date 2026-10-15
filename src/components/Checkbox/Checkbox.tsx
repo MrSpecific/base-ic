@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Checkbox as BaseCheckbox } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
 import type { AccentColor } from '../Theme';
+import { useFieldRequired } from '../Field/FieldRequiredContext';
+import { ControlLabel } from '../shared/ControlLabel';
 import styles from './checkbox.module.css';
 
 type CheckboxSize = '1' | '2' | '3';
@@ -18,6 +20,11 @@ export interface CheckboxProps
   style?: React.CSSProperties;
   /** Custom render element (Base UI render prop). */
   render?: React.ReactElement;
+  /**
+   * Label text rendered next to the control. Wraps both in a native <label>,
+   * so clicking the text toggles the control.
+   */
+  children?: React.ReactNode;
 }
 
 const sizeClass: Record<CheckboxSize, string> = {
@@ -69,9 +76,10 @@ function IndeterminateIcon() {
 
 export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
   function Checkbox(
-    { size = '2', color, className, style, render, ...rest },
+    { size = '2', color, className, style, render, required: requiredProp, children, ...rest },
     ref,
   ) {
+    const required = useFieldRequired(requiredProp);
     const colorVars = color
       ? ({
           '--chk-accent-9': `var(--color-${color}-9)`,
@@ -81,17 +89,21 @@ export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
       : undefined;
 
     return (
-      <BaseCheckbox.Root
-        ref={ref}
-        render={render}
-        className={cx(styles.root, sizeClass[size], className)}
-        style={{ ...colorVars, ...style }}
-        {...rest}
-      >
-        <BaseCheckbox.Indicator className={styles.indicator}>
-          {rest.indeterminate ? <IndeterminateIcon /> : <CheckIcon />}
-        </BaseCheckbox.Indicator>
-      </BaseCheckbox.Root>
+      <ControlLabel label={children} size={size}>
+        <BaseCheckbox.Root
+          ref={ref}
+          render={render}
+          className={cx(styles.root, sizeClass[size], className)}
+          style={{ ...colorVars, ...style }}
+          required={required}
+          {...rest}
+        >
+          {/* keepMounted so the icon's scale transition plays on check/uncheck */}
+          <BaseCheckbox.Indicator className={styles.indicator} keepMounted>
+            {rest.indeterminate ? <IndeterminateIcon /> : <CheckIcon />}
+          </BaseCheckbox.Indicator>
+        </BaseCheckbox.Root>
+      </ControlLabel>
     );
   },
 );

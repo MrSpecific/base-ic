@@ -2,7 +2,7 @@ import * as React from 'react';
 import { AlertDialog as BaseAlertDialog } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
 import { Button } from '../Button';
-import { useTheme } from '../Theme';
+import { useThemePortal } from '../shared/useThemePortal';
 import styles from './alert-dialog.module.css';
 
 type AlertDialogSize = 'small' | 'medium' | 'large';
@@ -24,9 +24,13 @@ export interface AlertDialogProps extends BaseAlertDialog.Root.Props {
   cancelLabel?: string;
   /** Label for the confirm action. Default: 'Confirm' */
   confirmLabel?: string;
-  /** Called when the user confirms. Dialog closes automatically. */
-  onConfirm?: () => void;
-  /** Called when the user cancels. Dialog closes automatically. */
+  /**
+   * Called when the user confirms. The dialog closes automatically. If this
+   * returns a promise, the dialog stays open with the confirm button in a
+   * loading state until it resolves (it stays open if the promise rejects).
+   */
+  onConfirm?: () => void | Promise<unknown>;
+  /** Called when the user cancels via the Cancel button or Escape. Dialog closes automatically. */
   onCancel?: () => void;
   /** Style the confirm button as a destructive (red) action. */
   danger?: boolean;
@@ -44,27 +48,49 @@ export function AlertDialog({
   onCancel,
   danger = false,
   size = 'small',
+  actionsRef: actionsRefProp,
+  onOpenChange,
   ...rootProps
 }: AlertDialogProps) {
-  const { appearance } = useTheme();
-  const forcedAppearance =
-    appearance === 'dark' || appearance === 'light' ? appearance : undefined;
-  const triggerAnchorRef = React.useRef<HTMLSpanElement | null>(null);
-  const [portalContainer, setPortalContainer] = React.useState<HTMLElement | null>(null);
+  const { anchorRef: triggerAnchorRef, container: portalContainer, forcedAppearance } =
+    useThemePortal<HTMLSpanElement>();
+  const internalActionsRef = React.useRef<BaseAlertDialog.Root.Actions | null>(null);
+  const actionsRef = actionsRefProp ?? internalActionsRef;
+  const [pending, setPending] = React.useState(false);
+  // Read synchronously by onOpenChange, which can fire before a re-render
+  const pendingRef = React.useRef(false);
 
-  React.useEffect(() => {
-    const nearestThemeRoot =
-      triggerAnchorRef.current?.closest<HTMLElement>('[data-accent-color]') ??
-      document.querySelector<HTMLElement>('[data-accent-color]');
-    setPortalContainer(nearestThemeRoot ?? null);
-  }, []);
+  const handleOpenChange: AlertDialogProps['onOpenChange'] = (open, eventDetails) => {
+    // Don't let Escape dismiss the dialog mid-confirmation
+    if (!open && pendingRef.current) {
+      eventDetails.cancel();
+      return;
+    }
+    if (!open && eventDetails.reason === 'escape-key') onCancel?.();
+    onOpenChange?.(open, eventDetails);
+  };
+
+  const handleConfirm = async () => {
+    const result = onConfirm?.();
+    if (result && typeof (result as Promise<unknown>).then === 'function') {
+      pendingRef.current = true;
+      setPending(true);
+      try {
+        await result;
+      } finally {
+        pendingRef.current = false;
+        setPending(false);
+      }
+    }
+    actionsRef.current?.close();
+  };
 
   return (
-    <BaseAlertDialog.Root {...rootProps}>
+    <BaseAlertDialog.Root {...rootProps} actionsRef={actionsRef} onOpenChange={handleOpenChange}>
       <span ref={triggerAnchorRef} style={{ display: 'contents' }}>
         <BaseAlertDialog.Trigger render={children} />
       </span>
-      <BaseAlertDialog.Portal container={portalContainer ?? undefined}>
+      <BaseAlertDialog.Portal container={portalContainer}>
         <div data-appearance={forcedAppearance}>
           <BaseAlertDialog.Backdrop className={styles.backdrop} />
           <BaseAlertDialog.Popup className={cx(styles.popup, sizeClass[size])}>
@@ -80,24 +106,22 @@ export function AlertDialog({
             )}
             <div className={styles.footer}>
               <BaseAlertDialog.Close
+                disabled={pending}
                 render={
                   <Button variant="ghost" size="2" onClick={onCancel}>
                     {cancelLabel}
                   </Button>
                 }
               />
-              <BaseAlertDialog.Close
-                render={
-                  <Button
-                    variant="solid"
-                    size="2"
-                    color={danger ? 'red' : undefined}
-                    onClick={onConfirm}
-                  >
-                    {confirmLabel}
-                  </Button>
-                }
-              />
+              <Button
+                variant="solid"
+                size="2"
+                color={danger ? 'red' : undefined}
+                loading={pending}
+                onClick={handleConfirm}
+              >
+                {confirmLabel}
+              </Button>
             </div>
           </BaseAlertDialog.Popup>
         </div>

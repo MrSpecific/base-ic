@@ -3,7 +3,8 @@
  * Pairs well with violet, purple, and plum accent colors.
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-mauve-1:     oklch(99.0% 0.004 310);
   --color-mauve-2:     oklch(97.5% 0.006 310);
   --color-mauve-3:     oklch(95.0% 0.008 310);

@@ -2,7 +2,8 @@
  * Teal scale
  */
 
-:root {
+:root,
+:where(.light, [data-appearance='light']) {
   --color-teal-1:      oklch(98.5% 0.010 195);
   --color-teal-2:      oklch(97.0% 0.018 195);
   --color-teal-3:      oklch(93.5% 0.040 195);

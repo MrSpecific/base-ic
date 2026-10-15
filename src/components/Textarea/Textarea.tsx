@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { Field as BaseField } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
+import { useFieldRequired } from '../Field/FieldRequiredContext';
 import styles from './textarea.module.css';
 
 type TextareaSize = '1' | '2' | '3' | '4';
@@ -16,8 +18,14 @@ export interface TextareaProps
   radius?: TextareaRadius;
   /** Disable the resize handle. */
   noResize?: boolean;
-  /** Marks the textarea as having a validation error. */
+  /**
+   * Marks the textarea as having a validation error (sets `aria-invalid`).
+   * Inside a `<Field>`, the field's validity is reflected automatically via
+   * `data-invalid`, so this is mainly for standalone use.
+   */
   invalid?: boolean;
+  /** Callback fired when the value changes (Base UI). */
+  onValueChange?: BaseField.Control.Props['onValueChange'];
   /** Ref for the wrapper div (use standard ref for the textarea element). */
   wrapperRef?: React.Ref<HTMLDivElement>;
   /** CSS class for the outer wrapper div. */
@@ -59,10 +67,12 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       className,
       style,
       disabled,
+      required: requiredProp,
       ...rest
     },
     ref,
   ) {
+    const required = useFieldRequired(requiredProp);
     const radiusVar = radius
       ? ({ '--inp-radius': radiusMap[radius] } as React.CSSProperties)
       : undefined;
@@ -81,13 +91,18 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         )}
         style={radiusVar}
       >
-        <textarea
-          ref={ref}
+        {/* Field.Control rendered as a <textarea> so it is Field-aware: label
+            and description/error ids, validation, and data-invalid etc. The
+            props are textarea attributes; Field.Control is typed for <input>. */}
+        <BaseField.Control
+          ref={ref as React.Ref<HTMLElement>}
+          render={<textarea />}
           className={cx(styles.textarea, className)}
           aria-invalid={invalid ? 'true' : undefined}
           disabled={disabled}
+          required={required}
           style={style}
-          {...rest}
+          {...(rest as unknown as BaseField.Control.Props)}
         />
       </div>
     );

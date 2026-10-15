@@ -98,18 +98,6 @@
   color: var(--color-accent-11);
 }
 
-.tabLine[data-active]::after,
-.tabLine[aria-selected='true']::after {
-  content: '';
-  position: absolute;
-  bottom: calc(var(--tabs-indicator-size, calc(2px * var(--component-scaling))) * -1);
-  left: 0;
-  right: 0;
-  height: var(--tabs-indicator-size, calc(2px * var(--component-scaling)));
-  background: var(--color-accent-9);
-  border-radius: var(--radius-full);
-}
-
 .tabLine {
   position: relative;
   border-radius: var(--radius-2) var(--radius-2) 0 0;
@@ -153,6 +141,35 @@
   border-radius: var(--radius-full);
   transition: left var(--duration-3) var(--ease-spring, var(--ease-2)),
               width var(--duration-3) var(--ease-spring, var(--ease-2));
+}
+
+/* Vertical orientation — indicator runs along the list's right border */
+.root[data-orientation='vertical'] .listLine {
+  padding-bottom: 0;
+  padding-right: var(--tabs-indicator-size, calc(2px * var(--component-scaling)));
+}
+
+.root[data-orientation='vertical'] .indicator {
+  bottom: auto;
+  left: auto;
+  top: var(--active-tab-top);
+  right: calc(var(--tabs-indicator-size, calc(2px * var(--component-scaling))) * -1);
+  width: var(--tabs-indicator-size, calc(2px * var(--component-scaling)));
+  height: var(--active-tab-height);
+  transition: top var(--duration-3) var(--ease-spring, var(--ease-2)),
+              height var(--duration-3) var(--ease-spring, var(--ease-2));
+}
+
+.root[data-orientation='vertical'] .tabLine {
+  justify-content: flex-start;
+  border-radius: var(--radius-2) 0 0 var(--radius-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .indicator,
+  .root[data-orientation='vertical'] .indicator {
+    transition: none;
+  }
 }
 
 /* ---------------------------------------------------------------------------

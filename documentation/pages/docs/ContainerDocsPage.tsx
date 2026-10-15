@@ -27,6 +27,11 @@ export function ContainerDocsPage() {
     '    <p>Useful for narrative docs or narrow forms.</p>',
     '  </Box>',
     '</Container>',
+    '',
+    '// Numbers are pixels: maxWidth={320} → 320px',
+    '<Container maxWidth={320} gutter={2} mt={3}>',
+    '  <Box className="docs-layout-chip">320px max width</Box>',
+    '</Container>',
   ].join('\n');
 
   return (
@@ -48,12 +53,19 @@ export function ContainerDocsPage() {
               <Container size="3"><Box className="docs-layout-chip">Size 3</Box></Container>
             </Section>
           </DemoCard>
-          <DemoCard title="Custom Max Width" description="Override max width for special pages." code={customWidthDemoSnippet}>
+          <DemoCard
+            title="Custom Max Width"
+            description="Override the size preset with any CSS length; numbers are pixels (`maxWidth={320}` → `320px`)."
+            code={customWidthDemoSnippet}
+          >
             <Container maxWidth="48rem" gutter={2}>
               <Box className="docs-layout-sample-box">
                 <h4>Custom Container</h4>
                 <p>Useful for narrative docs or narrow forms.</p>
               </Box>
+            </Container>
+            <Container maxWidth={320} gutter={2} mt={3}>
+              <Box className="docs-layout-chip">320px max width</Box>
             </Container>
           </DemoCard>
         </DocsDemoGrid>
@@ -76,22 +88,26 @@ export function ContainerDocsPage() {
               name: 'size',
               type: "'1' | '2' | '3' | '4'",
               default: "'3'",
-              description: 'Width preset. Maps to a tokenized max-width when `maxWidth` is not set.',
+              description:
+                'Width preset: `--layout-container-1`…`4` (40rem / 56rem / 72rem / 90rem by default). Ignored when `maxWidth` is set.',
             },
             {
               name: 'maxWidth',
               type: "React.CSSProperties['maxWidth']",
-              description: 'Explicit max-width, overriding the `size` preset.',
+              description: 'Explicit max-width, overriding the `size` preset. Numbers are pixels (`600` → `600px`).',
             },
             {
               name: 'gutter',
               type: 'number | string',
-              description: 'Horizontal inline padding. Numbers map to spacing scale tokens.',
+              default: 'var(--space-4)',
+              description:
+                'Minimum space kept on each side when the viewport is narrower than the max width — not padding. The width is `min(maxWidth, 100% - 2 × gutter)`. Numbers and digit-only strings map to space tokens (`2` → `var(--space-2)`); other strings are raw CSS lengths.',
             },
             {
               name: 'p',
               type: 'SpaceValue',
-              description: 'Padding on all sides. Numbers map to spacing scale tokens.',
+              description:
+                'Padding on all sides. Numbers and digit-only strings map to space tokens (`3` and `"3"` → `var(--space-3)`; `0` → `0`); any other string is used as a raw CSS length.',
             },
             {
               name: 'px',
@@ -126,17 +142,19 @@ export function ContainerDocsPage() {
             {
               name: 'm',
               type: 'SpaceValue',
-              description: 'Margin on all sides. Falls back to centering behavior on `mx`/`my` when set.',
+              description:
+                'Margin on all sides. Setting `m` also replaces the default `auto` horizontal margin (unless `mx` is set), so the container is no longer centered.',
             },
             {
               name: 'mx',
               type: 'SpaceValue',
-              description: 'Horizontal margin (left and right). Falls back to `m` when unset.',
+              default: "'auto'",
+              description: 'Horizontal margin (left and right). Falls back to `m`, then to `auto` (centered).',
             },
             {
               name: 'my',
               type: 'SpaceValue',
-              description: 'Vertical margin (top and bottom). Falls back to `m` when unset.',
+              description: 'Vertical margin (top and bottom). Falls back to `m`, then `0`.',
             },
             {
               name: 'mt',

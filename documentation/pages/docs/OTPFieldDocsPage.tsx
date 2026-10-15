@@ -35,7 +35,7 @@ export function OTPFieldDocsPage() {
 
   const compoundSnippet = [
     "// Use sub-components for full manual layout control",
-    "<OTPField.Root length={4}>",
+    "<OTPField.Root length={4} size=\"3\">",
     "  <OTPField.Input />",
     "  <OTPField.Input />",
     "  <OTPField.Separator />",
@@ -55,7 +55,7 @@ export function OTPFieldDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Built On Base UI</Heading>
+        <Heading as="h2">Built On Base UI</Heading>
         <Text as="p">
           This component wraps the Base UI OTP Field primitive. Base primitive
           docs:{" "}
@@ -70,7 +70,7 @@ export function OTPFieldDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Demo</Heading>
+        <Heading as="h2">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Basic usage"
@@ -108,10 +108,23 @@ export function OTPFieldDocsPage() {
           >
             <OTPField length={6} mask />
           </DemoCard>
+          <DemoCard
+            title="Compound parts"
+            description="`OTPField.Root` takes the same `size` prop; place `OTPField.Input` and `OTPField.Separator` yourself."
+            code={compoundSnippet}
+          >
+            <OTPField.Root length={4} size="3">
+              <OTPField.Input />
+              <OTPField.Input />
+              <OTPField.Separator />
+              <OTPField.Input />
+              <OTPField.Input />
+            </OTPField.Root>
+          </DemoCard>
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <Heading>Usage</Heading>
+        <Heading as="h2">Usage</Heading>
         <CodeBlock title="OTPField Usage" code={usageSnippet} />
       </DocsSection>
       <DocsSection>
@@ -136,7 +149,7 @@ export function OTPFieldDocsPage() {
               name: "groupSize",
               type: "number",
               description:
-                "Insert a separator after every Nth slot (e.g. groupSize={3} on a length={6} field renders a dash after the 3rd slot for a 3+3 split).",
+                "Insert a separator after every Nth slot (e.g. `groupSize={3}` on a `length={6}` field renders a dash after the 3rd slot for a 3+3 split).",
             },
             {
               name: "className",
@@ -187,6 +200,31 @@ export function OTPFieldDocsPage() {
               description: "The type of input validation to apply to typed/pasted characters.",
             },
             {
+              name: "inputMode",
+              type: "React.HTMLAttributes<HTMLInputElement>['inputMode']",
+              description:
+                "Virtual keyboard hint applied to the slot inputs. Defaults to a sensible value for the current `validationType` (e.g. numeric keypad for `'numeric'`).",
+            },
+            {
+              name: "autoComplete",
+              type: "string",
+              default: "'one-time-code'",
+              description:
+                "Native autocomplete hint, letting browsers and OSes offer codes received via SMS/email.",
+            },
+            {
+              name: "normalizeValue",
+              type: "(value: string) => string",
+              description:
+                "Normalizes the value after whitespace and `validationType` filtering (e.g. `(v) => v.toUpperCase()`). Runs on default, controlled, and typed values, so it should be idempotent; the result is re-filtered and clamped to `length`.",
+            },
+            {
+              name: "onValueInvalid",
+              type: "(value: string, eventDetails) => void",
+              description:
+                "Called when typed or pasted text contains characters rejected by validation or normalization.",
+            },
+            {
               name: "disabled",
               type: "boolean",
               default: "false",
@@ -196,7 +234,8 @@ export function OTPFieldDocsPage() {
               name: "required",
               type: "boolean",
               default: "false",
-              description: "Whether the user must enter a value before submitting a form.",
+              description:
+                "Whether the user must enter a value before submitting a form. Not inherited from `<Field required>` — set it on OTPField itself.",
             },
             {
               name: "readOnly",
@@ -215,8 +254,8 @@ export function OTPFieldDocsPage() {
         <Text as="p">
           For manual composition with individual <code>OTPField.Input</code> and{" "}
           <code>OTPField.Separator</code> parts. Accepts the same value/state
-          props as <code>OTPField</code> above (minus <code>size</code> and{" "}
-          <code>groupSize</code>).
+          props as <code>OTPField</code> above, including <code>size</code> —
+          only <code>groupSize</code> is specific to the convenience wrapper.
         </Text>
         <PropsTable
           rows={[
@@ -227,9 +266,14 @@ export function OTPFieldDocsPage() {
               description: "The number of OTP input slots.",
             },
             {
+              name: "size",
+              type: "'1' | '2' | '3' | '4'",
+              default: "'2'",
+              description: "Visual size.",
+            },
+            {
               name: "children",
               type: "React.ReactNode",
-              required: true,
               description: "The OTPField.Input and OTPField.Separator parts to render.",
             },
             {
@@ -273,7 +317,7 @@ export function OTPFieldDocsPage() {
         />
       </DocsSection>
       <DocsSection>
-        <Heading>Compound sub-components</Heading>
+        <Heading as="h2">Compound sub-components</Heading>
         <Text as="p">
           Use OTPField.Root, OTPField.Input, and OTPField.Separator directly
           for full manual layout control instead of the length / groupSize
@@ -282,7 +326,7 @@ export function OTPFieldDocsPage() {
         <CodeBlock title="Compound API" code={compoundSnippet} />
       </DocsSection>
       <DocsSection>
-        <Heading>Notes</Heading>
+        <Heading as="h2">Notes</Heading>
         <DocsList>
           <li>
             <code>length</code> is required and sets the number of character
@@ -290,8 +334,8 @@ export function OTPFieldDocsPage() {
           </li>
           <li>
             <code>groupSize</code> inserts a separator after every Nth slot
-            (e.g. <code>groupSize={3}</code> on a <code>length={6}</code>{" "}
-            field splits it 3+3).
+            (e.g. <code>{"groupSize={3}"}</code> on a{" "}
+            <code>{"length={6}"}</code> field splits it 3+3).
           </li>
           <li>
             <code>mask</code> hides entered characters; <code>autoSubmit</code>{" "}
@@ -299,7 +343,12 @@ export function OTPFieldDocsPage() {
           </li>
           <li>
             Composes naturally with <code>Field</code> for label, description,
-            and error states.
+            and error states. <code>{"<Field required>"}</code> only marks the
+            label — pass <code>required</code> to <code>OTPField</code> itself.
+          </li>
+          <li>
+            <code>size</code> works on both the <code>OTPField</code> wrapper
+            and <code>OTPField.Root</code> (default <code>'2'</code>).
           </li>
         </DocsList>
       </DocsSection>

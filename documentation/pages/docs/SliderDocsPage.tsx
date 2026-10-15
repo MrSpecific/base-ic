@@ -1,4 +1,4 @@
-import { Flex, Heading, Link, Slider, Text } from "../../../src";
+import { Field, Flex, Heading, Link, Slider, Text } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import {
   DocsDemoGrid,
@@ -33,7 +33,29 @@ export function SliderDocsPage() {
   ].join("\n");
 
   const rangeSnippet = [
-    '<Slider defaultValue={[20, 75]} aria-label="Price range" />',
+    "<Slider",
+    "  defaultValue={[20, 75]}",
+    "  getAriaLabel={(index) => (index === 0 ? 'Minimum price' : 'Maximum price')}",
+    "  getAriaValueText={(formattedValue) => `$${formattedValue}`}",
+    "/>",
+  ].join("\n");
+
+  const verticalSnippet = [
+    "// The vertical slider fills its parent's height.",
+    '<Flex gap={5} style={{ height: 160 }}>',
+    '  <Slider orientation="vertical" defaultValue={30} aria-label="Bass" />',
+    '  <Slider orientation="vertical" defaultValue={60} aria-label="Mid" />',
+    '  <Slider orientation="vertical" defaultValue={80} aria-label="Treble" />',
+    "</Flex>",
+  ].join("\n");
+
+  const fieldSnippet = [
+    "import { Field, Slider } from '@wlcr/base-ic';",
+    "",
+    "// The Field label names the thumb; an invalid Field tints the slider.",
+    '<Field label="Brightness" error="Brightness must be at least 50">',
+    "  <Slider defaultValue={30} />",
+    "</Field>",
   ].join("\n");
 
   return (
@@ -42,11 +64,12 @@ export function SliderDocsPage() {
         <Heading as="h1">Slider</Heading>
         <Text as="p">
           A draggable range input for selecting numeric values. Supports single
-          values, ranges, step increments, and custom color accents.
+          values, ranges, step increments, vertical orientation, and custom
+          color accents.
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Built On Base UI</Heading>
+        <Heading as="h2">Built On Base UI</Heading>
         <Text as="p">
           This component wraps the Base UI Slider primitive. Base primitive
           docs:{" "}
@@ -61,7 +84,7 @@ export function SliderDocsPage() {
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading>Demo</Heading>
+        <Heading as="h2">Demo</Heading>
         <DocsDemoGrid>
           <DemoCard
             title="Sizes"
@@ -94,19 +117,44 @@ export function SliderDocsPage() {
           </DemoCard>
           <DemoCard
             title="Range slider"
-            description="Pass an array to defaultValue for a two-thumb range."
+            description="Pass an array to `defaultValue` for a two-thumb range. `getAriaLabel` names each thumb and `getAriaValueText` sets what screen readers announce."
             code={rangeSnippet}
           >
             <Slider
               defaultValue={[20, 75]}
-              aria-label="Price range"
+              getAriaLabel={(index) => (index === 0 ? "Minimum price" : "Maximum price")}
+              getAriaValueText={(formattedValue) => `$${formattedValue}`}
               style={{ width: "100%" }}
             />
+          </DemoCard>
+          <DemoCard
+            title="Vertical"
+            description={'`orientation="vertical"` stands the track upright; give the parent a height to set its length.'}
+            code={verticalSnippet}
+          >
+            <Flex gap={5} style={{ height: 160 }}>
+              <Slider orientation="vertical" defaultValue={30} aria-label="Bass" />
+              <Slider orientation="vertical" defaultValue={60} aria-label="Mid" />
+              <Slider orientation="vertical" defaultValue={80} aria-label="Treble" />
+            </Flex>
+          </DemoCard>
+          <DemoCard
+            title="Inside a Field"
+            description="A `Field` label names the slider without `aria-label`. When the field is invalid, `[data-invalid]` styles the indicator and thumb in the danger color."
+            code={fieldSnippet}
+          >
+            <Field
+              label="Brightness"
+              error="Brightness must be at least 50"
+              style={{ width: "100%" }}
+            >
+              <Slider defaultValue={30} />
+            </Field>
           </DemoCard>
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
-        <Heading>Usage</Heading>
+        <Heading as="h2">Usage</Heading>
         <CodeBlock title="Slider Usage" code={usageSnippet} />
       </DocsSection>
       <DocsSection>
@@ -134,6 +182,30 @@ export function SliderDocsPage() {
               type: "boolean",
               default: "false",
               description: "Show a value output alongside the thumb.",
+            },
+            {
+              name: "aria-label",
+              type: "string",
+              description:
+                "Accessible name for the thumb input(s). Forwarded to each thumb, since the focusable `<input>` lives there rather than on the root group. For range sliders prefer `getAriaLabel`.",
+            },
+            {
+              name: "aria-labelledby",
+              type: "string",
+              description:
+                "Id of an element that labels the slider; applied to the thumb input(s) when they have no `aria-label`. Inside a `Field`, the field label is used automatically.",
+            },
+            {
+              name: "getAriaLabel",
+              type: "(index: number) => string",
+              description:
+                "Returns the `aria-label` for the thumb at `index` (e.g. \"Minimum price\"). Takes precedence over `aria-label`.",
+            },
+            {
+              name: "getAriaValueText",
+              type: "(formattedValue: string, value: number, index: number) => string",
+              description:
+                "Returns the `aria-valuetext` for the thumb at `index` (e.g. \"$20\").",
             },
             {
               name: "className",
@@ -183,7 +255,8 @@ export function SliderDocsPage() {
               name: "orientation",
               type: "'horizontal' | 'vertical'",
               default: "'horizontal'",
-              description: "The component orientation.",
+              description:
+                "The component orientation. Vertical sliders fill their parent's height (minimum six thumb sizes).",
             },
             {
               name: "disabled",
@@ -212,7 +285,17 @@ export function SliderDocsPage() {
       <DocsSection>
         <Heading as="h2">Notes</Heading>
         <DocsList>
-          <li>Always provide `aria-label` or `aria-labelledby` for accessibility.</li>
+          <li>
+            Always give the slider an accessible name: `aria-label`,
+            `aria-labelledby`, a wrapping `Field` with a `label`, or
+            `getAriaLabel` for range sliders. The name is applied to the
+            focusable thumb input(s), not the root.
+          </li>
+          <li>
+            Inside an invalid `Field` (via `error`, `invalid`, or failed
+            validation), the indicator and thumb switch to the danger color via
+            `[data-invalid]`.
+          </li>
           <li>
             Pass an array to `defaultValue` (e.g. `[20, 75]`) for a range slider
             with two thumbs.

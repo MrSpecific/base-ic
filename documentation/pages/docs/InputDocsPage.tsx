@@ -1,4 +1,4 @@
-import { Flex, Heading, Input, Link, Text } from "../../../src";
+import { Field, Flex, Heading, Input, Link, Text } from "../../../src";
 import { CodeBlock } from "../../components/CodeBlock";
 import { DocsDemoGrid, DocsList } from "../../components/DocsPrimitives";
 import { DocsSection } from "../../components/DocsSection";
@@ -53,27 +53,40 @@ export function InputDocsPage() {
     '<Input type="search" placeholder="Search" />',
   ].join("\n");
 
+  const fieldSnippet = [
+    "import { Field, Input } from '@wlcr/base-ic';",
+    "",
+    "<Field label=\"Email\" required validationMode=\"onBlur\">",
+    "  <Input type=\"email\" placeholder=\"you@example.com\" />",
+    "</Field>",
+  ].join("\n");
+
   return (
     <>
       <DocsSection>
         <Heading as="h1">Input</Heading>
         <Text as="p">
           A styled text input with size variants, visual styles, and optional
-          prefix/suffix adornments. Wraps a native{" "}
-          <code>&lt;input&gt;</code> element for full browser compatibility.
+          prefix/suffix adornments. Renders a native{" "}
+          <code>&lt;input&gt;</code> via Base UI Input, so it works on its own
+          and wires itself into an enclosing <code>Field</code>.
         </Text>
       </DocsSection>
       <DocsSection>
-        <Heading as="h3">Built on Native Input</Heading>
+        <Heading as="h3">Built On Base UI</Heading>
         <Text as="p">
-          `Input` keeps standard browser input behavior and form integration.
-          Native input reference:{" "}
+          `Input` wraps the Base UI Input primitive, a native{" "}
+          {"`<input>`"} that is
+          Field-aware: inside a `Field` it picks up the label, description, and
+          error ids, takes part in validation, and exposes state attributes
+          such as `data-invalid`, `data-touched`, and `data-dirty`. Base
+          primitive docs:{" "}
           <Link
-            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"
+            href="https://base-ui.com/react/components/input"
             target="_blank"
             rel="noreferrer"
           >
-            developer.mozilla.org/.../Element/input
+            base-ui.com/react/components/input
           </Link>
           .
         </Text>
@@ -160,6 +173,20 @@ export function InputDocsPage() {
               <Input invalid placeholder="Invalid field" defaultValue="bad@" />
             </Flex>
           </DemoCard>
+          <DemoCard
+            title="Inside a Field"
+            description="`<Field required>` makes the Input natively required; the native message shows once the field is invalid (here, on blur)."
+            code={fieldSnippet}
+          >
+            <Field
+              label="Email"
+              required
+              validationMode="onBlur"
+              style={{ width: "100%" }}
+            >
+              <Input type="email" placeholder="you@example.com" />
+            </Field>
+          </DemoCard>
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
@@ -200,7 +227,8 @@ export function InputDocsPage() {
             {
               name: "invalid",
               type: "boolean",
-              description: "Marks the input as having a validation error.",
+              description:
+                "Marks the input as having a validation error (sets `aria-invalid`). Inside a `Field`, the field's validity is reflected automatically via `data-invalid`, so this is mainly for standalone use.",
             },
             {
               name: "wrapperRef",
@@ -242,6 +270,23 @@ export function InputDocsPage() {
               type: "React.ChangeEventHandler<HTMLInputElement>",
               description: "Called when the input value changes (native HTML event).",
             },
+            {
+              name: "onValueChange",
+              type: "(value: string, eventDetails) => void",
+              description:
+                "Called with the new string value when it changes (Base UI). Convenient for controlled inputs.",
+            },
+            {
+              name: "required",
+              type: "boolean",
+              description:
+                "Whether a value is required (native constraint). Inherited from an enclosing `<Field required>` unless set here.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Identifies the input when a form is submitted.",
+            },
           ]}
         />
       </DocsSection>
@@ -249,8 +294,13 @@ export function InputDocsPage() {
         <Heading as="h2">Notes</Heading>
         <DocsList>
           <li>
-            Use `invalid` to reflect validation state while keeping native input
-            semantics.
+            Inside a `Field`, validity, `required`, and the label/description
+            wiring come from the field — you rarely need `invalid` there. Use
+            `invalid` for standalone inputs.
+          </li>
+          <li>
+            `Field.Control` is the same component as `Input`, so either can be
+            used inside a `Field`.
           </li>
           <li>
             `prefix` and `suffix` are ideal for icons, units, and protocol

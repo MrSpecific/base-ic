@@ -56,7 +56,7 @@ export function SwitchDocsPage() {
           <DemoCard
             title="Colors"
             description="Override the accent color."
-            code={'<Switch defaultChecked color="green" />\n<Switch defaultChecked color="red" />'}
+            code={'<Switch defaultChecked color="green" aria-label="Green" />\n<Switch defaultChecked color="red" aria-label="Red" />\n<Switch defaultChecked color="orange" aria-label="Orange" />'}
           >
             <DocsDemoRow>
               <Switch defaultChecked color="green" aria-label="Green" />
@@ -66,9 +66,10 @@ export function SwitchDocsPage() {
           </DemoCard>
           <DemoCard
             title="With Label"
-            description="Pair with a label for a settings row."
-            code={'<Flex justify="between" align="center">\n  <label htmlFor="notif">Email notifications</label>\n  <Switch id="notif" defaultChecked />\n</Flex>'}
+            description="Pass label text as children for an inline label. For a settings row with the label on the opposite side, use `id` + `<label htmlFor>`."
+            code={'<Switch defaultChecked>Email notifications</Switch>\n\n<Flex justify="between" align="center">\n  <label htmlFor="notif">Email notifications</label>\n  <Switch id="notif" defaultChecked />\n</Flex>'}
           >
+            <Switch defaultChecked>Email notifications</Switch>
             <Flex justify="between" align="center" style={{ width: "100%", maxWidth: 280 }}>
               <label htmlFor="notif-demo" style={{ cursor: "pointer" }}>
                 Email notifications
@@ -86,6 +87,11 @@ export function SwitchDocsPage() {
         <Heading as="h2">Props</Heading>
         <PropsTable
           rows={[
+            {
+              name: "children",
+              type: "ReactNode",
+              description: "Label text shown next to the switch. Wraps both in a native `<label>`, so clicking the text toggles it and names it for assistive tech.",
+            },
             {
               name: "size",
               type: "'1' | '2' | '3'",
@@ -155,6 +161,17 @@ export function SwitchDocsPage() {
               name: "value",
               type: "string",
               description: "The value submitted with the form when the switch is on.",
+            },
+            {
+              name: "uncheckedValue",
+              type: "string",
+              description: "The value submitted with the form when the switch is off. By default nothing is submitted.",
+            },
+            {
+              name: "id",
+              type: "string",
+              description:
+                "Id used to associate a `<label htmlFor>`. Without a visible label, pass `aria-label` instead.",
             },
           ]}
         />

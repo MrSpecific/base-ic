@@ -141,7 +141,8 @@ export function SeparatorDocsPage() {
               name: "orientation",
               type: "'horizontal' | 'vertical'",
               default: "'horizontal'",
-              description: "Direction of the separator line.",
+              description:
+                "Direction of the separator line. Also forwarded to Base UI, which sets `aria-orientation` (alongside `role=\"separator\"`) and `data-orientation`.",
             },
             {
               name: "color",
@@ -169,6 +170,10 @@ export function SeparatorDocsPage() {
           <li>
             For decorative separators, pass `aria-hidden=&quot;true&quot;` so screen
             readers skip them.
+          </li>
+          <li>
+            Renders `role=&quot;separator&quot;` with a matching
+            `aria-orientation`, so a vertical separator is announced correctly.
           </li>
           <li>
             Use `orientation=&quot;vertical&quot;` only when the container sets a

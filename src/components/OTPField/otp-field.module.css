@@ -11,6 +11,10 @@
  * Input data attrs: data-complete, data-filled, data-disabled, data-readonly,
  *                    data-required, data-valid, data-invalid, data-touched,
  *                    data-dirty, data-focused
+ *
+ * NOTE: on Input, `data-focused` means *any* slot in the field is focused, so
+ * per-slot focus styling keys off `:focus` instead (text inputs always show a
+ * ring, matching Input).
  */
 
 /* ---------------------------------------------------------------------------
@@ -32,15 +36,15 @@
  * Input (individual character slot)
  * --------------------------------------------------------------------------- */
 .input {
-  width: var(--otp-size);
-  height: var(--otp-size);
+  width: var(--otp-size, var(--button-2-height));
+  height: var(--otp-size, var(--button-2-height));
   padding: 0;
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--component-radius);
   background-color: var(--color-surface-sunken);
   color: var(--color-text-primary);
   font-family: var(--font-family-primary);
-  font-size: var(--otp-fs);
+  font-size: var(--otp-fs, var(--button-2-font-size));
   font-weight: var(--font-weight-medium);
   line-height: 1;
   text-align: center;
@@ -54,7 +58,7 @@
   color: var(--color-text-disabled);
 }
 
-.input:hover:not(:disabled):not([data-focused]) {
+.input:hover:not(:disabled):not(:focus) {
   border-color: var(--color-border);
 }
 
@@ -64,8 +68,8 @@
   background-color: var(--color-surface-subtle);
 }
 
-/* Focused: use the same focus ring as Input */
-.input[data-focused] {
+/* Focused slot: use the same focus ring as Input */
+.input:focus {
   border-color: var(--color-border-focus);
   outline: var(--focus-ring-width) solid var(--focus-ring-color);
   outline-offset: 0;
@@ -81,7 +85,7 @@
   border-color: var(--color-danger-border);
 }
 
-.input[data-invalid][data-focused] {
+.input[data-invalid]:focus {
   outline-color: color-mix(in oklch, var(--color-danger-border) 72%, transparent);
 }
 

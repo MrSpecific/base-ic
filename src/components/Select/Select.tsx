@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Select as BaseSelect } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';
-import { useTheme } from '../Theme';
+import { useThemePortal } from '../shared/useThemePortal';
 import styles from './select.module.css';
 
 type SelectSize = '1' | '2' | '3' | '4';
@@ -99,8 +99,14 @@ function inferItemLabel(children: React.ReactNode): string | undefined {
   return label.length > 0 ? label : undefined;
 }
 
-function collectItemLabels(children: React.ReactNode): Record<string, React.ReactNode> {
-  const labels: Record<string, React.ReactNode> = {};
+interface SelectItemEntry {
+  value: unknown;
+  label: React.ReactNode;
+}
+
+/** Collects `{ value, label }` pairs from `Select.Item` children. */
+function collectItemEntries(children: React.ReactNode): SelectItemEntry[] {
+  const entries: SelectItemEntry[] = [];
 
   const walk = (node: React.ReactNode) => {
     if (node == null || typeof node === 'boolean') return;
@@ -113,12 +119,12 @@ function collectItemLabels(children: React.ReactNode): Record<string, React.Reac
     if (node.type === SelectItem) {
       const itemElement = node as React.ReactElement<SelectItemProps>;
       const value = itemElement.props.value;
-      if (value != null) {
+      if (value !== undefined) {
         const label =
           itemElement.props.label ??
           inferItemLabel(itemElement.props.children) ??
           itemElement.props.children;
-        labels[String(value)] = label;
+        entries.push({ value, label });
       }
       return;
     }
@@ -129,27 +135,58 @@ function collectItemLabels(children: React.ReactNode): Record<string, React.Reac
   };
 
   walk(children);
-  return labels;
+  return entries;
+}
+
+/**
+ * Builds a value → label lookup from any shape Base UI's `items` accepts
+ * (record, `{ value, label }[]`, or grouped `{ items }[]`). Keyed by value
+ * identity, so object values resolve too.
+ */
+function buildLabelMap(items: SelectProps['items'] | SelectItemEntry[]): Map<unknown, React.ReactNode> {
+  const map = new Map<unknown, React.ReactNode>();
+  if (!items) return map;
+  if (!Array.isArray(items)) {
+    for (const [value, label] of Object.entries(items)) map.set(value, label);
+    return map;
+  }
+  for (const entry of items as ReadonlyArray<SelectItemEntry | { items: SelectItemEntry[] }>) {
+    if ('items' in entry && Array.isArray(entry.items)) {
+      for (const item of entry.items) map.set(item.value, item.label);
+    } else {
+      const item = entry as SelectItemEntry;
+      map.set(item.value, item.label);
+    }
+  }
+  return map;
+}
+
+function labelFor(value: unknown, labels: Map<unknown, React.ReactNode>): React.ReactNode {
+  if (labels.has(value)) return labels.get(value);
+  // Record-form `items` keys are strings; match numeric values against them
+  if (labels.has(String(value))) return labels.get(String(value));
+  return String(value);
 }
 
 function renderSelectedValue(
   value: unknown,
-  labels: Record<string, React.ReactNode>,
+  labels: Map<unknown, React.ReactNode>,
   placeholder: string,
 ): React.ReactNode {
-  if (value == null) return placeholder;
+  // Treat '' as "nothing chosen" (common with form state) unless an item uses it
+  if (value == null || (value === '' && !labels.has(''))) return placeholder;
 
   if (Array.isArray(value)) {
     if (value.length === 0) return placeholder;
     return value.map((entry, index) => (
-      <React.Fragment key={`${String(entry)}-${index}`}>
+      <React.Fragment key={index}>
         {index > 0 ? ', ' : null}
-        {labels[String(entry)] ?? String(entry)}
+        {labelFor(entry, labels)}
       </React.Fragment>
     ));
   }
 
-  return labels[String(value)] ?? String(value);
+  return labelFor(value, labels);
 }
 
 /* ---------------------------------------------------------------------------
@@ -193,28 +230,17 @@ export function Select({
   items,
   ...rootProps
 }: SelectProps) {
-  const { appearance } = useTheme();
   const triggerRadiusVar = radius
     ? ({ '--sel-radius': radiusMap[radius] } as React.CSSProperties)
     : undefined;
   const popupRadiusVar = radius
     ? ({ '--sel-popup-radius': popupRadiusMap[radius] } as React.CSSProperties)
     : undefined;
-  const triggerAnchorRef = React.useRef<HTMLSpanElement | null>(null);
-  const [portalContainer, setPortalContainer] = React.useState<HTMLElement | null>(null);
-  const derivedItems = React.useMemo(() => collectItemLabels(children), [children]);
-  const resolvedItems =
-    items ??
-    (Object.keys(derivedItems).length > 0 ? derivedItems : undefined);
-  const forcedAppearance =
-    appearance === 'dark' || appearance === 'light' ? appearance : undefined;
-
-  React.useEffect(() => {
-    const nearestThemeRoot =
-      triggerAnchorRef.current?.closest<HTMLElement>('[data-accent-color]') ??
-      document.querySelector<HTMLElement>('[data-accent-color]');
-    setPortalContainer(nearestThemeRoot ?? null);
-  }, []);
+  const { anchorRef: triggerAnchorRef, container: portalContainer, forcedAppearance } =
+    useThemePortal<HTMLSpanElement>();
+  const derivedItems = React.useMemo(() => collectItemEntries(children), [children]);
+  const resolvedItems = items ?? (derivedItems.length > 0 ? derivedItems : undefined);
+  const labels = React.useMemo(() => buildLabelMap(resolvedItems), [resolvedItems]);
 
   return (
     <BaseSelect.Root items={resolvedItems} {...rootProps}>
@@ -225,7 +251,7 @@ export function Select({
         >
           {triggerContent ?? (
             <BaseSelect.Value className={styles.value} placeholder={placeholder}>
-              {(value) => renderSelectedValue(value, derivedItems, placeholder)}
+              {(value) => renderSelectedValue(value, labels, placeholder)}
             </BaseSelect.Value>
           )}
           <BaseSelect.Icon className={styles.icon}>
@@ -234,7 +260,7 @@ export function Select({
         </BaseSelect.Trigger>
       </span>
 
-      <BaseSelect.Portal container={portalContainer ?? undefined}>
+      <BaseSelect.Portal container={portalContainer}>
         <div data-appearance={forcedAppearance}>
           <BaseSelect.Positioner
             className={styles.positioner}
@@ -261,8 +287,8 @@ export function Select({
  * --------------------------------------------------------------------------- */
 
 export interface SelectItemProps extends Omit<BaseSelect.Item.Props, 'render' | 'className'> {
-  /** Item value (required). */
-  value: string;
+  /** Item value (required). Any value works; objects are matched by identity. */
+  value: BaseSelect.Item.Props['value'];
   /** Disable this item. */
   disabled?: boolean;
   className?: string;
@@ -291,15 +317,16 @@ function SelectItem({ value, disabled, className, children, label, ...rest }: Se
  * Select.Group
  * --------------------------------------------------------------------------- */
 
-export interface SelectGroupProps {
+export interface SelectGroupProps extends Omit<BaseSelect.Group.Props, 'className' | 'children'> {
   /** Label displayed above the group. */
   label?: React.ReactNode;
+  className?: string;
   children: React.ReactNode;
 }
 
-function SelectGroup({ label, children }: SelectGroupProps) {
+function SelectGroup({ label, className, children, ...rest }: SelectGroupProps) {
   return (
-    <BaseSelect.Group>
+    <BaseSelect.Group className={className} {...rest}>
       {label && <BaseSelect.GroupLabel className={styles.groupLabel}>{label}</BaseSelect.GroupLabel>}
       {children}
     </BaseSelect.Group>
@@ -310,8 +337,8 @@ function SelectGroup({ label, children }: SelectGroupProps) {
  * Select.Separator
  * --------------------------------------------------------------------------- */
 
-function SelectSeparator() {
-  return <BaseSelect.Separator className={styles.separator} />;
+function SelectSeparator({ className }: { className?: string }) {
+  return <BaseSelect.Separator className={cx(styles.separator, className)} />;
 }
 
 /* ---------------------------------------------------------------------------
@@ -321,3 +348,5 @@ function SelectSeparator() {
 Select.Item = SelectItem;
 Select.Group = SelectGroup;
 Select.Separator = SelectSeparator;
+
+export { BaseSelect as SelectPrimitive };

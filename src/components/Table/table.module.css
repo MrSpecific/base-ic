@@ -1,0 +1,131 @@
+/* ==========================================================================
+ * Table
+ * ==========================================================================
+ * Semantic <table> inside a horizontal scroll wrapper. Size presets are
+ * private --tbl-* vars set by the .sizeN class on the root; cells inherit them, so no React context
+ * is needed. Every length is a scaled token (or multiplied by
+ * --component-scaling) so Theme `scaling` reaches the whole table.
+ */
+
+.root {
+  --tbl-border-color: var(--color-border-subtle);
+
+  display: block;
+  box-sizing: border-box;
+  /* Never wider than its container: wide tables scroll here instead of
+     pushing the page sideways (min-width: 0 for flex/grid parents). */
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: var(--tbl-margin-top, var(--tbl-margin-y, var(--tbl-margin, 0)))
+          var(--tbl-margin-right, var(--tbl-margin-x, var(--tbl-margin, 0)))
+          var(--tbl-margin-bottom, var(--tbl-margin-y, var(--tbl-margin, 0)))
+          var(--tbl-margin-left, var(--tbl-margin-x, var(--tbl-margin, 0)));
+  font-family: var(--font-family-primary);
+  font-size: var(--tbl-font-size);
+  line-height: var(--tbl-line-height);
+  letter-spacing: var(--tbl-letter-spacing);
+  color: var(--color-text-primary);
+}
+
+/* --- Sizes --- */
+.size1 {
+  --tbl-cell-py: var(--space-1);
+  --tbl-cell-px: var(--space-2);
+  --tbl-cell-height: calc(36px * var(--component-scaling));
+  --tbl-font-size: var(--text-2-size);
+  --tbl-line-height: var(--text-2-lh);
+  --tbl-letter-spacing: var(--text-2-ls);
+}
+
+.size2 {
+  --tbl-cell-py: var(--space-2);
+  --tbl-cell-px: var(--space-3);
+  --tbl-cell-height: calc(44px * var(--component-scaling));
+  --tbl-font-size: var(--text-3-size);
+  --tbl-line-height: var(--text-3-lh);
+  --tbl-letter-spacing: var(--text-3-ls);
+}
+
+.size3 {
+  --tbl-cell-py: var(--space-3);
+  --tbl-cell-px: var(--space-4);
+  --tbl-cell-height: calc(48px * var(--component-scaling));
+  --tbl-font-size: var(--text-4-size);
+  --tbl-line-height: var(--text-4-lh);
+  --tbl-letter-spacing: var(--text-4-ls);
+}
+
+/* --- Variant: surface — bordered, rounded panel with a tinted header --- */
+.surface {
+  background-color: var(--color-surface-overlay);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--surface-radius);
+  box-shadow: var(--shadow-surface);
+}
+
+.surface > .table > .header {
+  background-color: var(--color-surface-subtle);
+}
+
+/* The panel border already closes the table — drop the last row's rule. */
+.surface > .table > :last-child > .row:last-child > .cell {
+  border-bottom-color: transparent;
+}
+
+/* --- Variant: ghost — no panel, row rules only --- */
+.ghost {
+  background-color: transparent;
+}
+
+/* --- Table --- */
+.table {
+  width: 100%;
+  /* `separate` + zero spacing so per-cell borders render predictably
+     (collapsed borders ignore border-radius on the wrapper corners). */
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: start;
+  font: inherit;
+  color: inherit;
+}
+
+.fixed {
+  table-layout: fixed;
+}
+
+.header,
+.body {
+  vertical-align: inherit;
+}
+
+.row {
+  vertical-align: inherit;
+}
+
+/* --- Cells --- */
+.cell {
+  box-sizing: border-box;
+  /* `height` on a table cell behaves as a minimum height. */
+  height: var(--tbl-cell-height);
+  /* Most specific wins: side → axis → `p` → size default */
+  padding: var(--tbl-cell-padding-top, var(--tbl-cell-padding-y, var(--tbl-cell-padding, var(--tbl-cell-py))))
+           var(--tbl-cell-padding-right, var(--tbl-cell-padding-x, var(--tbl-cell-padding, var(--tbl-cell-px))))
+           var(--tbl-cell-padding-bottom, var(--tbl-cell-padding-y, var(--tbl-cell-padding, var(--tbl-cell-py))))
+           var(--tbl-cell-padding-left, var(--tbl-cell-padding-x, var(--tbl-cell-padding, var(--tbl-cell-px))));
+  border-bottom: 1px solid var(--tbl-border-color);
+  /* <th> defaults to centered + bold in UA styles; `justify` sets it inline. */
+  text-align: start;
+  overflow-wrap: break-word;
+  color: var(--color-text-primary);
+}
+
+.columnHeaderCell {
+  font-weight: var(--font-weight-semibold);
+  vertical-align: middle;
+}
+
+.rowHeaderCell {
+  font-weight: var(--font-weight-medium);
+}
