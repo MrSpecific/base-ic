@@ -307,4 +307,4 @@ Architecture decisions are documented in [`DESIGN.md`](./DESIGN.md). If you have
 
 ## License
 
-MIT
+[MIT](./LICENSE) © Will Christenson

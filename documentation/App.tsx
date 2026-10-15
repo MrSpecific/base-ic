@@ -307,7 +307,9 @@ export default function App() {
                 <a href={NPM_URL} target="_blank" rel="noreferrer">
                   npm
                 </a>
-                <span>MIT License</span>
+                <a href={`${GITHUB_URL}/blob/main/LICENSE`} target="_blank" rel="noreferrer">
+                  MIT License
+                </a>
               </nav>
             </div>
           </footer>
