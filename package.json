@@ -8,6 +8,9 @@
   },
   "homepage": "https://base-ic.vercel.app",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "Will Christenson",
   "type": "module",
   "files": [
@@ -34,7 +37,6 @@
     "dev": "vite build --watch",
     "documentation": "vite serve documentation --config documentation/vite.config.ts",
     "documentation:build": "vite build --config documentation/vite.config.ts",
-    "publish": "npm publish --access public",
     "test": "vitest run",
     "typecheck": "node node_modules/typescript/bin/tsc -p . && node node_modules/typescript/bin/tsc -p documentation"
   },

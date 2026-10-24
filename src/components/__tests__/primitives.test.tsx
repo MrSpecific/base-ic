@@ -110,4 +110,24 @@ describe('Button', () => {
     el.focus();
     expect(document.activeElement).toBe(el);
   });
+
+  it('keeps a loading button\'s content in place under the spinner', () => {
+    render(
+      <Button loading>
+        <svg data-testid="icon" /> Save
+      </Button>,
+    );
+    const el = screen.getByRole('button', { name: /save/i });
+    // Content still rendered (so the button keeps its width and its name)…
+    expect(screen.getByTestId('icon')).toBeInTheDocument();
+    expect(el).toHaveTextContent('Save');
+    // …with one spinner overlaid, hidden from assistive tech.
+    expect(el.querySelectorAll('[aria-hidden="true"]').length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('renders children directly when not loading', () => {
+    render(<Button>Save</Button>);
+    const el = screen.getByRole('button', { name: /save/i });
+    expect(el.firstChild?.nodeType).toBe(Node.TEXT_NODE);
+  });
 });

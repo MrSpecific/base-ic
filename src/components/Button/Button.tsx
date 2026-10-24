@@ -126,8 +126,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         } as React.CSSProperties}
         {...rest}
       >
-        {loading && <span className={styles.spinner} aria-hidden="true" />}
-        {children}
+        {loading ? (
+          <>
+            {/* The content keeps its place (transparent, so the button doesn't
+                change size and keeps its accessible name) and the spinner is
+                centered over it. */}
+            <span className={styles.loadingContent}>{children}</span>
+            <span className={styles.spinnerOverlay} aria-hidden="true">
+              <span className={styles.spinner} />
+            </span>
+          </>
+        ) : (
+          children
+        )}
       </BaseButton>
     );
   },

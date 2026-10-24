@@ -171,7 +171,29 @@
  * Loading state
  * --------------------------------------------------------------------------- */
 .loading {
+  position: relative;
   pointer-events: none;
+}
+
+/* While loading, the content stays laid out exactly as before (same gap and
+   alignment as the button itself) but invisible, so the button keeps its size;
+   the spinner overlays it. Opacity rather than visibility keeps the label in
+   the accessibility tree. */
+.loadingContent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: inherit;
+  min-width: 0;
+  opacity: 0;
+}
+
+.spinnerOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .spinner {
