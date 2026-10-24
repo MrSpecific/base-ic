@@ -77,7 +77,7 @@
 .trigger:hover {
   color: var(--color-text-primary);
   background-color: color-mix(
-    in oklch,
+    in oklab,
     var(--color-accent-9) var(--interactive-soft-strength),
     var(--interactive-soft-mix-base)
   );
@@ -92,7 +92,7 @@
 .trigger[data-popup-open] {
   color: var(--color-accent-11);
   background-color: color-mix(
-    in oklch,
+    in oklab,
     var(--color-accent-9) var(--interactive-soft-strength),
     var(--interactive-soft-mix-base)
   );
@@ -282,7 +282,7 @@
 .link:hover,
 .link:focus-visible {
   background-color: color-mix(
-    in oklch,
+    in oklab,
     var(--color-accent-9) var(--interactive-soft-strength),
     var(--interactive-soft-mix-base)
   );

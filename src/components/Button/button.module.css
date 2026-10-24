@@ -77,7 +77,7 @@
  * --------------------------------------------------------------------------- */
 .soft {
   background-color: color-mix(
-    in oklch,
+    in oklab,
     var(--btn-accent-9, var(--color-accent-9)) var(--interactive-soft-strength),
     var(--interactive-soft-mix-base)
   );
@@ -86,7 +86,7 @@
 
 .soft:hover:not([data-disabled]) {
   background-color: color-mix(
-    in oklch,
+    in oklab,
     var(--btn-accent-9, var(--color-accent-9)) var(--interactive-soft-hover-strength),
     var(--interactive-soft-mix-base)
   );
@@ -97,13 +97,13 @@
  * --------------------------------------------------------------------------- */
 .surface {
   background-color: color-mix(
-    in oklch,
+    in oklab,
     var(--btn-accent-9, var(--color-accent-9)) var(--interactive-surface-strength),
     var(--interactive-surface-mix-base)
   );
   color: var(--btn-accent-11, var(--color-accent-11));
   border-color: color-mix(
-    in oklch,
+    in oklab,
     var(--btn-accent-9, var(--color-accent-9)) var(--interactive-surface-border-strength),
     var(--color-border-subtle)
   );
@@ -111,12 +111,12 @@
 
 .surface:hover:not([data-disabled]) {
   background-color: color-mix(
-    in oklch,
+    in oklab,
     var(--btn-accent-9, var(--color-accent-9)) var(--interactive-surface-hover-strength),
     var(--interactive-surface-mix-base)
   );
   border-color: color-mix(
-    in oklch,
+    in oklab,
     var(--btn-accent-9, var(--color-accent-9)) var(--interactive-surface-border-hover-strength),
     var(--color-border)
   );
@@ -132,7 +132,7 @@
 }
 
 .outline:hover:not([data-disabled]) {
-  background-color: color-mix(in oklch, var(--btn-accent-9, var(--color-accent-9)) 10%, transparent);
+  background-color: color-mix(in oklab, var(--btn-accent-9, var(--color-accent-9)) 10%, transparent);
 }
 
 /* ---------------------------------------------------------------------------
@@ -144,7 +144,7 @@
 }
 
 .ghost:hover:not([data-disabled]) {
-  background-color: color-mix(in oklch, var(--btn-accent-9, var(--color-accent-9)) 10%, transparent);
+  background-color: color-mix(in oklab, var(--btn-accent-9, var(--color-accent-9)) 10%, transparent);
 }
 
 /* ---------------------------------------------------------------------------
@@ -157,7 +157,7 @@
 }
 
 .solid.highContrast:hover:not([data-disabled]) {
-  background-color: color-mix(in oklch, var(--btn-accent-12, var(--color-accent-12)) 88%, black);
+  background-color: color-mix(in oklab, var(--btn-accent-12, var(--color-accent-12)) 88%, black);
 }
 
 .soft.highContrast,

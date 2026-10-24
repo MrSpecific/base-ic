@@ -47,7 +47,7 @@
 
 .radio:hover:not([data-disabled]) {
   border-color: var(--color-accent-8);
-  background-color: color-mix(in oklch, var(--radio-accent-9, var(--color-accent-9)) 10%, transparent);
+  background-color: color-mix(in oklab, var(--radio-accent-9, var(--color-accent-9)) 10%, transparent);
 }
 
 .radio:active:not([data-disabled]) {
@@ -81,7 +81,7 @@
 }
 
 .radio[data-invalid]:focus-visible {
-  outline-color: color-mix(in oklch, var(--color-danger-border) 72%, transparent);
+  outline-color: color-mix(in oklab, var(--color-danger-border) 72%, transparent);
 }
 
 .radio[data-invalid][data-checked] {

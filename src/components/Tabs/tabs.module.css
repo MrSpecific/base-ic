@@ -124,7 +124,7 @@
 }
 
 .tabSolid:hover:not([data-active]):not([aria-selected='true']) {
-  background: color-mix(in oklch, var(--color-accent-9) var(--interactive-soft-strength), var(--interactive-soft-mix-base));
+  background: color-mix(in oklab, var(--color-accent-9) var(--interactive-soft-strength), var(--interactive-soft-mix-base));
 }
 
 /* ---------------------------------------------------------------------------

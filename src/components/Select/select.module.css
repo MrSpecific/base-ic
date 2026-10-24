@@ -172,7 +172,7 @@
 }
 
 .item[data-highlighted] {
-  background-color: color-mix(in oklch, var(--color-accent-9) var(--interactive-soft-strength), var(--interactive-soft-mix-base));
+  background-color: color-mix(in oklab, var(--color-accent-9) var(--interactive-soft-strength), var(--interactive-soft-mix-base));
   color: var(--color-text-primary);
 }
 
@@ -292,5 +292,5 @@
 .trigger[data-invalid]:focus-visible,
 .trigger[data-invalid][data-popup-open] {
   border-color: var(--color-danger-border);
-  box-shadow: 0 0 0 var(--focus-ring-width) color-mix(in oklch, var(--color-danger-border) 72%, transparent);
+  box-shadow: 0 0 0 var(--focus-ring-width) color-mix(in oklab, var(--color-danger-border) 72%, transparent);
 }

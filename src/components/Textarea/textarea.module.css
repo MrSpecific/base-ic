@@ -33,7 +33,7 @@
 .wrapper.invalid:focus-within,
 .wrapper:has(.textarea[data-invalid], .textarea[aria-invalid='true']):focus-within {
   border-color: var(--color-danger-border);
-  outline-color: color-mix(in oklch, var(--color-danger-border) 72%, transparent);
+  outline-color: color-mix(in oklab, var(--color-danger-border) 72%, transparent);
 }
 
 /* Disabled — matches Input; also covers <Field disabled> via :has */

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Accent tints mixed into neutral colors keep the accent's hue. Before, they
+  shifted toward the neutral's hue, so a blue accent on the gray neutrals came
+  out pink. This affected the gradient `Card`, soft and surface variants of
+  `Button`, `Badge` and `Toggle`, and other accent-on-neutral mixes.
+  All `color-mix()` calls now interpolate in `oklab` instead of `oklch`.
+
 ## [2.2.2] - 2026-10-24
 
 ### Fixed
@@ -57,6 +65,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Requires `@base-ui/react` `^1.9.0` (previously `^1.7.0`).
 - A nested `Theme` inherits any prop it doesn't set from the nearest ancestor
   `Theme`. `fontFamily` slots merge with the parent's.
 - Semantic tokens are re-declared on every `Theme` root (`[data-base-ic-theme]`),

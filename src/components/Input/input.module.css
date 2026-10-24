@@ -192,7 +192,7 @@
 
 .wrapper.invalid:focus-within,
 .wrapper:has(.input[data-invalid], .input[aria-invalid='true']):focus-within {
-  outline-color: color-mix(in oklch, var(--color-danger-border) 72%, transparent);
+  outline-color: color-mix(in oklab, var(--color-danger-border) 72%, transparent);
 }
 
 /* ---------------------------------------------------------------------------

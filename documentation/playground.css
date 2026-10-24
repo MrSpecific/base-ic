@@ -58,7 +58,7 @@
 .swatch {
   height: 42px;
   border-radius: var(--radius-2);
-  border: 1px solid color-mix(in oklch, var(--color-border-subtle) 70%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-border-subtle) 70%, transparent);
 }
 
 .swatch-label,

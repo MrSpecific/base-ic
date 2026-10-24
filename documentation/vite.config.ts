@@ -5,8 +5,11 @@ import react from '@vitejs/plugin-react';
 import { defineConfig, type Plugin } from 'vite';
 // Explicit extension: config files are loaded natively by future Vite versions.
 import { getRouteMeta, getStaticRoutes, SITE_NAME, SITE_URL } from './routes.ts';
+import { buildJsonLd, buildLlmsTxt, jsonLdScriptTag, type PackageInfo } from './seo.ts';
 
 const require = createRequire(import.meta.url);
+// The library's own package.json: name, version, license and author for llms.txt / JSON-LD.
+const libraryPackage = require('../package.json') as PackageInfo;
 const reactEntry = require.resolve('react');
 const reactJsxRuntimeEntry = require.resolve('react/jsx-runtime');
 const reactJsxDevRuntimeEntry = require.resolve('react/jsx-dev-runtime');
@@ -28,7 +31,8 @@ function escapeHtml(value: string): string {
  * theme-color, plus a tiny pre-paint script at the top of <body> that applies
  * the visitor's saved appearance before React mounts (no light/dark flash). Every HTML entry is
  * identical on disk; this fills in the route-specific bits at build/serve time
- * from the route manifest (routes.ts). Also emits sitemap.xml.
+ * from the route manifest (routes.ts), including JSON-LD (seo.ts). Also emits
+ * sitemap.xml and llms.txt.
  */
 function routeHeadPlugin(): Plugin {
   const routes = getStaticRoutes();
@@ -58,6 +62,10 @@ function routeHeadPlugin(): Plugin {
         res.setHeader('Content-Type', 'application/xml');
         res.end(buildSitemap());
       });
+      server.middlewares.use('/llms.txt', (_req, res) => {
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+        res.end(buildLlmsTxt(libraryPackage));
+      });
     },
     transformIndexHtml: {
       order: 'pre',
@@ -68,6 +76,7 @@ function routeHeadPlugin(): Plugin {
           routes.find((candidate) => candidate.htmlFile === htmlFile) ??
           routes.find((candidate) => candidate.page === 'not-found')!;
         const meta = getRouteMeta(route.page, route.docsSection);
+        const jsonLd = buildJsonLd(libraryPackage, route.page, route.docsSection);
         const title = escapeHtml(meta.title);
         const description = escapeHtml(meta.description);
         const tags = [
@@ -86,6 +95,7 @@ function routeHeadPlugin(): Plugin {
           `<meta name="twitter:description" content="${description}" />`,
           `<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fcfcfd" />`,
           `<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111113" />`,
+          jsonLd ? jsonLdScriptTag(jsonLd) : '',
         ]
           .filter(Boolean)
           .join('\n  ');
@@ -99,6 +109,7 @@ function routeHeadPlugin(): Plugin {
     },
     generateBundle() {
       this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: buildSitemap() });
+      this.emitFile({ type: 'asset', fileName: 'llms.txt', source: buildLlmsTxt(libraryPackage) });
     },
   };
 }

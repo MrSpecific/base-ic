@@ -47,7 +47,7 @@
 
 .root[data-invalid] .group:focus-within {
   border-color: var(--color-danger-border);
-  box-shadow: 0 0 0 var(--focus-ring-width) color-mix(in oklch, var(--color-danger-border) 72%, transparent);
+  box-shadow: 0 0 0 var(--focus-ring-width) color-mix(in oklab, var(--color-danger-border) 72%, transparent);
 }
 
 /* Disabled state propagated from Root */
@@ -122,7 +122,7 @@
 }
 
 .button:active:not([data-disabled]) {
-  background-color: color-mix(in oklch, var(--color-accent-9) 14%, white);
+  background-color: color-mix(in oklab, var(--color-accent-9) 14%, white);
   color: var(--color-accent-11);
 }
 

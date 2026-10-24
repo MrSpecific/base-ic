@@ -56,7 +56,7 @@ h1[tabindex="-1"]:focus,
   border-bottom: 1px solid var(--color-border-subtle);
   background: var(--color-panel-glass);
   box-shadow: 0 1px 0
-    color-mix(in oklch, var(--color-border-subtle) 65%, transparent);
+    color-mix(in oklab, var(--color-border-subtle) 65%, transparent);
   backdrop-filter: blur(8px);
 }
 

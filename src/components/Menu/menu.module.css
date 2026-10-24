@@ -96,7 +96,7 @@
 
 .item[data-highlighted] {
   background-color: color-mix(
-    in oklch,
+    in oklab,
     var(--color-accent-9) var(--interactive-soft-strength),
     var(--interactive-soft-mix-base)
   );

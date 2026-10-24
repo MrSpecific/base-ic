@@ -29,7 +29,7 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    color-mix(in oklch, white 55%, transparent) 50%,
+    color-mix(in oklab, white 55%, transparent) 50%,
     transparent 100%
   );
   animation: shimmer 1.6s ease-in-out infinite;

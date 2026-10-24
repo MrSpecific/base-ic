@@ -61,7 +61,7 @@
 }
 
 .trigger:hover:not([data-disabled]) {
-  background-color: color-mix(in oklch, var(--color-neutral-9) 8%, transparent);
+  background-color: color-mix(in oklab, var(--color-neutral-9) 8%, transparent);
 }
 
 .trigger:focus-visible {

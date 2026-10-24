@@ -193,7 +193,7 @@
 }
 
 .item[data-highlighted] {
-  background-color: color-mix(in oklch, var(--color-accent-9) var(--interactive-soft-strength), var(--interactive-soft-mix-base));
+  background-color: color-mix(in oklab, var(--color-accent-9) var(--interactive-soft-strength), var(--interactive-soft-mix-base));
   color: var(--color-text-primary);
 }
 

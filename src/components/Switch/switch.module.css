@@ -52,7 +52,7 @@
 }
 
 .root[data-invalid]:focus-visible {
-  outline-color: color-mix(in oklch, var(--color-danger-border) 72%, transparent);
+  outline-color: color-mix(in oklab, var(--color-danger-border) 72%, transparent);
 }
 
 /* ---------------------------------------------------------------------------

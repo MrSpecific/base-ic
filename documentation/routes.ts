@@ -7,6 +7,7 @@
  *  - per-route <title>, meta description, canonical and Open Graph tags,
  *    injected into each HTML entry at build/serve time (vite.config.ts)
  *  - the Vite MPA build inputs and sitemap.xml
+ *  - llms.txt and per-route JSON-LD (seo.ts)
  *
  * Keep this file free of React / DOM imports: vite.config.ts imports it.
  */
