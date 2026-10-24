@@ -38,12 +38,30 @@ jobs:
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
+      # npm stages new versions for approval: the upload succeeds, but a
+      # second attempt within the same publish gets "409 Cannot publish over
+      # previously staged version", which used to fail every release run even
+      # though the version was uploaded fine. That case is a success: approve
+      # the staged version on npmjs.com to make it live.
       - name: Publish to npm
         if: steps.version.outputs.changed == 'true'
-        run: npm publish --access public --provenance
+        run: |
+          set +e
+          npm publish --access public --provenance 2>&1 | tee publish.log
+          status=${PIPESTATUS[0]}
+          if [ "$status" -ne 0 ] && grep -q "previously staged version" publish.log; then
+            echo "::notice::Version is staged on npm. Approve it on npmjs.com to make it live."
+            exit 0
+          fi
+          exit "$status"
 
+      # GitHub Packages is a secondary mirror. It hasn't actually run since the
+      # npm step started failing on the staged-version 409, and GitHub requires
+      # a package's scope to match the repo owner, so it may need setup before
+      # it works. Don't let it fail a release that reached npm.
       - name: Configure registry for GitHub Packages
         if: steps.version.outputs.changed == 'true'
+        continue-on-error: true
         uses: actions/setup-node@v7
         with:
           node-version: '24'
@@ -52,6 +70,7 @@ jobs:
 
       - name: Publish to GitHub Packages
         if: steps.version.outputs.changed == 'true'
+        continue-on-error: true
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
