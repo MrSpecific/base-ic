@@ -19,13 +19,13 @@ describe('Section', () => {
     const el = screen.getByTestId('s');
     expect(el.style.getPropertyValue('--section-size-padding')).toBe('var(--layout-section-3)');
     // No explicit padding props → no inline overrides that would beat the size.
-    expect(el.style.getPropertyValue('--section-padding')).toBe('');
-    expect(el.style.getPropertyValue('--section-padding-y')).toBe('');
+    expect(el.style.getPropertyValue('--bic-p')).toBe('');
+    expect(el.style.getPropertyValue('--bic-py')).toBe('');
   });
 
   it('honors py={0} as an explicit override', () => {
     render(<Section py={0} data-testid="s" />);
-    expect(screen.getByTestId('s').style.getPropertyValue('--section-padding-y')).toBe('0px');
+    expect(screen.getByTestId('s').style.getPropertyValue('--bic-py')).toBe('0px');
   });
 });
 

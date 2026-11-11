@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
+import { spaceProps, cx, type SpaceProps } from '../Layout/layout.utils';
 import { buildTypoSizeVars } from './typography.utils';
 import styles from './kbd.module.css';
 
@@ -12,14 +12,15 @@ export interface KbdProps extends React.HTMLAttributes<HTMLElement>, SpaceProps 
 export const Kbd = React.forwardRef<HTMLElement, KbdProps>(
   function Kbd({ size = '2', p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml, className, style, ...rest }, ref) {
     const sizeVars = buildTypoSizeVars('text', size);
-    const spaceVars = withVar(undefined, buildSpaceVars('kbd', {
+    const space = spaceProps({
       p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
-    }));
+    });
+    const spaceVars = space.vars;
 
     return (
       <kbd
         ref={ref}
-        className={cx(styles.kbd, className)}
+        className={cx(styles.kbd, space.className, className)}
         style={{ ...sizeVars, ...spaceVars, ...style }}
         {...rest}
       />

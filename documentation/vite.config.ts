@@ -3,6 +3,7 @@ import { createRequire } from 'node:module';
 import { resolve } from 'path';
 import react from '@vitejs/plugin-react';
 import { defineConfig, type Plugin } from 'vite';
+import { responsiveCss } from '../build/responsive-css.ts';
 // Explicit extension: config files are loaded natively by future Vite versions.
 import { getRouteMeta, getStaticRoutes, SITE_NAME, SITE_URL } from './routes.ts';
 import { buildJsonLd, buildLlmsTxt, jsonLdScriptTag, type PackageInfo } from './seo.ts';
@@ -121,7 +122,7 @@ function routeHeadPlugin(): Plugin {
  * This is NOT the library build config — that lives at the project root.
  */
 export default defineConfig({
-  plugins: [react(), routeHeadPlugin()],
+  plugins: [react(), responsiveCss(), routeHeadPlugin()],
   root: resolve(import.meta.dirname),
   appType: 'mpa',
   resolve: {

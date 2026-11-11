@@ -1,6 +1,8 @@
+'use client';
+
 import * as React from 'react';
 import { useRender } from '@base-ui/react/use-render';
-import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
+import { spaceProps, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
 import type { AccentColor } from '../Theme';
 import styles from './badge.module.css';
 
@@ -81,9 +83,10 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       ? { '--bdg-radius': radiusMap[radius] }
       : {};
 
-    const nextStyle = withVar(style, buildSpaceVars('bdg', {
+    const space = spaceProps({
       p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
-    }));
+    });
+    const nextStyle = withVar(style, space.vars);
 
     return useRender({
       render: render ?? <span />,
@@ -93,6 +96,7 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
         ...rest,
         className: cx(
           styles.badge,
+          space.className,
           styles[variant],
           highContrast && styles.highContrast,
           className,

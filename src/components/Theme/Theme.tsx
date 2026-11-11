@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import styles from './theme.module.css';
 
@@ -248,7 +250,8 @@ function buildFontFamilyVars(fontFamily: FontFamilies): Record<string, string> {
 
 /**
  * Build CSS custom properties for custom colors.
- * Writes --color-{name}-{1..12} and --color-{name}-contrast.
+ * Writes --color-{name}-{1..12}, the derived alpha steps
+ * --color-{name}-a{1..12} (see tokens/colors/alpha.css) and --color-{name}-contrast.
  */
 function buildCustomColorVars(
   customColors: Record<string, CustomColorScale>
@@ -257,6 +260,8 @@ function buildCustomColorVars(
   for (const [name, scale] of Object.entries(customColors)) {
     for (let i = 1; i <= 12; i++) {
       vars[`--color-${name}-${i}`] = scale[i as keyof CustomColorScale] as string;
+      vars[`--color-${name}-a${i}`] =
+        `color(from var(--color-${name}-${i}) srgb var(--color-alpha-channels))`;
     }
     vars[`--color-${name}-contrast`] = scale.contrast;
   }

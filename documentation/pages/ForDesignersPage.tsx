@@ -223,7 +223,7 @@ export function ForDesignersPage() {
         <Grid className="designer-grid" columns="repeat(auto-fit, minmax(200px, 1fr))" gap={3}>
           <Card>
             <h3>Color Steps</h3>
-            <p>Every hue uses a 12-step scale plus contrast.</p>
+            <p>Every hue uses a 12-step scale plus contrast, and translucent <code>a1</code>-<code>a12</code> steps derived from it.</p>
             <p className="designer-note">1-2 backgrounds, 3-5 subtle surfaces, 6-8 borders, 9-10 solid fills, 11-12 text/icons.</p>
           </Card>
           <Card>

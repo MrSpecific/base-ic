@@ -1,27 +1,11 @@
 .box {
-  --box-padding: 0;
-  --box-padding-x: var(--box-padding);
-  --box-padding-y: var(--box-padding);
-  --box-padding-top: var(--box-padding-y);
-  --box-padding-right: var(--box-padding-x);
-  --box-padding-bottom: var(--box-padding-y);
-  --box-padding-left: var(--box-padding-x);
-
-  --box-margin: 0;
-  --box-margin-x: var(--box-margin);
-  --box-margin-y: var(--box-margin);
-  --box-margin-top: var(--box-margin-y);
-  --box-margin-right: var(--box-margin-x);
-  --box-margin-bottom: var(--box-margin-y);
-  --box-margin-left: var(--box-margin-x);
-
   min-width: 0;
-  padding: var(--box-padding-top)
-           var(--box-padding-right)
-           var(--box-padding-bottom)
-           var(--box-padding-left);
-  margin: var(--box-margin-top)
-          var(--box-margin-right)
-          var(--box-margin-bottom)
-          var(--box-margin-left);
+  padding: var(--bic-pt, var(--bic-py, var(--bic-p, 0)))
+           var(--bic-pr, var(--bic-px, var(--bic-p, 0)))
+           var(--bic-pb, var(--bic-py, var(--bic-p, 0)))
+           var(--bic-pl, var(--bic-px, var(--bic-p, 0)));
+  margin: var(--bic-mt, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-mr, var(--bic-mx, var(--bic-m, 0)))
+          var(--bic-mb, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-ml, var(--bic-mx, var(--bic-m, 0)));
 }

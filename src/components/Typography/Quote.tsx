@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
+import { spaceProps, cx, type SpaceProps } from '../Layout/layout.utils';
 import { buildTypoColorVar } from './typography.utils';
 import type { AccentColor } from '../Theme';
 import styles from './quote.module.css';
@@ -15,14 +15,15 @@ export const Quote = React.forwardRef<HTMLQuoteElement, QuoteProps>(
     ref,
   ) {
     const colorVars = buildTypoColorVar(color, highContrast);
-    const spaceVars = withVar(undefined, buildSpaceVars('quote', {
+    const space = spaceProps({
       p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
-    }));
+    });
+    const spaceVars = space.vars;
 
     return (
       <blockquote
         ref={ref}
-        className={cx(styles.quote, className)}
+        className={cx(styles.quote, space.className, className)}
         style={{ ...colorVars, ...spaceVars, ...style }}
         {...rest}
       />

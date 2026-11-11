@@ -94,7 +94,7 @@ export function CodeDocsPage() {
             },
             {
               name: 'p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml',
-              type: 'number | string',
+              type: 'Responsive<number | string>',
               description:
                 'Padding/margin shorthands. Numbers and digit-only strings map to space tokens (`3` and `"3"` → `var(--space-3)`; `0` → `0`); any other string is used as a raw CSS length (e.g. `"0.2em"`). Padding overrides the `soft` / `outline` default of `0.15em 0.4em`.',
             },

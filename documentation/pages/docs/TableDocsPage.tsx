@@ -234,7 +234,7 @@ export function TableDocsPage() {
             { name: 'aria-label, aria-labelledby, aria-describedby', type: 'string', description: 'Forwarded to the `<table>` element.' },
             {
               name: 'm, mx, my, mt, mr, mb, ml',
-              type: 'number | string',
+              type: 'Responsive<number | string>',
               description: 'Margin shorthands. Numbers and digit-only strings map to space tokens (`3` → `var(--space-3)`); other strings are raw CSS lengths.',
             },
           ]}
@@ -260,7 +260,7 @@ export function TableDocsPage() {
             { name: 'maxWidth', type: 'string | number', description: 'Maximum column width.' },
             {
               name: 'p, px, py, pt, pr, pb, pl',
-              type: 'number | string',
+              type: 'Responsive<number | string>',
               description: 'Override the size preset\'s cell padding. Numbers and digit-only strings map to space tokens.',
             },
           ]}

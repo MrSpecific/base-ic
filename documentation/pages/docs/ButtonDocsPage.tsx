@@ -9,6 +9,14 @@ import { DocsSection } from "../../components/DocsSection";
 import { PropsTable } from "../../components/PropsTable";
 import { DemoCard } from "./DemoCard";
 
+function PlusIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M12 5v14M5 12h14" />
+    </svg>
+  );
+}
+
 export function ButtonDocsPage() {
   const usageSnippet = [
     "import { Button } from '@wlcr/base-ic';",
@@ -50,6 +58,36 @@ export function ButtonDocsPage() {
     '  <Button color="green">Green</Button>',
     '  <Button color="orange" highContrast>Orange High Contrast</Button>',
     '  <Button variant="outline" radius="full">Pill</Button>',
+    "</div>",
+  ].join("\n");
+
+  const hrefSnippet = [
+    '<div className="docs-demo-button-row">',
+    '  <Button href="/docs/" variant="soft">Docs</Button>',
+    '  <Button href="https://base-ui.com" target="_blank" rel="noreferrer" variant="outline">',
+    '    Base UI',
+    '  </Button>',
+    '  <Button href="/docs/" disabled>Disabled link</Button>',
+    "</div>",
+  ].join("\n");
+
+  const routerHrefSnippet = [
+    "import NextLink from 'next/link';",
+    "",
+    "// The render element receives the href; no nativeButton needed.",
+    '<Button href="/docs" render={<NextLink />}>',
+    "  Docs",
+    "</Button>",
+  ].join("\n");
+
+  const iconButtonSnippet = [
+    "import { Button } from '@wlcr/base-ic';",
+    "",
+    '<div className="docs-demo-button-row">',
+    '  <Button iconOnly size="1" variant="soft" aria-label="Add"><PlusIcon /></Button>',
+    '  <Button iconOnly size="2" aria-label="Add"><PlusIcon /></Button>',
+    '  <Button iconOnly size="3" variant="outline" radius="full" aria-label="Add"><PlusIcon /></Button>',
+    '  <Button iconOnly size="4" variant="surface" loading aria-label="Add"><PlusIcon /></Button>',
     "</div>",
   ].join("\n");
 
@@ -186,6 +224,54 @@ export function ButtonDocsPage() {
               </Button>
             </DocsDemoRow>
           </DemoCard>
+          <DemoCard
+            title="Links"
+            description={'Pass `href` to render an `<a>` styled as a button, with no `role="button"`. While `disabled` or `loading` the `href` is removed and `aria-disabled` is set.'}
+            code={hrefSnippet}
+          >
+            <DocsDemoRow>
+              <Button href="/docs/" variant="soft">
+                Docs
+              </Button>
+              <Button href="https://base-ui.com" target="_blank" rel="noreferrer" variant="outline">
+                Base UI
+              </Button>
+              <Button href="/docs/" disabled>
+                Disabled link
+              </Button>
+            </DocsDemoRow>
+          </DemoCard>
+        </DocsDemoGrid>
+      </DocsSection>
+      <DocsSection>
+        <Heading as="h2">Icon-only buttons</Heading>
+        <Text as="p">
+          Add `iconOnly` to make a square button sized by the button height,
+          for a single icon. Every other prop works as usual, including
+          `size`, `variant`, `color`, `radius`, `loading` and `href`. Always
+          give it an accessible name with `aria-label`.
+        </Text>
+        <DocsDemoGrid>
+          <DemoCard
+            title="Icon buttons"
+            description="Square at every size; the icon is the only content, so `aria-label` names it."
+            code={iconButtonSnippet}
+          >
+            <DocsDemoRow>
+              <Button iconOnly size="1" variant="soft" aria-label="Add">
+                <PlusIcon />
+              </Button>
+              <Button iconOnly size="2" aria-label="Add">
+                <PlusIcon />
+              </Button>
+              <Button iconOnly size="3" variant="outline" radius="full" aria-label="Add">
+                <PlusIcon />
+              </Button>
+              <Button iconOnly size="4" variant="surface" loading aria-label="Add">
+                <PlusIcon />
+              </Button>
+            </DocsDemoRow>
+          </DemoCard>
         </DocsDemoGrid>
       </DocsSection>
       <DocsSection>
@@ -226,6 +312,13 @@ export function ButtonDocsPage() {
               description: "Override the border-radius for this button. Falls back to the Theme's radius.",
             },
             {
+              name: "iconOnly",
+              type: "boolean",
+              default: "false",
+              description:
+                "Square button sized by the button height, for a single icon. Give it an accessible name with `aria-label`.",
+            },
+            {
               name: "loading",
               type: "boolean",
               default: "false",
@@ -246,6 +339,17 @@ export function ButtonDocsPage() {
               description: "Keep the button in the tab order while `disabled`. Always on while `loading`.",
             },
             {
+              name: "href",
+              type: "string",
+              description:
+                "Renders an `<a>` styled as a button (or your `render` element, which receives the `href`), without `role=\"button\"`. While `disabled` or `loading` the `href` is removed and `aria-disabled` is set. The ref is then the anchor.",
+            },
+            {
+              name: "target, rel, download",
+              type: "React.AnchorHTMLAttributes<HTMLAnchorElement>",
+              description: "Anchor attributes, used with `href`.",
+            },
+            {
               name: "render",
               type: "React.ReactElement | ((props, state) => React.ReactElement)",
               description:
@@ -260,7 +364,7 @@ export function ButtonDocsPage() {
             },
             {
               name: "px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml",
-              type: "number | string",
+              type: "Responsive<number | string>",
               description:
                 "Padding/margin shorthands. Numbers and digit-only strings map to space tokens (`3` and `\"3\"` → `var(--space-3)`; `0` → `0`); any other string is used as a raw CSS length.",
             },
@@ -285,11 +389,17 @@ export function ButtonDocsPage() {
             lower-emphasis variants for secondary actions.
           </li>
           <li>
+            For router links, combine `href` with `render`:{" "}
+            {'`<Button href="/docs" render={<NextLink />}>`'}. The render
+            element receives the `href`.
+          </li>
+          <li>
             `render` lets you swap the underlying element. When it is not a
             native `&lt;button&gt;` (a link, a router `Link`), also pass{" "}
             {"`nativeButton={false}`"}.
           </li>
         </DocsList>
+        <CodeBlock title="Router link with href" code={routerHrefSnippet} />
         <CodeBlock title="Render as a link" code={renderSnippet} />
       </DocsSection>
     </>

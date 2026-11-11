@@ -72,7 +72,7 @@ export function TextDocsPage() {
             },
             {
               name: 'size',
-              type: "'1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'",
+              type: "Responsive<'1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'>",
               default: "'3'",
               description: 'Type scale size.',
             },
@@ -94,7 +94,7 @@ export function TextDocsPage() {
             },
             {
               name: 'align',
-              type: "'left' | 'center' | 'right'",
+              type: "Responsive<'left' | 'center' | 'right'>",
               description: 'Text alignment.',
             },
             {
@@ -119,7 +119,7 @@ export function TextDocsPage() {
             },
             {
               name: 'p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml',
-              type: 'number | string',
+              type: 'Responsive<number | string>',
               description:
                 'Padding/margin shorthand props (e.g. `mb={2}`). Numbers map to spacing scale tokens; strings are used as literal CSS values.',
             },

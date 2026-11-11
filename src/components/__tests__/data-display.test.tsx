@@ -69,8 +69,8 @@ describe('Table', () => {
     expect(cell.style.width).toBe('120px');
     expect(cell.style.minWidth).toBe('8rem');
     expect(cell.style.maxWidth).toBe('50%');
-    expect(cell.style.getPropertyValue('--tbl-cell-padding-x')).toBe('var(--space-4)');
-    expect(cell.style.getPropertyValue('--tbl-cell-padding-top')).toBe('0px');
+    expect(cell.style.getPropertyValue('--bic-px')).toBe('var(--space-4)');
+    expect(cell.style.getPropertyValue('--bic-pt')).toBe('0px');
   });
 
   it('defaults to size 2 / ghost / auto layout', () => {
@@ -93,7 +93,7 @@ describe('Table', () => {
   it('maps margin props to vars and moves labelling props onto the <table>', () => {
     renderTable({ mt: '4', 'aria-label': 'Invoices', className: 'own' });
     const root = screen.getByTestId('root');
-    expect(root.style.getPropertyValue('--tbl-margin-top')).toBe('var(--space-4)');
+    expect(root.style.getPropertyValue('--bic-mt')).toBe('var(--space-4)');
     expect(root.className).toContain('own');
     expect(root).not.toHaveAttribute('aria-label');
     expect(screen.getByRole('table', { name: 'Invoices' })).toBeInTheDocument();
@@ -180,7 +180,7 @@ describe('DataList', () => {
     expect(dl.className).not.toContain('horizontal');
     expect(dl.className).toContain('size1');
     expect(dl.className).toContain('trimBoth');
-    expect(dl.style.getPropertyValue('--dl-margin-bottom')).toBe('var(--space-3)');
+    expect(dl.style.getPropertyValue('--bic-mb')).toBe('var(--space-3)');
   });
 
   it('maps Label color / highContrast and dimensions, and Item align', () => {

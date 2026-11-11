@@ -1,6 +1,8 @@
+'use client';
+
 import * as React from 'react';
 import { Separator as BaseSeparator } from '@base-ui/react';
-import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
+import { spaceProps, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
 import type { AccentColor } from '../Theme';
 import styles from './separator.module.css';
 
@@ -51,9 +53,10 @@ export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
     const colorVar = color
       ? { '--sep-color': `var(--color-${color}-6)` } as React.CSSProperties
       : undefined;
-    const nextStyle = withVar(style, buildSpaceVars('sep', {
+    const space = spaceProps({
       p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
-    }));
+    });
+    const nextStyle = withVar(style, space.vars);
 
     return (
       <BaseSeparator
@@ -61,6 +64,7 @@ export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
         orientation={orientation}
         className={cx(
           styles.separator,
+          space.className,
           styles[orientation],
           className,
         )}

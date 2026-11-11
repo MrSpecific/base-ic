@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
+import { spaceProps, cx, type SpaceProps } from '../Layout/layout.utils';
 import { buildTypoColorVar, buildTypoSizeVars } from './typography.utils';
 import type { AccentColor } from '../Theme';
 import styles from './code.module.css';
@@ -36,14 +36,15 @@ export const Code = React.forwardRef<HTMLElement, CodeProps>(
     const weightVar = weight
       ? { '--typo-weight': `var(--font-weight-${weight})` } as React.CSSProperties
       : undefined;
-    const spaceVars = withVar(undefined, buildSpaceVars('code', {
+    const space = spaceProps({
       p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
-    }));
+    });
+    const spaceVars = space.vars;
 
     return (
       <code
         ref={ref}
-        className={cx(styles.code, styles[variant], className)}
+        className={cx(styles.code, space.className, styles[variant], className)}
         style={{
           ...sizeVars,
           ...colorVars,

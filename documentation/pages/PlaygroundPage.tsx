@@ -2,11 +2,16 @@ import {
   Badge,
   Box,
   Button,
+  Callout,
   Card,
+  Checkbox,
   Container,
+  Flex,
   Grid,
   Heading,
+  Input,
   Popover,
+  Switch,
   Text,
   Tooltip,
 } from "../../src";
@@ -126,6 +131,93 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
             </div>
           ))}
         </div>
+
+        <Heading as="h2">Buttons</Heading>
+        <Flex direction="column" gap="3">
+          {BUTTON_VARIANTS.map((variant) => (
+            <Flex key={variant} align="center" gap="2" wrap="wrap">
+              {SIZES_4.map((size) => (
+                <Button key={size} variant={variant} size={size}>
+                  {variant}
+                </Button>
+              ))}
+              <Button variant={variant} iconOnly aria-label="Add">
+                <PlusIcon />
+              </Button>
+              <Button variant={variant} highContrast>
+                High contrast
+              </Button>
+              <Button variant={variant} loading>
+                Loading
+              </Button>
+              <Button variant={variant} disabled>
+                Disabled
+              </Button>
+            </Flex>
+          ))}
+          <Flex align="center" gap="2" wrap="wrap">
+            {SAMPLE_COLORS.map((color) => (
+              <Button key={color} color={color} variant="soft">
+                {color}
+              </Button>
+            ))}
+          </Flex>
+        </Flex>
+
+        <Heading as="h2">Badges</Heading>
+        <Flex direction="column" gap="3">
+          {BADGE_VARIANTS.map((variant) => (
+            <Flex key={variant} align="center" gap="2" wrap="wrap">
+              <Badge variant={variant}>{variant}</Badge>
+              {SAMPLE_COLORS.map((color) => (
+                <Badge key={color} variant={variant} color={color}>
+                  {color}
+                </Badge>
+              ))}
+              <Badge variant={variant} highContrast>
+                High contrast
+              </Badge>
+            </Flex>
+          ))}
+          <Flex align="center" gap="2">
+            {(["1", "2", "3"] as const).map((size) => (
+              <Badge key={size} size={size}>
+                Size {size}
+              </Badge>
+            ))}
+          </Flex>
+        </Flex>
+
+        <Heading as="h2">Callouts</Heading>
+        <Flex direction="column" gap="3">
+          {(["soft", "surface", "outline"] as const).map((variant, i) => (
+            <Callout.Root
+              key={variant}
+              variant={variant}
+              color={SAMPLE_COLORS[i]}
+            >
+              <Callout.Icon>
+                <InfoIcon />
+              </Callout.Icon>
+              <Callout.Text>
+                A{variant === "outline" ? "n" : ""} {variant} callout in{" "}
+                {SAMPLE_COLORS[i]}.
+              </Callout.Text>
+            </Callout.Root>
+          ))}
+        </Flex>
+
+        <Heading as="h2">Form Controls</Heading>
+        <Flex direction="column" gap="3">
+          <Input placeholder="Surface input" style={{ maxWidth: 360 }} />
+          <Input variant="outline" placeholder="Outline input" style={{ maxWidth: 360 }} />
+          <Flex gap="4" wrap="wrap">
+            <Checkbox defaultChecked>Checkbox</Checkbox>
+            <Checkbox>Unchecked</Checkbox>
+            <Switch defaultChecked>Switch</Switch>
+            <Switch>Off</Switch>
+          </Flex>
+        </Flex>
 
         <Heading as="h2">Tooltip</Heading>
         <div className="tooltip-demo-row">
@@ -252,6 +344,50 @@ export function PlaygroundPage({ radius }: { radius: Radius }) {
         </Box>
       </Box>
     </Container>
+  );
+}
+
+const BUTTON_VARIANTS = [
+  "solid",
+  "soft",
+  "surface",
+  "outline",
+  "ghost",
+] as const;
+const BADGE_VARIANTS = ["solid", "soft", "surface", "outline"] as const;
+const SIZES_4 = ["1", "2", "3", "4"] as const;
+const SAMPLE_COLORS = ["blue", "green", "red", "amber", "gray"] as const;
+
+function PlusIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      <path d="M12 5v14M5 12h14" />
+    </svg>
+  );
+}
+
+function InfoIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 11v5M12 8h.01" />
+    </svg>
   );
 }
 

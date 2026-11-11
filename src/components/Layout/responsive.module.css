@@ -1,0 +1,62 @@
+/* ==========================================================================
+ * Shared space and size props
+ * ==========================================================================
+ * Every component reads its space props from these names, e.g.
+ *   padding-top: var(--bic-pt, var(--bic-py, var(--bic-p, <default>)));
+ * They are registered as non-inheriting, so a nested component never picks
+ * up its parent's value.
+ */
+
+@property --bic-p { syntax: '*'; inherits: false; }
+@property --bic-px { syntax: '*'; inherits: false; }
+@property --bic-py { syntax: '*'; inherits: false; }
+@property --bic-pt { syntax: '*'; inherits: false; }
+@property --bic-pr { syntax: '*'; inherits: false; }
+@property --bic-pb { syntax: '*'; inherits: false; }
+@property --bic-pl { syntax: '*'; inherits: false; }
+@property --bic-m { syntax: '*'; inherits: false; }
+@property --bic-mx { syntax: '*'; inherits: false; }
+@property --bic-my { syntax: '*'; inherits: false; }
+@property --bic-mt { syntax: '*'; inherits: false; }
+@property --bic-mr { syntax: '*'; inherits: false; }
+@property --bic-mb { syntax: '*'; inherits: false; }
+@property --bic-ml { syntax: '*'; inherits: false; }
+@property --bic-width { syntax: '*'; inherits: false; }
+@property --bic-min-width { syntax: '*'; inherits: false; }
+@property --bic-max-width { syntax: '*'; inherits: false; }
+@property --bic-height { syntax: '*'; inherits: false; }
+@property --bic-min-height { syntax: '*'; inherits: false; }
+@property --bic-max-height { syntax: '*'; inherits: false; }
+
+.queryContainer {
+  container-type: inline-size;
+}
+
+/* Size props only apply when passed, so they never override a className. */
+.width { width: var(--bic-width); }
+.minWidth { min-width: var(--bic-min-width); }
+.maxWidth { max-width: var(--bic-max-width); }
+.height { height: var(--bic-height); }
+.minHeight { min-height: var(--bic-min-height); }
+.maxHeight { max-height: var(--bic-max-height); }
+
+@responsive p: --bic-p;
+@responsive px: --bic-px;
+@responsive py: --bic-py;
+@responsive pt: --bic-pt;
+@responsive pr: --bic-pr;
+@responsive pb: --bic-pb;
+@responsive pl: --bic-pl;
+@responsive m: --bic-m;
+@responsive mx: --bic-mx;
+@responsive my: --bic-my;
+@responsive mt: --bic-mt;
+@responsive mr: --bic-mr;
+@responsive mb: --bic-mb;
+@responsive ml: --bic-ml;
+@responsive width: --bic-width;
+@responsive minWidth: --bic-min-width;
+@responsive maxWidth: --bic-max-width;
+@responsive height: --bic-height;
+@responsive minHeight: --bic-min-height;
+@responsive maxHeight: --bic-max-height;

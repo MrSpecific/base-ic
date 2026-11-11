@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
+import { spaceProps, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
 import styles from './table.module.css';
 
 type TableSize = '1' | '2' | '3';
@@ -63,12 +63,13 @@ const TableRoot = React.forwardRef<HTMLDivElement, TableRootProps>(function Tabl
     }
   }
 
-  const nextStyle = withVar(style, buildSpaceVars('tbl', { m, mx, my, mt, mr, mb, ml }));
+  const space = spaceProps({ m, mx, my, mt, mr, mb, ml });
+  const nextStyle = withVar(style, space.vars);
 
   return (
     <div
       ref={ref}
-      className={cx(styles.root, styles[variant], sizeClass[size], className)}
+      className={cx(styles.root, styles[variant], sizeClass[size], space.className, className)}
       style={nextStyle}
       {...wrapperProps}
     >
@@ -159,20 +160,25 @@ function toLength(value?: TableCellDimension): string | undefined {
   return typeof value === 'number' ? `${value}px` : value;
 }
 
-function cellStyle(
+function cellProps(
   { justify, width, minWidth, maxWidth, p, px, py, pt, pr, pb, pl }: TableCellOwnProps,
   style: React.CSSProperties | undefined,
-): React.CSSProperties {
-  return withVar(
-    {
-      textAlign: justify,
-      width: toLength(width),
-      minWidth: toLength(minWidth),
-      maxWidth: toLength(maxWidth),
-      ...style,
-    },
-    buildSpaceVars('tbl-cell', { p, px, py, pt, pr, pb, pl }),
-  );
+  ...classNames: Array<string | false | undefined>
+): { className: string; style: React.CSSProperties } {
+  const space = spaceProps({ p, px, py, pt, pr, pb, pl });
+  return {
+    className: cx(styles.cell, ...classNames, space.className),
+    style: withVar(
+      {
+        textAlign: justify,
+        width: toLength(width),
+        minWidth: toLength(minWidth),
+        maxWidth: toLength(maxWidth),
+        ...style,
+      },
+      space.vars,
+    ),
+  };
 }
 
 const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(function TableCell(
@@ -182,8 +188,7 @@ const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(functio
   return (
     <td
       ref={ref}
-      className={cx(styles.cell, className)}
-      style={cellStyle({ justify, width, minWidth, maxWidth, p, px, py, pt, pr, pb, pl }, style)}
+      {...cellProps({ justify, width, minWidth, maxWidth, p, px, py, pt, pr, pb, pl }, style, className)}
       {...rest}
     />
   );
@@ -198,8 +203,7 @@ const TableColumnHeaderCell = React.forwardRef<HTMLTableCellElement, TableColumn
       <th
         ref={ref}
         scope={scope}
-        className={cx(styles.cell, styles.columnHeaderCell, className)}
-        style={cellStyle({ justify, width, minWidth, maxWidth, p, px, py, pt, pr, pb, pl }, style)}
+        {...cellProps({ justify, width, minWidth, maxWidth, p, px, py, pt, pr, pb, pl }, style, styles.columnHeaderCell, className)}
         {...rest}
       />
     );
@@ -215,8 +219,7 @@ const TableRowHeaderCell = React.forwardRef<HTMLTableCellElement, TableRowHeader
       <th
         ref={ref}
         scope={scope}
-        className={cx(styles.cell, styles.rowHeaderCell, className)}
-        style={cellStyle({ justify, width, minWidth, maxWidth, p, px, py, pt, pr, pb, pl }, style)}
+        {...cellProps({ justify, width, minWidth, maxWidth, p, px, py, pt, pr, pb, pl }, style, styles.rowHeaderCell, className)}
         {...rest}
       />
     );

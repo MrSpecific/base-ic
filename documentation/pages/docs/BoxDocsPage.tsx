@@ -69,74 +69,88 @@ export function BoxDocsPage() {
             },
             {
               name: 'p',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description:
-                'Padding on all sides. `SpaceValue` is `number | string`: numbers and digit-only strings map to space tokens (`3` and `"3"` → `var(--space-3)`; `0` → `0`); any other string is used as a raw CSS length (e.g. `"12px"`, `"auto"`).',
+                'Padding on all sides. Every space prop also takes per-breakpoint values (see Responsive props). `SpaceValue` is `number | string`: numbers and digit-only strings map to space tokens (`3` and `"3"` → `var(--space-3)`; `0` → `0`); any other string is used as a raw CSS length (e.g. `"12px"`, `"auto"`).',
             },
             {
               name: 'px',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Horizontal padding (left and right).',
             },
             {
               name: 'py',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Vertical padding (top and bottom).',
             },
             {
               name: 'pt',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Padding top.',
             },
             {
               name: 'pr',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Padding right.',
             },
             {
               name: 'pb',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Padding bottom.',
             },
             {
               name: 'pl',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Padding left.',
             },
             {
               name: 'm',
-              type: 'SpaceValue',
-              description: 'Margin on all sides. Same value mapping as `p`.',
+              type: 'Responsive<SpaceValue>',
+              description:
+                'Margin on all sides. Same value mapping as `p`, plus negative steps: `mt="-1"` or `mt={-1}` → `calc(var(--space-1) * -1)`. Applies to every margin prop.',
             },
             {
               name: 'mx',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Horizontal margin (left and right).',
             },
             {
               name: 'my',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Vertical margin (top and bottom).',
             },
             {
               name: 'mt',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Margin top.',
             },
             {
               name: 'mr',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Margin right.',
             },
             {
               name: 'mb',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Margin bottom.',
             },
             {
               name: 'ml',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Margin left.',
+            },
+            {
+              name: 'width, minWidth, maxWidth, height, minHeight, maxHeight',
+              type: 'Responsive<number | string>',
+              description:
+                'Sizing shorthands. Numbers are pixels (`320` → `320px`, as in React `style`); strings are any CSS length (`"50%"`, `"20rem"`). Only applied when passed.',
+            },
+            {
+              name: 'container',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Makes this element a query container (`container-type: inline-size`), so `@` breakpoints on descendants respond to its width. See Responsive props.',
             },
             {
               name: 'children',

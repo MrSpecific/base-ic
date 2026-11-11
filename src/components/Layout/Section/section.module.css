@@ -1,30 +1,15 @@
 .section {
-  /* `--section-padding` is only set when `p` is passed. `initial` stops a
-     nested Section from inheriting its ancestor's value. */
-  --section-padding: initial;
   /* Vertical rhythm from the `size` prop. Horizontal padding defaults to 0. */
   --section-size-padding: var(--layout-section-2);
-  --section-padding-x: var(--section-padding, 0);
-  --section-padding-y: var(--section-padding, var(--section-size-padding));
-  --section-padding-top: var(--section-padding-y);
-  --section-padding-right: var(--section-padding-x);
-  --section-padding-bottom: var(--section-padding-y);
-  --section-padding-left: var(--section-padding-x);
 
-  --section-margin: 0;
-  --section-margin-x: var(--section-margin);
-  --section-margin-y: var(--section-margin);
-  --section-margin-top: var(--section-margin-y);
-  --section-margin-right: var(--section-margin-x);
-  --section-margin-bottom: var(--section-margin-y);
-  --section-margin-left: var(--section-margin-x);
-
-  padding: var(--section-padding-top)
-           var(--section-padding-right)
-           var(--section-padding-bottom)
-           var(--section-padding-left);
-  margin: var(--section-margin-top)
-          var(--section-margin-right)
-          var(--section-margin-bottom)
-          var(--section-margin-left);
+  padding: var(--bic-pt, var(--bic-py, var(--bic-p, var(--section-size-padding))))
+           var(--bic-pr, var(--bic-px, var(--bic-p, 0)))
+           var(--bic-pb, var(--bic-py, var(--bic-p, var(--section-size-padding))))
+           var(--bic-pl, var(--bic-px, var(--bic-p, 0)));
+  margin: var(--bic-mt, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-mr, var(--bic-mx, var(--bic-m, 0)))
+          var(--bic-mb, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-ml, var(--bic-mx, var(--bic-m, 0)));
 }
+
+@responsive size: --section-size-padding;

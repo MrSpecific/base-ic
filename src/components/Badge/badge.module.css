@@ -11,14 +11,14 @@
   gap: var(--space-1);
   min-height: var(--bdg-height);
   /* Most specific wins: side → axis → `p` → size default */
-  padding: var(--bdg-padding-top, var(--bdg-padding-y, var(--bdg-padding, 0)))
-           var(--bdg-padding-right, var(--bdg-padding-x, var(--bdg-padding, var(--bdg-px))))
-           var(--bdg-padding-bottom, var(--bdg-padding-y, var(--bdg-padding, 0)))
-           var(--bdg-padding-left, var(--bdg-padding-x, var(--bdg-padding, var(--bdg-px))));
-  margin: var(--bdg-margin-top, var(--bdg-margin-y, var(--bdg-margin, 0)))
-          var(--bdg-margin-right, var(--bdg-margin-x, var(--bdg-margin, 0)))
-          var(--bdg-margin-bottom, var(--bdg-margin-y, var(--bdg-margin, 0)))
-          var(--bdg-margin-left, var(--bdg-margin-x, var(--bdg-margin, 0)));
+  padding: var(--bic-pt, var(--bic-py, var(--bic-p, 0)))
+           var(--bic-pr, var(--bic-px, var(--bic-p, var(--bdg-px))))
+           var(--bic-pb, var(--bic-py, var(--bic-p, 0)))
+           var(--bic-pl, var(--bic-px, var(--bic-p, var(--bdg-px))));
+  margin: var(--bic-mt, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-mr, var(--bic-mx, var(--bic-m, 0)))
+          var(--bic-mb, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-ml, var(--bic-mx, var(--bic-m, 0)));
   border: 1px solid transparent;
   border-radius: var(--bdg-radius, min(var(--component-radius), var(--radius-full)));
   font-family: var(--font-family-primary);

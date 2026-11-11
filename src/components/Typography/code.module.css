@@ -10,23 +10,23 @@
   line-height: inherit;
   font-weight: var(--typo-weight, var(--font-weight-regular));
   color: var(--typo-color, var(--color-accent-11));
-  padding: var(--code-padding-top, var(--code-padding-y, var(--code-padding, 0)))
-           var(--code-padding-right, var(--code-padding-x, var(--code-padding, 0)))
-           var(--code-padding-bottom, var(--code-padding-y, var(--code-padding, 0)))
-           var(--code-padding-left, var(--code-padding-x, var(--code-padding, 0)));
-  margin: var(--code-margin-top, var(--code-margin-y, var(--code-margin, 0)))
-          var(--code-margin-right, var(--code-margin-x, var(--code-margin, 0)))
-          var(--code-margin-bottom, var(--code-margin-y, var(--code-margin, 0)))
-          var(--code-margin-left, var(--code-margin-x, var(--code-margin, 0)));
+  padding: var(--bic-pt, var(--bic-py, var(--bic-p, 0)))
+           var(--bic-pr, var(--bic-px, var(--bic-p, 0)))
+           var(--bic-pb, var(--bic-py, var(--bic-p, 0)))
+           var(--bic-pl, var(--bic-px, var(--bic-p, 0)));
+  margin: var(--bic-mt, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-mr, var(--bic-mx, var(--bic-m, 0)))
+          var(--bic-mb, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-ml, var(--bic-mx, var(--bic-m, 0)));
 }
 
 /* Shared padding for soft + outline variants */
 .soft,
 .outline {
-  padding: var(--code-padding-top, var(--code-padding-y, var(--code-padding, 0.15em)))
-           var(--code-padding-right, var(--code-padding-x, var(--code-padding, 0.4em)))
-           var(--code-padding-bottom, var(--code-padding-y, var(--code-padding, 0.15em)))
-           var(--code-padding-left, var(--code-padding-x, var(--code-padding, 0.4em)));
+  padding: var(--bic-pt, var(--bic-py, var(--bic-p, 0.15em)))
+           var(--bic-pr, var(--bic-px, var(--bic-p, 0.4em)))
+           var(--bic-pb, var(--bic-py, var(--bic-p, 0.15em)))
+           var(--bic-pl, var(--bic-px, var(--bic-p, 0.4em)));
   border-radius: var(--code-inline-radius, var(--radius-2));
 }
 

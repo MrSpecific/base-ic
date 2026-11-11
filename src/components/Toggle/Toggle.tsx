@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { Toggle as BaseToggle, ToggleGroup as BaseToggleGroup } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';

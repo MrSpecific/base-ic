@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { Autocomplete as BaseAutocomplete } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';

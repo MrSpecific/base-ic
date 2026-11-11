@@ -103,32 +103,34 @@
 .arrow {
   position: absolute;
   pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: calc(var(--popover-arrow-size, 10px) * 2);
   height: var(--popover-arrow-size, 10px);
-  /* Base UI positions the arrow; we just handle the rotation */
 }
 
-/* Edge placement — Base UI injects only the centering axis (left: x for top/bottom,
- * top: y for left/right). We must specify which popup edge the arrow snaps to.
- * Arrow SVG is 20×10 — tip extends 10px past the popup edge after placement. */
+/* The SVG scales with the box, and the box overlaps the popup by 0.2h, so the
+ * outer stroke lines up with the popup's 1px border and the fill covers it.
+ * Geometry matches Base UI's 20×10 arrow (8px / 13px offsets at h = 10px).
+ * Base UI sets only the centering axis; we pick the edge and rotation. */
+.arrow svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .arrow[data-side='top'] {
-  bottom: calc(var(--popover-arrow-size, 10px) * -1);
-  transform: rotate(180deg);
+  bottom: calc(var(--popover-arrow-size, 10px) * -0.8);
+  rotate: 180deg;
 }
 .arrow[data-side='bottom'] {
-  top: calc(var(--popover-arrow-size, 10px) * -1);
-  /* default SVG orientation already points up */
+  top: calc(var(--popover-arrow-size, 10px) * -0.8);
 }
 .arrow[data-side='left'] {
-  right: calc(var(--popover-arrow-size, 10px) * -1.5);
-  transform: rotate(90deg);
+  right: calc(var(--popover-arrow-size, 10px) * -1.3);
+  rotate: 90deg;
 }
 .arrow[data-side='right'] {
-  left: calc(var(--popover-arrow-size, 10px) * -1.5);
-  transform: rotate(-90deg);
+  left: calc(var(--popover-arrow-size, 10px) * -1.3);
+  rotate: -90deg;
 }
 
 /* Three-path SVG fills */

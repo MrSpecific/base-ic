@@ -68,7 +68,7 @@ export function HeadingDocsPage() {
             },
             {
               name: 'size',
-              type: "'1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'",
+              type: "Responsive<'1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'>",
               description:
                 'Type scale size. Defaults to a preset tied to `as` (h1 → \'8\', h2 → \'6\', h3 → \'5\', h4 → \'4\', h5 → \'3\', h6 → \'2\').',
             },
@@ -89,7 +89,7 @@ export function HeadingDocsPage() {
             },
             {
               name: 'align',
-              type: "'left' | 'center' | 'right'",
+              type: "Responsive<'left' | 'center' | 'right'>",
               description: 'Text alignment.',
             },
             {

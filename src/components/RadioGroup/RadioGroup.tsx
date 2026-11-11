@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { RadioGroup as BaseRadioGroup, Radio as BaseRadio } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';

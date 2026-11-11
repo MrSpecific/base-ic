@@ -9,10 +9,10 @@
 .root {
   box-sizing: border-box;
   min-width: 0;
-  margin: var(--dl-margin-top, var(--dl-margin-y, var(--dl-margin, 0)))
-          var(--dl-margin-right, var(--dl-margin-x, var(--dl-margin, 0)))
-          var(--dl-margin-bottom, var(--dl-margin-y, var(--dl-margin, 0)))
-          var(--dl-margin-left, var(--dl-margin-x, var(--dl-margin, 0)));
+  margin: var(--bic-mt, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-mr, var(--bic-mx, var(--bic-m, 0)))
+          var(--bic-mb, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-ml, var(--bic-mx, var(--bic-m, 0)));
   padding: 0;
   font-family: var(--font-family-primary);
   font-size: var(--dl-font-size);

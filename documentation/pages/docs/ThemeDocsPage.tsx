@@ -117,6 +117,18 @@ export function ThemeDocsPage() {
         </p>
       </DocsSection>
       <DocsSection>
+        <h2>Alpha color steps</h2>
+        <p>
+          Every color scale also has translucent steps <code>a1</code>–<code>a12</code> alongside the solid
+          ones: <code>--color-gray-a3</code>, <code>--color-blue-a9</code>, <code>--color-accent-a4</code>,{' '}
+          <code>--color-neutral-a6</code>, and so on. Each alpha step is the most transparent color that
+          matches its solid step when laid over the page background, so use them for tints, hover fills
+          and borders that sit on top of other surfaces (images, colored panels) without going muddy.
+          They are computed from the solid steps with relative color syntax, so they follow custom
+          colors, overridden scales and dark mode automatically.
+        </p>
+      </DocsSection>
+      <DocsSection>
         <h2>Live Examples</h2>
         <DocsDemoGrid>
           <Theme accentColor="blue" grayColor="slate" radius="medium" scaling="100%">
@@ -219,6 +231,7 @@ export function ThemeDocsPage() {
           Unlike a fixed palette, adding a brand hue is first-class: pass a full 12-step
           `CustomColorScale` (plus a `contrast` value for text on solid fills) via `customColors`, then
           reference it by name anywhere a built-in hue would go — including <code>Theme</code>'s own <code>accentColor</code>.
+          Its alpha steps (<code>--color-brand-a1</code> … <code>--color-brand-a12</code>) are derived for you.
         </p>
         <DocsDemoGrid>
           <Theme
@@ -312,13 +325,13 @@ export function ThemeDocsPage() {
               type: 'AccentColor',
               default: "'blue'",
               description:
-                'Primary brand hue. Maps `--color-accent-1..12` and `--color-accent-contrast` to the chosen scale. Accepts any built-in hue or a name defined in `customColors`.',
+                'Primary brand hue. Maps `--color-accent-1..12` (plus the translucent `--color-accent-a1..a12`) and `--color-accent-contrast` to the chosen scale. Accepts any built-in hue or a name defined in `customColors`.',
             },
             {
               name: 'grayColor',
               type: "'gray' | 'mauve' | 'slate' | 'sage' | 'olive' | 'sand'",
               default: "'gray'",
-              description: 'Neutral hue. Maps `--color-neutral-1..12` to the chosen gray scale.',
+              description: 'Neutral hue. Maps `--color-neutral-1..12` (plus the translucent `--color-neutral-a1..a12`) to the chosen gray scale.',
             },
             {
               name: 'radius',
@@ -351,7 +364,7 @@ export function ThemeDocsPage() {
               name: 'customColors',
               type: 'Record<string, CustomColorScale>',
               description:
-                'Extra named color scales, each 12 steps plus `contrast`. Writes `--color-{name}-1..12` and `--color-{name}-contrast`, making the name usable anywhere an `AccentColor` is accepted — including `accentColor` itself.',
+                'Extra named color scales, each 12 steps plus `contrast`. Writes `--color-{name}-1..12`, the derived alpha steps `--color-{name}-a1..a12`, and `--color-{name}-contrast`, making the name usable anywhere an `AccentColor` is accepted — including `accentColor` itself.',
             },
             {
               name: 'children',

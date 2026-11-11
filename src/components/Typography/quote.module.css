@@ -1,12 +1,12 @@
 .quote {
-  padding: var(--quote-padding-top, var(--quote-padding-y, var(--quote-padding, var(--space-3))))
-           var(--quote-padding-right, var(--quote-padding-x, var(--quote-padding, var(--space-4))))
-           var(--quote-padding-bottom, var(--quote-padding-y, var(--quote-padding, var(--space-3))))
-           var(--quote-padding-left, var(--quote-padding-x, var(--quote-padding, var(--space-4))));
-  margin: var(--quote-margin-top, var(--quote-margin-y, var(--quote-margin, 0)))
-          var(--quote-margin-right, var(--quote-margin-x, var(--quote-margin, 0)))
-          var(--quote-margin-bottom, var(--quote-margin-y, var(--quote-margin, 0)))
-          var(--quote-margin-left, var(--quote-margin-x, var(--quote-margin, 0)));
+  padding: var(--bic-pt, var(--bic-py, var(--bic-p, var(--space-3))))
+           var(--bic-pr, var(--bic-px, var(--bic-p, var(--space-4))))
+           var(--bic-pb, var(--bic-py, var(--bic-p, var(--space-3))))
+           var(--bic-pl, var(--bic-px, var(--bic-p, var(--space-4))));
+  margin: var(--bic-mt, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-mr, var(--bic-mx, var(--bic-m, 0)))
+          var(--bic-mb, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-ml, var(--bic-mx, var(--bic-m, 0)));
   border-left: calc(3px * var(--component-scaling)) solid var(--color-accent-7);
   color: var(--typo-color, var(--color-text-secondary));
   font-style: italic;

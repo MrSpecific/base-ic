@@ -86,95 +86,102 @@ export function ContainerDocsPage() {
             },
             {
               name: 'size',
-              type: "'1' | '2' | '3' | '4'",
+              type: "Responsive<'1' | '2' | '3' | '4'>",
               default: "'3'",
               description:
                 'Width preset: `--layout-container-1`…`4` (40rem / 56rem / 72rem / 90rem by default). Ignored when `maxWidth` is set.',
             },
             {
               name: 'maxWidth',
-              type: "React.CSSProperties['maxWidth']",
+              type: "Responsive<React.CSSProperties['maxWidth']>",
               description: 'Explicit max-width, overriding the `size` preset. Numbers are pixels (`600` → `600px`).',
             },
             {
               name: 'gutter',
-              type: 'number | string',
+              type: 'Responsive<number | string>',
               default: 'var(--space-4)',
               description:
                 'Minimum space kept on each side when the viewport is narrower than the max width — not padding. The width is `min(maxWidth, 100% - 2 × gutter)`. Numbers and digit-only strings map to space tokens (`2` → `var(--space-2)`); other strings are raw CSS lengths.',
             },
             {
               name: 'p',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description:
                 'Padding on all sides. Numbers and digit-only strings map to space tokens (`3` and `"3"` → `var(--space-3)`; `0` → `0`); any other string is used as a raw CSS length.',
             },
             {
               name: 'px',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Horizontal padding (left and right).',
             },
             {
               name: 'py',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Vertical padding (top and bottom).',
             },
             {
               name: 'pt',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Padding top.',
             },
             {
               name: 'pr',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Padding right.',
             },
             {
               name: 'pb',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Padding bottom.',
             },
             {
               name: 'pl',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Padding left.',
             },
             {
               name: 'm',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description:
                 'Margin on all sides. Setting `m` also replaces the default `auto` horizontal margin (unless `mx` is set), so the container is no longer centered.',
             },
             {
               name: 'mx',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               default: "'auto'",
               description: 'Horizontal margin (left and right). Falls back to `m`, then to `auto` (centered).',
             },
             {
               name: 'my',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Vertical margin (top and bottom). Falls back to `m`, then `0`.',
             },
             {
               name: 'mt',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Margin top.',
             },
             {
               name: 'mr',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Margin right.',
             },
             {
               name: 'mb',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Margin bottom.',
             },
             {
               name: 'ml',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Margin left.',
+            },
+            {
+              name: 'container',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Makes this element a query container (`container-type: inline-size`), so `@` breakpoints on descendants respond to its width. See Responsive props.',
             },
             {
               name: 'children',

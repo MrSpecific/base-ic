@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { AlertDialog as BaseAlertDialog } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
+import { createResponsive, cx, isResponsiveObject, type Responsive, type SpaceProps } from '../Layout/layout.utils';
 import { buildTypoColorVar, buildTypoSizeVars } from './typography.utils';
 import type { AccentColor } from '../Theme';
 import styles from './heading.module.css';
@@ -13,11 +13,11 @@ type HeadingTrim = 'normal' | 'start' | 'end' | 'both';
 
 export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement>, SpaceProps {
   as?: HeadingElement;
-  size?: HeadingSize;
+  size?: Responsive<HeadingSize>;
   weight?: HeadingWeight;
   color?: AccentColor;
   highContrast?: boolean;
-  align?: HeadingAlign;
+  align?: Responsive<HeadingAlign>;
   wrap?: HeadingWrap;
   trim?: HeadingTrim;
   truncate?: boolean;
@@ -51,31 +51,32 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     },
     ref,
   ) {
-    const resolvedSize = size ?? defaultSizeByElement[Tag];
-    const sizeVars = buildTypoSizeVars('heading', resolvedSize);
     const colorVars = buildTypoColorVar(color, highContrast);
     const weightVar = weight
       ? { '--typo-weight': `var(--font-weight-${weight})` } as React.CSSProperties
       : undefined;
-    const spaceVars = withVar(undefined, buildSpaceVars('typo', {
-      p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
-    }));
+    // Fill in the default size below the first breakpoint, so a nested Heading doesn't inherit one
+    const defaultSize = defaultSizeByElement[Tag];
+    const r = createResponsive(styles);
+    r.add('size', isResponsiveObject(size) ? { initial: defaultSize, ...size } : size ?? defaultSize,
+      (v) => buildTypoSizeVars('heading', v) as Record<string, string>);
+    r.add('align', align, (v) => ({ '--typo-align': v }));
+    r.space({ p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml });
 
     return (
       <Tag
         ref={ref}
         className={cx(
           styles.heading,
+          ...r.classes,
           truncate && styles.truncate,
           trim && trim !== 'normal' && styles[`trim${trim[0].toUpperCase()}${trim.slice(1)}` as keyof typeof styles],
           className,
         )}
         style={{
-          ...sizeVars,
+          ...r.vars,
           ...colorVars,
           ...weightVar,
-          ...spaceVars,
-          textAlign: align,
           textWrap: wrap,
           ...style,
         }}

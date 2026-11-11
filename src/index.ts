@@ -68,7 +68,12 @@ export type {
   SectionProps,
   SpaceProps,
   SpaceValue,
+  SizeProps,
+  SizeValue,
+  Responsive,
+  Breakpoint,
 } from './components/Layout';
+export { breakpoints, containerBreakpoints } from './components/Layout';
 
 // Button
 export { Button } from './components/Button';
@@ -81,6 +86,10 @@ export type { CardProps } from './components/Card';
 // Badge
 export { Badge } from './components/Badge';
 export type { BadgeProps } from './components/Badge';
+
+// Callout
+export { Callout } from './components/Callout';
+export type { CalloutRootProps, CalloutIconProps, CalloutTextProps } from './components/Callout';
 
 // Separator
 export { Separator } from './components/Separator';
@@ -234,6 +243,8 @@ export type {
   BadgeSize,
   BadgeVariant,
   BadgeRadius,
+  CalloutSize,
+  CalloutVariant,
   ButtonSize,
   ButtonVariant,
   ButtonRadius,

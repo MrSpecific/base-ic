@@ -41,3 +41,24 @@
   --color-brand-12: oklch(22%  0.10  /* hue */);  /* High-contrast text */
   --color-brand-contrast: white;                  /* Or black for light hues */
 }
+
+/*
+ * Alpha steps (translucent versions of 1–12), derived from the solid steps
+ * above — no values to fill in. Declared on every element that can switch
+ * appearance so they re-resolve there (see colors/alpha.css).
+ */
+:root,
+:where([data-base-ic-theme], .light, .dark, [data-appearance='light'], [data-appearance='dark']) {
+  --color-brand-a1:  color(from var(--color-brand-1) srgb var(--color-alpha-channels));
+  --color-brand-a2:  color(from var(--color-brand-2) srgb var(--color-alpha-channels));
+  --color-brand-a3:  color(from var(--color-brand-3) srgb var(--color-alpha-channels));
+  --color-brand-a4:  color(from var(--color-brand-4) srgb var(--color-alpha-channels));
+  --color-brand-a5:  color(from var(--color-brand-5) srgb var(--color-alpha-channels));
+  --color-brand-a6:  color(from var(--color-brand-6) srgb var(--color-alpha-channels));
+  --color-brand-a7:  color(from var(--color-brand-7) srgb var(--color-alpha-channels));
+  --color-brand-a8:  color(from var(--color-brand-8) srgb var(--color-alpha-channels));
+  --color-brand-a9:  color(from var(--color-brand-9) srgb var(--color-alpha-channels));
+  --color-brand-a10: color(from var(--color-brand-10) srgb var(--color-alpha-channels));
+  --color-brand-a11: color(from var(--color-brand-11) srgb var(--color-alpha-channels));
+  --color-brand-a12: color(from var(--color-brand-12) srgb var(--color-alpha-channels));
+}

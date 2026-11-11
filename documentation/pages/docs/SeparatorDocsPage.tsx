@@ -157,7 +157,7 @@ export function SeparatorDocsPage() {
             },
             {
               name: "p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml",
-              type: "number | string",
+              type: "Responsive<number | string>",
               description:
                 "Padding/margin shorthand props (e.g. m={3}). Numbers map to spacing scale tokens; strings are used as literal CSS values.",
             },

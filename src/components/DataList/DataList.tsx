@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
+import { spaceProps, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
 import type { AccentColor } from '../Theme';
 import styles from './data-list.module.css';
 
@@ -51,6 +51,7 @@ const DataListRoot = React.forwardRef<HTMLDListElement, DataListRootProps>(funct
   },
   ref,
 ) {
+  const space = spaceProps({ m, mx, my, mt, mr, mb, ml });
   return (
     <dl
       ref={ref}
@@ -59,9 +60,10 @@ const DataListRoot = React.forwardRef<HTMLDListElement, DataListRootProps>(funct
         styles[orientation],
         sizeClass[size],
         trim !== 'normal' && trimClass[trim],
+        space.className,
         className,
       )}
-      style={withVar(style, buildSpaceVars('dl', { m, mx, my, mt, mr, mb, ml }))}
+      style={withVar(style, space.vars)}
       {...rest}
     />
   );

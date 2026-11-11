@@ -2,14 +2,14 @@
   font-family: var(--font-family-mono);
   font-size: calc(var(--typo-font-size, var(--text-2-size)) * 0.9);
   line-height: 1;
-  padding: var(--kbd-padding-top, var(--kbd-padding-y, var(--kbd-padding, 0.15em)))
-           var(--kbd-padding-right, var(--kbd-padding-x, var(--kbd-padding, 0.4em)))
-           var(--kbd-padding-bottom, var(--kbd-padding-y, var(--kbd-padding, 0.15em)))
-           var(--kbd-padding-left, var(--kbd-padding-x, var(--kbd-padding, 0.4em)));
-  margin: var(--kbd-margin-top, var(--kbd-margin-y, var(--kbd-margin, 0)))
-          var(--kbd-margin-right, var(--kbd-margin-x, var(--kbd-margin, 0)))
-          var(--kbd-margin-bottom, var(--kbd-margin-y, var(--kbd-margin, 0)))
-          var(--kbd-margin-left, var(--kbd-margin-x, var(--kbd-margin, 0)));
+  padding: var(--bic-pt, var(--bic-py, var(--bic-p, 0.15em)))
+           var(--bic-pr, var(--bic-px, var(--bic-p, 0.4em)))
+           var(--bic-pb, var(--bic-py, var(--bic-p, 0.15em)))
+           var(--bic-pl, var(--bic-px, var(--bic-p, 0.4em)));
+  margin: var(--bic-mt, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-mr, var(--bic-mx, var(--bic-m, 0)))
+          var(--bic-mb, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-ml, var(--bic-mx, var(--bic-m, 0)));
   border-radius: var(--radius-2);
   border: calc(1px * var(--component-scaling)) solid var(--color-border);
   border-bottom-width: calc(2px * var(--component-scaling));

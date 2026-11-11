@@ -1,0 +1,468 @@
+/**
+ * Alpha (translucent) color scales: --color-<name>-a1 … --color-<name>-a12.
+ *
+ * Each alpha step is derived from its solid step: the most transparent color
+ * that, laid over the page background, reproduces the solid step (the same
+ * idea as Radix's --gray-a1…a12). Because they are computed from
+ * --color-<name>-<step>, they follow any override of the solid scale.
+ *
+ * The un-mixing math lives once in --color-alpha-channels (relative color
+ * syntax; r/g/b are the solid step's sRGB channels, 0–1):
+ *   alpha   = how far the furthest channel sits from the background
+ *   channel = bg + (channel - bg) / alpha
+ * Light mode solves against white, dark mode against the dark page background
+ * (gray-1, sRGB ≈ 0.0355). Channels on the "wrong" side of the background are
+ * clipped, so very saturated steps can be off by a few RGB units.
+ *
+ * Alpha tokens are re-declared on every element that can flip the solid
+ * primitives (same scope as the color block in semantic.css); a custom
+ * property resolves var() where it is declared, so a :root-only declaration
+ * would stay frozen at the :root palette.
+ */
+
+:root,
+:where(.light, [data-appearance='light']) {
+  --color-alpha-channels:
+    calc(1 - (1 - r) / (1 - min(r, g, b)))
+    calc(1 - (1 - g) / (1 - min(r, g, b)))
+    calc(1 - (1 - b) / (1 - min(r, g, b)))
+    / calc(1 - min(r, g, b));
+}
+
+/* The two dark blocks must stay identical (see dark.css). */
+:where(.dark, [data-appearance='dark']) {
+  --color-alpha-channels:
+    calc(0.0355 + (r - 0.0355) / ((max(r, g, b) - 0.0355) / 0.9645))
+    calc(0.0355 + (g - 0.0355) / ((max(r, g, b) - 0.0355) / 0.9645))
+    calc(0.0355 + (b - 0.0355) / ((max(r, g, b) - 0.0355) / 0.9645))
+    / calc((max(r, g, b) - 0.0355) / 0.9645);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light):not([data-appearance='light']) {
+    --color-alpha-channels:
+      calc(0.0355 + (r - 0.0355) / ((max(r, g, b) - 0.0355) / 0.9645))
+      calc(0.0355 + (g - 0.0355) / ((max(r, g, b) - 0.0355) / 0.9645))
+      calc(0.0355 + (b - 0.0355) / ((max(r, g, b) - 0.0355) / 0.9645))
+      / calc((max(r, g, b) - 0.0355) / 0.9645);
+  }
+}
+
+:root,
+:where([data-base-ic-theme], .light, .dark, [data-appearance='light'], [data-appearance='dark']) {
+  --color-amber-a1:   color(from var(--color-amber-1) srgb var(--color-alpha-channels));
+  --color-amber-a2:   color(from var(--color-amber-2) srgb var(--color-alpha-channels));
+  --color-amber-a3:   color(from var(--color-amber-3) srgb var(--color-alpha-channels));
+  --color-amber-a4:   color(from var(--color-amber-4) srgb var(--color-alpha-channels));
+  --color-amber-a5:   color(from var(--color-amber-5) srgb var(--color-alpha-channels));
+  --color-amber-a6:   color(from var(--color-amber-6) srgb var(--color-alpha-channels));
+  --color-amber-a7:   color(from var(--color-amber-7) srgb var(--color-alpha-channels));
+  --color-amber-a8:   color(from var(--color-amber-8) srgb var(--color-alpha-channels));
+  --color-amber-a9:   color(from var(--color-amber-9) srgb var(--color-alpha-channels));
+  --color-amber-a10:  color(from var(--color-amber-10) srgb var(--color-alpha-channels));
+  --color-amber-a11:  color(from var(--color-amber-11) srgb var(--color-alpha-channels));
+  --color-amber-a12:  color(from var(--color-amber-12) srgb var(--color-alpha-channels));
+
+  --color-black-a1:   color(from var(--color-black-1) srgb var(--color-alpha-channels));
+  --color-black-a2:   color(from var(--color-black-2) srgb var(--color-alpha-channels));
+  --color-black-a3:   color(from var(--color-black-3) srgb var(--color-alpha-channels));
+  --color-black-a4:   color(from var(--color-black-4) srgb var(--color-alpha-channels));
+  --color-black-a5:   color(from var(--color-black-5) srgb var(--color-alpha-channels));
+  --color-black-a6:   color(from var(--color-black-6) srgb var(--color-alpha-channels));
+  --color-black-a7:   color(from var(--color-black-7) srgb var(--color-alpha-channels));
+  --color-black-a8:   color(from var(--color-black-8) srgb var(--color-alpha-channels));
+  --color-black-a9:   color(from var(--color-black-9) srgb var(--color-alpha-channels));
+  --color-black-a10:  color(from var(--color-black-10) srgb var(--color-alpha-channels));
+  --color-black-a11:  color(from var(--color-black-11) srgb var(--color-alpha-channels));
+  --color-black-a12:  color(from var(--color-black-12) srgb var(--color-alpha-channels));
+
+  --color-blue-a1:   color(from var(--color-blue-1) srgb var(--color-alpha-channels));
+  --color-blue-a2:   color(from var(--color-blue-2) srgb var(--color-alpha-channels));
+  --color-blue-a3:   color(from var(--color-blue-3) srgb var(--color-alpha-channels));
+  --color-blue-a4:   color(from var(--color-blue-4) srgb var(--color-alpha-channels));
+  --color-blue-a5:   color(from var(--color-blue-5) srgb var(--color-alpha-channels));
+  --color-blue-a6:   color(from var(--color-blue-6) srgb var(--color-alpha-channels));
+  --color-blue-a7:   color(from var(--color-blue-7) srgb var(--color-alpha-channels));
+  --color-blue-a8:   color(from var(--color-blue-8) srgb var(--color-alpha-channels));
+  --color-blue-a9:   color(from var(--color-blue-9) srgb var(--color-alpha-channels));
+  --color-blue-a10:  color(from var(--color-blue-10) srgb var(--color-alpha-channels));
+  --color-blue-a11:  color(from var(--color-blue-11) srgb var(--color-alpha-channels));
+  --color-blue-a12:  color(from var(--color-blue-12) srgb var(--color-alpha-channels));
+
+  --color-bronze-a1:   color(from var(--color-bronze-1) srgb var(--color-alpha-channels));
+  --color-bronze-a2:   color(from var(--color-bronze-2) srgb var(--color-alpha-channels));
+  --color-bronze-a3:   color(from var(--color-bronze-3) srgb var(--color-alpha-channels));
+  --color-bronze-a4:   color(from var(--color-bronze-4) srgb var(--color-alpha-channels));
+  --color-bronze-a5:   color(from var(--color-bronze-5) srgb var(--color-alpha-channels));
+  --color-bronze-a6:   color(from var(--color-bronze-6) srgb var(--color-alpha-channels));
+  --color-bronze-a7:   color(from var(--color-bronze-7) srgb var(--color-alpha-channels));
+  --color-bronze-a8:   color(from var(--color-bronze-8) srgb var(--color-alpha-channels));
+  --color-bronze-a9:   color(from var(--color-bronze-9) srgb var(--color-alpha-channels));
+  --color-bronze-a10:  color(from var(--color-bronze-10) srgb var(--color-alpha-channels));
+  --color-bronze-a11:  color(from var(--color-bronze-11) srgb var(--color-alpha-channels));
+  --color-bronze-a12:  color(from var(--color-bronze-12) srgb var(--color-alpha-channels));
+
+  --color-brown-a1:   color(from var(--color-brown-1) srgb var(--color-alpha-channels));
+  --color-brown-a2:   color(from var(--color-brown-2) srgb var(--color-alpha-channels));
+  --color-brown-a3:   color(from var(--color-brown-3) srgb var(--color-alpha-channels));
+  --color-brown-a4:   color(from var(--color-brown-4) srgb var(--color-alpha-channels));
+  --color-brown-a5:   color(from var(--color-brown-5) srgb var(--color-alpha-channels));
+  --color-brown-a6:   color(from var(--color-brown-6) srgb var(--color-alpha-channels));
+  --color-brown-a7:   color(from var(--color-brown-7) srgb var(--color-alpha-channels));
+  --color-brown-a8:   color(from var(--color-brown-8) srgb var(--color-alpha-channels));
+  --color-brown-a9:   color(from var(--color-brown-9) srgb var(--color-alpha-channels));
+  --color-brown-a10:  color(from var(--color-brown-10) srgb var(--color-alpha-channels));
+  --color-brown-a11:  color(from var(--color-brown-11) srgb var(--color-alpha-channels));
+  --color-brown-a12:  color(from var(--color-brown-12) srgb var(--color-alpha-channels));
+
+  --color-crimson-a1:   color(from var(--color-crimson-1) srgb var(--color-alpha-channels));
+  --color-crimson-a2:   color(from var(--color-crimson-2) srgb var(--color-alpha-channels));
+  --color-crimson-a3:   color(from var(--color-crimson-3) srgb var(--color-alpha-channels));
+  --color-crimson-a4:   color(from var(--color-crimson-4) srgb var(--color-alpha-channels));
+  --color-crimson-a5:   color(from var(--color-crimson-5) srgb var(--color-alpha-channels));
+  --color-crimson-a6:   color(from var(--color-crimson-6) srgb var(--color-alpha-channels));
+  --color-crimson-a7:   color(from var(--color-crimson-7) srgb var(--color-alpha-channels));
+  --color-crimson-a8:   color(from var(--color-crimson-8) srgb var(--color-alpha-channels));
+  --color-crimson-a9:   color(from var(--color-crimson-9) srgb var(--color-alpha-channels));
+  --color-crimson-a10:  color(from var(--color-crimson-10) srgb var(--color-alpha-channels));
+  --color-crimson-a11:  color(from var(--color-crimson-11) srgb var(--color-alpha-channels));
+  --color-crimson-a12:  color(from var(--color-crimson-12) srgb var(--color-alpha-channels));
+
+  --color-cyan-a1:   color(from var(--color-cyan-1) srgb var(--color-alpha-channels));
+  --color-cyan-a2:   color(from var(--color-cyan-2) srgb var(--color-alpha-channels));
+  --color-cyan-a3:   color(from var(--color-cyan-3) srgb var(--color-alpha-channels));
+  --color-cyan-a4:   color(from var(--color-cyan-4) srgb var(--color-alpha-channels));
+  --color-cyan-a5:   color(from var(--color-cyan-5) srgb var(--color-alpha-channels));
+  --color-cyan-a6:   color(from var(--color-cyan-6) srgb var(--color-alpha-channels));
+  --color-cyan-a7:   color(from var(--color-cyan-7) srgb var(--color-alpha-channels));
+  --color-cyan-a8:   color(from var(--color-cyan-8) srgb var(--color-alpha-channels));
+  --color-cyan-a9:   color(from var(--color-cyan-9) srgb var(--color-alpha-channels));
+  --color-cyan-a10:  color(from var(--color-cyan-10) srgb var(--color-alpha-channels));
+  --color-cyan-a11:  color(from var(--color-cyan-11) srgb var(--color-alpha-channels));
+  --color-cyan-a12:  color(from var(--color-cyan-12) srgb var(--color-alpha-channels));
+
+  --color-gold-a1:   color(from var(--color-gold-1) srgb var(--color-alpha-channels));
+  --color-gold-a2:   color(from var(--color-gold-2) srgb var(--color-alpha-channels));
+  --color-gold-a3:   color(from var(--color-gold-3) srgb var(--color-alpha-channels));
+  --color-gold-a4:   color(from var(--color-gold-4) srgb var(--color-alpha-channels));
+  --color-gold-a5:   color(from var(--color-gold-5) srgb var(--color-alpha-channels));
+  --color-gold-a6:   color(from var(--color-gold-6) srgb var(--color-alpha-channels));
+  --color-gold-a7:   color(from var(--color-gold-7) srgb var(--color-alpha-channels));
+  --color-gold-a8:   color(from var(--color-gold-8) srgb var(--color-alpha-channels));
+  --color-gold-a9:   color(from var(--color-gold-9) srgb var(--color-alpha-channels));
+  --color-gold-a10:  color(from var(--color-gold-10) srgb var(--color-alpha-channels));
+  --color-gold-a11:  color(from var(--color-gold-11) srgb var(--color-alpha-channels));
+  --color-gold-a12:  color(from var(--color-gold-12) srgb var(--color-alpha-channels));
+
+  --color-grass-a1:   color(from var(--color-grass-1) srgb var(--color-alpha-channels));
+  --color-grass-a2:   color(from var(--color-grass-2) srgb var(--color-alpha-channels));
+  --color-grass-a3:   color(from var(--color-grass-3) srgb var(--color-alpha-channels));
+  --color-grass-a4:   color(from var(--color-grass-4) srgb var(--color-alpha-channels));
+  --color-grass-a5:   color(from var(--color-grass-5) srgb var(--color-alpha-channels));
+  --color-grass-a6:   color(from var(--color-grass-6) srgb var(--color-alpha-channels));
+  --color-grass-a7:   color(from var(--color-grass-7) srgb var(--color-alpha-channels));
+  --color-grass-a8:   color(from var(--color-grass-8) srgb var(--color-alpha-channels));
+  --color-grass-a9:   color(from var(--color-grass-9) srgb var(--color-alpha-channels));
+  --color-grass-a10:  color(from var(--color-grass-10) srgb var(--color-alpha-channels));
+  --color-grass-a11:  color(from var(--color-grass-11) srgb var(--color-alpha-channels));
+  --color-grass-a12:  color(from var(--color-grass-12) srgb var(--color-alpha-channels));
+
+  --color-gray-a1:   color(from var(--color-gray-1) srgb var(--color-alpha-channels));
+  --color-gray-a2:   color(from var(--color-gray-2) srgb var(--color-alpha-channels));
+  --color-gray-a3:   color(from var(--color-gray-3) srgb var(--color-alpha-channels));
+  --color-gray-a4:   color(from var(--color-gray-4) srgb var(--color-alpha-channels));
+  --color-gray-a5:   color(from var(--color-gray-5) srgb var(--color-alpha-channels));
+  --color-gray-a6:   color(from var(--color-gray-6) srgb var(--color-alpha-channels));
+  --color-gray-a7:   color(from var(--color-gray-7) srgb var(--color-alpha-channels));
+  --color-gray-a8:   color(from var(--color-gray-8) srgb var(--color-alpha-channels));
+  --color-gray-a9:   color(from var(--color-gray-9) srgb var(--color-alpha-channels));
+  --color-gray-a10:  color(from var(--color-gray-10) srgb var(--color-alpha-channels));
+  --color-gray-a11:  color(from var(--color-gray-11) srgb var(--color-alpha-channels));
+  --color-gray-a12:  color(from var(--color-gray-12) srgb var(--color-alpha-channels));
+
+  --color-green-a1:   color(from var(--color-green-1) srgb var(--color-alpha-channels));
+  --color-green-a2:   color(from var(--color-green-2) srgb var(--color-alpha-channels));
+  --color-green-a3:   color(from var(--color-green-3) srgb var(--color-alpha-channels));
+  --color-green-a4:   color(from var(--color-green-4) srgb var(--color-alpha-channels));
+  --color-green-a5:   color(from var(--color-green-5) srgb var(--color-alpha-channels));
+  --color-green-a6:   color(from var(--color-green-6) srgb var(--color-alpha-channels));
+  --color-green-a7:   color(from var(--color-green-7) srgb var(--color-alpha-channels));
+  --color-green-a8:   color(from var(--color-green-8) srgb var(--color-alpha-channels));
+  --color-green-a9:   color(from var(--color-green-9) srgb var(--color-alpha-channels));
+  --color-green-a10:  color(from var(--color-green-10) srgb var(--color-alpha-channels));
+  --color-green-a11:  color(from var(--color-green-11) srgb var(--color-alpha-channels));
+  --color-green-a12:  color(from var(--color-green-12) srgb var(--color-alpha-channels));
+
+  --color-indigo-a1:   color(from var(--color-indigo-1) srgb var(--color-alpha-channels));
+  --color-indigo-a2:   color(from var(--color-indigo-2) srgb var(--color-alpha-channels));
+  --color-indigo-a3:   color(from var(--color-indigo-3) srgb var(--color-alpha-channels));
+  --color-indigo-a4:   color(from var(--color-indigo-4) srgb var(--color-alpha-channels));
+  --color-indigo-a5:   color(from var(--color-indigo-5) srgb var(--color-alpha-channels));
+  --color-indigo-a6:   color(from var(--color-indigo-6) srgb var(--color-alpha-channels));
+  --color-indigo-a7:   color(from var(--color-indigo-7) srgb var(--color-alpha-channels));
+  --color-indigo-a8:   color(from var(--color-indigo-8) srgb var(--color-alpha-channels));
+  --color-indigo-a9:   color(from var(--color-indigo-9) srgb var(--color-alpha-channels));
+  --color-indigo-a10:  color(from var(--color-indigo-10) srgb var(--color-alpha-channels));
+  --color-indigo-a11:  color(from var(--color-indigo-11) srgb var(--color-alpha-channels));
+  --color-indigo-a12:  color(from var(--color-indigo-12) srgb var(--color-alpha-channels));
+
+  --color-iris-a1:   color(from var(--color-iris-1) srgb var(--color-alpha-channels));
+  --color-iris-a2:   color(from var(--color-iris-2) srgb var(--color-alpha-channels));
+  --color-iris-a3:   color(from var(--color-iris-3) srgb var(--color-alpha-channels));
+  --color-iris-a4:   color(from var(--color-iris-4) srgb var(--color-alpha-channels));
+  --color-iris-a5:   color(from var(--color-iris-5) srgb var(--color-alpha-channels));
+  --color-iris-a6:   color(from var(--color-iris-6) srgb var(--color-alpha-channels));
+  --color-iris-a7:   color(from var(--color-iris-7) srgb var(--color-alpha-channels));
+  --color-iris-a8:   color(from var(--color-iris-8) srgb var(--color-alpha-channels));
+  --color-iris-a9:   color(from var(--color-iris-9) srgb var(--color-alpha-channels));
+  --color-iris-a10:  color(from var(--color-iris-10) srgb var(--color-alpha-channels));
+  --color-iris-a11:  color(from var(--color-iris-11) srgb var(--color-alpha-channels));
+  --color-iris-a12:  color(from var(--color-iris-12) srgb var(--color-alpha-channels));
+
+  --color-jade-a1:   color(from var(--color-jade-1) srgb var(--color-alpha-channels));
+  --color-jade-a2:   color(from var(--color-jade-2) srgb var(--color-alpha-channels));
+  --color-jade-a3:   color(from var(--color-jade-3) srgb var(--color-alpha-channels));
+  --color-jade-a4:   color(from var(--color-jade-4) srgb var(--color-alpha-channels));
+  --color-jade-a5:   color(from var(--color-jade-5) srgb var(--color-alpha-channels));
+  --color-jade-a6:   color(from var(--color-jade-6) srgb var(--color-alpha-channels));
+  --color-jade-a7:   color(from var(--color-jade-7) srgb var(--color-alpha-channels));
+  --color-jade-a8:   color(from var(--color-jade-8) srgb var(--color-alpha-channels));
+  --color-jade-a9:   color(from var(--color-jade-9) srgb var(--color-alpha-channels));
+  --color-jade-a10:  color(from var(--color-jade-10) srgb var(--color-alpha-channels));
+  --color-jade-a11:  color(from var(--color-jade-11) srgb var(--color-alpha-channels));
+  --color-jade-a12:  color(from var(--color-jade-12) srgb var(--color-alpha-channels));
+
+  --color-lime-a1:   color(from var(--color-lime-1) srgb var(--color-alpha-channels));
+  --color-lime-a2:   color(from var(--color-lime-2) srgb var(--color-alpha-channels));
+  --color-lime-a3:   color(from var(--color-lime-3) srgb var(--color-alpha-channels));
+  --color-lime-a4:   color(from var(--color-lime-4) srgb var(--color-alpha-channels));
+  --color-lime-a5:   color(from var(--color-lime-5) srgb var(--color-alpha-channels));
+  --color-lime-a6:   color(from var(--color-lime-6) srgb var(--color-alpha-channels));
+  --color-lime-a7:   color(from var(--color-lime-7) srgb var(--color-alpha-channels));
+  --color-lime-a8:   color(from var(--color-lime-8) srgb var(--color-alpha-channels));
+  --color-lime-a9:   color(from var(--color-lime-9) srgb var(--color-alpha-channels));
+  --color-lime-a10:  color(from var(--color-lime-10) srgb var(--color-alpha-channels));
+  --color-lime-a11:  color(from var(--color-lime-11) srgb var(--color-alpha-channels));
+  --color-lime-a12:  color(from var(--color-lime-12) srgb var(--color-alpha-channels));
+
+  --color-mauve-a1:   color(from var(--color-mauve-1) srgb var(--color-alpha-channels));
+  --color-mauve-a2:   color(from var(--color-mauve-2) srgb var(--color-alpha-channels));
+  --color-mauve-a3:   color(from var(--color-mauve-3) srgb var(--color-alpha-channels));
+  --color-mauve-a4:   color(from var(--color-mauve-4) srgb var(--color-alpha-channels));
+  --color-mauve-a5:   color(from var(--color-mauve-5) srgb var(--color-alpha-channels));
+  --color-mauve-a6:   color(from var(--color-mauve-6) srgb var(--color-alpha-channels));
+  --color-mauve-a7:   color(from var(--color-mauve-7) srgb var(--color-alpha-channels));
+  --color-mauve-a8:   color(from var(--color-mauve-8) srgb var(--color-alpha-channels));
+  --color-mauve-a9:   color(from var(--color-mauve-9) srgb var(--color-alpha-channels));
+  --color-mauve-a10:  color(from var(--color-mauve-10) srgb var(--color-alpha-channels));
+  --color-mauve-a11:  color(from var(--color-mauve-11) srgb var(--color-alpha-channels));
+  --color-mauve-a12:  color(from var(--color-mauve-12) srgb var(--color-alpha-channels));
+
+  --color-mint-a1:   color(from var(--color-mint-1) srgb var(--color-alpha-channels));
+  --color-mint-a2:   color(from var(--color-mint-2) srgb var(--color-alpha-channels));
+  --color-mint-a3:   color(from var(--color-mint-3) srgb var(--color-alpha-channels));
+  --color-mint-a4:   color(from var(--color-mint-4) srgb var(--color-alpha-channels));
+  --color-mint-a5:   color(from var(--color-mint-5) srgb var(--color-alpha-channels));
+  --color-mint-a6:   color(from var(--color-mint-6) srgb var(--color-alpha-channels));
+  --color-mint-a7:   color(from var(--color-mint-7) srgb var(--color-alpha-channels));
+  --color-mint-a8:   color(from var(--color-mint-8) srgb var(--color-alpha-channels));
+  --color-mint-a9:   color(from var(--color-mint-9) srgb var(--color-alpha-channels));
+  --color-mint-a10:  color(from var(--color-mint-10) srgb var(--color-alpha-channels));
+  --color-mint-a11:  color(from var(--color-mint-11) srgb var(--color-alpha-channels));
+  --color-mint-a12:  color(from var(--color-mint-12) srgb var(--color-alpha-channels));
+
+  --color-olive-a1:   color(from var(--color-olive-1) srgb var(--color-alpha-channels));
+  --color-olive-a2:   color(from var(--color-olive-2) srgb var(--color-alpha-channels));
+  --color-olive-a3:   color(from var(--color-olive-3) srgb var(--color-alpha-channels));
+  --color-olive-a4:   color(from var(--color-olive-4) srgb var(--color-alpha-channels));
+  --color-olive-a5:   color(from var(--color-olive-5) srgb var(--color-alpha-channels));
+  --color-olive-a6:   color(from var(--color-olive-6) srgb var(--color-alpha-channels));
+  --color-olive-a7:   color(from var(--color-olive-7) srgb var(--color-alpha-channels));
+  --color-olive-a8:   color(from var(--color-olive-8) srgb var(--color-alpha-channels));
+  --color-olive-a9:   color(from var(--color-olive-9) srgb var(--color-alpha-channels));
+  --color-olive-a10:  color(from var(--color-olive-10) srgb var(--color-alpha-channels));
+  --color-olive-a11:  color(from var(--color-olive-11) srgb var(--color-alpha-channels));
+  --color-olive-a12:  color(from var(--color-olive-12) srgb var(--color-alpha-channels));
+
+  --color-orange-a1:   color(from var(--color-orange-1) srgb var(--color-alpha-channels));
+  --color-orange-a2:   color(from var(--color-orange-2) srgb var(--color-alpha-channels));
+  --color-orange-a3:   color(from var(--color-orange-3) srgb var(--color-alpha-channels));
+  --color-orange-a4:   color(from var(--color-orange-4) srgb var(--color-alpha-channels));
+  --color-orange-a5:   color(from var(--color-orange-5) srgb var(--color-alpha-channels));
+  --color-orange-a6:   color(from var(--color-orange-6) srgb var(--color-alpha-channels));
+  --color-orange-a7:   color(from var(--color-orange-7) srgb var(--color-alpha-channels));
+  --color-orange-a8:   color(from var(--color-orange-8) srgb var(--color-alpha-channels));
+  --color-orange-a9:   color(from var(--color-orange-9) srgb var(--color-alpha-channels));
+  --color-orange-a10:  color(from var(--color-orange-10) srgb var(--color-alpha-channels));
+  --color-orange-a11:  color(from var(--color-orange-11) srgb var(--color-alpha-channels));
+  --color-orange-a12:  color(from var(--color-orange-12) srgb var(--color-alpha-channels));
+
+  --color-pink-a1:   color(from var(--color-pink-1) srgb var(--color-alpha-channels));
+  --color-pink-a2:   color(from var(--color-pink-2) srgb var(--color-alpha-channels));
+  --color-pink-a3:   color(from var(--color-pink-3) srgb var(--color-alpha-channels));
+  --color-pink-a4:   color(from var(--color-pink-4) srgb var(--color-alpha-channels));
+  --color-pink-a5:   color(from var(--color-pink-5) srgb var(--color-alpha-channels));
+  --color-pink-a6:   color(from var(--color-pink-6) srgb var(--color-alpha-channels));
+  --color-pink-a7:   color(from var(--color-pink-7) srgb var(--color-alpha-channels));
+  --color-pink-a8:   color(from var(--color-pink-8) srgb var(--color-alpha-channels));
+  --color-pink-a9:   color(from var(--color-pink-9) srgb var(--color-alpha-channels));
+  --color-pink-a10:  color(from var(--color-pink-10) srgb var(--color-alpha-channels));
+  --color-pink-a11:  color(from var(--color-pink-11) srgb var(--color-alpha-channels));
+  --color-pink-a12:  color(from var(--color-pink-12) srgb var(--color-alpha-channels));
+
+  --color-plum-a1:   color(from var(--color-plum-1) srgb var(--color-alpha-channels));
+  --color-plum-a2:   color(from var(--color-plum-2) srgb var(--color-alpha-channels));
+  --color-plum-a3:   color(from var(--color-plum-3) srgb var(--color-alpha-channels));
+  --color-plum-a4:   color(from var(--color-plum-4) srgb var(--color-alpha-channels));
+  --color-plum-a5:   color(from var(--color-plum-5) srgb var(--color-alpha-channels));
+  --color-plum-a6:   color(from var(--color-plum-6) srgb var(--color-alpha-channels));
+  --color-plum-a7:   color(from var(--color-plum-7) srgb var(--color-alpha-channels));
+  --color-plum-a8:   color(from var(--color-plum-8) srgb var(--color-alpha-channels));
+  --color-plum-a9:   color(from var(--color-plum-9) srgb var(--color-alpha-channels));
+  --color-plum-a10:  color(from var(--color-plum-10) srgb var(--color-alpha-channels));
+  --color-plum-a11:  color(from var(--color-plum-11) srgb var(--color-alpha-channels));
+  --color-plum-a12:  color(from var(--color-plum-12) srgb var(--color-alpha-channels));
+
+  --color-purple-a1:   color(from var(--color-purple-1) srgb var(--color-alpha-channels));
+  --color-purple-a2:   color(from var(--color-purple-2) srgb var(--color-alpha-channels));
+  --color-purple-a3:   color(from var(--color-purple-3) srgb var(--color-alpha-channels));
+  --color-purple-a4:   color(from var(--color-purple-4) srgb var(--color-alpha-channels));
+  --color-purple-a5:   color(from var(--color-purple-5) srgb var(--color-alpha-channels));
+  --color-purple-a6:   color(from var(--color-purple-6) srgb var(--color-alpha-channels));
+  --color-purple-a7:   color(from var(--color-purple-7) srgb var(--color-alpha-channels));
+  --color-purple-a8:   color(from var(--color-purple-8) srgb var(--color-alpha-channels));
+  --color-purple-a9:   color(from var(--color-purple-9) srgb var(--color-alpha-channels));
+  --color-purple-a10:  color(from var(--color-purple-10) srgb var(--color-alpha-channels));
+  --color-purple-a11:  color(from var(--color-purple-11) srgb var(--color-alpha-channels));
+  --color-purple-a12:  color(from var(--color-purple-12) srgb var(--color-alpha-channels));
+
+  --color-red-a1:   color(from var(--color-red-1) srgb var(--color-alpha-channels));
+  --color-red-a2:   color(from var(--color-red-2) srgb var(--color-alpha-channels));
+  --color-red-a3:   color(from var(--color-red-3) srgb var(--color-alpha-channels));
+  --color-red-a4:   color(from var(--color-red-4) srgb var(--color-alpha-channels));
+  --color-red-a5:   color(from var(--color-red-5) srgb var(--color-alpha-channels));
+  --color-red-a6:   color(from var(--color-red-6) srgb var(--color-alpha-channels));
+  --color-red-a7:   color(from var(--color-red-7) srgb var(--color-alpha-channels));
+  --color-red-a8:   color(from var(--color-red-8) srgb var(--color-alpha-channels));
+  --color-red-a9:   color(from var(--color-red-9) srgb var(--color-alpha-channels));
+  --color-red-a10:  color(from var(--color-red-10) srgb var(--color-alpha-channels));
+  --color-red-a11:  color(from var(--color-red-11) srgb var(--color-alpha-channels));
+  --color-red-a12:  color(from var(--color-red-12) srgb var(--color-alpha-channels));
+
+  --color-ruby-a1:   color(from var(--color-ruby-1) srgb var(--color-alpha-channels));
+  --color-ruby-a2:   color(from var(--color-ruby-2) srgb var(--color-alpha-channels));
+  --color-ruby-a3:   color(from var(--color-ruby-3) srgb var(--color-alpha-channels));
+  --color-ruby-a4:   color(from var(--color-ruby-4) srgb var(--color-alpha-channels));
+  --color-ruby-a5:   color(from var(--color-ruby-5) srgb var(--color-alpha-channels));
+  --color-ruby-a6:   color(from var(--color-ruby-6) srgb var(--color-alpha-channels));
+  --color-ruby-a7:   color(from var(--color-ruby-7) srgb var(--color-alpha-channels));
+  --color-ruby-a8:   color(from var(--color-ruby-8) srgb var(--color-alpha-channels));
+  --color-ruby-a9:   color(from var(--color-ruby-9) srgb var(--color-alpha-channels));
+  --color-ruby-a10:  color(from var(--color-ruby-10) srgb var(--color-alpha-channels));
+  --color-ruby-a11:  color(from var(--color-ruby-11) srgb var(--color-alpha-channels));
+  --color-ruby-a12:  color(from var(--color-ruby-12) srgb var(--color-alpha-channels));
+
+  --color-sage-a1:   color(from var(--color-sage-1) srgb var(--color-alpha-channels));
+  --color-sage-a2:   color(from var(--color-sage-2) srgb var(--color-alpha-channels));
+  --color-sage-a3:   color(from var(--color-sage-3) srgb var(--color-alpha-channels));
+  --color-sage-a4:   color(from var(--color-sage-4) srgb var(--color-alpha-channels));
+  --color-sage-a5:   color(from var(--color-sage-5) srgb var(--color-alpha-channels));
+  --color-sage-a6:   color(from var(--color-sage-6) srgb var(--color-alpha-channels));
+  --color-sage-a7:   color(from var(--color-sage-7) srgb var(--color-alpha-channels));
+  --color-sage-a8:   color(from var(--color-sage-8) srgb var(--color-alpha-channels));
+  --color-sage-a9:   color(from var(--color-sage-9) srgb var(--color-alpha-channels));
+  --color-sage-a10:  color(from var(--color-sage-10) srgb var(--color-alpha-channels));
+  --color-sage-a11:  color(from var(--color-sage-11) srgb var(--color-alpha-channels));
+  --color-sage-a12:  color(from var(--color-sage-12) srgb var(--color-alpha-channels));
+
+  --color-sand-a1:   color(from var(--color-sand-1) srgb var(--color-alpha-channels));
+  --color-sand-a2:   color(from var(--color-sand-2) srgb var(--color-alpha-channels));
+  --color-sand-a3:   color(from var(--color-sand-3) srgb var(--color-alpha-channels));
+  --color-sand-a4:   color(from var(--color-sand-4) srgb var(--color-alpha-channels));
+  --color-sand-a5:   color(from var(--color-sand-5) srgb var(--color-alpha-channels));
+  --color-sand-a6:   color(from var(--color-sand-6) srgb var(--color-alpha-channels));
+  --color-sand-a7:   color(from var(--color-sand-7) srgb var(--color-alpha-channels));
+  --color-sand-a8:   color(from var(--color-sand-8) srgb var(--color-alpha-channels));
+  --color-sand-a9:   color(from var(--color-sand-9) srgb var(--color-alpha-channels));
+  --color-sand-a10:  color(from var(--color-sand-10) srgb var(--color-alpha-channels));
+  --color-sand-a11:  color(from var(--color-sand-11) srgb var(--color-alpha-channels));
+  --color-sand-a12:  color(from var(--color-sand-12) srgb var(--color-alpha-channels));
+
+  --color-sky-a1:   color(from var(--color-sky-1) srgb var(--color-alpha-channels));
+  --color-sky-a2:   color(from var(--color-sky-2) srgb var(--color-alpha-channels));
+  --color-sky-a3:   color(from var(--color-sky-3) srgb var(--color-alpha-channels));
+  --color-sky-a4:   color(from var(--color-sky-4) srgb var(--color-alpha-channels));
+  --color-sky-a5:   color(from var(--color-sky-5) srgb var(--color-alpha-channels));
+  --color-sky-a6:   color(from var(--color-sky-6) srgb var(--color-alpha-channels));
+  --color-sky-a7:   color(from var(--color-sky-7) srgb var(--color-alpha-channels));
+  --color-sky-a8:   color(from var(--color-sky-8) srgb var(--color-alpha-channels));
+  --color-sky-a9:   color(from var(--color-sky-9) srgb var(--color-alpha-channels));
+  --color-sky-a10:  color(from var(--color-sky-10) srgb var(--color-alpha-channels));
+  --color-sky-a11:  color(from var(--color-sky-11) srgb var(--color-alpha-channels));
+  --color-sky-a12:  color(from var(--color-sky-12) srgb var(--color-alpha-channels));
+
+  --color-slate-a1:   color(from var(--color-slate-1) srgb var(--color-alpha-channels));
+  --color-slate-a2:   color(from var(--color-slate-2) srgb var(--color-alpha-channels));
+  --color-slate-a3:   color(from var(--color-slate-3) srgb var(--color-alpha-channels));
+  --color-slate-a4:   color(from var(--color-slate-4) srgb var(--color-alpha-channels));
+  --color-slate-a5:   color(from var(--color-slate-5) srgb var(--color-alpha-channels));
+  --color-slate-a6:   color(from var(--color-slate-6) srgb var(--color-alpha-channels));
+  --color-slate-a7:   color(from var(--color-slate-7) srgb var(--color-alpha-channels));
+  --color-slate-a8:   color(from var(--color-slate-8) srgb var(--color-alpha-channels));
+  --color-slate-a9:   color(from var(--color-slate-9) srgb var(--color-alpha-channels));
+  --color-slate-a10:  color(from var(--color-slate-10) srgb var(--color-alpha-channels));
+  --color-slate-a11:  color(from var(--color-slate-11) srgb var(--color-alpha-channels));
+  --color-slate-a12:  color(from var(--color-slate-12) srgb var(--color-alpha-channels));
+
+  --color-teal-a1:   color(from var(--color-teal-1) srgb var(--color-alpha-channels));
+  --color-teal-a2:   color(from var(--color-teal-2) srgb var(--color-alpha-channels));
+  --color-teal-a3:   color(from var(--color-teal-3) srgb var(--color-alpha-channels));
+  --color-teal-a4:   color(from var(--color-teal-4) srgb var(--color-alpha-channels));
+  --color-teal-a5:   color(from var(--color-teal-5) srgb var(--color-alpha-channels));
+  --color-teal-a6:   color(from var(--color-teal-6) srgb var(--color-alpha-channels));
+  --color-teal-a7:   color(from var(--color-teal-7) srgb var(--color-alpha-channels));
+  --color-teal-a8:   color(from var(--color-teal-8) srgb var(--color-alpha-channels));
+  --color-teal-a9:   color(from var(--color-teal-9) srgb var(--color-alpha-channels));
+  --color-teal-a10:  color(from var(--color-teal-10) srgb var(--color-alpha-channels));
+  --color-teal-a11:  color(from var(--color-teal-11) srgb var(--color-alpha-channels));
+  --color-teal-a12:  color(from var(--color-teal-12) srgb var(--color-alpha-channels));
+
+  --color-tomato-a1:   color(from var(--color-tomato-1) srgb var(--color-alpha-channels));
+  --color-tomato-a2:   color(from var(--color-tomato-2) srgb var(--color-alpha-channels));
+  --color-tomato-a3:   color(from var(--color-tomato-3) srgb var(--color-alpha-channels));
+  --color-tomato-a4:   color(from var(--color-tomato-4) srgb var(--color-alpha-channels));
+  --color-tomato-a5:   color(from var(--color-tomato-5) srgb var(--color-alpha-channels));
+  --color-tomato-a6:   color(from var(--color-tomato-6) srgb var(--color-alpha-channels));
+  --color-tomato-a7:   color(from var(--color-tomato-7) srgb var(--color-alpha-channels));
+  --color-tomato-a8:   color(from var(--color-tomato-8) srgb var(--color-alpha-channels));
+  --color-tomato-a9:   color(from var(--color-tomato-9) srgb var(--color-alpha-channels));
+  --color-tomato-a10:  color(from var(--color-tomato-10) srgb var(--color-alpha-channels));
+  --color-tomato-a11:  color(from var(--color-tomato-11) srgb var(--color-alpha-channels));
+  --color-tomato-a12:  color(from var(--color-tomato-12) srgb var(--color-alpha-channels));
+
+  --color-violet-a1:   color(from var(--color-violet-1) srgb var(--color-alpha-channels));
+  --color-violet-a2:   color(from var(--color-violet-2) srgb var(--color-alpha-channels));
+  --color-violet-a3:   color(from var(--color-violet-3) srgb var(--color-alpha-channels));
+  --color-violet-a4:   color(from var(--color-violet-4) srgb var(--color-alpha-channels));
+  --color-violet-a5:   color(from var(--color-violet-5) srgb var(--color-alpha-channels));
+  --color-violet-a6:   color(from var(--color-violet-6) srgb var(--color-alpha-channels));
+  --color-violet-a7:   color(from var(--color-violet-7) srgb var(--color-alpha-channels));
+  --color-violet-a8:   color(from var(--color-violet-8) srgb var(--color-alpha-channels));
+  --color-violet-a9:   color(from var(--color-violet-9) srgb var(--color-alpha-channels));
+  --color-violet-a10:  color(from var(--color-violet-10) srgb var(--color-alpha-channels));
+  --color-violet-a11:  color(from var(--color-violet-11) srgb var(--color-alpha-channels));
+  --color-violet-a12:  color(from var(--color-violet-12) srgb var(--color-alpha-channels));
+
+  --color-yellow-a1:   color(from var(--color-yellow-1) srgb var(--color-alpha-channels));
+  --color-yellow-a2:   color(from var(--color-yellow-2) srgb var(--color-alpha-channels));
+  --color-yellow-a3:   color(from var(--color-yellow-3) srgb var(--color-alpha-channels));
+  --color-yellow-a4:   color(from var(--color-yellow-4) srgb var(--color-alpha-channels));
+  --color-yellow-a5:   color(from var(--color-yellow-5) srgb var(--color-alpha-channels));
+  --color-yellow-a6:   color(from var(--color-yellow-6) srgb var(--color-alpha-channels));
+  --color-yellow-a7:   color(from var(--color-yellow-7) srgb var(--color-alpha-channels));
+  --color-yellow-a8:   color(from var(--color-yellow-8) srgb var(--color-alpha-channels));
+  --color-yellow-a9:   color(from var(--color-yellow-9) srgb var(--color-alpha-channels));
+  --color-yellow-a10:  color(from var(--color-yellow-10) srgb var(--color-alpha-channels));
+  --color-yellow-a11:  color(from var(--color-yellow-11) srgb var(--color-alpha-channels));
+  --color-yellow-a12:  color(from var(--color-yellow-12) srgb var(--color-alpha-channels));
+}

@@ -8,4 +8,6 @@ export { Container } from './Container';
 export type { ContainerProps } from './Container';
 export { Section } from './Section';
 export type { SectionProps } from './Section';
-export type { SpaceProps, SpaceValue } from './layout.utils';
+export type { SpaceProps, SpaceValue, SizeProps, SizeValue } from './layout.utils';
+export type { Breakpoint, Responsive } from './breakpoints';
+export { breakpoints, containerBreakpoints } from './breakpoints';

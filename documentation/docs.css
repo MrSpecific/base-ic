@@ -116,6 +116,11 @@
   padding: var(--surface-padding-y) var(--surface-padding-x);
 }
 
+.docs-callout-icon {
+  width: 16px;
+  height: 16px;
+}
+
 .docs-demo-surface {
   min-width: 0;
   display: grid;

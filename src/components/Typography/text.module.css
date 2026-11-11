@@ -5,14 +5,14 @@
   letter-spacing: var(--typo-letter-spacing, var(--text-3-ls));
   font-weight: var(--typo-weight, var(--font-weight-regular));
   color: var(--typo-color, inherit);
-  padding: var(--typo-padding-top, var(--typo-padding-y, var(--typo-padding, 0)))
-           var(--typo-padding-right, var(--typo-padding-x, var(--typo-padding, 0)))
-           var(--typo-padding-bottom, var(--typo-padding-y, var(--typo-padding, 0)))
-           var(--typo-padding-left, var(--typo-padding-x, var(--typo-padding, 0)));
-  margin: var(--typo-margin-top, var(--typo-margin-y, var(--typo-margin, 0)))
-          var(--typo-margin-right, var(--typo-margin-x, var(--typo-margin, 0)))
-          var(--typo-margin-bottom, var(--typo-margin-y, var(--typo-margin, 0)))
-          var(--typo-margin-left, var(--typo-margin-x, var(--typo-margin, 0)));
+  padding: var(--bic-pt, var(--bic-py, var(--bic-p, 0)))
+           var(--bic-pr, var(--bic-px, var(--bic-p, 0)))
+           var(--bic-pb, var(--bic-py, var(--bic-p, 0)))
+           var(--bic-pl, var(--bic-px, var(--bic-p, 0)));
+  margin: var(--bic-mt, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-mr, var(--bic-mx, var(--bic-m, 0)))
+          var(--bic-mb, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-ml, var(--bic-mx, var(--bic-m, 0)));
 }
 
 .truncate {
@@ -37,3 +37,11 @@
   text-box-trim: trim-both;
   text-box-edge: cap alphabetic;
 }
+
+/* Only set when `align` is passed, so it never overrides a className */
+.align {
+  text-align: var(--typo-align);
+}
+
+@responsive size: --typo-font-size, --typo-line-height, --typo-letter-spacing;
+@responsive align: --typo-align;

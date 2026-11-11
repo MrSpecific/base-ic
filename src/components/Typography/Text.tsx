@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
+import { createResponsive, cx, isResponsiveObject, type Responsive, type SpaceProps } from '../Layout/layout.utils';
 import { buildTypoColorVar, buildTypoSizeVars } from './typography.utils';
 import type { AccentColor } from '../Theme';
 import styles from './text.module.css';
@@ -13,11 +13,11 @@ type TextTrim = 'normal' | 'start' | 'end' | 'both';
 
 export interface TextProps extends React.HTMLAttributes<HTMLElement>, SpaceProps {
   as?: TextElement;
-  size?: TextSize;
+  size?: Responsive<TextSize>;
   weight?: TextWeight;
   color?: AccentColor;
   highContrast?: boolean;
-  align?: TextAlign;
+  align?: Responsive<TextAlign>;
   wrap?: TextWrap;
   trim?: TextTrim;
   truncate?: boolean;
@@ -27,7 +27,7 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(
   function Text(
     {
       as: Tag = 'span',
-      size = '3',
+      size,
       weight,
       color,
       highContrast,
@@ -42,30 +42,32 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(
     },
     ref,
   ) {
-    const sizeVars = buildTypoSizeVars('text', size);
     const colorVars = buildTypoColorVar(color, highContrast);
     const weightVar = weight
       ? { '--typo-weight': `var(--font-weight-${weight})` } as React.CSSProperties
       : undefined;
-    const spaceVars = withVar(undefined, buildSpaceVars('typo', {
-      p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
-    }));
+    // Fill in the default size below the first breakpoint, so a nested Text doesn't inherit one
+    const defaultSize = '3';
+    const r = createResponsive(styles);
+    r.add('size', isResponsiveObject(size) ? { initial: defaultSize, ...size } : size ?? defaultSize,
+      (v) => buildTypoSizeVars('text', v) as Record<string, string>);
+    r.add('align', align, (v) => ({ '--typo-align': v }));
+    r.space({ p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml });
 
     return (
       <Tag
         ref={ref as React.Ref<never>}
         className={cx(
           styles.text,
+          ...r.classes,
           truncate && styles.truncate,
           trim && trim !== 'normal' && styles[`trim${trim[0].toUpperCase()}${trim.slice(1)}` as keyof typeof styles],
           className,
         )}
         style={{
-          ...sizeVars,
+          ...r.vars,
           ...colorVars,
           ...weightVar,
-          ...spaceVars,
-          textAlign: align,
           textWrap: wrap,
           ...style,
         }}

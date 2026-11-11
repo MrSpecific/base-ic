@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { Dialog as BaseDialog } from '@base-ui/react';
 import { cx } from '../Layout/layout.utils';

@@ -166,7 +166,7 @@ export function DataListDocsPage() {
             { name: 'trim', type: "'normal' | 'start' | 'end' | 'both'", default: "'normal'", description: 'Trim the leading above the first item and/or below the last item, for tight alignment with surrounding content.' },
             {
               name: 'm, mx, my, mt, mr, mb, ml',
-              type: 'number | string',
+              type: 'Responsive<number | string>',
               description: 'Margin shorthands. Numbers and digit-only strings map to space tokens (`3` → `var(--space-3)`); other strings are raw CSS lengths.',
             },
           ]}

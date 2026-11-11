@@ -425,6 +425,38 @@
 :root,
 :where([data-base-ic-theme], .light, .dark, [data-appearance='light'], [data-appearance='dark']) {
   /* -------------------------------------------------------------------------
+   * Accent / neutral alpha steps (see colors/alpha.css)
+   * -------------------------------------------------------------------------
+   * Derived here, not wired by Theme, so they follow whatever accent/neutral
+   * (built-in or custom) this element resolves to, in either appearance.
+   */
+  --color-accent-a1:  color(from var(--color-accent-1) srgb var(--color-alpha-channels));
+  --color-accent-a2:  color(from var(--color-accent-2) srgb var(--color-alpha-channels));
+  --color-accent-a3:  color(from var(--color-accent-3) srgb var(--color-alpha-channels));
+  --color-accent-a4:  color(from var(--color-accent-4) srgb var(--color-alpha-channels));
+  --color-accent-a5:  color(from var(--color-accent-5) srgb var(--color-alpha-channels));
+  --color-accent-a6:  color(from var(--color-accent-6) srgb var(--color-alpha-channels));
+  --color-accent-a7:  color(from var(--color-accent-7) srgb var(--color-alpha-channels));
+  --color-accent-a8:  color(from var(--color-accent-8) srgb var(--color-alpha-channels));
+  --color-accent-a9:  color(from var(--color-accent-9) srgb var(--color-alpha-channels));
+  --color-accent-a10: color(from var(--color-accent-10) srgb var(--color-alpha-channels));
+  --color-accent-a11: color(from var(--color-accent-11) srgb var(--color-alpha-channels));
+  --color-accent-a12: color(from var(--color-accent-12) srgb var(--color-alpha-channels));
+
+  --color-neutral-a1:  color(from var(--color-neutral-1) srgb var(--color-alpha-channels));
+  --color-neutral-a2:  color(from var(--color-neutral-2) srgb var(--color-alpha-channels));
+  --color-neutral-a3:  color(from var(--color-neutral-3) srgb var(--color-alpha-channels));
+  --color-neutral-a4:  color(from var(--color-neutral-4) srgb var(--color-alpha-channels));
+  --color-neutral-a5:  color(from var(--color-neutral-5) srgb var(--color-alpha-channels));
+  --color-neutral-a6:  color(from var(--color-neutral-6) srgb var(--color-alpha-channels));
+  --color-neutral-a7:  color(from var(--color-neutral-7) srgb var(--color-alpha-channels));
+  --color-neutral-a8:  color(from var(--color-neutral-8) srgb var(--color-alpha-channels));
+  --color-neutral-a9:  color(from var(--color-neutral-9) srgb var(--color-alpha-channels));
+  --color-neutral-a10: color(from var(--color-neutral-10) srgb var(--color-alpha-channels));
+  --color-neutral-a11: color(from var(--color-neutral-11) srgb var(--color-alpha-channels));
+  --color-neutral-a12: color(from var(--color-neutral-12) srgb var(--color-alpha-channels));
+
+  /* -------------------------------------------------------------------------
    * Semantic surface colors
    * -------------------------------------------------------------------------
    */

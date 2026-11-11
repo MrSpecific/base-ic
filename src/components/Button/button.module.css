@@ -19,14 +19,14 @@
   gap: var(--btn-gap);
   min-height: var(--btn-height);
   /* Most specific wins: side → axis → `p` → size default */
-  padding: var(--btn-padding-top, var(--btn-padding-y, var(--btn-padding, 0)))
-           var(--btn-padding-right, var(--btn-padding-x, var(--btn-padding, var(--btn-px))))
-           var(--btn-padding-bottom, var(--btn-padding-y, var(--btn-padding, 0)))
-           var(--btn-padding-left, var(--btn-padding-x, var(--btn-padding, var(--btn-px))));
-  margin: var(--btn-margin-top, var(--btn-margin-y, var(--btn-margin, 0)))
-          var(--btn-margin-right, var(--btn-margin-x, var(--btn-margin, 0)))
-          var(--btn-margin-bottom, var(--btn-margin-y, var(--btn-margin, 0)))
-          var(--btn-margin-left, var(--btn-margin-x, var(--btn-margin, 0)));
+  padding: var(--bic-pt, var(--bic-py, var(--bic-p, 0)))
+           var(--bic-pr, var(--bic-px, var(--bic-p, var(--btn-px))))
+           var(--bic-pb, var(--bic-py, var(--bic-p, 0)))
+           var(--bic-pl, var(--bic-px, var(--bic-p, var(--btn-px))));
+  margin: var(--bic-mt, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-mr, var(--bic-mx, var(--bic-m, 0)))
+          var(--bic-mb, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-ml, var(--bic-mx, var(--bic-m, 0)));
   border: 1px solid transparent;
   border-radius: var(--btn-radius, var(--component-radius));
   font-family: var(--font-family-primary);
@@ -208,4 +208,12 @@
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+/* ---------------------------------------------------------------------------
+ * iconOnly — square, sized by the button height (horizontal padding is 0 via --btn-px)
+ * --------------------------------------------------------------------------- */
+.iconOnly {
+  width: var(--btn-height);
+  height: var(--btn-height);
 }

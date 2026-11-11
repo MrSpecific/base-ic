@@ -1,0 +1,109 @@
+/* ==========================================================================
+ * Callout
+ * ==========================================================================
+ * Accent-tinted message block. Same color pattern as Badge: CSS owns the
+ * formulas, JS wires raw scale refs (--callout-accent-*) when `color` is set.
+ */
+
+.root {
+  box-sizing: border-box;
+  /* Implicit grid: Icon goes in column -2 and everything after it in -1, so a
+     Callout with no Icon collapses to one column (same trick as Radix). */
+  display: grid;
+  align-items: flex-start;
+  justify-content: flex-start;
+  row-gap: var(--callout-row-gap);
+  column-gap: var(--callout-column-gap);
+  padding: var(--bic-p);
+  margin: var(--bic-mt, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-mr, var(--bic-mx, var(--bic-m, 0)))
+          var(--bic-mb, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-ml, var(--bic-mx, var(--bic-m, 0)));
+  border: 1px solid transparent;
+  border-radius: var(--surface-radius);
+  font-family: var(--font-family-primary);
+  font-size: var(--callout-fs);
+  line-height: var(--callout-lh);
+  letter-spacing: var(--callout-ls);
+  text-align: start;
+  color: var(--callout-accent-11, var(--color-accent-11));
+}
+
+/* --- Sizes --- */
+.size1 {
+  --bic-p: var(--space-3);
+  --callout-row-gap: var(--space-2);
+  --callout-column-gap: var(--space-2);
+  --callout-fs: var(--text-3-size);
+  --callout-lh: var(--text-3-lh);
+  --callout-ls: var(--text-3-ls);
+}
+
+.size2 {
+  --bic-p: var(--space-4);
+  --callout-row-gap: var(--space-2);
+  --callout-column-gap: var(--space-3);
+  --callout-fs: var(--text-3-size);
+  --callout-lh: var(--text-3-lh);
+  --callout-ls: var(--text-3-ls);
+}
+
+.size3 {
+  --bic-p: var(--space-5);
+  --callout-row-gap: var(--space-3);
+  --callout-column-gap: var(--space-4);
+  --callout-fs: var(--text-4-size);
+  --callout-lh: var(--text-4-lh);
+  --callout-ls: var(--text-4-ls);
+}
+
+/* --- Variant: soft — translucent accent tint --- */
+.soft {
+  background-color: color-mix(
+    in oklab,
+    var(--callout-accent-9, var(--color-accent-9)) var(--interactive-soft-strength),
+    var(--interactive-soft-mix-base)
+  );
+}
+
+/* --- Variant: surface — lighter tint + border --- */
+.surface {
+  background-color: color-mix(
+    in oklab,
+    var(--callout-accent-9, var(--color-accent-9)) var(--interactive-surface-strength),
+    var(--interactive-surface-mix-base)
+  );
+  border-color: color-mix(
+    in oklab,
+    var(--callout-accent-9, var(--color-accent-9)) var(--interactive-surface-border-strength),
+    var(--color-border-subtle)
+  );
+}
+
+/* --- Variant: outline --- */
+.outline {
+  background-color: transparent;
+  border-color: var(--callout-accent-7, var(--color-accent-7));
+}
+
+/* --- highContrast --- */
+.highContrast {
+  color: var(--callout-accent-12, var(--color-accent-12));
+}
+
+/* --- Parts --- */
+.icon {
+  display: flex;
+  align-items: center;
+  grid-column-start: -2;
+  /* One line box tall, so the icon centers on the first line of text */
+  height: calc(var(--callout-fs) * var(--callout-lh));
+}
+
+.icon ~ :not(.icon) {
+  grid-column-start: -1;
+}
+
+.text {
+  margin: 0;
+}

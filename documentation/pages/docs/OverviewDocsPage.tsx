@@ -1,4 +1,5 @@
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocsList } from '../../components/DocsPrimitives';
 import { DocsSection } from '../../components/DocsSection';
 export function OverviewDocsPage() {
   const installSnippet = 'npm install @wlcr/base-ic @base-ui/react';
@@ -28,6 +29,20 @@ export function OverviewDocsPage() {
     '</Theme>',
   ].join('\n');
 
+  const serverSnippet = [
+    '// app/page.tsx: a Server Component',
+    "import { Button, Heading, Section } from '@wlcr/base-ic';",
+    '',
+    'export default function Page() {',
+    '  return (',
+    '    <Section>',
+    '      <Heading>Welcome</Heading>',
+    '      <Button href="/docs">Read the docs</Button>',
+    '    </Section>',
+    '  );',
+    '}',
+  ].join('\n');
+
   return (
     <>
       <DocsSection>
@@ -45,6 +60,22 @@ export function OverviewDocsPage() {
       <DocsSection>
         <h2>Quick Start</h2>
         <CodeBlock title="Quick Start" code={usageSnippet} />
+      </DocsSection>
+      <DocsSection>
+        <h2>Next.js and Server Components</h2>
+        <p>
+          You can import components directly from Server Components. Components that need the browser (anything with
+          state, context or Base UI behavior, such as `Theme`, `Button`, `Dialog` or `Card`) are marked
+          `'use client'`. Static components such as `Box`, `Flex`, `Grid`, `Container`, `Section`, `Text`, `Heading`
+          and `Table` are not, so they render on the server and ship no JavaScript.
+        </p>
+        <DocsList>
+          <li>
+            Props passed from a Server Component to a client component must be serializable. Function props, such as a
+            `render` function, need to be passed from a client component; elements like {'`render={<a />}`'} are fine.
+          </li>
+        </DocsList>
+        <CodeBlock title="Server Component" code={serverSnippet} />
       </DocsSection>
       <DocsSection>
         <h2>Theme API</h2>

@@ -135,7 +135,7 @@ export function BadgeDocsPage() {
             },
             {
               name: "px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml",
-              type: "number | string",
+              type: "Responsive<number | string>",
               description:
                 "Padding/margin shorthands. Numbers and digit-only strings map to space tokens (`3` and `\"3\"` → `var(--space-3)`; `0` → `0`); any other string is used as a raw CSS length (e.g. `\"12px\"`).",
             },

@@ -1,6 +1,8 @@
+'use client';
+
 import * as React from 'react';
 import { useRender } from '@base-ui/react/use-render';
-import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
+import { createResponsive, cx, type Responsive, type SpaceProps, toSpaceVar, withVar } from '../Layout/layout.utils';
 import styles from './card.module.css';
 
 type CardSize = '1' | '2' | '3' | '4' | '5';
@@ -9,7 +11,7 @@ type CardRadius = 'none' | 'small' | 'medium' | 'large' | 'full';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement>, SpaceProps {
   /** Padding size preset. Default: '3' */
-  size?: CardSize;
+  size?: Responsive<CardSize>;
   /** Visual variant. Default: 'surface' */
   variant?: CardVariant;
   /**
@@ -68,14 +70,13 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       );
     }
 
-    // Use size as default padding; explicit `p` overrides it
-    const spaceVars = buildSpaceVars('card', {
-      p: p ?? size,
-      px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
-    });
+    // `size` is the default padding; space props override it (see card.module.css)
+    const r = createResponsive(styles);
+    r.add('size', size, (v) => ({ '--card-size-padding': toSpaceVar(v) }));
+    r.space({ p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml });
 
     const nextStyle = withVar(style, {
-      ...spaceVars,
+      ...r.vars,
       '--card-radius': radius ? radiusMap[radius] : undefined,
     });
 
@@ -89,6 +90,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
           styles.card,
           styles[variant],
           (asButton || render) && styles.interactive,
+          ...r.classes,
           className,
         ),
         style: nextStyle,

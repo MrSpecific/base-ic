@@ -1,33 +1,22 @@
 .container {
-  --container-padding: 0;
-  --container-padding-x: var(--container-padding);
-  --container-padding-y: var(--container-padding);
-  --container-padding-top: var(--container-padding-y);
-  --container-padding-right: var(--container-padding-x);
-  --container-padding-bottom: var(--container-padding-y);
-  --container-padding-left: var(--container-padding-x);
-
   --container-max-width: var(--layout-container-3);
   --container-gutter: var(--layout-container-gutter);
 
-  --container-margin: 0;
-  --container-margin-y: var(--container-margin);
-  --container-margin-top: var(--container-margin-y);
-  --container-margin-bottom: var(--container-margin-y);
-  --container-margin-x: auto;
-  --container-margin-right: var(--container-margin-x);
-  --container-margin-left: var(--container-margin-x);
-
-  padding: var(--container-padding-top)
-           var(--container-padding-right)
-           var(--container-padding-bottom)
-           var(--container-padding-left);
+  padding: var(--bic-pt, var(--bic-py, var(--bic-p, 0)))
+           var(--bic-pr, var(--bic-px, var(--bic-p, 0)))
+           var(--bic-pb, var(--bic-py, var(--bic-p, 0)))
+           var(--bic-pl, var(--bic-px, var(--bic-p, 0)));
   width: min(
     var(--container-max-width),
     calc(100% - (var(--container-gutter) * 2))
   );
-  margin: var(--container-margin-top)
-          var(--container-margin-right)
-          var(--container-margin-bottom)
-          var(--container-margin-left);
+  /* Horizontal margin centers the container unless `m`/`mx`/`ml`/`mr` say otherwise */
+  margin: var(--bic-mt, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-mr, var(--bic-mx, var(--bic-m, auto)))
+          var(--bic-mb, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-ml, var(--bic-mx, var(--bic-m, auto)));
 }
+
+@responsive size: --container-max-width;
+@responsive maxWidth: --container-max-width;
+@responsive gutter: --container-gutter;

@@ -1,6 +1,9 @@
+'use client';
+
 import * as React from 'react';
 import { Button as BaseButton } from '@base-ui/react';
-import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
+import { useRender } from '@base-ui/react/use-render';
+import { spaceProps, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
 import type { AccentColor } from '../Theme';
 import styles from './button.module.css';
 
@@ -20,6 +23,11 @@ export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
   /** Override the border-radius for this button. */
   radius?: ButtonRadius;
   /**
+   * Square button for a single icon, sized by the button height. Give it an
+   * accessible name with `aria-label`. Default: false
+   */
+  iconOnly?: boolean;
+  /**
    * Show a loading spinner and disable interaction. The button stays focusable
    * (so focus isn't dropped mid-action) and is marked `aria-busy`.
    */
@@ -33,7 +41,35 @@ export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
   nativeButton?: BaseButton.Props['nativeButton'];
   /** Replace the rendered element — a React element or a render function (Base UI render prop). */
   render?: BaseButton.Props['render'];
+  /**
+   * Render a link styled as a button: an `<a>` (or your `render` element, e.g. a
+   * router `Link`, which receives the `href`) with no `role="button"`.
+   * While `disabled` or `loading`, the `href` is dropped and `aria-disabled` set.
+   */
+  href?: string;
+  target?: React.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
+  rel?: React.AnchorHTMLAttributes<HTMLAnchorElement>['rel'];
+  download?: React.AnchorHTMLAttributes<HTMLAnchorElement>['download'];
 }
+
+// A separate component so `useRender` is never called conditionally.
+const ButtonLink = React.forwardRef<HTMLAnchorElement, {
+  render?: ButtonProps['render'];
+  disabled: boolean;
+  href: string;
+} & React.HTMLAttributes<HTMLElement>>(function ButtonLink({ render, disabled, href, ...props }, ref) {
+  return useRender({
+    render: (render ?? <a />) as useRender.RenderProp,
+    defaultTagName: 'a',
+    ref,
+    props: {
+      ...props,
+      href: disabled ? undefined : href,
+      'aria-disabled': disabled || undefined,
+      'data-disabled': disabled ? '' : undefined,
+    },
+  });
+});
 
 const radiusMap: Record<ButtonRadius, string> = {
   none: '0',
@@ -43,7 +79,7 @@ const radiusMap: Record<ButtonRadius, string> = {
   full: 'var(--radius-full)',
 };
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
   function Button(
     {
       size = '2',
@@ -51,6 +87,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       color,
       highContrast = false,
       radius,
+      iconOnly = false,
       loading = false,
       disabled,
       focusableWhenDisabled,
@@ -72,13 +109,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ml,
       children,
       render,
+      href,
+      nativeButton,
       ...rest
     },
     ref,
   ) {
     const sizeVars: Record<string, string> = {
       '--btn-height': `var(--button-${size}-height)`,
-      '--btn-px': `var(--button-${size}-px)`,
+      '--btn-px': iconOnly ? '0px' : `var(--button-${size}-px)`,
       '--btn-fs': `var(--button-${size}-font-size)`,
       '--btn-gap': `var(--button-${size}-gap)`,
       '--btn-icon-size': `var(--button-${size}-icon-size)`,
@@ -100,46 +139,66 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ? { '--btn-radius': radiusMap[radius] }
       : {};
 
-    const nextStyle = withVar(style, buildSpaceVars('btn', {
+    const space = spaceProps({
       p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
-    }));
+    });
+    const nextStyle = withVar(style, space.vars);
+
+    const shared = {
+      'aria-busy': loading || undefined,
+      className: cx(
+        styles.button,
+        space.className,
+        styles[variant],
+        highContrast && styles.highContrast,
+        iconOnly && styles.iconOnly,
+        loading && styles.loading,
+        className,
+      ),
+      style: {
+        ...sizeVars,
+        ...colorVars,
+        ...radiusVar,
+        ...nextStyle,
+      } as React.CSSProperties,
+      children: loading ? (
+        <>
+          {/* The content keeps its place (transparent, so the button doesn't
+              change size and keeps its accessible name) and the spinner is
+              centered over it. */}
+          <span className={styles.loadingContent}>{children}</span>
+          <span className={styles.spinnerOverlay} aria-hidden="true">
+            <span className={styles.spinner} />
+          </span>
+        </>
+      ) : (
+        children
+      ),
+    };
+
+    if (href != null) {
+      return (
+        <ButtonLink
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          {...(rest as React.HTMLAttributes<HTMLElement>)}
+          {...shared}
+          href={href}
+          render={render}
+          disabled={Boolean(disabled || loading)}
+        />
+      );
+    }
 
     return (
       <BaseButton
-        ref={ref}
+        ref={ref as React.Ref<HTMLButtonElement>}
         disabled={disabled || loading}
         focusableWhenDisabled={focusableWhenDisabled || loading}
-        aria-busy={loading || undefined}
+        nativeButton={nativeButton}
         render={render}
-        className={cx(
-          styles.button,
-          styles[variant],
-          highContrast && styles.highContrast,
-          loading && styles.loading,
-          className,
-        )}
-        style={{
-          ...sizeVars,
-          ...colorVars,
-          ...radiusVar,
-          ...nextStyle,
-        } as React.CSSProperties}
         {...rest}
-      >
-        {loading ? (
-          <>
-            {/* The content keeps its place (transparent, so the button doesn't
-                change size and keeps its accessible name) and the spinner is
-                centered over it. */}
-            <span className={styles.loadingContent}>{children}</span>
-            <span className={styles.spinnerOverlay} aria-hidden="true">
-              <span className={styles.spinner} />
-            </span>
-          </>
-        ) : (
-          children
-        )}
-      </BaseButton>
+        {...shared}
+      />
     );
   },
 );

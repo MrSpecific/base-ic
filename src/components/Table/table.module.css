@@ -18,10 +18,10 @@
   min-width: 0;
   overflow-x: auto;
   overflow-y: hidden;
-  margin: var(--tbl-margin-top, var(--tbl-margin-y, var(--tbl-margin, 0)))
-          var(--tbl-margin-right, var(--tbl-margin-x, var(--tbl-margin, 0)))
-          var(--tbl-margin-bottom, var(--tbl-margin-y, var(--tbl-margin, 0)))
-          var(--tbl-margin-left, var(--tbl-margin-x, var(--tbl-margin, 0)));
+  margin: var(--bic-mt, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-mr, var(--bic-mx, var(--bic-m, 0)))
+          var(--bic-mb, var(--bic-my, var(--bic-m, 0)))
+          var(--bic-ml, var(--bic-mx, var(--bic-m, 0)));
   font-family: var(--font-family-primary);
   font-size: var(--tbl-font-size);
   line-height: var(--tbl-line-height);
@@ -110,10 +110,10 @@
   /* `height` on a table cell behaves as a minimum height. */
   height: var(--tbl-cell-height);
   /* Most specific wins: side → axis → `p` → size default */
-  padding: var(--tbl-cell-padding-top, var(--tbl-cell-padding-y, var(--tbl-cell-padding, var(--tbl-cell-py))))
-           var(--tbl-cell-padding-right, var(--tbl-cell-padding-x, var(--tbl-cell-padding, var(--tbl-cell-px))))
-           var(--tbl-cell-padding-bottom, var(--tbl-cell-padding-y, var(--tbl-cell-padding, var(--tbl-cell-py))))
-           var(--tbl-cell-padding-left, var(--tbl-cell-padding-x, var(--tbl-cell-padding, var(--tbl-cell-px))));
+  padding: var(--bic-pt, var(--bic-py, var(--bic-p, var(--tbl-cell-py))))
+           var(--bic-pr, var(--bic-px, var(--bic-p, var(--tbl-cell-px))))
+           var(--bic-pb, var(--bic-py, var(--bic-p, var(--tbl-cell-py))))
+           var(--bic-pl, var(--bic-px, var(--bic-p, var(--tbl-cell-px))));
   border-bottom: 1px solid var(--tbl-border-color);
   /* <th> defaults to centered + bold in UA styles; `justify` sets it inline. */
   text-align: start;

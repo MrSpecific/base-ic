@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Responsive props: layout, space and typography props take an object of
+  values per breakpoint, e.g. `columns={{ initial: 1, md: 3 }}`. Viewport
+  breakpoints are Tailwind's (`sm` `md` `lg` `xl` `2xl`); `@`-prefixed keys
+  (`@3xs` … `@7xl`) are container queries against the nearest ancestor with the
+  new `container` prop (Box, Flex, Grid, Container, Section). Responsive:
+  space props on every component, Grid and Flex layout props, Container
+  `size`/`maxWidth`/`gutter`, Section and Card `size`, Text and Heading
+  `size`/`align`. Exports `Responsive`, `Breakpoint`, `breakpoints` and
+  `containerBreakpoints`.
+- `width`, `minWidth`, `maxWidth`, `height`, `minHeight` and `maxHeight` props
+  on Box, Flex and Grid.
+- `Button` `href` (with `target`, `rel`, `download`): renders a link styled as a
+  button, without `role="button"`. Combine with `render` for router links.
+- `Button` `iconOnly` prop: a square button for a single icon.
+- `Callout` component (`Callout.Root` / `Callout.Icon` / `Callout.Text`),
+  matching Radix Themes: `size` 1–3, `variant` soft/surface/outline, `color`,
+  `highContrast`, margin props and `render`. The root is a plain `<div>` with no
+  role; add `role="alert"` or `role="status"` yourself for messages that should
+  be announced.
+- Alpha color steps `--color-<name>-a1` … `a12` for every color scale, plus
+  `--color-accent-a*` and `--color-neutral-a*`. Each is the translucent
+  equivalent of its solid step over the page background, so it follows dark
+  mode, overridden scales and custom colors.
+- Components that need the browser (state, context, Base UI) are marked
+  `'use client'`, so the package can be imported directly from React Server
+  Components (e.g. the Next.js App Router). Static components (`Box`, `Flex`,
+  `Grid`, `Container`, `Section`, typography, `Table`, `DataList`, `Skeleton`)
+  stay server components.
+
+### Changed
+
+- Space props on every component now use shared, non-inherited custom
+  properties (`--bic-p`, `--bic-mt`, …) instead of per-component ones such as
+  `--btn-padding` or `--card-margin-top`. If you set those per-component
+  variables in your own CSS, switch to the space props or the `--bic-*` names.
+- Text and Heading `align` is applied through CSS rather than an inline
+  `text-align`.
+- `Button`'s ref type is `HTMLButtonElement | HTMLAnchorElement`.
+
 ### Fixed
 
 - Accent tints mixed into neutral colors keep the accent's hue. Before, they
@@ -14,6 +55,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   out pink. This affected the gradient `Card`, soft and surface variants of
   `Button`, `Badge` and `Toggle`, and other accent-on-neutral mixes.
   All `color-mix()` calls now interpolate in `oklab` instead of `oklch`.
+- Negative space values such as `mt="-1"` map to `calc(var(--space-1) * -1)`
+  instead of producing invalid CSS.
+- Space props on a nested component (e.g. a `Text` inside a `Text`) are no
+  longer inherited from the parent.
 
 ## [2.2.2] - 2026-10-24
 

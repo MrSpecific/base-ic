@@ -120,83 +120,90 @@ export function SectionDocsPage() {
             },
             {
               name: 'size',
-              type: "'1' | '2' | '3'",
+              type: "Responsive<'1' | '2' | '3'>",
               default: "'2'",
               description:
                 "Vertical (top and bottom) padding preset: `--layout-section-1`…`3` (`space-5` / `space-7` / `space-10` by default). Never adds horizontal padding. Overridden by `p`, `py`, `pt`, or `pb`.",
             },
             {
               name: 'py',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description:
                 'Vertical padding override; takes precedence over `size` and `p`. Numbers and digit-only strings map to space tokens (`0` → `0`, so `py={0}` removes the vertical padding).',
             },
             {
               name: 'p',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description:
                 'Padding on all sides, replacing the `size` padding. Numbers and digit-only strings map to space tokens; any other string is used as a raw CSS length.',
             },
             {
               name: 'px',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               default: '0',
               description: 'Horizontal padding (left and right). Section has none by default.',
             },
             {
               name: 'pt',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Padding top.',
             },
             {
               name: 'pr',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Padding right.',
             },
             {
               name: 'pb',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Padding bottom.',
             },
             {
               name: 'pl',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Padding left.',
             },
             {
               name: 'm',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Margin on all sides. Numbers map to spacing scale tokens.',
             },
             {
               name: 'mx',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Horizontal margin (left and right).',
             },
             {
               name: 'my',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Vertical margin (top and bottom).',
             },
             {
               name: 'mt',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Margin top.',
             },
             {
               name: 'mr',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Margin right.',
             },
             {
               name: 'mb',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Margin bottom.',
             },
             {
               name: 'ml',
-              type: 'SpaceValue',
+              type: 'Responsive<SpaceValue>',
               description: 'Margin left.',
+            },
+            {
+              name: 'container',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Makes this element a query container (`container-type: inline-size`), so `@` breakpoints on descendants respond to its width. See Responsive props.',
             },
             {
               name: 'children',

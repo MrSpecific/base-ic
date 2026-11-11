@@ -1,6 +1,8 @@
+'use client';
+
 import * as React from 'react';
 import { useRender } from '@base-ui/react/use-render';
-import { buildSpaceVars, cx, type SpaceProps, withVar } from '../Layout/layout.utils';
+import { spaceProps, cx, type SpaceProps } from '../Layout/layout.utils';
 import { buildTypoColorVar, buildTypoSizeVars } from './typography.utils';
 import type { AccentColor } from '../Theme';
 import styles from './link.module.css';
@@ -42,9 +44,10 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     const weightVar = weight
       ? { '--typo-weight': `var(--font-weight-${weight})` } as React.CSSProperties
       : undefined;
-    const spaceVars = withVar(undefined, buildSpaceVars('link', {
+    const space = spaceProps({
       p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml,
-    }));
+    });
+    const spaceVars = space.vars;
 
     return useRender({
       render: render ?? <a />,
@@ -54,6 +57,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         ...rest,
         className: cx(
           styles.link,
+          space.className,
           styles[`underline${underline[0].toUpperCase()}${underline.slice(1)}` as keyof typeof styles],
           truncate && styles.truncate,
           className,

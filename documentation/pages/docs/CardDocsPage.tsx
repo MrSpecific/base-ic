@@ -123,7 +123,7 @@ export function CardDocsPage() {
           rows={[
             {
               name: 'size',
-              type: "'1' | '2' | '3' | '4' | '5'",
+              type: "Responsive<'1' | '2' | '3' | '4' | '5'>",
               default: "'3'",
               description: 'Padding preset: used as the default `p`, so `size="3"` pads with `var(--space-3)`. An explicit `p` overrides it.',
             },
@@ -153,7 +153,7 @@ export function CardDocsPage() {
             },
             {
               name: 'p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml',
-              type: 'number | string',
+              type: 'Responsive<number | string>',
               description:
                 'Padding/margin shorthands. Numbers and digit-only strings map to space tokens (`3` and `"3"` → `var(--space-3)`; `0` → `0`); any other string is used as a raw CSS length (e.g. `"12px"`). `p` defaults to the `size` value.',
             },

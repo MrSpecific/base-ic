@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { Tooltip as BaseTooltip } from '@base-ui/react';
 import { useThemePortal } from '../shared/useThemePortal';

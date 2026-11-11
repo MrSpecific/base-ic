@@ -68,6 +68,8 @@ export default function App() {
 }
 ```
 
+You can import components straight into a Next.js Server Component. Interactive components (those using state, context or Base UI) are marked `'use client'`; static ones such as `Box`, `Flex`, `Grid`, `Text` and `Heading` render on the server with no client JavaScript. Props passed from server code to a client component must be serializable (pass `render={<Link />}`, not a render function).
+
 ---
 
 ## Theming
@@ -157,7 +159,9 @@ import './your-theme.css';
 
 ### Components
 
-- `Button` — action primitive with variant/size/color/loading states (Base UI-backed)
+- `Button` — action primitive with variant/size/color/loading states; `href` renders a link (Base UI-backed)
+- `Button iconOnly` — square button for a single icon
+- `Callout` — short message with an icon, in an accent tint
 - `Badge` — compact status label with variant/size/color support
 - `Card` — surface primitive for grouped content and interactive regions
 - `Tooltip` — contextual hint overlay (Base UI-backed)
@@ -228,7 +232,20 @@ Most components accept these props:
 | `radius` | Named radius values | Border radius override |
 | `highContrast` | `boolean` | Increase foreground contrast — `Button`, `Badge`, `Toggle`, and `Text`/`Heading`/`Link`/`Code`/`Quote` only. On typography it only takes effect together with `color` (switches the text from step 11 to step 12). |
 | `p` / `px` / `py` / `pt` / `pr` / `pb` / `pl` | `number \| string` | Padding controls (`number` maps to `--space-N`) |
-| `m` / `mx` / `my` / `mt` / `mr` / `mb` / `ml` | `number \| string` | Margin controls (`number` maps to `--space-N`) |
+| `m` / `mx` / `my` / `mt` / `mr` / `mb` / `ml` | `number \| string` | Margin controls (`number` maps to `--space-N`; `-1` maps to `calc(var(--space-1) * -1)`) |
+
+### Responsive props
+
+Layout, space and typography props also take an object of values per breakpoint, mobile-first:
+
+```tsx
+<Grid columns={{ initial: 1, sm: 2, lg: 4 }} gap={{ initial: 2, md: 4 }} />
+<Box container>
+  <Grid columns={{ initial: 1, '@md': 3 }} />   {/* responds to the Box's width */}
+</Box>
+```
+
+Viewport keys are Tailwind's (`sm` 40rem, `md` 48rem, `lg` 64rem, `xl` 80rem, `2xl` 96rem). Keys starting with `@` (`@3xs` … `@7xl`) are container queries against the nearest ancestor with the `container` prop. It's all CSS, so it works with server rendering and doesn't shift layout on load.
 
 ---
 
@@ -296,6 +313,8 @@ Targets modern browsers that support:
 - OKLCH color space
 - `color-mix()`
 - `:has()` selector
+- `@property` and container queries (responsive props)
+- Relative color syntax (alpha color steps)
 
 ---
 
