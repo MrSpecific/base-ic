@@ -9,10 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Palette builder: a Reset button on the "All colors" card once its sliders
-  move, and a Sliders / Color value toggle on the "Single color" card. Color
-  value takes any CSS color (hex, `rgb()`, `hsl()`, `oklch()`…) or a native
-  picker, and solves for the adjustment that puts the scale's step 9 there.
+- Palette builder: "All colors" and "Single color" are now tabs in one card,
+  with a Reset sliders button once the all-colors sliders move. Single color
+  has a Sliders / Color value toggle; Color value is a color picker
+  (saturation/brightness area, hue strip, and a Hex / RGB / HSL / OKLCH value
+  field that accepts any CSS color) that solves for the adjustment putting the
+  scale's step 9 on the picked color.
+- Palette builder: Save palette stores one palette in this browser and applies
+  it across the docs site. The theme panel shows it with an on/off switch,
+  Edit and Clear.
 
 ## [3.0.0] - 2026-11-10
 

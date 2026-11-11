@@ -42,7 +42,9 @@ import { DARK_SCALES, LIGHT_SCALES } from "../palette/sources";
 import type { AccentColor } from "../types";
 
 // Grays first, then the accent scales in the Theme panel's order.
-const NAMES = [...GRAY_COLORS, ...ACCENT_COLORS].filter((name) => LIGHT_SCALES[name]);
+const NAMES = [...GRAY_COLORS, ...ACCENT_COLORS].filter(
+  (name) => LIGHT_SCALES[name],
+);
 
 const LABELS: Record<keyof Adjust, { label: string; unit: string }> = {
   hue: { label: "Hue shift", unit: "°" },
@@ -68,7 +70,11 @@ function AdjustSliders({
               {LABELS[key].label}
             </Text>
             <Text size="2" color="gray">
-              {key === "hue" || key === "light" ? (value[key] > 0 ? "+" : "") : ""}
+              {key === "hue" || key === "light"
+                ? value[key] > 0
+                  ? "+"
+                  : ""
+                : ""}
               {value[key]}
               {LABELS[key].unit}
             </Text>
@@ -98,7 +104,9 @@ function StepNinePicker({
   onChange: (next: Adjust) => void;
 }) {
   const base = LIGHT_SCALES[name][9];
-  const current = toRgb(formatOklch(adjust(base, effectiveAdjust(name, settings)))) ?? [0, 0, 0];
+  const current = toRgb(
+    formatOklch(adjust(base, effectiveAdjust(name, settings))),
+  ) ?? [0, 0, 0];
   const [target, setTarget] = useState<Rgb>(current);
   const missed = target.some((v, i) => Math.abs(v - current[i]) > 8);
 
@@ -109,7 +117,13 @@ function StepNinePicker({
         initial={current}
         onChange={(rgb) => {
           setTarget(rgb);
-          onChange(adjustToTarget(base, srgbToOklch(...rgb), effectiveAdjust(name, { ...settings, colors: {} })));
+          onChange(
+            adjustToTarget(
+              base,
+              srgbToOklch(...rgb),
+              effectiveAdjust(name, { ...settings, colors: {} }),
+            ),
+          );
         }}
       />
       <Text size="1" color="gray">
@@ -121,12 +135,29 @@ function StepNinePicker({
   );
 }
 
-function ScaleRows({ names, settings }: { names: string[]; settings: PaletteSettings }) {
+function ScaleRows({
+  names,
+  settings,
+}: {
+  names: string[];
+  settings: PaletteSettings;
+}) {
   return (
     <Flex direction="column" gap="1">
       {names.map((name) => (
-        <Grid key={name} columns="64px repeat(12, minmax(0, 1fr))" gap="1" align="center">
-          <Text size="1" color={isIdentity(effectiveAdjust(name, settings)) ? "gray" : undefined} weight="medium">
+        <Grid
+          key={name}
+          columns="64px repeat(12, minmax(0, 1fr))"
+          gap="1"
+          align="center"
+        >
+          <Text
+            size="1"
+            color={
+              isIdentity(effectiveAdjust(name, settings)) ? "gray" : undefined
+            }
+            weight="medium"
+          >
             {name}
           </Text>
           {STEPS.map((step) => (
@@ -147,11 +178,13 @@ function ComponentPreview({ color }: { color: AccentColor }) {
   return (
     <Flex direction="column" gap="3">
       <Flex gap="2" wrap="wrap" align="center">
-        {(["solid", "soft", "surface", "outline", "ghost"] as const).map((variant) => (
-          <Button key={variant} color={color} variant={variant} size="1">
-            {variant}
-          </Button>
-        ))}
+        {(["solid", "soft", "surface", "outline", "ghost"] as const).map(
+          (variant) => (
+            <Button key={variant} color={color} variant={variant} size="1">
+              {variant}
+            </Button>
+          ),
+        )}
         <Badge color={color}>Badge</Badge>
         <Badge color={color} variant="solid">
           Solid
@@ -178,7 +211,9 @@ export function PalettePage({
   const [selected, setSelected] = useState<string>(
     () => Object.keys(settings.colors)[0] ?? "blue",
   );
-  const [linkStatus, setLinkStatus] = useState<"idle" | "copied" | "error">("idle");
+  const [linkStatus, setLinkStatus] = useState<"idle" | "copied" | "error">(
+    "idle",
+  );
   const [mode, setMode] = useState<"sliders" | "picker">("sliders");
   // Bumped on resets so the picker's text field re-reads the current color.
   const [resets, setResets] = useState(0);
@@ -192,7 +227,11 @@ export function PalettePage({
 
   // Keep the URL shareable as the settings change (no history entry per drag step).
   useEffect(() => {
-    window.history.replaceState(null, "", shareUrl.slice(window.location.origin.length) + window.location.hash);
+    window.history.replaceState(
+      null,
+      "",
+      shareUrl.slice(window.location.origin.length) + window.location.hash,
+    );
   }, [shareUrl]);
 
   // Preview = the exact CSS the user will copy, applied after the token styles.
@@ -223,7 +262,9 @@ export function PalettePage({
     window.setTimeout(() => setLinkStatus("idle"), 1600);
   };
 
-  const previewColor = (NEUTRALS.includes(selected) ? "blue" : selected) as AccentColor;
+  const previewColor = (
+    NEUTRALS.includes(selected) ? "blue" : selected
+  ) as AccentColor;
 
   return (
     <Container as="main" className="site-page palette-page">
@@ -232,19 +273,24 @@ export function PalettePage({
           Palette builder
         </Heading>
         <Text as="p" color="gray">
-          Shift hue, saturation and lightness across every color scale at once, then fine-tune
-          individual colors. The page previews the generated CSS live; copy it into your project, or
-          share the link to send someone these exact settings.
+          Shift hue, saturation and lightness across every color scale at once,
+          then fine-tune individual colors. The page previews the generated CSS
+          live; copy it into your project, or share the link to send someone
+          these exact settings.
         </Text>
       </Flex>
 
-      <Grid columns={{ initial: "1", md: "300px minmax(0, 1fr)" }} gap="5" align="start">
+      <Grid
+        columns={{ initial: "1", md: "300px minmax(0, 1fr)" }}
+        gap="5"
+        align="start"
+      >
         <Flex direction="column" gap="4" className="palette-controls">
           <Card>
             <Tabs defaultValue="all">
               <Tabs.List aria-label="Adjust">
                 <Tabs.Tab value="all">All colors</Tabs.Tab>
-                <Tabs.Tab value="single">Single color</Tabs.Tab>
+                <Tabs.Tab value="single">Single colors</Tabs.Tab>
               </Tabs.List>
 
               <Tabs.Panel value="all">
@@ -252,11 +298,15 @@ export function PalettePage({
                   <AdjustSliders
                     idPrefix="All colors"
                     value={settings.global}
-                    onChange={(global) => setSettings((s) => ({ ...s, global }))}
+                    onChange={(global) =>
+                      setSettings((s) => ({ ...s, global }))
+                    }
                   />
                   <Checkbox
                     checked={settings.grays}
-                    onCheckedChange={(grays) => setSettings((s) => ({ ...s, grays }))}
+                    onCheckedChange={(grays) =>
+                      setSettings((s) => ({ ...s, grays }))
+                    }
                   >
                     Include grays and black
                   </Checkbox>
@@ -298,7 +348,9 @@ export function PalettePage({
                     size="1"
                     aria-label="Adjust with"
                     value={[mode]}
-                    onValueChange={(value) => value[0] && setMode(value[0] as typeof mode)}
+                    onValueChange={(value) =>
+                      value[0] && setMode(value[0] as typeof mode)
+                    }
                   >
                     <Toggle value="sliders">Sliders</Toggle>
                     <Toggle value="picker">Color value</Toggle>
@@ -332,7 +384,13 @@ export function PalettePage({
                   {Object.keys(settings.colors).length > 0 && (
                     <Flex gap="1" wrap="wrap">
                       {Object.keys(settings.colors).map((name) => (
-                        <Button key={name} size="1" variant="surface" color="gray" onClick={() => setSelected(name)}>
+                        <Button
+                          key={name}
+                          size="1"
+                          variant="surface"
+                          color="gray"
+                          onClick={() => setSelected(name)}
+                        >
                           {name}
                         </Button>
                       ))}
@@ -345,9 +403,17 @@ export function PalettePage({
 
           <Flex gap="2" wrap="wrap">
             <Button onClick={copyLink}>
-              {linkStatus === "copied" ? "Link copied" : linkStatus === "error" ? "Copy failed" : "Copy link"}
+              {linkStatus === "copied"
+                ? "Link copied"
+                : linkStatus === "error"
+                  ? "Copy failed"
+                  : "Copy link"}
             </Button>
-            <Button variant="soft" disabled={!search || search === savedSearch} onClick={() => onSave(search)}>
+            <Button
+              variant="soft"
+              disabled={!search || search === savedSearch}
+              onClick={() => onSave(search)}
+            >
               {search && search === savedSearch ? "Saved" : "Save palette"}
             </Button>
             <Button
@@ -367,7 +433,11 @@ export function PalettePage({
         <Flex direction="column" gap="5" minWidth="0">
           <Grid columns={{ initial: "1", lg: "2" }} gap="4">
             {(["light", "dark"] as const).map((appearance) => (
-              <Theme key={appearance} appearance={appearance} className="palette-preview">
+              <Theme
+                key={appearance}
+                appearance={appearance}
+                className="palette-preview"
+              >
                 <Flex direction="column" gap="4" p="4">
                   <Text size="2" weight="medium">
                     {toDisplayName(appearance)}
@@ -380,8 +450,9 @@ export function PalettePage({
           </Grid>
           <CodeBlock title="palette.css" code={css} />
           <Text size="2" color="gray">
-            Save palette keeps these settings in this browser and applies them across the docs site, so you can
-            try them on any component or in the playground. Turn it off or clear it from the theme panel.
+            Save palette keeps these settings in this browser and applies them
+            across the docs site, so you can try them on any component or in the
+            playground. Turn it off or clear it from the theme panel.
           </Text>
         </Flex>
       </Grid>
