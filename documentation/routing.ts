@@ -14,7 +14,7 @@ export function getRouteFromPath(pathname: string): RouteState {
     }
     return { page: 'not-found', docsSection: 'overview' };
   }
-  for (const page of ['customization', 'for-designers', 'playground'] as const) {
+  for (const page of ['customization', 'for-designers', 'playground', 'palette'] as const) {
     if (normalized === PAGE_ROUTES[page].path.replace(/\/+$/, '')) {
       return { page, docsSection: 'overview' };
     }

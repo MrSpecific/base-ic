@@ -148,7 +148,7 @@ export function isDocsSection(value: string): value is DocsSection {
   return Object.prototype.hasOwnProperty.call(DOCS_ROUTE_BY_SLUG, value);
 }
 
-export type Page = 'home' | 'docs' | 'customization' | 'for-designers' | 'playground' | 'not-found';
+export type Page = 'home' | 'docs' | 'customization' | 'for-designers' | 'playground' | 'palette' | 'not-found';
 
 type PageDefinition = {
   path: string;
@@ -183,6 +183,13 @@ export const PAGE_ROUTES: Record<Exclude<Page, 'docs'>, PageDefinition> = {
     title: `Playground — ${SITE_NAME}`,
     description: 'Try base-ic components live and tweak accent color, gray, radius, scaling and appearance.',
   },
+  palette: {
+    path: '/palette/',
+    label: 'Palette',
+    title: `Palette builder — ${SITE_NAME}`,
+    description:
+      'Shift hue, saturation and lightness across some or all base-ic color scales, preview them in light and dark, and copy the override CSS.',
+  },
   'not-found': {
     path: '/404.html',
     label: 'Not found',
@@ -192,7 +199,7 @@ export const PAGE_ROUTES: Record<Exclude<Page, 'docs'>, PageDefinition> = {
 };
 
 /** Primary header navigation. */
-export const NAV_PAGES: Page[] = ['home', 'docs', 'customization', 'for-designers', 'playground'];
+export const NAV_PAGES: Page[] = ['home', 'docs', 'customization', 'for-designers', 'playground', 'palette'];
 
 export function pageLabel(page: Page): string {
   return page === 'docs' ? 'Docs' : PAGE_ROUTES[page].label;
@@ -235,7 +242,7 @@ export function getStaticRoutes(): Array<{
   /** HTML entry, relative to the documentation root. */
   htmlFile: string;
 }> {
-  const pages = (['home', 'customization', 'for-designers', 'playground', 'not-found'] as const).map(
+  const pages = (['home', 'customization', 'for-designers', 'playground', 'palette', 'not-found'] as const).map(
     (page) => ({
       page,
       docsSection: 'overview' as DocsSection,

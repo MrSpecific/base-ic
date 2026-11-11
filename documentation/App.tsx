@@ -35,6 +35,9 @@ const CustomizationPage = lazy(() =>
 const ForDesignersPage = lazy(() =>
   import("./pages/ForDesignersPage").then((m) => ({ default: m.ForDesignersPage })),
 );
+const PalettePage = lazy(() =>
+  import("./pages/PalettePage").then((m) => ({ default: m.PalettePage })),
+);
 const PlaygroundPage = lazy(() =>
   import("./pages/PlaygroundPage").then((m) => ({ default: m.PlaygroundPage })),
 );
@@ -212,6 +215,7 @@ export default function App() {
     if (route.page === "customization") return <CustomizationPage />;
     if (route.page === "for-designers") return <ForDesignersPage />;
     if (route.page === "playground") return <PlaygroundPage radius={radius} />;
+    if (route.page === "palette") return <PalettePage />;
     if (route.page === "not-found") return <NotFoundPage />;
     return <HomePage />;
   }, [route, radius]);

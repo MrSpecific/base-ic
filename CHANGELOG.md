@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-11-10
+
+Breaking: per-component space variables were replaced by shared `--bic-*`
+variables (see Changed). Component props are unchanged.
+
 ### Added
 
 - Responsive props: layout, space and typography props take an object of
@@ -32,6 +37,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `--color-accent-a*` and `--color-neutral-a*`. Each is the translucent
   equivalent of its solid step over the page background, so it follows dark
   mode, overridden scales and custom colors.
+- Palette builder on the documentation site (`/palette/`): shift hue,
+  saturation and lightness across all color scales or individual ones, preview
+  them in light and dark, and copy the override CSS. Settings live in the URL,
+  so a link reproduces them.
 - Components that need the browser (state, context, Base UI) are marked
   `'use client'`, so the package can be imported directly from React Server
   Components (e.g. the Next.js App Router). Static components (`Box`, `Flex`,
@@ -50,15 +59,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Negative space values such as `mt="-1"` map to `calc(var(--space-1) * -1)`
+  instead of producing invalid CSS.
+- Space props on a nested component (e.g. a `Text` inside a `Text`) are no
+  longer inherited from the parent.
+
+## [2.3.0] - 2026-10-24
+
+### Fixed
+
 - Accent tints mixed into neutral colors keep the accent's hue. Before, they
   shifted toward the neutral's hue, so a blue accent on the gray neutrals came
   out pink. This affected the gradient `Card`, soft and surface variants of
   `Button`, `Badge` and `Toggle`, and other accent-on-neutral mixes.
   All `color-mix()` calls now interpolate in `oklab` instead of `oklch`.
-- Negative space values such as `mt="-1"` map to `calc(var(--space-1) * -1)`
-  instead of producing invalid CSS.
-- Space props on a nested component (e.g. a `Text` inside a `Text`) are no
-  longer inherited from the parent.
 
 ## [2.2.2] - 2026-10-24
 
@@ -226,7 +240,9 @@ No package changes; adds the GitHub publish workflow.
 
 First published release as `@wlcr/base-ic`.
 
-[Unreleased]: https://github.com/MrSpecific/base-ic/compare/v2.2.2...HEAD
+[Unreleased]: https://github.com/MrSpecific/base-ic/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/MrSpecific/base-ic/compare/v2.3.0...v3.0.0
+[2.3.0]: https://github.com/MrSpecific/base-ic/compare/v2.2.2...v2.3.0
 [2.2.2]: https://github.com/MrSpecific/base-ic/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/MrSpecific/base-ic/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/MrSpecific/base-ic/compare/v2.1.0...v2.2.0

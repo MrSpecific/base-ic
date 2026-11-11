@@ -2,7 +2,7 @@ import { Container, Heading } from "../../src";
 import { DocsSection } from "../components/DocsSection";
 import { DocsList } from "../components/DocsPrimitives";
 import { CodeBlock } from "../components/CodeBlock";
-import { ButtonLink } from "../components/RouteLink";
+import { ButtonLink, RouteLink } from "../components/RouteLink";
 import { pageToPath } from "../routes";
 
 export function CustomizationPage() {
@@ -85,6 +85,12 @@ export function CustomizationPage() {
           fills.
         </p>
         <CodeBlock title="Custom Color Palette" code={customColorSnippet} />
+        <p>
+          To adjust the built-in scales instead (shift their hue, saturation or lightness, all at
+          once or one at a time), use the{" "}
+          <RouteLink href={pageToPath("palette")}>palette builder</RouteLink>. It generates
+          override CSS you can paste into your project.
+        </p>
       </DocsSection>
 
       <DocsSection>
