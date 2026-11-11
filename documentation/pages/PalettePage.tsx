@@ -11,14 +11,20 @@ import {
   Heading,
   Select,
   Slider,
+  Tabs,
   Text,
   Theme,
+  Toggle,
+  ToggleGroup,
 } from "../../src";
 import { CodeBlock } from "../components/CodeBlock";
 import { ACCENT_COLORS, GRAY_COLORS, STEPS, toDisplayName } from "../constants";
 import {
   type Adjust,
+  adjust,
+  adjustToTarget,
   effectiveAdjust,
+  formatOklch,
   fromSearch,
   generateCss,
   IDENTITY,
@@ -26,8 +32,12 @@ import {
   NEUTRALS,
   type PaletteSettings,
   RANGES,
+  type Rgb,
+  srgbToOklch,
+  toHex,
   toSearch,
 } from "../palette/palette";
+import { ColorPicker, toRgb } from "../palette/ColorPicker";
 import { DARK_SCALES, LIGHT_SCALES } from "../palette/sources";
 import type { AccentColor } from "../types";
 
@@ -77,6 +87,40 @@ function AdjustSliders({
   );
 }
 
+/** Sets a color by its step 9: solves for the per-color adjust that lands it on the picked color. */
+function StepNinePicker({
+  name,
+  settings,
+  onChange,
+}: {
+  name: string;
+  settings: PaletteSettings;
+  onChange: (next: Adjust) => void;
+}) {
+  const base = LIGHT_SCALES[name][9];
+  const current = toRgb(formatOklch(adjust(base, effectiveAdjust(name, settings)))) ?? [0, 0, 0];
+  const [target, setTarget] = useState<Rgb>(current);
+  const missed = target.some((v, i) => Math.abs(v - current[i]) > 8);
+
+  return (
+    <Flex direction="column" gap="2">
+      <ColorPicker
+        label={`${toDisplayName(name)} step 9`}
+        initial={current}
+        onChange={(rgb) => {
+          setTarget(rgb);
+          onChange(adjustToTarget(base, srgbToOklch(...rgb), effectiveAdjust(name, { ...settings, colors: {} })));
+        }}
+      />
+      <Text size="1" color="gray">
+        {missed
+          ? `Outside the adjustable range; closest is ${toHex(current)}.`
+          : "Sets light step 9; the rest of the scale follows."}
+      </Text>
+    </Flex>
+  );
+}
+
 function ScaleRows({ names, settings }: { names: string[]; settings: PaletteSettings }) {
   return (
     <Flex direction="column" gap="1">
@@ -120,7 +164,14 @@ function ComponentPreview({ color }: { color: AccentColor }) {
   );
 }
 
-export function PalettePage() {
+export function PalettePage({
+  savedSearch,
+  onSave,
+}: {
+  /** The saved palette's query string, or null when none is saved. */
+  savedSearch: string | null;
+  onSave: (search: string) => void;
+}) {
   const [settings, setSettings] = useState<PaletteSettings>(() =>
     fromSearch(window.location.search, NAMES),
   );
@@ -128,6 +179,9 @@ export function PalettePage() {
     () => Object.keys(settings.colors)[0] ?? "blue",
   );
   const [linkStatus, setLinkStatus] = useState<"idle" | "copied" | "error">("idle");
+  const [mode, setMode] = useState<"sliders" | "picker">("sliders");
+  // Bumped on resets so the picker's text field re-reads the current color.
+  const [resets, setResets] = useState(0);
 
   const search = toSearch(settings);
   const shareUrl = `${window.location.origin}${window.location.pathname}${search ? `?${search}` : ""}`;
@@ -187,79 +241,123 @@ export function PalettePage() {
       <Grid columns={{ initial: "1", md: "300px minmax(0, 1fr)" }} gap="5" align="start">
         <Flex direction="column" gap="4" className="palette-controls">
           <Card>
-            <Flex direction="column" gap="3">
-              <Heading as="h2" size="3">
-                All colors
-              </Heading>
-              <AdjustSliders
-                idPrefix="All colors"
-                value={settings.global}
-                onChange={(global) => setSettings((s) => ({ ...s, global }))}
-              />
-              <Checkbox
-                checked={settings.grays}
-                onCheckedChange={(grays) => setSettings((s) => ({ ...s, grays }))}
-              >
-                Include grays and black
-              </Checkbox>
-            </Flex>
-          </Card>
+            <Tabs defaultValue="all">
+              <Tabs.List aria-label="Adjust">
+                <Tabs.Tab value="all">All colors</Tabs.Tab>
+                <Tabs.Tab value="single">Single color</Tabs.Tab>
+              </Tabs.List>
 
-          <Card>
-            <Flex direction="column" gap="3">
-              <Heading as="h2" size="3">
-                Single color
-              </Heading>
-              <Text size="2" color="gray">
-                Applied on top of the all-colors adjustment.
-              </Text>
-              <Select
-                aria-label="Color to adjust"
-                value={selected}
-                onValueChange={(value) => setSelected(value as string)}
-              >
-                {NAMES.map((name) => (
-                  <Select.Item key={name} value={name}>
-                    {toDisplayName(name)}
-                    {settings.colors[name] ? " •" : ""}
-                  </Select.Item>
-                ))}
-              </Select>
-              <AdjustSliders
-                idPrefix={toDisplayName(selected)}
-                value={selectedAdjust}
-                onChange={setSelectedAdjust}
-              />
-              <Button
-                variant="soft"
-                color="gray"
-                size="1"
-                disabled={isIdentity(selectedAdjust)}
-                onClick={() => setSelectedAdjust(IDENTITY)}
-              >
-                Reset {selected}
-              </Button>
-              {Object.keys(settings.colors).length > 0 && (
-                <Flex gap="1" wrap="wrap">
-                  {Object.keys(settings.colors).map((name) => (
-                    <Button key={name} size="1" variant="surface" color="gray" onClick={() => setSelected(name)}>
-                      {name}
+              <Tabs.Panel value="all">
+                <Flex direction="column" gap="3" pt="4">
+                  <AdjustSliders
+                    idPrefix="All colors"
+                    value={settings.global}
+                    onChange={(global) => setSettings((s) => ({ ...s, global }))}
+                  />
+                  <Checkbox
+                    checked={settings.grays}
+                    onCheckedChange={(grays) => setSettings((s) => ({ ...s, grays }))}
+                  >
+                    Include grays and black
+                  </Checkbox>
+                  {!isIdentity(settings.global) && (
+                    <Button
+                      variant="soft"
+                      color="gray"
+                      size="1"
+                      onClick={() => {
+                        setSettings((s) => ({ ...s, global: IDENTITY }));
+                        setResets((n) => n + 1);
+                      }}
+                    >
+                      Reset sliders
                     </Button>
-                  ))}
+                  )}
                 </Flex>
-              )}
-            </Flex>
+              </Tabs.Panel>
+
+              <Tabs.Panel value="single">
+                <Flex direction="column" gap="3" pt="4">
+                  <Text size="2" color="gray">
+                    Applied on top of the all-colors adjustment.
+                  </Text>
+                  <Select
+                    aria-label="Color to adjust"
+                    value={selected}
+                    onValueChange={(value) => setSelected(value as string)}
+                  >
+                    {NAMES.map((name) => (
+                      <Select.Item key={name} value={name}>
+                        {toDisplayName(name)}
+                        {settings.colors[name] ? " •" : ""}
+                      </Select.Item>
+                    ))}
+                  </Select>
+                  <ToggleGroup
+                    connected
+                    size="1"
+                    aria-label="Adjust with"
+                    value={[mode]}
+                    onValueChange={(value) => value[0] && setMode(value[0] as typeof mode)}
+                  >
+                    <Toggle value="sliders">Sliders</Toggle>
+                    <Toggle value="picker">Color value</Toggle>
+                  </ToggleGroup>
+                  {mode === "sliders" ? (
+                    <AdjustSliders
+                      idPrefix={toDisplayName(selected)}
+                      value={selectedAdjust}
+                      onChange={setSelectedAdjust}
+                    />
+                  ) : (
+                    <StepNinePicker
+                      key={`${selected}-${resets}`}
+                      name={selected}
+                      settings={settings}
+                      onChange={setSelectedAdjust}
+                    />
+                  )}
+                  <Button
+                    variant="soft"
+                    color="gray"
+                    size="1"
+                    disabled={isIdentity(selectedAdjust)}
+                    onClick={() => {
+                      setSelectedAdjust(IDENTITY);
+                      setResets((n) => n + 1);
+                    }}
+                  >
+                    Reset {selected}
+                  </Button>
+                  {Object.keys(settings.colors).length > 0 && (
+                    <Flex gap="1" wrap="wrap">
+                      {Object.keys(settings.colors).map((name) => (
+                        <Button key={name} size="1" variant="surface" color="gray" onClick={() => setSelected(name)}>
+                          {name}
+                        </Button>
+                      ))}
+                    </Flex>
+                  )}
+                </Flex>
+              </Tabs.Panel>
+            </Tabs>
           </Card>
 
           <Flex gap="2" wrap="wrap">
             <Button onClick={copyLink}>
               {linkStatus === "copied" ? "Link copied" : linkStatus === "error" ? "Copy failed" : "Copy link"}
             </Button>
+            <Button variant="soft" disabled={!search || search === savedSearch} onClick={() => onSave(search)}>
+              {search && search === savedSearch ? "Saved" : "Save palette"}
+            </Button>
             <Button
               variant="soft"
               color="gray"
               disabled={!search}
-              onClick={() => setSettings({ global: IDENTITY, grays: false, colors: {} })}
+              onClick={() => {
+                setSettings({ global: IDENTITY, grays: false, colors: {} });
+                setResets((n) => n + 1);
+              }}
             >
               Reset all
             </Button>
@@ -281,6 +379,10 @@ export function PalettePage() {
             ))}
           </Grid>
           <CodeBlock title="palette.css" code={css} />
+          <Text size="2" color="gray">
+            Save palette keeps these settings in this browser and applies them across the docs site, so you can
+            try them on any component or in the playground. Turn it off or clear it from the theme panel.
+          </Text>
         </Flex>
       </Grid>
     </Container>

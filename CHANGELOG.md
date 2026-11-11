@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Palette builder: a Reset button on the "All colors" card once its sliders
+  move, and a Sliders / Color value toggle on the "Single color" card. Color
+  value takes any CSS color (hex, `rgb()`, `hsl()`, `oklch()`…) or a native
+  picker, and solves for the adjustment that puts the scale's step 9 there.
+
 ## [3.0.0] - 2026-11-10
 
 Breaking: per-component space variables were replaced by shared `--bic-*`

@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(grep -iE '\\\\.\\(css|scss\\)$')"
+      "Bash(grep -iE '\\\\.\\(css|scss\\)$')",
+      "Bash(npx vitest *)"
     ]
   }
 }

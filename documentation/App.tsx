@@ -23,7 +23,7 @@ import { ThemePanel } from "./components/ThemePanel";
 import { HomePage } from "./pages/HomePage";
 import { DocsPage } from "./pages/DocsPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
-import type { RouteState } from "./types";
+import type { RouteState, SavedPalette } from "./types";
 import "../src/tokens/index.css";
 import "./documentation.css";
 import "./docs.css";
@@ -73,6 +73,21 @@ function isScaling(value: unknown): value is Scaling {
 
 function isAppearance(value: unknown): value is Appearance {
   return typeof value === "string" && APPEARANCES.includes(value as Appearance);
+}
+
+// `search` is parsed by fromSearch, which drops unknown names and clamps values.
+const PALETTE_STORAGE_KEY = "base-ic:saved-palette";
+
+function readSavedPalette(): SavedPalette | null {
+  try {
+    const parsed = JSON.parse(window.localStorage.getItem(PALETTE_STORAGE_KEY) ?? "null") as Partial<SavedPalette>;
+    if (typeof parsed?.search === "string" && parsed.search && typeof parsed.on === "boolean") {
+      return { search: parsed.search, on: parsed.on };
+    }
+  } catch {
+    // Fall through: unreadable storage means no saved palette.
+  }
+  return null;
 }
 
 function readPersistedTheme(): PersistedTheme | null {
@@ -155,6 +170,8 @@ export default function App() {
     getRouteFromPath(window.location.pathname),
   );
   const [navOpen, setNavOpen] = useState(false);
+  const [savedPalette, setSavedPalette] = useState(readSavedPalette);
+  const onPalettePage = route.page === "palette";
   // Set when a navigation should move focus to the new page's heading.
   const pendingFocusRef = useRef(false);
 
@@ -191,6 +208,40 @@ export default function App() {
     }
   }, [accent, gray, radius, scaling, appearance]);
 
+  useEffect(() => {
+    try {
+      if (savedPalette) window.localStorage.setItem(PALETTE_STORAGE_KEY, JSON.stringify(savedPalette));
+      else window.localStorage.removeItem(PALETTE_STORAGE_KEY);
+    } catch {
+      // Ignore storage failures (private mode / restricted context).
+    }
+  }, [savedPalette]);
+
+  // Apply the saved palette site-wide. The palette page previews its own settings instead.
+  // shortcut: loads after first paint, so default colors flash briefly; inline the CSS pre-paint if that bothers anyone.
+  useEffect(() => {
+    if (!savedPalette?.on || onPalettePage) return;
+    let cancelled = false;
+    let style: HTMLStyleElement | undefined;
+    Promise.all([import("./palette/palette"), import("./palette/sources")]).then(([palette, sources]) => {
+      if (cancelled) return;
+      const names = Object.keys(sources.LIGHT_SCALES);
+      style = document.createElement("style");
+      style.dataset.savedPalette = "";
+      style.textContent = palette.generateCss(
+        palette.fromSearch(savedPalette.search, names),
+        sources.LIGHT_SCALES,
+        sources.DARK_SCALES,
+        names,
+      );
+      document.head.appendChild(style);
+    });
+    return () => {
+      cancelled = true;
+      style?.remove();
+    };
+  }, [savedPalette, onPalettePage]);
+
   const navigate = useCallback((nextPath: string) => {
     const url = new URL(nextPath, window.location.href);
     if (url.origin !== window.location.origin) {
@@ -215,10 +266,16 @@ export default function App() {
     if (route.page === "customization") return <CustomizationPage />;
     if (route.page === "for-designers") return <ForDesignersPage />;
     if (route.page === "playground") return <PlaygroundPage radius={radius} />;
-    if (route.page === "palette") return <PalettePage />;
+    if (route.page === "palette")
+      return (
+        <PalettePage
+          savedSearch={savedPalette?.search ?? null}
+          onSave={(search) => setSavedPalette({ search, on: true })}
+        />
+      );
     if (route.page === "not-found") return <NotFoundPage />;
     return <HomePage />;
-  }, [route, radius]);
+  }, [route, radius, savedPalette]);
 
   return (
     <NavigationContext.Provider value={navigate}>
@@ -330,6 +387,8 @@ export default function App() {
           setScaling={setScaling}
           appearance={appearance}
           setAppearance={setAppearance}
+          savedPalette={savedPalette}
+          setSavedPalette={setSavedPalette}
           defaultOpen={route.page === "playground"}
         />
       </Theme>

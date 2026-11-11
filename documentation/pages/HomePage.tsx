@@ -72,7 +72,14 @@ const WHY_POINTS: Array<[string, string]> = [
   ],
 ];
 
-const SHOWCASE_COLORS = ["iris", "grass", "tomato", "amber", "cyan", "plum"] as const;
+const SHOWCASE_COLORS = [
+  "iris",
+  "grass",
+  "tomato",
+  "amber",
+  "cyan",
+  "plum",
+] as const;
 
 export function HomePage() {
   const emailId = useId();
@@ -101,8 +108,15 @@ export function HomePage() {
             <ButtonLink variant="solid" size="3" href={pageToPath("docs")}>
               Get started
             </ButtonLink>
-            <ButtonLink variant="surface" size="3" href={pageToPath("playground")}>
+            <ButtonLink
+              variant="surface"
+              size="3"
+              href={pageToPath("playground")}
+            >
               Open Playground
+            </ButtonLink>
+            <ButtonLink variant="soft" size="3" href={pageToPath("palette")}>
+              Create a custom Palette
             </ButtonLink>
             <ButtonLink variant="ghost" size="3" href={GITHUB_URL} external>
               View on GitHub
@@ -112,14 +126,19 @@ export function HomePage() {
       </Section>
 
       <Section py={0} mb={6} aria-labelledby="home-install">
-        <Grid className="home-split" columns="repeat(auto-fit, minmax(280px, 1fr))" gap={4}>
+        <Grid
+          className="home-split"
+          columns="repeat(auto-fit, minmax(280px, 1fr))"
+          gap={4}
+        >
           <Card size="5" className="home-card">
             <Heading as="h2" size="6" id="home-install">
               Install in a minute
             </Heading>
             <Text as="p" className="home-muted">
               Add the package and its Base UI peer dependency, import the tokens
-              and component styles once, and wrap your app in <Code>Theme</Code>.
+              and component styles once, and wrap your app in <Code>Theme</Code>
+              .
             </Text>
             <CodeBlock title="Install" code={installSnippet} />
           </Card>
@@ -180,7 +199,11 @@ export function HomePage() {
                 <label className="home-label" htmlFor={emailId}>
                   Email
                 </label>
-                <Input id={emailId} type="email" placeholder="you@example.com" />
+                <Input
+                  id={emailId}
+                  type="email"
+                  placeholder="you@example.com"
+                />
               </Flex>
               <Flex direction="column" gap={1}>
                 <label className="home-label" htmlFor={planId}>
@@ -207,14 +230,19 @@ export function HomePage() {
               Overlays
             </Heading>
             <Text as="p" className="home-muted">
-              Dialogs, popovers, menus and toasts are portaled, focus-managed and
-              themed like everything else.
+              Dialogs, popovers, menus and toasts are portaled, focus-managed
+              and themed like everything else.
             </Text>
             <Box>
               <Dialog
                 title="Invite a teammate"
                 description="They’ll get an email with a link to join your workspace."
-                content={<Input aria-label="Teammate email" placeholder="teammate@example.com" />}
+                content={
+                  <Input
+                    aria-label="Teammate email"
+                    placeholder="teammate@example.com"
+                  />
+                }
                 footer={
                   <>
                     <DialogPrimitive.Close
@@ -224,7 +252,9 @@ export function HomePage() {
                         </Button>
                       }
                     />
-                    <DialogPrimitive.Close render={<Button>Send invite</Button>} />
+                    <DialogPrimitive.Close
+                      render={<Button>Send invite</Button>}
+                    />
                   </>
                 }
               >
@@ -241,9 +271,9 @@ export function HomePage() {
             Why not just use Radix Themes?
           </Heading>
           <Text as="p" className="home-muted">
-            Radix Themes is excellent for getting started fast. base-ic keeps that
-            developer experience and fixes the parts that get in the way once you
-            have a brand to match.
+            Radix Themes is excellent for getting started fast. base-ic keeps
+            that developer experience and fixes the parts that get in the way
+            once you have a brand to match.
           </Text>
         </Flex>
         <Grid columns="repeat(auto-fit, minmax(220px, 1fr))" gap={4}>
@@ -262,15 +292,20 @@ export function HomePage() {
 
       <Section py={0} aria-labelledby="home-brand">
         <Card variant="surface" size="5">
-          <Grid className="home-split" columns="repeat(auto-fit, minmax(280px, 1fr))" gap={5}>
+          <Grid
+            className="home-split"
+            columns="repeat(auto-fit, minmax(280px, 1fr))"
+            gap={5}
+          >
             <Flex direction="column" gap={3}>
               <Heading as="h2" size="6" id="home-brand">
                 Bring your own brand color
               </Heading>
               <Text as="p" className="home-muted">
-                Ship with over 30 built-in color scales, or register your own 12-step
-                scale with <Code>customColors</Code> and use it anywhere a color
-                is accepted — as the Theme accent or on a single component.
+                Ship with over 30 built-in color scales, or register your own
+                12-step scale with <Code>customColors</Code> and use it anywhere
+                a color is accepted — as the Theme accent or on a single
+                component.
               </Text>
               <Flex wrap="wrap" gap={2}>
                 {SHOWCASE_COLORS.map((color) => (
@@ -280,7 +315,10 @@ export function HomePage() {
                 ))}
               </Flex>
               <Box>
-                <ButtonLink href={pageToPath("customization")} variant="outline">
+                <ButtonLink
+                  href={pageToPath("customization")}
+                  variant="outline"
+                >
                   Read the customization guide
                 </ButtonLink>
               </Box>

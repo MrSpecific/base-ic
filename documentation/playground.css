@@ -178,6 +178,62 @@
   color: var(--color-text-primary);
 }
 
+/* Color picker */
+.color-area {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border-radius: var(--radius-3);
+  background-image: linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, transparent);
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.color-area:focus-visible,
+.color-thumb:focus-visible {
+  outline: 2px solid var(--color-accent-8);
+  outline-offset: 2px;
+}
+
+.color-thumb {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.3), var(--shadow-2);
+}
+
+.color-area .color-thumb {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.color-hue-control {
+  display: flex;
+  align-items: center;
+  height: 16px;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.color-hue-track {
+  position: relative;
+  flex: 1;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
+}
+
+.color-space {
+  flex: none;
+  width: 92px;
+}
+
+.color-value {
+  flex: 1;
+  min-width: 0;
+}
+
 .palette-swatch {
   height: 20px;
   border-radius: var(--radius-1);

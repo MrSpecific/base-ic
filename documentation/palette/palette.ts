@@ -63,6 +63,71 @@ export function adjust(v: Oklch, a: Adjust): Oklch {
   return { l, c, h };
 }
 
+/** 8-bit sRGB → OKLCH (Björn Ottosson's OKLab matrices), lightness in %. */
+export function srgbToOklch(r: number, g: number, b: number): Oklch {
+  const lin = (v: number) => ((v /= 255) <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
+  const [R, G, B] = [lin(r), lin(g), lin(b)];
+  const l = Math.cbrt(0.4122214708 * R + 0.5363325363 * G + 0.0514459929 * B);
+  const m = Math.cbrt(0.2119034982 * R + 0.6806995451 * G + 0.1073969566 * B);
+  const s = Math.cbrt(0.0883024619 * R + 0.2817188376 * G + 0.6299787005 * B);
+  const L = 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s;
+  const A = 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s;
+  const Bv = 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s;
+  const c = Math.hypot(A, Bv);
+  return { l: L * 100, c, h: c < 1e-4 ? null : ((Math.atan2(Bv, A) * 180) / Math.PI + 360) % 360 };
+}
+
+export type Rgb = [number, number, number];
+/** h in degrees, s and v in 0..1. */
+export type Hsv = { h: number; s: number; v: number };
+export type ColorFormat = 'hex' | 'rgb' | 'hsl' | 'oklch';
+
+export function hsvToRgb({ h, s, v }: Hsv): Rgb {
+  const f = (n: number) => {
+    const k = (n + h / 60) % 6;
+    return Math.round(255 * (v - v * s * Math.max(0, Math.min(k, 4 - k, 1))));
+  };
+  return [f(5), f(3), f(1)];
+}
+
+export function rgbToHsv([r, g, b]: Rgb): Hsv {
+  const [R, G, B] = [r / 255, g / 255, b / 255];
+  const max = Math.max(R, G, B);
+  const d = max - Math.min(R, G, B);
+  const h = !d ? 0 : max === R ? ((G - B) / d) % 6 : max === G ? (B - R) / d + 2 : (R - G) / d + 4;
+  return { h: (h * 60 + 360) % 360, s: max ? d / max : 0, v: max };
+}
+
+export const toHex = (rgb: Rgb) => `#${rgb.map((v) => v.toString(16).padStart(2, '0')).join('')}`;
+
+export function formatColor(rgb: Rgb, format: ColorFormat): string {
+  if (format === 'hex') return toHex(rgb);
+  if (format === 'rgb') return `rgb(${rgb.join(', ')})`;
+  if (format === 'oklch') return formatOklch(srgbToOklch(...rgb));
+  const { h, s, v } = rgbToHsv(rgb);
+  const l = v * (1 - s / 2);
+  const sl = l === 0 || l === 1 ? 0 : (v - l) / Math.min(l, 1 - l);
+  return `hsl(${Math.round(h)}, ${Math.round(sl * 100)}%, ${Math.round(l * 100)}%)`;
+}
+
+/**
+ * The per-color Adjust that moves `base` (a scale's step 9) onto `target`,
+ * on top of `global`. Clamped to the slider ranges, so it can fall short.
+ */
+export function adjustToTarget(base: Oklch, target: Oklch, global: Adjust): Adjust {
+  const hasHue = base.h !== null && base.c > 0 && target.h !== null;
+  const hue = hasHue ? ((((target.h! - base.h! - global.hue) % 360) + 540) % 360) - 180 : 0;
+  const baseC = (base.c * global.sat) / 100;
+  const sat = baseC > 0 ? (target.c / baseC) * 100 : 100;
+  const weight = 1 - Math.abs(base.l - 50) / 50;
+  const light = weight > 0 ? (target.l - base.l) / weight - global.light : 0;
+  return {
+    hue: clamp(Math.round(hue), RANGES.hue.min, RANGES.hue.max),
+    sat: clamp(Math.round(sat), RANGES.sat.min, RANGES.sat.max),
+    light: clamp(Math.round(light * 2) / 2, RANGES.light.min, RANGES.light.max),
+  };
+}
+
 const round = (v: number, digits: number) => String(Number(v.toFixed(digits)));
 
 export function formatOklch({ l, c, h }: Oklch) {

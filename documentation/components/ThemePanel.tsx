@@ -1,4 +1,6 @@
 import { useId, useState } from 'react';
+import { pageToPath } from '../routing';
+import { ButtonLink, RouteLink } from './RouteLink';
 import {
   ACCENT_COLORS,
   ACCENT_SWATCH_COLORS,
@@ -8,9 +10,9 @@ import {
   SCALINGS,
   toDisplayName,
 } from '../constants';
-import { Button, Select, Tooltip } from '../../src';
+import { Button, Select, Switch, Tooltip } from '../../src';
 import { IconInfo } from '../icons';
-import type { AccentColor, Appearance, GrayColor, Radius, Scaling } from '../types';
+import type { AccentColor, Appearance, GrayColor, Radius, SavedPalette, Scaling } from '../types';
 import styles from './ThemePanel.module.css';
 
 type ThemePanelProps = {
@@ -24,6 +26,8 @@ type ThemePanelProps = {
   setScaling: (v: Scaling) => void;
   appearance: Appearance;
   setAppearance: (v: Appearance) => void;
+  savedPalette: SavedPalette | null;
+  setSavedPalette: (v: SavedPalette | null) => void;
   defaultOpen: boolean;
 };
 
@@ -74,6 +78,8 @@ export function ThemePanel({
   setScaling,
   appearance,
   setAppearance,
+  savedPalette,
+  setSavedPalette,
   defaultOpen,
 }: ThemePanelProps) {
   const [open, setOpen] = useState(defaultOpen);
@@ -84,6 +90,7 @@ export function ThemePanel({
   const radiusId = `${idPrefix}-radius`;
   const scalingId = `${idPrefix}-scaling`;
   const appearanceId = `${idPrefix}-appearance`;
+  const paletteLabelId = `${idPrefix}-palette`;
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'error'>('idle');
   const copyButtonColor = copyStatus === 'copied' ? 'green' : copyStatus === 'error' ? 'red' : 'accent';
 
@@ -227,6 +234,35 @@ export function ThemePanel({
           </Select>
         </div>
 
+        <div className={styles.field}>
+          <FieldLabel
+            label="Saved Palette"
+            description="Your palette from the palette builder, applied across the site when on."
+            id={paletteLabelId}
+          />
+          {savedPalette ? (
+            <div className={styles.paletteRow} role="group" aria-labelledby={paletteLabelId}>
+              <Switch
+                size="1"
+                checked={savedPalette.on}
+                onCheckedChange={(on) => setSavedPalette({ ...savedPalette, on })}
+              >
+                {savedPalette.on ? 'On' : 'Off'}
+              </Switch>
+              <ButtonLink href={`${pageToPath('palette')}?${savedPalette.search}`} size="1" variant="soft">
+                Edit
+              </ButtonLink>
+              <Button size="1" variant="soft" color="gray" onClick={() => setSavedPalette(null)}>
+                Clear
+              </Button>
+            </div>
+          ) : (
+            <p className={styles.helper}>
+              None yet. Save one from the <RouteLink href={pageToPath('palette')}>palette builder</RouteLink>.
+            </p>
+          )}
+        </div>
+
         <span className={styles.srOnly} role="status" aria-live="polite">
           {copyStatus === 'copied' ? 'Theme snippet copied' : copyStatus === 'error' ? 'Copy failed' : ''}
         </span>
@@ -241,7 +277,7 @@ export function ThemePanel({
         </Button>
         <p className={styles.helper}>Copies a ready-to-paste <code>{'<Theme />'}</code> snippet.</p>
         <div className={styles.current}>
-          {`accent: ${accent} • gray: ${gray} • radius: ${radius} • scale: ${scaling} • appearance: ${appearance}`}
+          {`accent: ${accent} • gray: ${gray} • radius: ${radius} • scale: ${scaling} • appearance: ${appearance}${savedPalette?.on ? ' • palette: saved' : ''}`}
         </div>
       </div>
 

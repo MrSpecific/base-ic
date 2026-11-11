@@ -1,5 +1,20 @@
 import { describe, expect, it } from 'vitest';
-import { adjust, EMPTY_SETTINGS, fromSearch, generateCss, toSearch, type PaletteSettings } from './palette';
+import {
+  adjust,
+  adjustToTarget,
+  effectiveAdjust,
+  EMPTY_SETTINGS,
+  formatColor,
+  fromSearch,
+  generateCss,
+  hsvToRgb,
+  IDENTITY,
+  rgbToHsv,
+  type Rgb,
+  srgbToOklch,
+  toSearch,
+  type PaletteSettings,
+} from './palette';
 import { DARK_SCALES, LIGHT_SCALES } from './sources';
 
 describe('palette sources', () => {
@@ -15,6 +30,41 @@ describe('adjust', () => {
   it('shifts hue with wraparound, scales chroma, and leaves 0%/100% lightness alone', () => {
     expect(adjust({ l: 50, c: 0.1, h: 350 }, { hue: 20, sat: 150, light: 10 })).toEqual({ l: 60, c: 0.15, h: 10 });
     expect(adjust({ l: 100, c: 0, h: null }, { hue: 20, sat: 150, light: 10 })).toEqual({ l: 100, c: 0, h: null });
+  });
+});
+
+describe('color picker math', () => {
+  it('converts sRGB to OKLCH', () => {
+    const red = srgbToOklch(255, 0, 0);
+    expect(red.l).toBeCloseTo(62.8, 1);
+    expect(red.c).toBeCloseTo(0.2577, 3);
+    expect(red.h).toBeCloseTo(29.23, 1);
+    expect(srgbToOklch(255, 255, 255)).toMatchObject({ h: null });
+  });
+
+  it('round-trips HSV and formats each color space', () => {
+    expect(rgbToHsv([255, 0, 0])).toEqual({ h: 0, s: 1, v: 1 });
+    for (const rgb of [[62, 99, 221], [0, 0, 0], [128, 128, 128], [10, 200, 90]] as Rgb[]) {
+      expect(hsvToRgb(rgbToHsv(rgb))).toEqual(rgb);
+    }
+    expect(formatColor([62, 99, 221], 'hex')).toBe('#3e63dd');
+    expect(formatColor([62, 99, 221], 'rgb')).toBe('rgb(62, 99, 221)');
+    expect(formatColor([255, 0, 0], 'hsl')).toBe('hsl(0, 100%, 50%)');
+    expect(formatColor([128, 128, 128], 'hsl')).toBe('hsl(0, 0%, 50%)');
+    expect(formatColor([255, 0, 0], 'oklch')).toBe('oklch(62.8% 0.258 29.2)');
+  });
+
+  it('finds the adjust that lands step 9 on the target, on top of the global one', () => {
+    const base = { l: 55, c: 0.2, h: 260 };
+    const target = { l: 60, c: 0.1, h: 300 };
+    const settings: PaletteSettings = { ...EMPTY_SETTINGS, global: { hue: 10, sat: 80, light: 1 } };
+    const own = adjustToTarget(base, target, settings.global);
+    const result = adjust(base, effectiveAdjust('blue', { ...settings, colors: { blue: own } }));
+    expect(result.l).toBeCloseTo(60, 0);
+    expect(result.c).toBeCloseTo(0.1, 2);
+    expect(result.h).toBeCloseTo(300, 0);
+    // Out of range: clamped to the slider limits.
+    expect(adjustToTarget(base, { l: 99, c: 0.4, h: 260 }, IDENTITY)).toEqual({ hue: 0, sat: 200, light: 20 });
   });
 });
 
